@@ -1,10 +1,10 @@
 # Keyshare
 Share your Steam Keys with friends via this web app. Create a private circle for sharing spare humble bundle keys.
 
-#Prerequisits
+# Prerequisites 
 Built on LAMP, with PHP and MYSQL. Also works on XAMPP.
 
-#Install
+# Install
 1. Copy entire directory to your web app folder
 2. Run Script in Initdb folder against your SQL server to create database
 3. Create DB user agaisnt DB
