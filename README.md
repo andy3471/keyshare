@@ -6,7 +6,7 @@ Built on LAMP, with PHP and MYSQL. Also works on XAMPP.
 
 # Install
 1. Copy entire directory to your web app folder
-2. Run Script in Initdb folder against your SQL server to create database
+2. Run Script in Initdb folder against your SQL server to create database (needs to be called keyshare)
 3. Create DB user agaisnt DB
 4. Amend includes/config.php to allow these connection details
 5. Register for an account
