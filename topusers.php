@@ -20,6 +20,7 @@ SELECT U.user_id, U.username, IFNULL(TD.createdkeys,0) AS totaldonated, IFNULL(C
 
 LEFT OUTER JOIN (
 	SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM keyshare.keys
+	WHERE removed is null
 	GROUP BY created_user_id
     ) AS TD
 ON TD.user_id = U.user_id
@@ -27,12 +28,14 @@ ON TD.user_id = U.user_id
 LEFT OUTER JOIN (
 	SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM keyshare.keys
 	WHERE owned_user IS NOT null
+	and removed is null
 	GROUP BY created_user_id
     ) AS C
 ON C.user_id = U.user_id
 
 LEFT OUTER JOIN (
 	select count(owned_user) AS ownedkeys, owned_user AS user_id from keyshare.keys
+	WHERE removed is null
 	GROUP BY owned_user
     ) AS O
 ON O.user_id = U.user_id
