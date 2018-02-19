@@ -1,4 +1,17 @@
-<?php include './theme/header.php';?>
+<?php include './theme/header.php';
+
+$results_per_page = 25;
+
+if (isset($_GET["page"])) { 
+	$page  = $_GET["page"]; 
+} 
+else { 
+	$page=1; 
+}; 
+
+$start_from = ($page-1) * $results_per_page;
+
+?>
 
                     <h2> My Games </h2>
 
@@ -14,6 +27,7 @@ ON K.Game_ID = G.Game_ID
 JOIN keyshare.platforms P
 ON K.platform_id = P.platform_id
 where owned_user = $user_id
+LIMIT $start_from, $results_per_page
 ";
 
 $result = $mysqli->query($sql);
@@ -28,6 +42,42 @@ if ($result->num_rows > 0) {
 } else {
     echo "No Keys Claimed";
 }
+?>
 
- include './theme/sidebar.php';
+<?php
+$sql = "
+SELECT COUNT(K.key_id) as total FROM keyshare.keys AS K
+JOIN keyshare.games G
+ON K.Game_ID = G.Game_ID
+JOIN keyshare.platforms P
+ON K.platform_id = P.platform_id
+where owned_user = $user_id";
+
+$result = $mysqli->query($sql);
+$row = $result->fetch_assoc();
+$total_pages = ceil($row["total"] / $results_per_page); // calculate total pages with results
+  
+			echo '<ul class="pagination justify-content-center">';
+			
+			if ($page == 1) {
+				echo "<li class='disabled'><a href='#'>Previous</a></li>";
+			} else {
+				echo "<li><a href='?page=".($page-1)."'>Previous</a></li>";
+			}
+			
+for ($i=1; $i<=$total_pages; $i++) {  // print links for all pages
+            echo "<li";
+				if ($i==$page)  echo " class='active'";
+			echo "><a href='?page=".$i."'";
+            echo ">".$i."</a></li>";
+		}
+
+			if ($page == $total_pages) {
+				echo "<li class='disabled'><a href='#'>Next</a></li>";
+			} else {
+				echo "<li><a href='?page=".($page+1)."'>Next</a></li>";
+			}
+			
+			echo "<ul>";
+
  include './theme/footer.php';?>
