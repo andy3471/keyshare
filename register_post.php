@@ -21,7 +21,7 @@ $forename = test_input($_POST['forename']);
 $surname = test_input($_POST['surname']);
 $email = test_input($_POST['email']);
 
-
+if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 //SQL
 $addusersql = "insert into users (username,password,forename,surname,email,role_id,create_date,approved) VALUES ( '$username','$password','$forename','$surname','$email',1,curdate(),0) ";
@@ -33,6 +33,12 @@ if ( $insertuser ) {
     }
 else {
     die("Error: {$mysqli->errno} : {$mysqli->error}");
+}
+
+} 
+
+else {
+    echo "Email address '$email' is considered invalid.\n";
 }
 
 ?>
