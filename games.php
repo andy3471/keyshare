@@ -11,11 +11,9 @@ else {
 
 $start_from = ($page-1) * $results_per_page;
 
-?>
 
-<h2> Available Games </h2>
+echo "<h2> Available Games </h2>";
 
-<?php
 
 $sql = "
 SELECT DISTINCT G.game_id, G.gamename FROM keyshare.games AS G
@@ -42,11 +40,7 @@ if ($result->num_rows > 0) {
     echo "0 results";
 }
 
-?>
 
-
-
-<?php 
 $sql = "
 SELECT DISTINCT COUNT(G.game_id) AS total FROM keyshare.games AS G
 JOIN keyshare.keys K
