@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
 
         //Get Available Keys
         $fetchkeys = "
-        select K.key_id, P.platformname, U.username from keyshare.keys AS K
+        select K.key_id, P.platformname, U.username, K.created_user_id as user_id from keyshare.keys AS K
         join keyshare.platforms as P
         on K.platform_id = P.platform_id
         join keyshare.users as U
@@ -48,7 +48,8 @@ if ($result->num_rows > 0) {
             // output data of each row
             while($keyrow = $keyresults->fetch_assoc()) {
                 
-                echo '<tr><td><a href="./viewkey.php?id='.$keyrow["key_id"].'">'.$keyrow["platformname"].'</a></td><td>'.$keyrow["username"].'</tr>';
+                echo '<tr><td><a href="./viewkey.php?id='.$keyrow["key_id"].'">'.$keyrow["platformname"].'</a></td>
+                     <td><a href="./viewuser.php?id='.$keyrow["user_id"].'">'.$keyrow["username"].'</a></tr>';
             }
         } else {
             echo "0 Available Keys";
