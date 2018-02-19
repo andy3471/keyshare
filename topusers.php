@@ -16,7 +16,7 @@ echo "<h2> Top Users </h2>";
 
 
 $sql = "
-SELECT U.user_id, U.username, TD.createdkeys AS totaldonated, C.createdkeys AS totaldonatedclaimed, O.ownedkeys AS totalowned, (C.createdkeys - O.ownedkeys) AS karma FROM users as U
+SELECT U.user_id, U.username, IFNULL(TD.createdkeys,0) AS totaldonated, IFNULL(C.createdkeys,0) AS totaldonatedclaimed, IFNULL(O.ownedkeys,0) AS totalowned, (IFNULL(C.createdkeys,0) - IFNULL(O.ownedkeys,0)) AS karma FROM users as U
 
 LEFT OUTER JOIN (
 	SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM keyshare.keys
