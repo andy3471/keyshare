@@ -73,7 +73,7 @@ if ($result->num_rows > 0) {
    
    
 } else {
-  //  header('Location: games.php');
+   header('Location: topusers.php');
 }
 
 include './theme/sidebar.php';
