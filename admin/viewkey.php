@@ -12,12 +12,12 @@ if (isset($_GET['id'])) {
 $sql = "
 SELECT K.game_id, G.gamename, K.platform_id, P.platformname, K.keycode
 FROM keyshare.keys AS K
-JOIN games AS g
+JOIN games AS G
 ON K.game_id = G.game_id
 JOIN platforms AS P
 ON K.platform_id = P.platform_id
 WHERE key_id = $id
-AND k.removed is null
+AND K.removed is null
 LIMIT 1
 ";
 
