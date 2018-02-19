@@ -14,7 +14,7 @@ include './theme/loginheader.php';
                 <input name="password" class="form-control" type="password" required>
                 <label for="forename"> Forename*: </label>
                 <input name="forename" class="form-control" type="text" required>
-                <label for="surname"> surname*: </label>
+                <label for="surname"> Surname*: </label>
                 <input name="surname" class="form-control" type="text" required>
                 <label for="email"> Email*: </label>
                 <input name="email" class="form-control" type="text" required>
