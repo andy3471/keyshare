@@ -1,4 +1,17 @@
-<?php include './theme/header.php';?>
+<?php include './theme/header.php';
+
+$results_per_page = 15;
+
+if (isset($_GET["page"])) { 
+	$page  = $_GET["page"]; 
+} 
+else { 
+	$page=1; 
+}; 
+
+$start_from = ($page-1) * $results_per_page;
+
+?>
 
 <h2> Available Games </h2>
 
@@ -13,6 +26,7 @@ and K.dlc_id is null
 and K.owned_user is null
 and K.dlc_id is null
 order by G.gamename
+LIMIT $start_from, $results_per_page
 ";
 
 $result = $mysqli->query($sql);
@@ -28,6 +42,32 @@ if ($result->num_rows > 0) {
     echo "0 results";
 }
 
+?>
+
+
+
+<?php 
+$sql = "
+SELECT DISTINCT COUNT(G.game_id) AS total FROM keyshare.games AS G
+JOIN keyshare.keys K
+ON K.Game_ID = G.Game_ID
+where K.removed is null
+and K.dlc_id is null
+and K.owned_user is null
+and K.dlc_id is null";
+
+$result = $mysqli->query($sql);
+$row = $result->fetch_assoc();
+$total_pages = ceil($row["total"] / $results_per_page); // calculate total pages with results
+  
+			echo '<ul class="pagination justify-content-center">';
+for ($i=1; $i<=$total_pages; $i++) {  // print links for all pages
+            echo "<li";
+			if ($i==$page)  echo " class='active'";
+			echo "><a href='games.php?page=".$i."'";
+            echo ">".$i."</a></li> "; 
+}; 
+			echo '<ul>';
 ?>
                         
 
