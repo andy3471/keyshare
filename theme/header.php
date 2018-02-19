@@ -18,6 +18,9 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+            <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+            <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
             <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
         
             <link rel="icon" 
@@ -50,9 +53,8 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                     ?>
                   <li><a class="active" href="./games.php">Games</a></li>
                   <li><a href="claimedkeys.php">My Keys</a></li>
-                  <li><a href="./addgame.php">Add Game</a></li>
                   <li><a href="./addkey.php">Add Key</a></li>
-				  <li><a href="./topusers.php">Top Users</a></li>
+		  <li><a href="./topusers.php">Top Users</a></li>
         </div>
       </div>
     </form>
