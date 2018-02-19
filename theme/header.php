@@ -52,6 +52,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                   <li><a href="claimedkeys.php">My Keys</a></li>
                   <li><a href="./addgame.php">Add Game</a></li>
                   <li><a href="./addkey.php">Add Key</a></li>
+				  <li><a href="./topusers.php">Top Users</a></li>
         </div>
       </div>
     </form>
