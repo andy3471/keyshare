@@ -1,9 +1,7 @@
 <?php
 include './theme/loginheader.php';
 ?>
-    
-    </head>
-    <body>
+
                 <h1> Register </h1>
             
             <?php
@@ -38,5 +36,7 @@ else {
 }
 
 ?>
-    </body>
-</html>
+<br>
+<form method="get" action="./index.php">
+    <button type="submit" class="btn btn-default">Go Back</button>
+</form>
