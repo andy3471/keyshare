@@ -11,12 +11,8 @@ else {
 
 $start_from = ($page-1) * $results_per_page;
 
-?>
+echo "<h2> Shared Games </h2>";
 
-                    <h2> Shared Games </h2>
-
-<?php
-                        
 
 //vars
 $user_id = $_SESSION["user_id"];
@@ -45,10 +41,6 @@ if ($result->num_rows > 0) {
 } else {
     echo "No Keys Shared";
 }
-
-?>
-
-<?php
 
 $sql = "
 SELECT count(K.key_id) AS total FROM keyshare.keys AS K

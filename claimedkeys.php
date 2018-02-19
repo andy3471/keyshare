@@ -11,12 +11,9 @@ else {
 
 $start_from = ($page-1) * $results_per_page;
 
-?>
 
-                    <h2> My Games </h2>
+echo "<h2> My Games </h2>";
 
-<?php
-                        
 //vars
 $user_id = $_SESSION["user_id"];
 
@@ -42,9 +39,7 @@ if ($result->num_rows > 0) {
 } else {
     echo "No Keys Claimed";
 }
-?>
 
-<?php
 $sql = "
 SELECT COUNT(K.key_id) as total FROM keyshare.keys AS K
 JOIN keyshare.games G
