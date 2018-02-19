@@ -1,8 +1,8 @@
 <?php
 
 // DB Connection
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'keyshare');
+define('DB_SERVER', '192.168.1.52');
+define('DB_USERNAME', 'key');
 define('DB_PASSWORD', 'cuntflaps69');
 define('DB_NAME', 'keyshare');
 
@@ -10,5 +10,5 @@ define('DB_NAME', 'keyshare');
 define("CAN_REGISTER", "any");
 define("DEFAULT_ROLE", "member");
 define("SECURE", FALSE);
-define('TITLE',"Test Keyshare");
+define('TITLE',"360NoHope Keyshare");
 ?>
