@@ -17,7 +17,11 @@ $role_id = $_POST['role_id'];
 $approved = $_POST['approved'];
 $user_id = $_POST['user_id']; 
 
+// Check For Valid Email
+if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
+
+//Check If Password Is Changed
 if(!isset($_POST['password']) || empty($_POST['password'])) {
         $updateusersql = "UPDATE users
                    SET username = '$username',
@@ -30,7 +34,6 @@ if(!isset($_POST['password']) || empty($_POST['password'])) {
 
     $updateuser = $mysqli->query($updateusersql);
 
-//    Print Response
     if ( $updateuser ) {
         echo "User Updated" ;
         }
@@ -61,5 +64,12 @@ else {
         die("Error: {$mysqli->errno} : {$mysqli->error}"); 
     }
 }
+
+} 
+
+else {
+    echo "Email address '$email' is considered invalid.\n";
+}
+
 
 include './theme/footer.php';?>
