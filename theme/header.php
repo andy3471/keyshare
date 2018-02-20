@@ -39,22 +39,23 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span> 
               </button>
-            </div>
-                  <div class="navbar-header">
       <a class="navbar-brand" href="#"><?php echo TITLE; ?></a>
     </div>
             <div class="collapse navbar-collapse" id="myNavbar">
               <ul class="nav navbar-nav">
                   
-                    <?php 
-                    if($_SESSION["role_id"] == 2){
-                    echo '<li><a href="./admin">Admin</a></li>';
-                    }   
-                    ?>
-                  <li><a class="active" href="./games.php">Games</a></li>
-                  <li><a href="claimedkeys.php">My Keys</a></li>
-                  <li><a href="./addkey.php">Add Key</a></li>
-		  <li><a href="./topusers.php">Top Users</a></li>
+                <?php 
+                if($_SESSION["role_id"] == 2){
+                echo '<li><a href="./admin">Admin</a></li>';
+                }   
+                ?>
+                <li><a class="active" href="./games.php">Games</a></li>
+                <li><a href="claimedkeys.php">My Keys</a></li>
+                <li><a href="./addkey.php">Add Key</a></li>
+				<li><a href="./topusers.php">Top Users</a></li>
+
+			<ul>
+			
         </div>
       </div>
     </form>
