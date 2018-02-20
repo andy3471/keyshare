@@ -1,8 +1,7 @@
 # Keyshare
 Share your Steam Keys with friends via this web app. Create a private circle for sharing spare humble bundle keys.
 
-# Keyshare
- Features
+# Features
 - Add game keys
 - Claim keys, keep them tied agaisnt your account to view forever.
 - Support for multiple game platforms
