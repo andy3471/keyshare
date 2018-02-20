@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
 
 $sql = "
 SELECT K.game_id, G.gamename, K.platform_id, P.platformname, K.keycode
-FROM keyshare.keys AS K
+FROM `keys` AS K
 JOIN games AS G
 ON K.game_id = G.game_id
 JOIN platforms AS P

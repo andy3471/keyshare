@@ -9,12 +9,12 @@ if (isset($_GET['id'])) {
 }
 
 $sql = "
-SELECT K.game_id, G.gamename, K.keycode, K.owned_user as ownedbyid, CU.username AS addedby, P.platformname  FROM keyshare.keys AS K
-JOIN keyshare.games as G
+SELECT K.game_id, G.gamename, K.keycode, K.owned_user as ownedbyid, CU.username AS addedby, P.platformname  FROM `keys` AS K
+JOIN games as G
 ON K.game_id = G.game_id
-JOIN keyshare.users as CU
+JOIN users as CU
 ON K.created_user_id = CU.user_id
-JOIN keyshare.platforms as P
+JOIN platforms as P
 ON K.platform_id = P.platform_id
 WHERE key_id = $id
 LIMIT 1

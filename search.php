@@ -59,8 +59,8 @@ if ($result->num_rows > 0) {
 
 
 $sql = "
-SELECT DISTINCT G.game_id, G.gamename FROM keyshare.games AS G
-JOIN keyshare.keys K
+SELECT DISTINCT G.game_id, G.gamename FROM games AS G
+JOIN `keys` K
 ON K.Game_ID = G.Game_ID
 where K.removed is null
 and K.dlc_id is null
@@ -87,8 +87,8 @@ if ($result->num_rows > 0) {
 }
 
 $sql = "
-SELECT DISTINCT COUNT(G.game_id) AS total FROM keyshare.games AS G
-JOIN keyshare.keys K
+SELECT DISTINCT COUNT(G.game_id) AS total FROM games AS G
+JOIN `keys` K
 ON K.Game_ID = G.Game_ID
 where K.removed is null
 and G.gamename like '%$search%'

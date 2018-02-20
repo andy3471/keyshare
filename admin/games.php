@@ -12,8 +12,8 @@ else {
 $start_from = ($page-1) * $results_per_page;
 
 $sql = "
-SELECT DISTINCT G.game_id, G.gamename, G.description, G.created_user_id, U.username AS createdusername FROM keyshare.games AS G
-LEFT JOIN keyshare.users U
+SELECT DISTINCT G.game_id, G.gamename, G.description, G.created_user_id, U.username AS createdusername FROM games AS G
+LEFT JOIN users U
 ON U.user_id = G.created_user_id
 ORDER BY G.gamename
 LIMIT $start_from, $results_per_page

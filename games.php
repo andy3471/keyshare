@@ -16,14 +16,14 @@ echo "<h2> Available Games </h2>";
 
 
 $sql = "
-SELECT DISTINCT G.game_id, G.gamename FROM keyshare.games AS G
-JOIN keyshare.keys K
+SELECT DISTINCT G.game_id, G.gamename FROM games AS G
+JOIN `keys` K
 ON K.Game_ID = G.Game_ID
-where K.removed is null
-and K.dlc_id is null
-and K.owned_user is null
-and K.dlc_id is null
-order by G.gamename
+WHERE K.removed is null
+AND K.dlc_id is null
+AND K.owned_user is null
+AND K.dlc_id is null
+ORDER BY G.gamename
 LIMIT $start_from, $results_per_page
 ";
 
@@ -42,13 +42,13 @@ if ($result->num_rows > 0) {
 
 
 $sql = "
-SELECT DISTINCT COUNT(G.game_id) AS total FROM keyshare.games AS G
-JOIN keyshare.keys K
+SELECT DISTINCT COUNT(G.game_id) AS total FROM games AS G
+JOIN `keys` K
 ON K.Game_ID = G.Game_ID
-where K.removed is null
-and K.dlc_id is null
-and K.owned_user is null
-and K.dlc_id is null";
+WHERE K.removed is null
+AND K.dlc_id is null
+AND K.owned_user is null
+AND K.dlc_id is null";
 
 $result = $mysqli->query($sql);
 $row = $result->fetch_assoc();
