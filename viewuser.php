@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
 }
 
 $sql = "
-SELECT U.username, (IFNULL(C.createdkeys,0) - IFNULL(O.ownedkeys,0)) AS karma FROM users as U
+SELECT U.username, (IFNULL(C.createdkeys,0) - IFNULL(O.ownedkeys,0)) AS karma FROM users AS U
 LEFT OUTER JOIN (
 	SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM `keys`
 	WHERE removed IS NULL
@@ -52,7 +52,7 @@ if ($result->num_rows > 0) {
 
         //Get Available Keys
         $fetchkeys = "
-        FROM G.gamename, K.key_id, P.platformname FROM `keys` AS K
+        SELECT G.gamename, K.key_id, P.platformname FROM `keys` AS K
         JOIN platforms AS P
         ON K.platform_id = P.platform_id
         JOIN users AS U
@@ -62,7 +62,7 @@ if ($result->num_rows > 0) {
         WHERE K.created_user_id = $id
         AND removed IS NULL
         AND owned_user IS NULL
-		LIMIT $start_from, $results_per_page
+	LIMIT $start_from, $results_per_page
         ";
 
         $keyresults = $mysqli->query($fetchkeys);
