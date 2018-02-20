@@ -11,20 +11,20 @@ echo "<h2> Top Users </h2>";
 $sql = "
 SELECT U.user_id, U.username, IFNULL(TD.createdkeys,0) AS totaldonated, IFNULL(C.createdkeys,0) AS totaldonatedclaimed, IFNULL(O.ownedkeys,0) AS totalowned, (IFNULL(TD.createdkeys,0) - IFNULL(O.ownedkeys,0)) AS karma FROM users as U
 LEFT OUTER JOIN (
-	SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM keyshare.keys
+	SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM `keys`
 	WHERE removed is null
 	GROUP BY created_user_id
     ) AS TD
 ON TD.user_id = U.user_id
 LEFT OUTER JOIN (
-	SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM keyshare.keys
+	SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM `keys`
 	WHERE owned_user IS NOT null
 	and removed is null
 	GROUP BY created_user_id
     ) AS C
 ON C.user_id = U.user_id
 LEFT OUTER JOIN (
-	select count(owned_user) AS ownedkeys, owned_user AS user_id from keyshare.keys
+	select count(owned_user) AS ownedkeys, owned_user AS user_id from `keys`
 	WHERE removed is null
 	GROUP BY owned_user
     ) AS O

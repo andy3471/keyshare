@@ -31,14 +31,14 @@ if ($result->num_rows > 0) {
 
         //Get Available Keys
         $fetchkeys = "
-        select K.key_id, P.platformname, U.username, K.created_user_id as user_id from keyshare.keys AS K
-        join keyshare.platforms as P
-        on K.platform_id = P.platform_id
-        join keyshare.users as U
-        on K.created_user_id = U.user_id
-        where K.game_id = $id
-        and removed is null
-        and owned_user is null
+        SELECT K.key_id, P.platformname, U.username, K.created_user_id as user_id FROM `keys` AS K
+        JOIN platforms AS P
+        ON K.platform_id = P.platform_id
+        JOIN users AS U
+        ON K.created_user_id = U.user_id
+        WHERE K.game_id = $id
+        AND removed IS NULL
+        AND owned_user IS NULL
         ";
 
         $keyresults = $mysqli->query($fetchkeys);

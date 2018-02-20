@@ -4,7 +4,7 @@
 $key_id = $_POST['key_id']; 
 
 
-        $updategamesql = "UPDATE keyshare.keys
+        $updategamesql = "UPDATE `keys`
                    SET removed = 1
                    WHERE key_id = $key_id";
 

@@ -58,7 +58,7 @@ if ($result->num_rows > 0) {
 
 
 //SQL
-$addgamesql = "INSERT INTO keyshare.keys (game_id,platform_id,keycode,created_user_id,created_dttm) VALUES ($game_id,'$platform_id','$key','$user_id',curdate()) ";
+$addgamesql = "INSERT INTO `keys` (game_id,platform_id,keycode,created_user_id,created_dttm) VALUES ($game_id,'$platform_id','$key','$user_id',curdate()) ";
 $insertdlc = $mysqli->query($addgamesql);
 
 //Print Response

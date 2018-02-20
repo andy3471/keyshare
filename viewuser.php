@@ -22,15 +22,15 @@ if (isset($_GET['id'])) {
 $sql = "
 SELECT U.username, (IFNULL(C.createdkeys,0) - IFNULL(O.ownedkeys,0)) AS karma FROM users as U
 LEFT OUTER JOIN (
-	SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM keyshare.keys
-	WHERE removed is null
+	SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM `keys`
+	WHERE removed IS NULL
         AND created_user_id = $id
 	GROUP BY created_user_id
     ) AS C
 ON C.user_id = U.user_id
 LEFT OUTER JOIN (
-	select count(owned_user) AS ownedkeys, owned_user AS user_id from keyshare.keys
-	WHERE removed is null
+	SELECT count(owned_user) AS ownedkeys, owned_user AS user_id FROM `keys`
+	WHERE removed IS NULL
     AND owned_user = $id
 	GROUP BY owned_user
     ) AS O
@@ -52,16 +52,16 @@ if ($result->num_rows > 0) {
 
         //Get Available Keys
         $fetchkeys = "
-        select G.gamename, K.key_id, P.platformname from keyshare.keys AS K
-        join keyshare.platforms as P
-        on K.platform_id = P.platform_id
-        join keyshare.users as U
-        on K.created_user_id = U.user_id
-        join games AS G
+        FROM G.gamename, K.key_id, P.platformname FROM `keys` AS K
+        JOIN platforms AS P
+        ON K.platform_id = P.platform_id
+        JOIN users AS U
+        ON K.created_user_id = U.user_id
+        JOIN games AS G
         ON G.game_id = K.game_id
-        where K.created_user_id = $id
-        and removed is null
-        and owned_user is null
+        WHERE K.created_user_id = $id
+        AND removed IS NULL
+        AND owned_user IS NULL
 		LIMIT $start_from, $results_per_page
         ";
 
@@ -81,10 +81,10 @@ if ($result->num_rows > 0) {
        }
 
    $sql = "
-        select count(K.key_id) as total from keyshare.keys AS K
-        where K.created_user_id = $id
-        and removed is null
-        and owned_user is null";
+        SELECT count(K.key_id) AS total FROM `keys` AS K
+        WHERE K.created_user_id = $id
+        AND removed IS NULL
+        AND owned_user IS NULL";
 
 $result = $mysqli->query($sql);
 $row = $result->fetch_assoc();

@@ -16,7 +16,7 @@ $key_id = $_POST['key_id'];
 $user_id = $_SESSION["user_id"];
         
 //SQL
-$claimkey = "UPDATE keyshare.keys SET owned_user = $user_id WHERE key_id = $key_id AND owned_user IS NULL LIMIT 1";
+$claimkey = "UPDATE `keys` SET owned_user = $user_id WHERE key_id = $key_id AND owned_user IS NULL LIMIT 1";
 $updateowner = $mysqli->query($claimkey);
 
 //Print Response

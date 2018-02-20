@@ -18,12 +18,12 @@ echo "<h2> My Games </h2>";
 $user_id = $_SESSION["user_id"];
 
 $sql = "
-SELECT K.key_id, G.gamename, P.platformname FROM keyshare.keys AS K
-JOIN keyshare.games G
+SELECT K.key_id, G.gamename, P.platformname FROM `keys` AS K
+JOIN games G
 ON K.Game_ID = G.Game_ID
-JOIN keyshare.platforms P
+JOIN platforms P
 ON K.platform_id = P.platform_id
-where owned_user = $user_id
+WHERE owned_user = $user_id
 LIMIT $start_from, $results_per_page
 ";
 
@@ -41,12 +41,12 @@ if ($result->num_rows > 0) {
 }
 
 $sql = "
-SELECT COUNT(K.key_id) as total FROM keyshare.keys AS K
-JOIN keyshare.games G
+SELECT COUNT(K.key_id) as total FROM `keys` AS K
+JOIN games G
 ON K.Game_ID = G.Game_ID
-JOIN keyshare.platforms P
+JOIN platforms P
 ON K.platform_id = P.platform_id
-where owned_user = $user_id";
+WHERE owned_user = $user_id";
 
 $result = $mysqli->query($sql);
 $row = $result->fetch_assoc();
