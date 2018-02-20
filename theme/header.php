@@ -99,5 +99,14 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
         
         <div class="col-md-10 text-left"> 
             <div class="well">
+			
+			<?php
+			$filename = dirname(__FILE__).'/../install/index.php';
+
+						if (file_exists($filename)) {
+				echo "<h1><b> PLEASE DELETE INSTALL DIRECTORY </b></h1>";
+			}
+			?>
+
             <!-- Main Body -->
 

@@ -6,7 +6,4 @@ if (!$mysqli) {
     die("Could not conenct to database:" . mysqli_connect_error());
 }
 
-$sql = "SELECT gamename FROM games";
-$result = $mysqli->query($sql);
-
 ?>
