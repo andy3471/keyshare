@@ -31,19 +31,18 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     <body>
 
         
-        <nav class="navbar navbar-inverse navbar-fixed-top" >
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span> 
-              </button>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
       <a class="navbar-brand" href="#"><?php echo TITLE; ?></a>
     </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-              <ul class="nav navbar-nav">
-                  
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
                 <?php 
                 if($_SESSION["role_id"] == 2){
                 echo '<li><a href="./admin">Admin</a></li>';
@@ -53,16 +52,16 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                 <li><a href="claimedkeys.php">My Keys</a></li>
                 <li><a href="./addkey.php">Add Key</a></li>
 				<li><a href="./topusers.php">Top Users</a></li>
-
-			<ul>
-			
-        </div>
+      </ul>
+    <form class="navbar-form navbar-right" method="get" action="./search.php?">
+      <div class="form-group">
+        <input name="search" type="text" class="form-control" placeholder="Search">
       </div>
+      <button type="Search" class="btn btn-default">Search</button>
     </form>
-              </ul>
-            </div>
-          </div>
-        </nav>
+    </div>
+  </div>
+</nav>
         
         
         <div class="container-fluid" style="margin-top:50px">

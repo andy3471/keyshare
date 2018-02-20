@@ -19,6 +19,10 @@ if (isset($_GET['search'])) {
     exit();
 }
 
+if ( $search == null ) {
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
+
 
 echo "<h2> Search </h2>";
 
