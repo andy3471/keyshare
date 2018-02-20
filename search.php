@@ -1,16 +1,25 @@
 <?php include './theme/header.php';
 
+//Functions
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+} 
+
 $results_per_page = 15;
 
 if (isset($_GET["page"])) { 
-	$page  = $_GET["page"]; 
+	$page  = test_input($_GET["page"]); 
 } 
 else { 
 	$page=1; 
 }; 
 
-$start_from = ($page-1) * $results_per_page;
 
+
+$start_from = ($page-1) * $results_per_page;
 
 if (isset($_GET['search'])) {
     $search = $_GET['search'];
@@ -25,6 +34,28 @@ if ( $search == null ) {
 
 
 echo "<h2> Search </h2>";
+
+
+
+
+//Check if game exists
+$sql = "
+SELECT game_id FROM games
+WHERE gamename = '$search'
+LIMIT 1
+";
+
+$result = $mysqli->query($sql);
+
+if ($result->num_rows > 0) {
+    
+    while($row = $result->fetch_assoc()) {
+        $game_id = $row["game_id"];#
+    }
+	
+	header('Location: viewgame.php?id='.$game_id);
+    
+} else {
 
 
 $sql = "
@@ -53,6 +84,7 @@ if ($result->num_rows > 0) {
     echo "0 results";
 }
 
+}
 
 $sql = "
 SELECT DISTINCT COUNT(G.game_id) AS total FROM keyshare.games AS G

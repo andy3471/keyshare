@@ -55,7 +55,15 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
       </ul>
     <form class="navbar-form navbar-right" method="get" action="./search.php?">
       <div class="form-group">
-        <input name="search" type="text" class="form-control" placeholder="Search">
+        <input name="search" id="search" type="text" class="form-control" placeholder="Search">
+		
+			    <script>
+                $(function() {
+                    $( "#search" ).autocomplete({
+                        source: 'gameslist.php'
+                    });
+                });
+                </script>
       </div>
       <button type="Search" class="btn btn-default">Search</button>
     </form>

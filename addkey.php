@@ -1,12 +1,6 @@
 <?php include './theme/header.php';?>
 
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-            <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-            <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-            <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-            <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+
 
                 <h2> Add Key </h2>
 
@@ -20,7 +14,7 @@
                 });
                 </script>
                 <label for="gamename">Game: </label>
-                <input id="gamename" input name="gamename" class="form-control" required>
+                <input id="gamename" name="gamename" class="form-control" required>
                 
                <label for="platform"> Platform: </label>
                             
