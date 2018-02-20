@@ -118,7 +118,7 @@ for ($i=1; $i<=$total_pages; $i++) {  // print links for all pages
 			if ($page == $total_pages) {
 				echo "<li class='disabled'><a href='#'>Next</a></li>";
 			} else {
-				echo "<li><a href='?page=".($page+1)."'>Next</a></li>";
+				echo "<li><a href='?search=$search&page=".($page+1)."'>Next</a></li>";
 			}
 			
 			echo "<ul>";
