@@ -33,5 +33,4 @@ $txt = "<?php
     ?>
                 
                 
-   <a href="./index.php">Back</a>
-  <a href="./createadmin.php">Next</a>
+  <a href="./createadmin.php"> Next</a>
