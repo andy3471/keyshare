@@ -5,3 +5,7 @@ includes/config.php
 images/favicon.ico
 images/LogoWeb.png
 includes/config.php
+/nbproject/private/
+nbproject/project.xml
+nbproject/project.properties
+includes/config.php
