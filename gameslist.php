@@ -6,7 +6,7 @@ include_once './includes/db_connect.php';
     $searchTerm = $_GET['term'];
     
     //get matched data from skills table
-    $query = $mysqli->query("SELECT gamename FROM games WHERE gamename LIKE '%".$searchTerm."%' ORDER BY gamename");
+    $query = $mysqli->query("SELECT gamename FROM games WHERE gamename LIKE '%".$searchTerm."%' ORDER BY gamename LIMIT 15");
     while ($row = $query->fetch_assoc()) {
         $data[] = $row['gamename'];
     }
