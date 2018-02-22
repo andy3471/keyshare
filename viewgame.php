@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
 }
 
 $sql = "
-SELECT game_id, gamename, description FROM games AS G
+SELECT game_id, gamename, description, image FROM games AS G
 WHERE game_id = $id
 LIMIT 1
 ";
@@ -28,8 +28,14 @@ if ($result->num_rows > 0) {
         
         echo '</h2>';
         $games->getgamepic($mysqli,$id);
+        
+        if (is_null($row["image"])) {
+            echo '<br><a href="uploadgameimage.php?id='.$id.'">Add a game image</a><br> ';
+        }
         echo '<p>'.$row["description"].'</p>';
 
+        
+        
 
         //Get Available Keys
         $fetchkeys = "

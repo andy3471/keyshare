@@ -30,12 +30,21 @@ LIMIT $start_from, $results_per_page
 $result = $mysqli->query($sql);
 
 if ($result->num_rows > 0) {
+        echo '<div class="row">';
     // output data of each row
-        echo '<div id="bodytext"> <table class="table"><tr><th> Game </th></tr>';
     while($row = $result->fetch_assoc()) {
-        echo '<tr><td><a href="./viewgame.php?id='.$row["game_id"].'">'. $row["gamename"].'</a></td>';
+        echo '<div class="col-sm-4 well">';
+        $games->getgamepic($mysqli,$row["game_id"]);
+        echo '<br><a href="./viewgame.php?id='.$row["game_id"].'">';
+                if (strlen($row["gamename"]) > 26) {
+                  echo substr($row["gamename"],0,26).'...</a>';
+                }
+                else {
+                  echo $row["gamename"].'</a>';
+                }
+        echo '</div>';
     }
-        echo '</table>';
+        echo '</div>';
 } else {
     echo "0 results";
 }
@@ -54,7 +63,7 @@ $result = $mysqli->query($sql);
 $row = $result->fetch_assoc();
 $total_pages = ceil($row["total"] / $results_per_page); // calculate total pages with results
   
-			echo '<ul class="pagination justify-content-center">';
+			echo '<br><ul class="pagination justify-content-center">';
 			
 			if ($page == 1) {
 				echo "<li class='disabled'><a href='#'>Previous</a></li>";
