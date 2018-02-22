@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
         echo $row["username"];
         echo '</h2>';
         
-        $profile->getprofilepic($mysqli,$id);
+        $profile->getprofilepicadmin($mysqli,$id);
         
         echo '<br> <div id="bodytext">
               <form method="post" action="../admin/updateuser.php"> 
