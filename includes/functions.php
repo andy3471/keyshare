@@ -6,7 +6,7 @@ class profile {
     
     function getprofilepic($mysqli,$x) {
         $sql = "
-        SELECT profilepic from USERS
+        SELECT profilepic FROM users
         WHERE user_id = $x";
 
         $result = $mysqli->query($sql);
@@ -27,7 +27,7 @@ class profile {
     
     function getprofilepicadmin($mysqli,$x) {
         $sql = "
-        SELECT profilepic from USERS
+        SELECT profilepic FROM users
         WHERE user_id = $x";
 
         $result = $mysqli->query($sql);
@@ -45,14 +45,34 @@ class profile {
         }
     }
     
+
     
-    function sum($x, $y) {
-    $z = $x + $y;
-    return $z;
-    }
 }
 
 
+class games {
+    private $result;
+    private $sql;
+    
+    function getgamepic($mysqli,$x) {
+        $sql = "
+        SELECT image FROM games
+        WHERE game_id = $x";
 
+        $result = $mysqli->query($sql);
+
+        if ($result->num_rows > 0) {
+        
+        while($row = $result->fetch_assoc()) {
+                                        
+        if (is_null($row["image"])) {
+            echo '<a href=".\viewgame.php?id='.$x.'"><img src="./images/gamedefault.png" width="420px" height="215px" class="img-thumbnail"></a>';
+        } else {
+            echo '<a href=".\viewgame.php?id='.$x.'"><img src="./'.$row["image"].'" width="420px" height="215px" class="img-thumbnail"></a>';
+            }
+        }
+        }
+    }
+}    
     
     ?>

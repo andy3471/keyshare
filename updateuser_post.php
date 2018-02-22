@@ -13,7 +13,8 @@ $username = test_input($_POST['username']);
 $forename = test_input($_POST['forename']);
 $surname = test_input($_POST['surname']);
 $email = test_input($_POST['email']);
-$user_id = $_SESSION["user_id"]; 
+$user_id = $_SESSION["user_id"];
+
 
 // Check For Valid Email
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {

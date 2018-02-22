@@ -3,7 +3,8 @@
 include_once('includes/db_connect.php');
 require "includes/functions.php";
 
-$profile = new Profile;
+$profile = new profile;
+$games = new games;
 
 //Start Session
 session_start();

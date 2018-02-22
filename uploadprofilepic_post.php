@@ -8,7 +8,10 @@ $filename = uniqid();
 $target_file = $target_dir.$filename.'.'.$imageFileType ;
 $user_id = $_SESSION["user_id"];
 
-
+if (empty($_FILES["fileToUpload"]["name"])) {
+    echo 'No file uploaded';
+  } 
+  
 //Check if image MIMI
 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
