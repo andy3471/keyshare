@@ -19,14 +19,15 @@ LIMIT 1
 $result = $mysqli->query($sql);
 
 
-echo '<div id="bodytitle"><h2>';
+echo '<h2>';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo $row["gamename"];
         
+        $games->getgamepicadmin($mysqli,$id);
         
-        echo '</div></h2> <div id="bodytext">
+        echo '</h2>
               <form method="post" action="../admin/updategame.php"> 
               <div class="form-group">
                   <label for="gamename">Name:</label>

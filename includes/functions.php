@@ -72,6 +72,27 @@ class games {
         }
         }
     }
+    
+        function getgamepicadmin($mysqli,$x) {
+        $sql = "
+        SELECT gamename, image FROM games
+        WHERE game_id = $x";
+
+        $result = $mysqli->query($sql);
+
+        if ($result->num_rows > 0) {
+        
+        while($row = $result->fetch_assoc()) {
+            if (is_null($row["image"])) {
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="../images/gamedefault.png" class="img-responsive" align="middle"></a>';
+             } else {
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="../'.$row["image"].'" class="img-responsive" align="middle"></a>';
+            }
+        }
+        }
+    }
+    
+    
 }    
     
     ?>

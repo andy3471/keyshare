@@ -31,6 +31,8 @@ if ($result->num_rows > 0) {
         
         if (is_null($row["image"])) {
             echo '<br><a href="uploadgameimage.php?id='.$id.'">Add a game image</a><br> ';
+        } else {
+            echo '<br><a href="uploadgameimage.php?id='.$id.'">Update game image</a><br> ';
         }
         echo '<p>'.$row["description"].'</p>';
 
