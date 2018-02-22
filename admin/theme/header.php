@@ -1,6 +1,9 @@
 <?php
 //Includes
 include_once('../includes/db_connect.php');
+require "../includes/functions.php";
+
+$profile = new Profile;
 
 //Start Session
 session_start();
