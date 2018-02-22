@@ -8,8 +8,6 @@ $filename = uniqid();
 $target_file = $target_dir.$filename.'.'.$imageFileType ;
 $game_id = $_POST['game_id'];
 
-echo $game_id;
-
 if (empty($_FILES["fileToUpload"]["name"])) {
         echo 'No file uploaded';
         $uploadOk = 0;
