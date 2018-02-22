@@ -9,6 +9,8 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
   header("location: index.php");
   exit;
 }
+
+$user_id = $_SESSION['user_id']
 ?>
 
 <html>
@@ -81,11 +83,35 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
         
         <div class="col-md-2 text-left sidenav"> 
             <div class="well">
-                        <h3>User</h3>
-                        <b id="welcome">Welcome : <i><?php echo $_SESSION["username"] ?></i></b>
+                        <h3><?php echo $_SESSION["username"] ?></h3>
+                        
+                            <?php 
+                            //ProfilePic
+                            
+                            $sql = "
+                            SELECT profilepic from USERS
+                            WHERE user_id = $user_id";
+
+                                $result = $mysqli->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    // output data of each row
+                                    while($row = $result->fetch_assoc()) {
+                                        
+                                        if (is_null($row["profilepic"])) {
+                                            echo '<a href=".\viewuser.php?id='.$user_id.'"><img src="./images/defaultpic.jpg" width="100px" height="100px" class="img-thumbnail"></a>';
+                                        } else {
+                                            echo '<a href=".\viewuser.php?id='.$user_id.'"><img src="./'.$row["profilepic"].'" width="100px" height="100px" class="img-thumbnail"></a>';
+                                        }
+                                    }
+                                }
+                            ?>
+ 
+
                         <li><a href="claimedkeys.php">Claimed Keys</a></li>
                         <li><a href="sharedkeys.php">Shared Keys</a></li>
                         <li><a href="updateuser.php">Update Profile</a></li>
+                        <li><a href="uploadprofilepic.php">Upload Picture</a></li>
                         
                         <?php 
                             if($_SESSION["role_id"] == 2){
