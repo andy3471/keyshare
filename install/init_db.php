@@ -95,7 +95,8 @@ $query .= "CREATE TABLE `users` (
   `role_id` int(11) DEFAULT NULL,
   `create_date` datetime NOT NULL,
   `approved` int(1) DEFAULT NULL,
-  `profilepic` varchar(255)
+  `profilepic` varchar(255) DEFAULT NULL,
+  `bio` varchar(255) DEFAULT NULL
 ) ";
 
 
