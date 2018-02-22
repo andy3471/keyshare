@@ -1,5 +1,4 @@
-<?php include './theme/header.php';?>
-<?php 
+<?php include './theme/header.php';
 
 //get id from url, else redirect
 if (isset($_GET['id'])) {
@@ -19,14 +18,16 @@ LIMIT 1
 $result = $mysqli->query($sql);
 
 
-echo '<div id="bodytitle"><h2>';
+echo '<h2>';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo $row["username"];
+        echo '</h2>';
         
+        $profile->getprofilepic($mysqli,$id);
         
-        echo '</div></h2> <div id="bodytext">
+        echo '<br> <div id="bodytext">
               <form method="post" action="../admin/updateuser.php"> 
               <div class="form-group">
                   <label for="username">Username:</label>
