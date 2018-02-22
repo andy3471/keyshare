@@ -8,8 +8,6 @@ $filename = uniqid();
 $target_file = $target_dir.$filename.'.'.$imageFileType ;
 $user_id = $_SESSION["user_id"];
 
-echo $filename;
-echo $target_file;
 
 //Check if image MIMI
 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
