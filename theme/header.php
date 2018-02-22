@@ -85,7 +85,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                         <b id="welcome">Welcome : <i><?php echo $_SESSION["username"] ?></i></b>
                         <li><a href="claimedkeys.php">Claimed Keys</a></li>
                         <li><a href="sharedkeys.php">Shared Keys</a></li>
-                        <li><a href="changepassword.php">Change Password</a></li>
+                        <li><a href="updateuser.php">Update Profile</a></li>
                         
                         <?php 
                             if($_SESSION["role_id"] == 2){
