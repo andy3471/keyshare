@@ -1,6 +1,9 @@
 <?php
 //Includes
 include_once('includes/db_connect.php');
+require "includes/functions.php";
+
+$profile = new Profile;
 
 //Start Session
 session_start();
@@ -86,25 +89,7 @@ $user_id = $_SESSION['user_id']
                         <h3><?php echo $_SESSION["username"] ?></h3>
                         
                             <?php 
-                            //ProfilePic
-                            
-                            $sql = "
-                            SELECT profilepic from USERS
-                            WHERE user_id = $user_id";
-
-                                $result = $mysqli->query($sql);
-
-                                if ($result->num_rows > 0) {
-                                    // output data of each row
-                                    while($row = $result->fetch_assoc()) {
-                                        
-                                        if (is_null($row["profilepic"])) {
-                                            echo '<a href=".\viewuser.php?id='.$user_id.'"><img src="./images/defaultpic.jpg" width="100px" height="100px" class="img-thumbnail"></a>';
-                                        } else {
-                                            echo '<a href=".\viewuser.php?id='.$user_id.'"><img src="./'.$row["profilepic"].'" width="100px" height="100px" class="img-thumbnail"></a>';
-                                        }
-                                    }
-                                }
+                            $profile->getprofilepic($mysqli,$user_id);
                             ?>
  
 
