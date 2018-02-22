@@ -65,9 +65,9 @@ class games {
         
         while($row = $result->fetch_assoc()) {
             if (is_null($row["image"])) {
-                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./images/gamedefault.png" class="img-responsive"></a>';
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./images/gamedefault.png" class="img-responsive" width="460" height="215px"></a>';
              } else {
-                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./'.$row["image"].'" class="img-responsive"></a>';
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./'.$row["image"].'" class="img-responsive" width="460px" height="215px"></a>';
             }
         }
         }
@@ -84,9 +84,9 @@ class games {
         
         while($row = $result->fetch_assoc()) {
             if (is_null($row["image"])) {
-                echo '<a href=".\viewgame.php?id='.$x.'"><img src="../images/gamedefault.png" class="img-responsive" align="middle"></a>';
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="../images/gamedefault.png" class="img-responsive" align="middle width="460px" height="215px"></a>';
              } else {
-                echo '<a href=".\viewgame.php?id='.$x.'"><img src="../'.$row["image"].'" class="img-responsive" align="middle"></a>';
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="../'.$row["image"].'" class="img-responsive" align="middle width="460px" height="215px></a>';
             }
         }
         }
