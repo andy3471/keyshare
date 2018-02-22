@@ -1,18 +1,19 @@
 <?php include './theme/header.php';
 
-$target_dir = "uploads/profile/";
+$target_dir = "uploads/games/";
 $origname = basename($_FILES["fileToUpload"]["name"]);
 $imageFileType = strtolower(pathinfo($origname,PATHINFO_EXTENSION));
 $uploadOK = 1;
 $filename = uniqid();
 $target_file = $target_dir.$filename.'.'.$imageFileType ;
-$user_id = $_SESSION["user_id"];
+$game_id = $_POST['game_id'];
+
+echo $game_id;
 
 if (empty($_FILES["fileToUpload"]["name"])) {
         echo 'No file uploaded';
         $uploadOk = 0;
-  } 
-  
+  }   
 //Check if image MIMI
 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
@@ -48,8 +49,8 @@ if ($uploadOk == 0) {
             //Write Upload to DB if not null
 
                 //Delete Old File
-                $sql = "SELECT profilepic FROM users
-                        WHERE user_id = $user_id
+                $sql = "SELECT image FROM games
+                        WHERE game_id = $game_id
                         LIMIT 1";
 
                 $result = $mysqli->query($sql);
@@ -57,11 +58,11 @@ if ($uploadOk == 0) {
                     if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
                         
-                        if (is_null($row["profilepic"])) { 
+                        if (is_null($row["image"])) { 
                         }
                         else {
                         
-                        $oldfile = $row["profilepic"];
+                        $oldfile = $row["image"];
 
                         unlink($oldfile);
                 }
@@ -69,9 +70,9 @@ if ($uploadOk == 0) {
                 }
                 
                 //Add New File
-                $updateusersql = "UPDATE users
-                                  SET profilepic = '$target_file'
-                                  WHERE user_id = $user_id
+                $updateusersql = "UPDATE games
+                                  SET image = '$target_file'
+                                  WHERE game_id = $game_id
                                   LIMIT 1";
 
                 $updateuser = $mysqli->query($updateusersql);

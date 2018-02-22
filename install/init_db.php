@@ -40,6 +40,8 @@ $query .= "CREATE TABLE `games` (
   `description` varchar(255) DEFAULT NULL,
   `created_user_id` int(11) DEFAULT NULL,
   `created_dttm` varchar(45) DEFAULT NULL
+  `image` varchar(255) DEFAULT NULL
+  
 ) ";
 
 $query .= "CREATE TABLE `keys` (

@@ -56,7 +56,7 @@ class games {
     
     function getgamepic($mysqli,$x) {
         $sql = "
-        SELECT image FROM games
+        SELECT gamename, image FROM games
         WHERE game_id = $x";
 
         $result = $mysqli->query($sql);
@@ -64,11 +64,10 @@ class games {
         if ($result->num_rows > 0) {
         
         while($row = $result->fetch_assoc()) {
-                                        
-        if (is_null($row["image"])) {
-            echo '<a href=".\viewgame.php?id='.$x.'"><img src="./images/gamedefault.png" width="420px" height="215px" class="img-thumbnail"></a>';
-        } else {
-            echo '<a href=".\viewgame.php?id='.$x.'"><img src="./'.$row["image"].'" width="420px" height="215px" class="img-thumbnail"></a>';
+            if (is_null($row["image"])) {
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./images/gamedefault.png" class="img-responsive"></a>';
+             } else {
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./'.$row["image"].'" class="img-responsive"></a>';
             }
         }
         }
