@@ -17,16 +17,18 @@ LIMIT 1
 $result = $mysqli->query($sql);
 
 
-echo '<div id="bodytitle"><h2>';
+
+
+echo '<h2>';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo $row["gamename"];
         
         
-        echo '</div></h2> <div id="bodytext"><p>';
-        echo $row["description"];
-        echo '</p>';
+        echo '</h2>';
+        $games->getgamepic($mysqli,$id);
+        echo '<p>'.$row["description"].'</p>';
 
 
         //Get Available Keys
@@ -56,7 +58,7 @@ if ($result->num_rows > 0) {
         }
             echo '</table>';
     echo '</div>
-          </div>';
+          ';
        }
 
    

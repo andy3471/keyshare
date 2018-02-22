@@ -40,7 +40,9 @@ if ($result->num_rows > 0) {
                   <label for="forename">Email:</label>
                   <input name="email" input type="text" class="form-control" id="email" value="'.$row["email"].'">
               </div>
-               <input type="hidden" name="user_id" value="'.$id.'" />
+              
+
+              <input type="hidden" name="user_id" value="'.$id.'" />
               <br>
               <button type="submit" class="btn btn-default">Update</button>
 ';
