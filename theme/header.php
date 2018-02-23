@@ -60,7 +60,7 @@ $user_id = $_SESSION['user_id']
           <a class="dropdown-item" href="./claimedkeys.php">Claimed Keys</a>
           <a class="dropdown-item" href="./sharedkeys.php">Shared Keys</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href=./logout.php">Logout</a>
+          <a class="dropdown-item" href="./logout.php">Logout</a>
         </div>
       <li class="nav-item">
         <a class="nav-link" href="./games.php">Games</a>
