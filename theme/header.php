@@ -58,8 +58,9 @@ $user_id = $_SESSION['user_id']
           User
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="./viewuser.php?id=<?php echo $user_id;?>">View Profile</a>  
           <a class="dropdown-item" href="./updateuser.php">Update Profile</a>
-          <a class="dropdown-item" href=./uploadprofilepic.php">Upload Picture</a>
+          <a class="dropdown-item" href="./uploadprofilepic.php">Upload Picture</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="./claimedkeys.php">Claimed Keys</a>
           <a class="dropdown-item" href="./sharedkeys.php">Shared Keys</a>
