@@ -3,7 +3,7 @@
 $id = $_SESSION["user_id"];
 
 $sql = "
-SELECT user_id, username, forename, surname, email, role_id, approved 
+SELECT user_id, username, forename, surname, email, role_id, bio, approved 
 FROM users AS U 
 WHERE user_id = $id
 LIMIT 1
@@ -37,8 +37,12 @@ if ($result->num_rows > 0) {
                   <input name="surname" input type="text" class="form-control" id="surname" value="'.$row["surname"].'">
               </div>
               <div class="form-group">
-                  <label for="forename">Email:</label>
+                  <label for="email">Email:</label>
                   <input name="email" input type="text" class="form-control" id="email" value="'.$row["email"].'">
+              </div>
+              <div class="form-group">
+                  <label for="bio">Bio:</label>
+                  <input name="bio" input type="textarea" class="form-control" id="email" value="'.$row["bio"].'">
               </div>
               
 
