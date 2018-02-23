@@ -105,9 +105,9 @@ class profile {
         while($row = $result->fetch_assoc()) {
           echo  '<div class="media">';
                    if (is_null($row["profilepic"])) {
-                        echo '<a href=".\viewuser.php?id='.$x.'"><img class="mr-3" src="./images/defaultpic.jpg" alt="Generic placeholder image"></a>';
+                        echo '<a href=".\viewuser.php?id='.$x.'"><img class="mr-3" src="./images/defaultpic.jpg" width="150px" height="150px" alt="Generic placeholder image"></a>';
                     } else {
-                        echo '<a href=".\viewuser.php?id='.$x.'"><img class="mr-3" src="./'.$row["profilepic"].'" alt="Generic placeholder image"></a>';
+                        echo '<a href=".\viewuser.php?id='.$x.'"><img class="mr-3" src="./'.$row["profilepic"].'" width="150px" height="150px" alt="Generic placeholder image"></a>';
                         }
             echo '<div class="media-body">
                     <h5 class="mt-0"><a href=".\viewuser.php?id='.$x.'">'.$row["username"].'</a> ';
