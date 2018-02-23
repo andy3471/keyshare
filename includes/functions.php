@@ -4,7 +4,7 @@ class profile {
     private $result;
     private $sql;
     
-    function getprofilepic($mysqli,$x) {
+    function getprofilepic($mysqli,$x,$y) {
         $sql = "
         SELECT profilepic FROM users
         WHERE user_id = $x";
@@ -16,9 +16,9 @@ class profile {
         while($row = $result->fetch_assoc()) {
                                         
         if (is_null($row["profilepic"])) {
-            echo '<a href=".\viewuser.php?id='.$x.'"><img src="./images/defaultpic.jpg" width="100px" height="100px" class="img-thumbnail mx-auto d-block"></a>';
+            echo '<a href=".\viewuser.php?id='.$x.'"><img src="./images/defaultpic.jpg" width="'.$y.'px" height="'.$y.'px" class="img-thumbnail mx-auto d-block"></a>';
         } else {
-            echo '<a href=".\viewuser.php?id='.$x.'"><img src="./'.$row["profilepic"].'" width="100px" height="100px" class="img-thumbnail mx-auto d-block"></a>';
+            echo '<a href=".\viewuser.php?id='.$x.'"><img src="./'.$row["profilepic"].'" width="'.$y.'px" height="$'.$y.'px" class="img-thumbnail mx-auto d-block"></a>';
             }
         }
         }
@@ -44,6 +44,45 @@ class profile {
         }
         }
     }
+    
+    function getkarma($mysqli,$x) {
+        $sql = "
+        SELECT U.username, (IFNULL(C.createdkeys,0) - IFNULL(O.ownedkeys,0)) AS karma FROM users AS U
+        LEFT OUTER JOIN (
+                SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM `keys`
+                WHERE removed IS NULL
+                AND created_user_id = $x
+                GROUP BY created_user_id
+            ) AS C
+        ON C.user_id = U.user_id
+        LEFT OUTER JOIN (
+                SELECT count(owned_user) AS ownedkeys, owned_user AS user_id FROM `keys`
+                WHERE removed IS NULL
+            AND owned_user = $x
+                GROUP BY owned_user
+            ) AS O
+        ON O.user_id = U.user_id
+        WHERE U.approved = 1
+        AND U.user_id = $x
+        LIMIT 1
+        ";
+
+        $result = $mysqli->query($sql);
+
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+                echo '<span class="badge badge-pill ';
+                    if ($row["karma"] < 0) { echo 'badge-danger">'; }
+                    else if ($row["karma"] < 1) { echo 'badge-warning">'; }
+                    else if ($row["karma"] < 15) { echo 'badge-info">'; }
+                    else { echo 'badge-success">'; }      
+                echo $row["karma"].'</span>';
+            }
+        }
+    }
+    
+    
     
 
     

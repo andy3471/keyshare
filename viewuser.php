@@ -20,23 +20,9 @@ if (isset($_GET['id'])) {
 }
 
 $sql = "
-SELECT U.username, (IFNULL(C.createdkeys,0) - IFNULL(O.ownedkeys,0)) AS karma FROM users AS U
-LEFT OUTER JOIN (
-	SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM `keys`
-	WHERE removed IS NULL
-        AND created_user_id = $id
-	GROUP BY created_user_id
-    ) AS C
-ON C.user_id = U.user_id
-LEFT OUTER JOIN (
-	SELECT count(owned_user) AS ownedkeys, owned_user AS user_id FROM `keys`
-	WHERE removed IS NULL
-    AND owned_user = $id
-	GROUP BY owned_user
-    ) AS O
-ON O.user_id = U.user_id
-WHERE U.approved = 1
-AND U.user_id = $id
+SELECT username FROM users
+WHERE approved = 1
+AND user_id = $id
 LIMIT 1
 ";
 
@@ -47,10 +33,11 @@ echo '<h2>';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row["username"].'</h2> <p> Karma: '.$row["karma"].'</p>';
+        echo $row["username"].' ';
+        $profile->getkarma($mysqli,$id);
 
-        $profile->getprofilepic($mysqli,$id);
-        echo '<br>';
+        $profile->getprofilepic($mysqli,$id,200);
+        echo '</h2><br>';
 
         //Get Available Keys
         $fetchkeys = "
