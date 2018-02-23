@@ -39,7 +39,7 @@ $query .= "CREATE TABLE `games` (
   `gamename` varchar(45) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `created_user_id` int(11) DEFAULT NULL,
-  `created_dttm` varchar(45) DEFAULT NULL
+  `created_dttm` varchar(45) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL
   
 ) ";
@@ -59,9 +59,9 @@ $query .= "CREATE TABLE `keys` (
 $query .= "CREATE TABLE `platforms` (
   `platform_id` int(11) NOT NULL,
   `platformname` varchar(45) DEFAULT NULL,
-  `created_dttm` varchar(45) DEFAULT NULL
-  `image` varchar(255) DEFAULT NULL
-  `removed` int(1) DEFAULT NULL,
+  `created_dttm` varchar(45) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `removed` int(1) DEFAULT NULL
 ) ";
 
 $query .= "INSERT INTO `platforms` (`platform_id`, `platformname`, `created_dttm`, `removed`) VALUES
