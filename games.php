@@ -33,7 +33,7 @@ if ($result->num_rows > 0) {
         echo '<div class="row">';
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<div class="col-sm-4 well">';
+        echo '<div class="col-sm-4">';
         $games->getgamepic($mysqli,$row["game_id"]);
         echo '<br><a href="./viewgame.php?id='.$row["game_id"].'">';
                 if (strlen($row["gamename"]) > 26) {

@@ -27,10 +27,12 @@ if ($result->num_rows > 0) {
 <form action="uploadgameimage_post.php" method="post" enctype="multipart/form-data">
     <label for="file">File:</label>
     <input type="file"  name="fileToUpload" id="fileToUpload" class="form-control-file">
+    <br><p> Image Must be 460x215px </p><br>
     <input type="hidden" name="game_id" value="<?php echo $id;?>" />
     <br>
     <input type="submit"  class="btn btn-default" value="Upload Image" name="submit">
 </form>     
+
                 
 
 <?php include './theme/footer.php';?>

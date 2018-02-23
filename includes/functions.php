@@ -65,9 +65,9 @@ class games {
         
         while($row = $result->fetch_assoc()) {
             if (is_null($row["image"])) {
-                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./images/gamedefault.png" class="img-responsive" width="460" height="215px"></a>';
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./images/gamedefault.png" class="img-responsive rounded" width="460" height="215px"></a>';
              } else {
-                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./'.$row["image"].'" class="img-responsive" width="460px" height="215px"></a>';
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./'.$row["image"].'" class="img-responsive rounded" width="460px" height="215px"></a>';
             }
         }
         }
@@ -84,13 +84,39 @@ class games {
         
         while($row = $result->fetch_assoc()) {
             if (is_null($row["image"])) {
-                echo '<a href=".\viewgame.php?id='.$x.'"><img src="../images/gamedefault.png" class="img-responsive" align="middle width="460px" height="215px"></a>';
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="../images/gamedefault.png" class="img-responsive" align="middle" width="460px" height="215px"></a>';
              } else {
-                echo '<a href=".\viewgame.php?id='.$x.'"><img src="../'.$row["image"].'" class="img-responsive" align="middle width="460px" height="215px></a>';
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="../'.$row["image"].'" class="img-responsive" align="middle" width="460px" height="215px></a>';
             }
         }
         }
     }
+    
+        function getgamecard($mysqli,$x) {
+        $sql = "
+        SELECT gamename, image FROM games
+        WHERE game_id = $x";
+
+        $result = $mysqli->query($sql);
+
+        if ($result->num_rows > 0) {
+        
+        while($row = $result->fetch_assoc()) {
+            echo '<div class="panel panel-default">';
+            if (is_null($row["image"])) {
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./images/gamedefault.png" alt="Card image cap" class="card-img-top"></a>';
+             } else {
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./'.$row["image"].'" alt="Card image cap" class="card-img-top"></a>';
+            }
+            echo '<div class="panel-footer">
+                    <h4><a href=".\viewgame.php?id='.$x.'">'.$row["gamename"].'</a></h4>
+                  </div>
+                  </div>';
+        }
+        }
+    }
+    
+    
     
     
 }    
