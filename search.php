@@ -22,7 +22,7 @@ else {
 $start_from = ($page-1) * $results_per_page;
 
 if (isset($_GET['search'])) {
-    $search = $_GET['search'];
+    $search = test_input($_GET['search']);
 } else {
     header('Location: games.php');
     exit();
