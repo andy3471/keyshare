@@ -5,6 +5,7 @@ require "includes/functions.php";
 
 $profile = new profile;
 $games = new games;
+$page = new page;
 
 //Start Session
 session_start();

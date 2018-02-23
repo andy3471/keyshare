@@ -25,7 +25,6 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         echo $row["gamename"];
         
-        
         echo '</h2>';
         $games->getgamepic($mysqli,$id);
         
