@@ -49,8 +49,8 @@ if ($result->num_rows > 0) {
         JOIN games AS G
         ON G.game_id = K.game_id
         WHERE K.created_user_id = $id
-        AND removed IS NULL
-        AND owned_user IS NULL
+        AND K.removed IS NULL
+        AND K.owned_user IS NULL
 	LIMIT $start_from, $results_per_page
         ";
 
