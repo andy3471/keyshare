@@ -117,6 +117,34 @@ class games {
     }
     
     
+        function getkeycard($mysqli,$x) {
+        $sql = "
+        SELECT P.platformname, G.gamename, G.image FROM `keys` AS K
+        JOIN games AS G
+        ON G.game_id = K.game_id
+        JOIN platforms as P
+        ON P.platform_id = K.platform_id
+        WHERE key_id = $x";
+
+        $result = $mysqli->query($sql);
+
+        if ($result->num_rows > 0) {
+        
+        while($row = $result->fetch_assoc()) {
+            echo '<div class="card" style="width: 18rem;">';
+            if (is_null($row["image"])) {
+                echo '<a href=".\viewkey.php?id='.$x.'"><img src="./images/gamedefault.png" alt="Card image cap" class="card-img-top"></a>';
+             } else {
+                echo '<a href=".\viewkey.php?id='.$x.'"><img src="./'.$row["image"].'" alt="Card image cap" class="card-img-top"></a>';
+            }
+            echo '<div class="card-body">
+                    <h5 class="card=title"><a href=".\viewkey.php?id='.$x.'">'.$row["platformname"].' - '.$row["gamename"].'</a></h4>
+                  </div>
+                  </div>';
+        }
+        }
+    }
+    
     
     
 }    
