@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
 }
 
 $sql = "
-SELECT K.game_id, G.gamename, K.keycode, K.owned_user as ownedbyid, CU.user_id, CU.username AS addedby, P.platformname  FROM `keys` AS K
+SELECT K.game_id, G.gamename, K.keycode, K.owned_user as ownedbyid, CU.user_id as addedbyid, CU.username AS addedby, P.platformname  FROM `keys` AS K
 JOIN games as G
 ON K.game_id = G.game_id
 JOIN users as CU
@@ -39,9 +39,7 @@ if ($result->num_rows > 0) {
                         <input type="submit" class="btn btn-default" value="Claim Key">';
             echo '  <br> Claim Key to view <br>';
             
-            echo 'Key shared by '.$row["addedby"].'<br>';
-            
-            $profile->getprofilepic($mysqli,$row["user_id"]);
+
             }
         else {
             
@@ -49,9 +47,7 @@ if ($result->num_rows > 0) {
                 if ($row["ownedbyid"] == $_SESSION["user_id"]) {
                     echo '<input name="key" class="form-control" type="text" value ="'.$row["keycode"].'" disabled>';
                     echo '<br> Key Claimed <br>';
-                    echo 'Key shared by '.$row["addedby"].'<br>';
-            
-                        $profile->getprofilepic($mysqli,$row["user_id"]);
+
                 }
                 
                 else {
@@ -60,13 +56,19 @@ if ($result->num_rows > 0) {
             }
         }
         echo '</p>';
-
+            echo 'Key shared by <td><a href="./viewuser.php?id='.$row["addedbyid"].'">'.$row["addedby"].'</a> ';
+            $profile->getkarma($mysqli,$row["addedbyid"]);
+            echo '<br>';
+            $profile->getprofilepic($mysqli,$row["addedbyid"],100);
        }
    
+
+       
    
 } else {
 
 }
+
 
      
 include './theme/sidebar.php';

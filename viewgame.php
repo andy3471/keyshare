@@ -58,7 +58,9 @@ if ($result->num_rows > 0) {
             while($keyrow = $keyresults->fetch_assoc()) {
                 
                 echo '<tr><td><a href="./viewkey.php?id='.$keyrow["key_id"].'">'.$keyrow["platformname"].'</a></td>
-                     <td><a href="./viewuser.php?id='.$keyrow["user_id"].'">'.$keyrow["username"].'</a></tr>';
+                     <td><a href="./viewuser.php?id='.$keyrow["user_id"].'">'.$keyrow["username"].'</a> ';
+                     $profile->getkarma($mysqli,$keyrow["user_id"]);
+                    echo '</tr>';
             }
         } else {
             echo "0 Available Keys";

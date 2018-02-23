@@ -41,8 +41,12 @@ if ($result->num_rows > 0) {
 		<td>'.$row["totaldonated"].'</td>
 		<td>'.$row["totaldonatedclaimed"].'</td>
 		<td>'.$row["totalowned"].'</td>
-		<td>'.$row["karma"].'</td></tr>
-		';
+                <td><span class="badge badge-pill ';
+                    if ($row["karma"] < 0) { echo 'badge-danger">'; }
+                    else if ($row["karma"] < 1) { echo 'badge-warning">'; }
+                    else if ($row["karma"] < 15) { echo 'badge-info">'; }
+                    else { echo 'badge-success">'; }      
+                echo $row["karma"].'</span></td></tr>';
     }
         echo '</table>';
 } else {
