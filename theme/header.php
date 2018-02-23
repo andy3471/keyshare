@@ -49,7 +49,7 @@ $user_id = $_SESSION['user_id']
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="./viewuser.php?id=<?php echo $user_id;?>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <?php echo $_SESSION['username'].' '; $profile->getkarma($mysqli, $user_id)?>
+          <?php echo $_SESSION['username'].' '; $profile->getsessionkarma()?>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <?php $profile->getprofilepic($mysqli, $user_id, 50); ?>

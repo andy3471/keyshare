@@ -83,6 +83,18 @@ class profile {
     }
     
     
+        function getsessionkarma() {
+                echo '<span class="badge badge-pill ';
+                    if ($_SESSION["karma"] < 0) { echo 'badge-danger">'; }
+                    else if ($_SESSION["karma"] < 1) { echo 'badge-warning">'; }
+                    else if ($_SESSION["karma"] < 15) { echo 'badge-info">'; }
+                    else { echo 'badge-success">'; }      
+                echo $_SESSION["karma"].'</span>';
+            }
+       
+ 
+    
+    
     
 
     

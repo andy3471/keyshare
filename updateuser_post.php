@@ -13,6 +13,7 @@ $username = test_input($_POST['username']);
 $forename = test_input($_POST['forename']);
 $surname = test_input($_POST['surname']);
 $email = test_input($_POST['email']);
+$bio = test_input($_POST['bio']);
 $user_id = $_SESSION["user_id"];
 
 
@@ -26,7 +27,8 @@ if(!isset($_POST['password']) || empty($_POST['password'])) {
                    SET username = '$username',
                    forename = '$forename',
                    surname = '$surname',    
-                   email = '$email'
+                   email = '$email',
+                   bio = '$bio'
                    WHERE user_id = $user_id";
 
     $updateuser = $mysqli->query($updateusersql);
@@ -47,7 +49,8 @@ else {
         password = '$password',
         forename = '$forename',
         surname = '$surname',    
-        email = '$email'
+        email = '$email',
+        bio = '$bio'
         WHERE user_id = $user_id";
 
     $updateuser = $mysqli->query($updateusersql);
