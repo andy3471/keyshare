@@ -88,7 +88,7 @@ $user_id = $_SESSION['user_id']
                     });
                 });
             </script>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
 </nav>
