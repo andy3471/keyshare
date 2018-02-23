@@ -21,7 +21,7 @@ LEFT JOIN users AS CU
 ON K.created_user_id = CU.user_id
 LEFT JOIN users AS OU
 ON K.owned_user = OU.user_id
-WHERE removed is null
+WHERE K.removed is null
 ORDER BY G.gamename
 LIMIT $start_from, $results_per_page
 ";

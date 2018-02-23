@@ -15,6 +15,7 @@ $surname = test_input($_POST['surname']);
 $email = test_input($_POST['email']);
 $role_id = $_POST['role_id'];
 $approved = $_POST['approved'];
+$bio = $_POST['bio'];
 $user_id = $_POST['user_id']; 
 
 // Check For Valid Email
@@ -29,7 +30,8 @@ if(!isset($_POST['password']) || empty($_POST['password'])) {
                    surname = '$surname',    
                    email = '$email',
                    role_id = $role_id,
-                   approved = $approved
+                   approved = $approved,
+                   bio = '$bio'
                    WHERE user_id = $user_id";
 
     $updateuser = $mysqli->query($updateusersql);
@@ -51,7 +53,8 @@ else {
         surname = '$surname',    
         email = '$email',
         role_id = $role_id,
-        approved = $approved
+        approved = $approved,
+        bio = '$bio'
         WHERE user_id = $user_id";
 
     $updateuser = $mysqli->query($updateusersql);
