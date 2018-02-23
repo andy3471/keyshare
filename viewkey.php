@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
 }
 
 $sql = "
-SELECT K.game_id, G.gamename, K.keycode, K.owned_user as ownedbyid, CU.user_id as addedbyid, CU.username AS addedby, P.platformname  FROM `keys` AS K
+SELECT K.game_id, G.gamename, K.keycode, K.owned_user as ownedbyid, CU.user_id as addedbyid, CU.username AS addedby, K.platform_id, P.platformname  FROM `keys` AS K
 JOIN games as G
 ON K.game_id = G.game_id
 JOIN users as CU
@@ -46,6 +46,9 @@ if ($result->num_rows > 0) {
             //Check if owned by me
                 if ($row["ownedbyid"] == $_SESSION["user_id"]) {
                     echo '<input name="key" class="form-control" type="text" value ="'.$row["keycode"].'" disabled>';
+                    if ($row['K.platform_id'] = 1) {
+                        echo '<br><a href="https://store.steampowered.com/account/registerkey?key='.$row["keycode"].'"> Redeem on Steam</a>';
+                    }
                     echo '<br> Key Claimed <br>';
 
                 }
