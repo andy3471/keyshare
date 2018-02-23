@@ -12,8 +12,8 @@ function test_input($data) {
 $platformname = test_input($_POST['platformname']);
 
 
-        $addplatformsql = "INSERT INTO platforms (platformname,created_dttm)
-                   VALUES ('$platformname',curdate())";
+        $addplatformsql = "INSERT INTO platforms (platformname,created_dttm,removed)
+                   VALUES ('$platformname',curdate(),0)";
 
     $addplatform = $mysqli->query($addplatformsql);
 

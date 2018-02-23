@@ -64,19 +64,19 @@ $query .= "CREATE TABLE `platforms` (
   `removed` int(1) DEFAULT NULL,
 ) ";
 
-$query .= "INSERT INTO `platforms` (`platform_id`, `platformname`, `created_dttm`) VALUES
-(1, 'Steam', '2018-02-04'),
-(2, 'Uplay', '2018-02-05'),
-(3, 'Origin', '2018-02-05'),
-(4, 'Windows Store', '2018-02-05'),
-(5, 'Blizzard', '2018-02-05'),
-(6, 'GOG', '2018-02-05'),
-(7, 'PS3', '2018-02-05'),
-(8, 'PS4', '2018-02-05'),
-(9, 'PS Vita', '2018-02-05'),
-(10, 'Switch', '2018-02-05'),
-(11, 'Xbox 360', '2018-02-05'),
-(12, 'Xbox One', '2018-02-05');";
+$query .= "INSERT INTO `platforms` (`platform_id`, `platformname`, `created_dttm`, `removed`) VALUES
+(1, 'Steam', '2018-02-04', 0),
+(2, 'Uplay', '2018-02-05', 0),
+(3, 'Origin', '2018-02-05', 0),
+(4, 'Windows Store', '2018-02-05', 0),
+(5, 'Blizzard', '2018-02-05', 0),
+(6, 'GOG', '2018-02-05', 0),
+(7, 'PS3', '2018-02-05', 0),
+(8, 'PS4', '2018-02-05', 0),
+(9, 'PS Vita', '2018-02-05', 0),
+(10, 'Switch', '2018-02-05', 0),
+(11, 'Xbox 360', '2018-02-05', 0),
+(12, 'Xbox One', '2018-02-05', 0);";
 
 $query .= "CREATE TABLE `roles` (
   `role_id` int(11) NOT NULL,
