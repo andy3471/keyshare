@@ -47,17 +47,12 @@ $user_id = $_SESSION['user_id']
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="./games.php">Games</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="./addkey.php">Add Key</a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="./viewuser.php?id=<?php echo $user_id;?>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          User
+          <?php echo $_SESSION['username'].' '; $profile->getkarma($mysqli, $user_id)?>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <?php $profile->getprofilepic($mysqli, $user_id, 50); ?>
           <a class="dropdown-item" href="./viewuser.php?id=<?php echo $user_id;?>">View Profile</a>  
           <a class="dropdown-item" href="./updateuser.php">Update Profile</a>
           <a class="dropdown-item" href="./uploadprofilepic.php">Upload Picture</a>
@@ -67,6 +62,12 @@ $user_id = $_SESSION['user_id']
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href=./logout.php">Logout</a>
         </div>
+      <li class="nav-item">
+        <a class="nav-link" href="./games.php">Games</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./addkey.php">Add Key</a>
+      </li>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="./topusers.php">Top Users</a>
