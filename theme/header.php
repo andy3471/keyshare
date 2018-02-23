@@ -22,7 +22,7 @@ $user_id = $_SESSION['user_id']
 
     <head>
         <title><?php echo TITLE; ?></title>
-
+            <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             
@@ -79,7 +79,7 @@ $user_id = $_SESSION['user_id']
       
     </ul>
     <form class="form-inline my-2 my-lg-0" method="get" action="./search.php?">
-      <input class="form-control mr-sm-2" id="search" type="search" placeholder="search" aria-label="search">
+      <input class="form-control mr-sm-2" name="search" id="search" type="search" placeholder="search" aria-label="search">
             <script>
                 $(function() {
                     $( "#search" ).autocomplete({
