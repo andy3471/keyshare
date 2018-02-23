@@ -16,9 +16,9 @@ class profile {
         while($row = $result->fetch_assoc()) {
                                         
         if (is_null($row["profilepic"])) {
-            echo '<a href=".\viewuser.php?id='.$x.'"><img src="./images/defaultpic.jpg" width="100px" height="100px" class="img-thumbnail"></a>';
+            echo '<a href=".\viewuser.php?id='.$x.'"><img src="./images/defaultpic.jpg" width="100px" height="100px" class="img-thumbnail mx-auto d-block"></a>';
         } else {
-            echo '<a href=".\viewuser.php?id='.$x.'"><img src="./'.$row["profilepic"].'" width="100px" height="100px" class="img-thumbnail"></a>';
+            echo '<a href=".\viewuser.php?id='.$x.'"><img src="./'.$row["profilepic"].'" width="100px" height="100px" class="img-thumbnail mx-auto d-block"></a>';
             }
         }
         }
@@ -37,9 +37,9 @@ class profile {
         while($row = $result->fetch_assoc()) {
                                         
         if (is_null($row["profilepic"])) {
-            echo '<a href=".\viewuser.php?id='.$x.'"><img src="../images/defaultpic.jpg" width="100px" height="100px" class="img-thumbnail"></a>';
+            echo '<a href=".\viewuser.php?id='.$x.'"><img src="../images/defaultpic.jpg" width="100px" height="100px" class="img-thumbnail mx-auto d-block"></a>';
         } else {
-            echo '<a href=".\viewuser.php?id='.$x.'"><img src="../'.$row["profilepic"].'" width="100px" height="100px" class="img-thumbnail"></a>';
+            echo '<a href=".\viewuser.php?id='.$x.'"><img src="../'.$row["profilepic"].'" width="100px" height="100px" class="img-thumbnail mx-auto d-block"></a>';
             }
         }
         }
@@ -65,9 +65,9 @@ class games {
         
         while($row = $result->fetch_assoc()) {
             if (is_null($row["image"])) {
-                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./images/gamedefault.png" class="img-responsive rounded" width="460" height="215px"></a>';
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./images/gamedefault.png" class="img-responsive mx-auto d-block rounded" width="460" height="215px"></a>';
              } else {
-                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./'.$row["image"].'" class="img-responsive rounded" width="460px" height="215px"></a>';
+                echo '<a href=".\viewgame.php?id='.$x.'"><img src="./'.$row["image"].'" class="img-responsive mx-auto d-block rounded" width="460px" height="215px"></a>';
             }
         }
         }
