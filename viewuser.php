@@ -29,15 +29,12 @@ LIMIT 1
 $result = $mysqli->query($sql);
 
 
-echo '<h2>';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row["username"].' ';
-        $profile->getkarma($mysqli,$id);
 
-        $profile->getprofilepic($mysqli,$id,200);
-        echo '</h2><br>';
+        $profile->getprofilecard($mysqli,$id);
+        echo '<br>';
 
         //Get Available Keys
         $fetchkeys = "
