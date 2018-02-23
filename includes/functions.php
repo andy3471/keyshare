@@ -211,7 +211,7 @@ class games {
                 echo '<a href=".\viewkey.php?id='.$x.'"><img src="./'.$row["image"].'" alt="Card image cap" class="card-img-top"></a>';
             }
             echo '<div class="card-body">
-                    <p class="card-text"><a href=".\viewgame.php?id='.$x.'">'.$row["gamename"].'</a></p>
+                    <p class="card-text"><a href=".\viewkey.php?id='.$x.'">'.$row["platformname"].' - '.$row["gamename"].'</a></p>
                   </div>
                   </div>';
         }

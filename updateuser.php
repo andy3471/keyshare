@@ -42,7 +42,7 @@ if ($result->num_rows > 0) {
               </div>
               <div class="form-group">
                   <label for="bio">Bio:</label>
-                  <input name="bio" input type="textarea" class="form-control" id="email" value="'.$row["bio"].'">
+                  <input name="bio" input type="textarea" class="form-control" id="email" value="'.$row["bio"].'"  maxlength="255">
               </div>
               
 
