@@ -1,5 +1,7 @@
 <?php
 include './theme/loginheader.php';
+include_once('includes/db_connect.php');
+include_once('includes/games.php');
 ?>
     
     </head>
@@ -8,10 +10,7 @@ include './theme/loginheader.php';
 
 <?php
 // Includes
-include_once('includes/db_connect.php');
-include_once('includes/games.php');
-include 'includes/functions.php';
- 
+
 // Vars
 $username = $_POST['username'];
 $password = PASSWORD_HASH($_POST['password'], PASSWORD_BCRYPT); 
@@ -65,7 +64,7 @@ if ( $result->num_rows == 1 ) {
                                     }
                                 
                         
-                        header("location: games.php");
+                        header("location: ./games.php");
 		}
 		else {
 			echo "Password Incorrect.";
