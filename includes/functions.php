@@ -102,14 +102,14 @@ class games {
         if ($result->num_rows > 0) {
         
         while($row = $result->fetch_assoc()) {
-            echo '<div class="panel panel-default">';
+            echo '<div class="card" style="width: 18rem;">';
             if (is_null($row["image"])) {
                 echo '<a href=".\viewgame.php?id='.$x.'"><img src="./images/gamedefault.png" alt="Card image cap" class="card-img-top"></a>';
              } else {
                 echo '<a href=".\viewgame.php?id='.$x.'"><img src="./'.$row["image"].'" alt="Card image cap" class="card-img-top"></a>';
             }
-            echo '<div class="panel-footer">
-                    <h4><a href=".\viewgame.php?id='.$x.'">'.$row["gamename"].'</a></h4>
+            echo '<div class="card-body">
+                    <h5 class="card=title"><a href=".\viewgame.php?id='.$x.'">'.$row["gamename"].'</a></h4>
                   </div>
                   </div>';
         }

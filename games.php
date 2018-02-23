@@ -1,6 +1,7 @@
 <?php include './theme/header.php';
 
-$results_per_page = 15;
+$results_per_page = 12;
+$i = 1;
 
 if (isset($_GET["page"])) { 
 	$page  = $_GET["page"]; 
@@ -29,25 +30,28 @@ LIMIT $start_from, $results_per_page
 
 $result = $mysqli->query($sql);
 
+
+
 if ($result->num_rows > 0) {
-        echo '<div class="row">';
+    echo '<div class="container">
+    <div class="card-deck">';
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<div class="col-sm-4">';
-        $games->getgamepic($mysqli,$row["game_id"]);
-        echo '<br><a href="./viewgame.php?id='.$row["game_id"].'">';
-                if (strlen($row["gamename"]) > 26) {
-                  echo substr($row["gamename"],0,26).'...</a>';
-                }
-                else {
-                  echo $row["gamename"].'</a>';
-                }
-        echo '</div>';
+        
+        $games->getgamecard($mysqli,$row["game_id"]);
+     
+           if(!($i % 4)) {
+            echo '</div><br><div class="card-deck">';
+        }
+        
+        $i++;
     }
-        echo '</div>';
 } else {
     echo "0 results";
 }
+
+echo '</div>';
+
 
 
 $sql = "
@@ -63,27 +67,32 @@ $result = $mysqli->query($sql);
 $row = $result->fetch_assoc();
 $total_pages = ceil($row["total"] / $results_per_page); // calculate total pages with results
   
-			echo '<br><ul class="pagination justify-content-center">';
-			
+			echo '<br><nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">';
+                        
 			if ($page == 1) {
-				echo "<li class='disabled'><a href='#'>Previous</a></li>";
+				echo "<li class='page-item disabled'><a class='page-link' href='#'>Previous</a></li>";
 			} else {
-				echo "<li><a href='?page=".($page-1)."'>Previous</a></li>";
+				echo "<li class='page-item'><a class='page-link' href='?page='".($page-1)."'>Previous</a></li>";
 			}
 			
 for ($i=1; $i<=$total_pages; $i++) {  // print links for all pages
-            echo "<li";
-				if ($i==$page)  echo " class='active'";
-			echo "><a href='?page=".$i."'";
-            echo ">".$i."</a></li>";
-		}
+                        echo "<li class='page-item";
+				if ($i==$page)  echo " active";
+			echo "'><a class='page-link'href='?page=".$i."'";
+                        echo ">".$i."</a></li>";
+                        }
 
 			if ($page == $total_pages) {
-				echo "<li class='disabled'><a href='#'>Next</a></li>";
+				echo "<li class='page-item disabled'><a class='page-link' href='#'>Next</a></li>";
 			} else {
-				echo "<li><a href='?page=".($page+1)."'>Next</a></li>";
+				echo "<li class='page-item'><a class='page-link' href='?page=".($page+1)."'>Next</a></li>";
 			}
 			
-			echo "<ul>";
-			
- include './theme/footer.php';?>
+			echo "<ul></nav>"; ?>
+	
+
+<?php include './theme/footer.php';?>
+
+
+

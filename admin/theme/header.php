@@ -49,3 +49,13 @@ if($_SESSION["role_id"] != 2){
 
     
     <div class="container" style="margin-top:50px">
+        
+        
+                
+			<?php
+			$filename = dirname(__FILE__).'/../install/index.php';
+
+						if (file_exists($filename)) {
+				echo "<h1><b> PLEASE DELETE INSTALL DIRECTORY </b></h1>";
+			}
+			?>
