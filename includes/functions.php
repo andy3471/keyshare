@@ -160,7 +160,7 @@ class games {
                 echo '<a href=".\viewgame.php?id='.$x.'"><img src="./'.$row["image"].'" alt="Card image cap" class="card-img-top"></a>';
             }
             echo '<div class="card-body">
-                    <h5 class="card=title"><a href=".\viewgame.php?id='.$x.'">'.$row["gamename"].'</a></h4>
+                    <p class="card-text"><a href=".\viewgame.php?id='.$x.'">'.$row["gamename"].'</a></p>
                   </div>
                   </div>';
         }
@@ -189,7 +189,7 @@ class games {
                 echo '<a href=".\viewkey.php?id='.$x.'"><img src="./'.$row["image"].'" alt="Card image cap" class="card-img-top"></a>';
             }
             echo '<div class="card-body">
-                    <h5 class="card=title"><a href=".\viewkey.php?id='.$x.'">'.$row["platformname"].' - '.$row["gamename"].'</a></h4>
+                    <p class="card-text"><a href=".\viewgame.php?id='.$x.'">'.$row["gamename"].'</a></p>
                   </div>
                   </div>';
         }
