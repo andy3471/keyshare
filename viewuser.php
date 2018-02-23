@@ -85,20 +85,20 @@ $total_pages = ceil($row["total"] / $results_per_page); // calculate total pages
 			if ($page == 1) {
 				echo "<li class='page-item disabled'><a class='page-link' href='#'>Previous</a></li>";
 			} else {
-				echo "<li class='page-item'><a class='page-link' href='?page='".($page-1)."'>Previous</a></li>";
+				echo "<li class='page-item'><a class='page-link' href='?id=".$id."&page='".($page-1)."'>Previous</a></li>";
 			}
 			
 for ($i=1; $i<=$total_pages; $i++) {  // print links for all pages
                         echo "<li class='page-item";
 				if ($i==$page)  echo " active";
-			echo "'><a class='page-link'href='?page=".$i."'";
+			echo "'><a class='page-link'href='?id=".$id."&page=".$i."'";
                         echo ">".$i."</a></li>";
                         }
 
 			if ($page == $total_pages) {
 				echo "<li class='page-item disabled'><a class='page-link' href='#'>Next</a></li>";
 			} else {
-				echo "<li class='page-item'><a class='page-link' href='?page=".($page+1)."'>Next</a></li>";
+				echo "<li class='page-item'><a class='page-link' href='?id=".$id."&page=".($page+1)."'>Next</a></li>";
 			}
 			
 			echo "<ul></nav>";
