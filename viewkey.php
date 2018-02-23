@@ -56,10 +56,9 @@ if ($result->num_rows > 0) {
             }
         }
         echo '</p>';
-            echo 'Key shared by <td><a href="./viewuser.php?id='.$row["addedbyid"].'">'.$row["addedby"].'</a> ';
-            $profile->getkarma($mysqli,$row["addedbyid"]);
+            echo 'Key shared by:';
             echo '<br>';
-            $profile->getprofilepic($mysqli,$row["addedbyid"],100);
+            $profile->getprofilecard($mysqli,$row["addedbyid"]);
        }
    
 
