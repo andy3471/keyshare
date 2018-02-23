@@ -7,11 +7,18 @@ $uploadOK = 1;
 $filename = uniqid();
 $target_file = $target_dir.$filename.'.'.$imageFileType ;
 $game_id = $_POST['game_id'];
+$image_info = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+$image_width = $image_info[0];
+$image_height = $image_info[1];
 
+
+
+//Check if file uploaded
 if (empty($_FILES["fileToUpload"]["name"])) {
         echo 'No file uploaded';
         $uploadOk = 0;
-  }   
+  }  
+  
 //Check if image MIMI
 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
@@ -20,6 +27,12 @@ $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
         echo "File is not an image.";
         $uploadOk = 0;
     }
+    
+// Check Image Dimensions
+if ($image_width != 460 || $image_height != 215) {
+    echo 'Image needs to be 460x215px <br>';
+    $uploadOk = 0;
+}
     
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > 500000) {
