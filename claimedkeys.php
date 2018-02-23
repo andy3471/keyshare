@@ -1,6 +1,7 @@
 <?php include './theme/header.php';
 
-$results_per_page = 25;
+$results_per_page = 12;
+$i = 1;
 
 if (isset($_GET["page"])) { 
 	$page  = $_GET["page"]; 
@@ -18,7 +19,7 @@ echo "<h2> My Games </h2>";
 $user_id = $_SESSION["user_id"];
 
 $sql = "
-SELECT K.key_id, G.gamename, P.platformname FROM `keys` AS K
+SELECT K.key_id FROM `keys` AS K
 JOIN games G
 ON K.Game_ID = G.Game_ID
 JOIN platforms P
@@ -29,16 +30,28 @@ LIMIT $start_from, $results_per_page
 
 $result = $mysqli->query($sql);
 
+
+
+
 if ($result->num_rows > 0) {
+    echo '<div class="container">
+    <div class="card-deck">';
     // output data of each row
-    echo '<table class="table"><tr><th>Game Name</th><th>Platform</th></tr>';
     while($row = $result->fetch_assoc()) {
-        echo '<tr><td><a href="./viewkey.php?id='.$row["key_id"].'">'. $row["gamename"].'</a></td><td>'.$row["platformname"].'</td></tr>';
+        
+        $games->getkeycard($mysqli,$row["key_id"]);
+     
+           if(!($i % 4)) {
+            echo '</div><br><div class="card-deck">';
+        }
+        
+        $i++;
     }
-    echo '</table>';
 } else {
-    echo "No Keys Claimed";
+    echo "0 results";
 }
+
+echo '</div>';
 
 $sql = "
 SELECT COUNT(K.key_id) as total FROM `keys` AS K
