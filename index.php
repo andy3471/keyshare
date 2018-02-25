@@ -1,5 +1,6 @@
 <?php
 include './theme/loginheader.php';
+include_once('./steamauth/steamauth.php');
 ?>
     
     </head>
@@ -16,6 +17,6 @@ include './theme/loginheader.php';
                 <br>
                 <p> Not Registered? <a href="./register.php">Sign Up</a> </p>
                 </form>
-
+				<?php if (STEAMLOGINS == 1) echo loginbutton();?>
     </body>
 </html>

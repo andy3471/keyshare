@@ -9,8 +9,8 @@ if (isset($_GET['id'])) {
 }
 
 $sql = "
-SELECT user_id, username, forename, surname, email, role_id, bio, approved 
-FROM users AS U 
+SELECT user_id, username, displayname, forename, surname, email, role_id, bio, approved, steamuser
+FROM users
 WHERE user_id = $id
 LIMIT 1
 ";
@@ -22,20 +22,22 @@ echo '<h2>';
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row["username"];
+        echo $row["displayname"];
         echo '</h2>';
-        
-        $profile->getprofilepicadmin($mysqli,$id);
         
         echo '<br> <div id="bodytext">
               <form method="post" action="../admin/updateuser.php"> 
               <div class="form-group">
                   <label for="username">Username:</label>
-                  <input name="username" input type="text" class="form-control" id="username" value="'.$row["username"].'">
+    <input name="username" input type="text" class="form-control" id="username" value="'.$row["username"].'"'; if ($row["steamuser"] == 1) echo 'disabled'; echo '>
+              </div>
+              <div class="form-group">
+                  <label for="displayname">Display Name:</label>
+                  <input name="displayname" input type="text" class="form-control" id="displayname" value="'.$row["displayname"].'"'; if ($row["steamuser"] == 1) echo 'disabled'; echo '>
               </div>
               <div class="form-group">
                   <label for="password">Password:</label>
-                  <input name="password" input type="password" class="form-control" id="password">
+                  <input name="password" input type="password" class="form-control" id="password"'; if ($row["steamuser"] == 1) echo 'disabled'; echo '>
               </div>
               <div class="form-group">
                   <label for="forename">Forename:</label>

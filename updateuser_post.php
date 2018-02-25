@@ -10,6 +10,7 @@ function test_input($data) {
 
 //Form Data
 $username = test_input($_POST['username']);
+$displayname = test_input($_POST['displayname']);
 $forename = test_input($_POST['forename']);
 $surname = test_input($_POST['surname']);
 $email = test_input($_POST['email']);
@@ -28,14 +29,15 @@ if(!isset($_POST['password']) || empty($_POST['password'])) {
                    forename = '$forename',
                    surname = '$surname',    
                    email = '$email',
-                   bio = '$bio'
+                   bio = '$bio',
+                   displayname = '$displayname'
                    WHERE user_id = $user_id";
 
     $updateuser = $mysqli->query($updateusersql);
 
     if ( $updateuser ) {
         echo "User Updated" ;
-        $_SESSION["username"] = $username;
+        $_SESSION["displayname"] = $displayname;
         }
     else {
         die("Error: {$mysqli->errno} : {$mysqli->error}");
@@ -50,7 +52,8 @@ else {
         forename = '$forename',
         surname = '$surname',    
         email = '$email',
-        bio = '$bio'
+        bio = '$bio',
+        displayname = '$displayname'
         WHERE user_id = $user_id";
 
     $updateuser = $mysqli->query($updateusersql);
@@ -58,7 +61,7 @@ else {
 //    Print Response
     if ( $updateuser ) {
         echo "User Updated - Password Changed" ;
-        $_SESSION["username"] = $username;
+        $_SESSION["displayname"] = $displayname;
         }
     else {
         die("Error: {$mysqli->errno} : {$mysqli->error}"); 

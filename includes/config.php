@@ -1,14 +1,11 @@
 <?php
-
-// DB Connection
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'keyshare');
-define('DB_PASSWORD', 'cuntflaps69');
-define('DB_NAME', 'keyshare');
-
-// Config
-define("CAN_REGISTER", "any");
-define("DEFAULT_ROLE", "member");
-define("SECURE", FALSE);
-define('TITLE',"Test Keyshare");
-?>
+        //Db Connection
+        define('DB_SERVER', 'sfdsf');
+        define('DB_USERNAME', 'fsdf');
+        define('DB_PASSWORD', 'dfgdfg');
+        define('DB_NAME', 'sdfsd');
+        
+        //Config
+        define('TITLE','sdfsd');
+        define('STEAMLOGINS','1');
+        ?>

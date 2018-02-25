@@ -11,6 +11,7 @@ function test_input($data) {
 //Form Data
 $username = test_input($_POST['username']);
 $forename = test_input($_POST['forename']);
+$displayname = test_input($_POST['displayname']);
 $surname = test_input($_POST['surname']);
 $email = test_input($_POST['email']);
 $role_id = $_POST['role_id'];
@@ -31,7 +32,8 @@ if(!isset($_POST['password']) || empty($_POST['password'])) {
                    email = '$email',
                    role_id = $role_id,
                    approved = $approved,
-                   bio = '$bio'
+                   bio = '$bio',
+                   displayname = '$displayname'
                    WHERE user_id = $user_id";
 
     $updateuser = $mysqli->query($updateusersql);
@@ -54,7 +56,8 @@ else {
         email = '$email',
         role_id = $role_id,
         approved = $approved,
-        bio = '$bio'
+        bio = '$bio',
+        displayname = '$displayname'
         WHERE user_id = $user_id";
 
     $updateuser = $mysqli->query($updateusersql);

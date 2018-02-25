@@ -18,7 +18,7 @@ class profile {
         if (is_null($row["profilepic"])) {
             echo '<a href=".\viewuser.php?id='.$x.'"><img src="./images/defaultpic.jpg" width="'.$y.'px" height="'.$y.'px" class="img-thumbnail mx-auto d-block"></a>';
         } else {
-            echo '<a href=".\viewuser.php?id='.$x.'"><img src="./'.$row["profilepic"].'" width="'.$y.'px" height="$'.$y.'px" class="img-thumbnail mx-auto d-block"></a>';
+            echo '<a href=".\viewuser.php?id='.$x.'"><img src="'.$row["profilepic"].'" width="'.$y.'px" height="$'.$y.'px" class="img-thumbnail mx-auto d-block"></a>';
             }
         }
         }
@@ -39,7 +39,7 @@ class profile {
         if (is_null($row["profilepic"])) {
             echo '<a href=".\viewuser.php?id='.$x.'"><img src="../images/defaultpic.jpg" width="100px" height="100px" class="img-thumbnail mx-auto d-block"></a>';
         } else {
-            echo '<a href=".\viewuser.php?id='.$x.'"><img src="../'.$row["profilepic"].'" width="100px" height="100px" class="img-thumbnail mx-auto d-block"></a>';
+            echo '<a href=".\viewuser.php?id='.$x.'"><img src="'.$row["profilepic"].'" width="100px" height="100px" class="img-thumbnail mx-auto d-block"></a>';
             }
         }
         }
@@ -95,26 +95,27 @@ class profile {
             
      function getprofilecard($mysqli,$x) {
         $sql = "
-        SELECT profilepic, username, bio FROM users
+        SELECT profilepic, username, displayname, bio, steamuser FROM users
         WHERE user_id = $x";
 
         $result = $mysqli->query($sql);
 
         if ($result->num_rows > 0) {
-        
         while($row = $result->fetch_assoc()) {
           echo  '<div class="media">';
                    if (is_null($row["profilepic"])) {
                         echo '<a href=".\viewuser.php?id='.$x.'"><img class="mr-3" src="./images/defaultpic.jpg" width="150px" height="150px" alt="Generic placeholder image"></a>';
                     } else {
-                        echo '<a href=".\viewuser.php?id='.$x.'"><img class="mr-3" src="./'.$row["profilepic"].'" width="150px" height="150px" alt="Generic placeholder image"></a>';
+                        echo '<a href=".\viewuser.php?id='.$x.'"><img class="mr-3" src="'.$row["profilepic"].'" width="150px" height="150px" alt="Generic placeholder image"></a>';
                         }
             echo '<div class="media-body">
-                    <h5 class="mt-0"><a href=".\viewuser.php?id='.$x.'">'.$row["username"].'</a> ';
+                    <h5 class="mt-0"><a href=".\viewuser.php?id='.$x.'">'.$row["displayname"].'</a> ';
                         $this->getkarma($mysqli,$x);
                     echo '</h5><p>'
                     .$row["bio"].
-                  '</p></div>
+                  '</p>';
+                                if ($row["steamuser"] == 1) echo '<a href=https://steamcommunity.com/profiles/'.$row["username"].'> View Steam Profile </a>';
+         echo           '</div>
                 </div>';
             }
         }
