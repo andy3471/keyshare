@@ -19,3 +19,4 @@ Built on LAMP, with PHP, MYSQL and JQUERY. Also works on XAMPP.
 2. Navigate to the /install directory on your browser
 3. Run through Install Process
 5. Delete /install directory
+6. (Optional) If you are using Steam Logins, you must set the API key and Domain in steamauth/SteamConfig.php
