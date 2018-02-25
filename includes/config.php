@@ -1,11 +1,11 @@
 <?php
         //Db Connection
-        define('DB_SERVER', 'sfdsf');
-        define('DB_USERNAME', 'fsdf');
-        define('DB_PASSWORD', 'dfgdfg');
-        define('DB_NAME', 'sdfsd');
+        define('DB_SERVER', '');
+        define('DB_USERNAME', '');
+        define('DB_PASSWORD', '');
+        define('DB_NAME', '');
         
         //Config
-        define('TITLE','sdfsd');
-        define('STEAMLOGINS','1');
+        define('TITLE','');
+        define('STEAMLOGINS','');
         ?>
