@@ -8,6 +8,11 @@ include '../theme/installheader.php';
             <form method="post" action="createconfig.php">
                 <label for="title"> Site Title: </label>
                 <input name="title" class="form-control" type="text" required>
+                <label for="Steam Logins"> Steam Logins Enabled: </label>
+                <select name="steamlogins" select class="form-control" id="steamlogins">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
                 <label for="db_server"> DB Server: </label>
                 <input name="db_server" class="form-control" type="text" required>
                 <label for="db_name"> DB Name: </label>

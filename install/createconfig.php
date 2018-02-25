@@ -13,7 +13,7 @@ $db_name = $_POST['db_name'];
 $db_username = $_POST['db_username'];
 $db_password = $_POST['db_password'];
 $title = $_POST['title'];
-
+$steamlogins = $_POST['steamlogins'];
 
 $configfile = fopen("../includes/config.php", "w") or die("Unable to open file!");
 $txt = "<?php
@@ -25,6 +25,7 @@ $txt = "<?php
         
         //Config
         define('TITLE','".$db_name."');
+        define('STEAMLOGINS','".$steamlogins."');
         ?>";
         
     fwrite($configfile, $txt);

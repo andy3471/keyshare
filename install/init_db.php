@@ -89,16 +89,18 @@ $query .= "INSERT INTO `roles` (`role_id`, `Name`) VALUES
 
 $query .= "CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `username` varchar(30) NOT NULL,
-  `password` char(128) NOT NULL,
-  `forename` varchar(45) NOT NULL,
-  `surname` varchar(45) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `username` varchar(32) NOT NULL,
+  `password` char(128) DEFAULT NULL,
+  `forename` varchar(45) DEFAULT NULL,
+  `surname` varchar(45) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
   `role_id` int(11) DEFAULT NULL,
   `create_date` datetime NOT NULL,
   `approved` int(1) DEFAULT NULL,
   `profilepic` varchar(255) DEFAULT NULL,
-  `bio` varchar(255) DEFAULT NULL
+  `bio` varchar(255) DEFAULT NULL,
+  `displayname` varchar(45) DEFAULT NULL,
+  `steamuser` int(11) DEFAULT '0'
 ) ";
 
 
