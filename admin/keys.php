@@ -12,7 +12,7 @@ else {
 $start_from = ($page-1) * $results_per_page;
 
 $sql = "
-SELECT K.key_id, G.gamename, P.platformname, K.owned_user AS owneduserid, OU.username AS ownedusername, K.created_user_id AS createduserid, CU.username AS createdusername, K.removed FROM `keys` as K
+SELECT K.key_id, G.gamename, P.platformname, K.owned_user AS owneduserid, OU.displayname AS ownedusername, K.created_user_id AS createduserid, CU.displayname AS createdusername, K.removed FROM `keys` as K
 LEFT JOIN games AS G
 ON G.game_id = K.game_id
 LEFT JOIN platforms AS P

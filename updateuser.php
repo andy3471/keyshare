@@ -3,7 +3,7 @@
 $id = $_SESSION["user_id"];
 
 $sql = "
-SELECT user_id, username, forename, surname, email, role_id, bio, approved 
+SELECT user_id, username, displayname, forename, surname, email, role_id, bio, approved, steamuser
 FROM users AS U 
 WHERE user_id = $id
 LIMIT 1
@@ -15,20 +15,31 @@ $result = $mysqli->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo '<H2>'.$row["username"].'</H2>';
         
+        echo '<H2>'.$row["displayname"].'</H2>';
         
+            
         echo '
-              <form method="post" action="./updateuser_post.php"> 
-              <div class="form-group">
-                  <label for="username">Username:</label>
-                  <input name="username" input type="text" class="form-control" id="username" value="'.$row["username"].'">
-              </div>
-              <div class="form-group">
-                  <label for="password">Password:</label>
-                  <input name="password" input type="password" class="form-control" id="password">
-              </div>
-              <div class="form-group">
+              <form method="post" action="./updateuser_post.php"> ';
+        
+              if ($row["steamuser"] == 0) {
+                    echo '<div class="form-group">
+                        <label for="username">Username:</label>
+                        <input name="username" input type="text" class="form-control" id="username" value="'.$row["username"].'" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="displayname">Display Name:</label>
+                        <input name="displayname" input type="text" class="form-control" id="displayname" value="'.$row["displayname"].'" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input name="password" input type="password" class="form-control" id="password">
+                    </div>'; }
+              else{
+                    echo '<input type="hidden" name="username" id="username" value="'.$row["username"].'" />
+                     <input type="hidden" name="displayname" id="displayname" value="'.$row["displayname"].'" />';
+                 }
+        echo  '<div class="form-group">
                   <label for="forename">Forename:</label>
                   <input name="forename" input type="text" class="form-control" id="forename" value="'.$row["forename"].'">
               </div>

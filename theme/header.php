@@ -10,12 +10,13 @@ $page = new page;
 //Start Session
 session_start();
 // If not logged in, return to login
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
+if(!isset($_SESSION['displayname']) || empty($_SESSION['displayname'])){
   header("location: index.php");
   exit;
 }
 
-$user_id = $_SESSION['user_id']
+$user_id = $_SESSION['user_id'];
+$steamuser = $_SESSION["steamuser"];
 ?>
 
 <html>
@@ -49,13 +50,13 @@ $user_id = $_SESSION['user_id']
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="./viewuser.php?id=<?php echo $user_id;?>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <?php echo $_SESSION['username'].' '; $profile->getsessionkarma()?>
+          <?php echo $_SESSION['displayname'].' '; $profile->getsessionkarma()?>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <?php $profile->getprofilepic($mysqli, $user_id, 50); ?>
           <a class="dropdown-item" href="./viewuser.php?id=<?php echo $user_id;?>">View Profile</a>  
           <a class="dropdown-item" href="./updateuser.php">Update Profile</a>
-          <a class="dropdown-item" href="./uploadprofilepic.php">Upload Picture</a>
+        <?php if ($steamuser == 0) echo '<a class="dropdown-item" href="./uploadprofilepic.php">Upload Picture</a>';?>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="./claimedkeys.php">Claimed Keys</a>
           <a class="dropdown-item" href="./sharedkeys.php">Shared Keys</a>

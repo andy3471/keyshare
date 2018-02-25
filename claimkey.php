@@ -4,11 +4,6 @@ include_once('includes/db_connect.php');
 
 //Start Session
 session_start();
-// If not logged in, return to login
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
-  header("location: index.php");
-  exit;
-}
 
 
 //Form Data

@@ -40,7 +40,7 @@ if ($result->num_rows > 0) {
 
         //Get Available Keys
         $fetchkeys = "
-        SELECT K.key_id, P.platformname, U.username, K.created_user_id as user_id FROM `keys` AS K
+        SELECT K.key_id, P.platformname, U.displayname, K.created_user_id as user_id FROM `keys` AS K
         JOIN platforms AS P
         ON K.platform_id = P.platform_id
         JOIN users AS U
@@ -58,7 +58,7 @@ if ($result->num_rows > 0) {
             while($keyrow = $keyresults->fetch_assoc()) {
                 
                 echo '<tr><td><a href="./viewkey.php?id='.$keyrow["key_id"].'">'.$keyrow["platformname"].'</a></td>
-                     <td><a href="./viewuser.php?id='.$keyrow["user_id"].'">'.$keyrow["username"].'</a> ';
+                     <td><a href="./viewuser.php?id='.$keyrow["user_id"].'">'.$keyrow["displayname"].'</a> ';
                      $profile->getkarma($mysqli,$keyrow["user_id"]);
                     echo '</tr>';
             }

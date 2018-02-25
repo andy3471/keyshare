@@ -12,20 +12,27 @@ else {
 $start_from = ($page-1) * $results_per_page;
 
 $sql = "
-SELECT U.user_id, U.username, U.forename, U.surname, U.email, R.Name as role, U.approved 
+SELECT U.user_id, U.displayname, U.forename, U.surname, U.email, R.Name as role, U.approved, steamuser
 FROM users AS U 
 LEFT JOIN roles AS R 
 ON U.role_id = R.role_id 
-ORDER BY U.approved, U.username
+ORDER BY U.approved, U.displayname
 ";
 
 $result = $mysqli->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
-        echo '<div id="bodytext"> <table class="table"><tr><th> Username </th><th> Forename </th><th> Surname </th><th> Email </th><th> Role </th><th> Approved? </th></tr>';
+        echo '<div id="bodytext"> <table class="table"><tr><th> Display Name </th><th> Forename </th><th> Surname </th><th> Email </th><th> Role </th><th> Steam User? </th><th> Approved? </th></tr>';
     while($row = $result->fetch_assoc()) {
-        echo '<tr><td><a href="./viewuser.php?id='.$row["user_id"].'">'. $row["username"].'</a></td><td>'. $row["forename"].'</td><td>'. $row["surname"].'</td><td>'. $row["email"].'</td><td>'. $row["role"].'</td><td>';
+        echo '<tr><td><a href="./viewuser.php?id='.$row["user_id"].'">'. $row["displayname"].'</a></td><td>'. $row["forename"].'</td><td>'. $row["surname"].'</td><td>'. $row["email"].'</td><td>'. $row["role"].'</td><td>';
+                if ($row["steamuser"] == 0) {
+                    echo 'No</td>';
+                }
+                else {
+                    echo 'Yes</td>';
+                }
+                echo '<td>';
                 if ($row["approved"] == 0) {
                     echo 'No</td><tr>';
                 }

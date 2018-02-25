@@ -16,6 +16,7 @@ function test_input($data) {
 
 // Vars
 $username = test_input($_POST['username']);
+$displayname = test_input($_POST['displayname']);
 $password = PASSWORD_HASH($_POST['password'], PASSWORD_BCRYPT); 
 $forename = test_input($_POST['forename']);
 $surname = test_input($_POST['surname']);
@@ -24,7 +25,7 @@ $email = test_input($_POST['email']);
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 //SQL
-$addusersql = "insert into users (username,password,forename,surname,email,role_id,create_date,approved) VALUES ( '$username','$password','$forename','$surname','$email',1,curdate(),0) ";
+$addusersql = "insert into users (username,password,forename,surname,email,role_id,create_date,approved, displayname, steamuser) VALUES ( '$username','$password','$forename','$surname','$email',1,curdate(),0,'$displayname',0) ";
 $insertuser = $mysqli->query($addusersql);
 
 // Print Response
