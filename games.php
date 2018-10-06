@@ -55,7 +55,7 @@ echo '</div>';
 
 
 $sql = "
-SELECT DISTINCT COUNT(G.game_id) AS total FROM games AS G
+SELECT COUNT(DISTINCT G.game_id) AS total FROM games AS G
 JOIN `keys` K
 ON K.Game_ID = G.Game_ID
 WHERE K.removed is null
@@ -66,6 +66,7 @@ AND K.dlc_id is null";
 $result = $mysqli->query($sql);
 $row = $result->fetch_assoc();
 $total_pages = ceil($row["total"] / $results_per_page); // calculate total pages with results
+
   
 			echo '<br><nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">';
