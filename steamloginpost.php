@@ -1,32 +1,22 @@
 <?php
-include './theme/loginheader.php';
-include_once('includes/db_connect.php');
+    require ('steamauth/steamauth.php');
+	include ('steamauth/userInfo.php');
+	include ('includes/db_connect.php');
+	include ('/theme/loginheader.php');
 
-include_once('./steamauth/steamauth.php');
-include_once('./steamauth/userInfo.php');
+	function test_input($data) {
+	  $data = trim($data);
+	  $data = stripslashes($data);
+	  $data = htmlspecialchars($data);
+	  return $data;
+	} 
+	
+    $steamid = $steamprofile['steamid'];
+	$displayname = test_input($steamprofile['personaname']);
+	$profilepic = $steamprofile['avatarfull'];
+	
 
-
-?>
-    
-    </head>
-    <body>
-                <h1> Login </h1>
-
-<?php
-// Includes
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-} 
-
-
-// Vars
-$steamid = $steamprofile['steamid'];
-$displayname = test_input($steamprofile['personaname']);
-$profilepic = $steamprofile['avatarfull'];
-
+	
 //SQL
 $findusersql = "SELECT user_id, role_id, username, approved, displayname FROM users WHERE username = '$steamid' AND steamuser = 1 LIMIT 1";
 $result = $mysqli->query($findusersql);
@@ -111,13 +101,14 @@ if ( $result->num_rows == 1 ) {
 } 
         
     
-    else {
-    die("Error: {$mysqli->errno} : {$mysqli->error}");
+   else {
+//    die("Error: {$mysqli->errno} : {$mysqli->error}");
 }
 
 
 
 
 ?>
+
     </body>
 </html>
