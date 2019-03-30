@@ -5,7 +5,7 @@
 <div class="container">
     <h2> {{$title}} </h1>
 
-    @if(count($games) > 1)
+    @if(count($games) > 0)
         @php ($i = 1)
         <div class="card-deck">
         @foreach($games as $game)
@@ -28,7 +28,7 @@
                 @if(!($i % 4))
                     </div><br><div class="card-deck">
                 @endif
-                @php ($i++) 
+                @php ($i++)
 
         @endforeach
         </div>

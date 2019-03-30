@@ -1,14 +1,44 @@
-
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Nunito");
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 .navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+//AutoComplete Component
+.autocomplete {
+    position: relative;
+    width: 130px;
+}
+
+.autocomplete-results {
+    padding: 0;
+    margin: 0;
+    border: 1px solid lightgrey;
+    border-radius: 2px;
+    overflow: auto;
+    background-color: white;
+    position: absolute;
+    z-index: 2000;
+    width: 500px;
+}
+
+.autocomplete-result {
+    list-style: none;
+    text-align: left;
+    padding: 8px 2px;
+    cursor: pointer;
+}
+
+.autocomplete-result.is-active,
+.autocomplete-result:hover {
+    background-color: #4aae9b;
+    color: white;
 }

@@ -16,7 +16,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/search', 'HomeController@search')->name('search')->middleware('auth');
-Route::get('/autocomplete', 'HomeController@autocomplete')->name('autocomplete')->middleware('auth');
+Route::get('/autocomplete/{search}', 'HomeController@autocomplete')->name('autocomplete')->middleware('auth');
 
 Route::get('/games', 'GamesController@index')->name('games')->middleware('auth');
 Route::get('/games/{id}', 'GamesController@show')->name('game')->middleware('auth');
