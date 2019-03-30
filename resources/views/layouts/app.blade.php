@@ -26,7 +26,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-          
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
@@ -36,7 +36,7 @@
                         {{ Auth::user()->name }}
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/users/{{auth()->id()}}">View Profile</a>  
+                        <a class="dropdown-item" href="/users/{{auth()->id()}}">View Profile</a>
                         <a class="dropdown-item" href="./updateuser.php">Update Profile</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('claimedkeys') }}">Claimed Keys</a>
@@ -62,26 +62,24 @@
                     <li class="nav-item">
                       <a class="nav-link" href="{{ route('users') }}">Top Users</a>
                     </li>
-                    
-                    
+
+
                   </ul>
                   <form class="form-inline my-2 my-lg-0" method="get" action="{{ route('search') }}">
-                    <input class="form-control mr-sm-2" name="search" id="search" type="search" placeholder="Search..." aria-label="search">
-                          <script>
-                          </script>
+                    <game-autocomplete placeholder="Search..." name="search" id="search" type="search" classes="form-control mr-sm-2"></game-autocomplete>
                     <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                   </form>
                 </div>
               @endif
           </nav>
-                  
+
             -->
-                  
-                  
+
+
                   <div class="jumbotron">
                       <img src="{{ asset('images/LogoWeb.png') }}" alt="360NoHope" width="137" height="110">
                   </div>
-                      
+
             <div class="Container">
 
             @yield('content')
