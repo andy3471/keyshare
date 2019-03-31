@@ -30,7 +30,7 @@
                             {{ __('Remember Me') }}
                         </label>
                     </div>
-
+            <a href="{{ route('steamlogin') }}"><img  src="{{ asset('/images/steamlogin.png') }}" /></a>
             <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
                     <button type="submit" class="btn btn-primary">
@@ -42,12 +42,13 @@
                             {{ __('Forgot Your Password?') }}
                         </a>
                     @endif
-                    
+
                     <a class="btn btn-link" href="{{ route('register') }}">Register</a>
                 </div>
 
             </div>
-            <br>     
+            <br>
         </form>
+
 </div>
 @endsection

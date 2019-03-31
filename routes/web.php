@@ -13,6 +13,8 @@
 
 
 Auth::routes();
+Route::get('login/steam', 'Auth\LoginController@steamRedirect')->name('steamlogin');
+Route::get('login/steam/callback', 'Auth\LoginController@steamCallback');
 
 Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/search', 'HomeController@search')->name('search')->middleware('auth');

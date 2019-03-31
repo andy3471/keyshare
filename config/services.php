@@ -44,4 +44,11 @@ return [
         ],
     ],
 
+    'steam' => [
+        'client_id' => env('STEAM_KEY'),
+        'client_secret' => env('STEAM_SECRET'),
+        'redirect' => env('STEAM_REDIRECT_URI')
+    ],
+
+
 ];
