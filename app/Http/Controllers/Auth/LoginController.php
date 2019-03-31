@@ -57,7 +57,6 @@ class LoginController extends Controller
         $user = Socialite::driver('steam')->user();
 
         $findUser = LinkedAccount::where('account_id', '=', $user->id)->get();
-        return json_encode($user);
         if ($findUser) {
             $findUser = User::find($findUser[0]->user_id);
         } else {
