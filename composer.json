@@ -12,8 +12,10 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/horizon": "^3.0",
+        "laravel/socialite": "^4.1",
         "laravel/tinker": "^1.0",
-        "laravelcollective/html": "^5.4.0"
+        "laravelcollective/html": "^5.4.0",
+        "socialiteproviders/steam": "^1.1"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

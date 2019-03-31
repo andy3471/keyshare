@@ -179,6 +179,8 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //SocialiteProviders
+        \SocialiteProviders\Manager\ServiceProvider::class
     ],
 
     /*
