@@ -29,7 +29,7 @@ class HomeController extends Controller
         if (Auth::guest()) {
             return view('auth.login');
         }
-        return view('home');
+        return redirect()->route('games');
     }
 
     public function search(Request $request)

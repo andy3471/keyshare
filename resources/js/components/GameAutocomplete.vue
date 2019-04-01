@@ -59,7 +59,14 @@ export default {
       if (this.gameInput.length > 2) {
         axios.get("/autocomplete/" + this.gameInput).then(response => {
           this.searchResults = response.data;
-          this.listOpen = true;
+          if (
+            this.searchResults.length == 1 &&
+            this.searchResults[0].name == this.gameInput
+          ) {
+            this.listOpen = false;
+          } else {
+            this.listOpen = true;
+          }
         });
       } else {
         this.searchResults = [];
