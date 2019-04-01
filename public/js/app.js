@@ -1858,7 +1858,12 @@ __webpack_require__.r(__webpack_exports__);
       if (this.gameInput.length > 2) {
         axios.get("/autocomplete/" + this.gameInput).then(function (response) {
           _this.searchResults = response.data;
-          _this.listOpen = true;
+
+          if (_this.searchResults.length == 1 && _this.searchResults[0].name == _this.gameInput) {
+            _this.listOpen = false;
+          } else {
+            _this.listOpen = true;
+          }
         });
       } else {
         this.searchResults = [];
@@ -49494,8 +49499,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\git\keyshare\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\git\keyshare\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/andy/git/keyshare/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/andy/git/keyshare/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
