@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-keyshare bg-dark fixed-top">
             <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', 'Laravel') }}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -67,7 +67,7 @@
                   </ul>
                   <form class="form-inline my-2 my-lg-0" method="get" action="{{ route('search') }}">
                     <game-autocomplete placeholder="Search..." name="search" id="search" type="search" classes="form-control mr-sm-2"></game-autocomplete>
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                    <button class="btn btn-outline-primary btn-outline-keyshare my-2 my-sm-0" type="submit">Search</button>
                   </form>
                 </div>
               @endif
