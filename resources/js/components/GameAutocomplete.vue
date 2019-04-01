@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="autocomplete">
     <input
       type="text"
       v-model="gameInput"

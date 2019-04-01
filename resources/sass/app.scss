@@ -7,38 +7,57 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-.navbar-laravel {
-    background-color: #fff;
+.navbar-keyshare {
+    background-color: $main;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
 //AutoComplete Component
 .autocomplete {
     position: relative;
-    width: 130px;
+
+    .autocomplete-results {
+        padding: 0;
+        margin: 0;
+        border: 1px solid lightgrey;
+        border-radius: bottom 2px;
+        overflow: auto;
+        background-color: white;
+        position: absolute;
+        z-index: 2000;
+        width: 100%;
+
+        .autocomplete-result {
+            list-style: none;
+            text-align: left;
+            padding: 8px 2px;
+            cursor: pointer;
+            margin-top: 2px;
+        }
+
+        .autocomplete-result.is-active,
+        .autocomplete-result:hover {
+            background-color: $accent;
+            color: white;
+        }
+    }
+}
+//Bootstrap Overrides
+
+.form-control:focus {
+    border-color: #ff0000;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(255, 0, 0, 0.6);
 }
 
-.autocomplete-results {
-    padding: 0;
-    margin: 0;
-    border: 1px solid lightgrey;
-    border-radius: 2px;
-    overflow: auto;
-    background-color: white;
-    position: absolute;
-    z-index: 2000;
-    width: 500px;
+//BootstrapAssets
+.btn-outline-keyshare {
+    color: $accent !important;
+    border-color: $accent !important;
+    border-radius: $border-radius !important;
 }
 
-.autocomplete-result {
-    list-style: none;
-    text-align: left;
-    padding: 8px 2px;
-    cursor: pointer;
-}
-
-.autocomplete-result.is-active,
-.autocomplete-result:hover {
-    background-color: #4aae9b;
-    color: white;
+.btn-outline-keyshare:hover {
+    background-color: $accent !important;
+    color: white !important;
 }
