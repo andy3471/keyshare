@@ -33,7 +33,5 @@ Route::post('/addkey/claim', 'KeysController@claim')->name('claimkey')->middlewa
 Route::get('/users', 'UsersController@index')->name('users')->middleware('auth');
 Route::get('/users/{id}', 'UsersController@view')->name('user')->middleware('auth');
 
-
-
-// Legacy - TBR
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/changepassword', 'HomeController@passwordResetPage')->name('changepassword')->middleware('auth');
+Route::post('/changepassword/save', 'HomeController@passwordResetSave')->name('postpassword')->middleware('auth');
