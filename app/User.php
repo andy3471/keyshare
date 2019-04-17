@@ -41,7 +41,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getKarma(){
-        return Redis::zscore('karma', auth()->id());
+    public function getKarma($id = null){
+
+        if ($id == null) {
+            $id = auth()->id();
+        }
+        return Redis::zscore('karma', $id);
     }
 }
