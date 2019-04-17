@@ -41,7 +41,7 @@ Route::post('/changepassword/save', 'HomeController@passwordResetSave')->name('p
 
 // Testing - TBR
 Route::get('/karma', function () {
-    $karma = Redis::zscore('karma', auth()->id());
+    $karma = Redis::zincrby('karma', 1, auth()->id());
     Auth::user()->setAttribute('karma',$karma);
 
     return Response::json(Auth::user());

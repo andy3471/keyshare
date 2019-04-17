@@ -46,6 +46,10 @@ class User extends Authenticatable
         if ($id == null) {
             $id = auth()->id();
         }
-        return Redis::zscore('karma', $id);
+        $karma = Redis::zscore('karma', $id);
+        if ($karma == null) {
+            $karma = 0;
+        }
+        return $karma;
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Console\Commands;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Command;
-
+use Illuminate\Support\Facades\Redis;
 class CalculateKarma extends Command
 {
     /**
@@ -11,7 +11,7 @@ class CalculateKarma extends Command
      *
      * @var string
      */
-    protected $signature = 'command:CalculateKarma';
+    protected $signature = 'karma:calculate';
 
     /**
      * The console command description.
@@ -37,24 +37,26 @@ class CalculateKarma extends Command
      */
     public function handle()
     {
-        //Old Query (Per User)
-        // SELECT (IFNULL(C.createdkeys,0) - IFNULL(O.ownedkeys,0)) AS karma FROM users AS U
-        // LEFT OUTER JOIN (
-        //         SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM `keys`
-        //         WHERE removed IS NULL
-        //         AND created_user_id = $user_id
-        //         GROUP BY created_user_id
-        //     ) AS C
-        // ON C.user_id = U.user_id
-        // LEFT OUTER JOIN (
-        //         SELECT count(owned_user) AS ownedkeys, owned_user AS user_id FROM `keys`
-        //         WHERE removed IS NULL
-        //     AND owned_user = $user_id
-        //         GROUP BY owned_user
-        //     ) AS O
-        // ON O.user_id = U.user_id
-        // WHERE U.approved = 1
-        // AND U.user_id = $user_id
-        // LIMIT 1
+        $karma = DB::select(DB::raw('
+            SELECT (IFNULL(C.createdkeys,0) - IFNULL(O.ownedkeys,0)) AS karma, U.id FROM homestead.users AS U
+            LEFT OUTER JOIN (
+                SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM homestead.`keys`
+                GROUP BY created_user_id
+            ) AS C
+            ON C.user_id = U.id
+            LEFT OUTER JOIN (
+                SELECT count(owned_user_id) AS ownedkeys, owned_user_id AS user_id FROM homestead.`keys`
+                GROUP BY owned_user_id
+            ) AS O
+            ON O.user_id = U.id'
+        ));
+
+        Redis::del('karma');
+
+        foreach ($karma as $user) {
+            $this->info('UserID:' . $user->id . '   Karma:' . $user->karma);
+            Redis::zadd('karma', $user->karma, $user->id);
+        }
+
     }
 }
