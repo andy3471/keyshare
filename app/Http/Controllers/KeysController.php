@@ -8,6 +8,7 @@ use App\Games;
 use Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class KeysController extends Controller
 {
@@ -34,7 +35,7 @@ class KeysController extends Controller
                 'created_user_id' => auth()->id(),
                 'name' => $request->gamename
             ]);
-        
+
             $game = $game->id;
 
         } else {
@@ -47,7 +48,9 @@ class KeysController extends Controller
             'created_user_id' => auth()->id(),
             'keycode' => $request->key
         ]);
-           
+
+        Redis::zincrby('karma', 1, auth()->id());
+
         return redirect()->back()->with('message', 'Key Added');
     }
 
@@ -78,6 +81,7 @@ class KeysController extends Controller
                     ->where('id', '=', $request->id)
                     ->update(['owned_user_id' => auth()->id()]);
 
+            Redis::zincrby('karma', -1, auth()->id());
             return redirect()->back()->with('message', 'Key Claimed');
         } else {
             return redirect()->back()->with('error', 'Key Already Owned');

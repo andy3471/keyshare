@@ -34,6 +34,17 @@
                   @else
                       <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()->name }}
+                        @php( $i = Auth::user()->getKarma() )
+                        @if ($i < 0)
+                            <span class="badge badge-pill badge-danger"> {{$i}} </span>
+                        @elseif ($i < 2)
+                            <span class="badge badge-pill badge-warning"> {{$i}} </span>
+                        @elseif ($i < 15 )
+                            <span class="badge badge-pill badge-info"> {{$i}} </span>
+                        @else
+                            <span class="badge badge-pill badge-success"> {{$i}} </span>
+                        @endif
+
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/users/{{auth()->id()}}">View Profile</a>
