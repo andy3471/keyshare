@@ -35,6 +35,10 @@ Route::post('/addkey/claim', 'KeysController@claim')->name('claimkey')->middlewa
 Route::get('/users', 'UsersController@index')->name('users')->middleware('auth');
 Route::get('/users/{id}', 'UsersController@view')->name('user')->middleware('auth');
 
+Route::get('/changepassword', 'HomeController@passwordResetPage')->name('changepassword')->middleware('auth');
+Route::post('/changepassword/save', 'HomeController@passwordResetSave')->name('postpassword')->middleware('auth');
+
+
 // Testing - TBR
 Route::get('/karma', function () {
     $karma = Redis::zscore('karma', auth()->id());
