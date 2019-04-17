@@ -11,6 +11,8 @@
 |
 */
 
+//Testing - TBR
+use Illuminate\Support\Facades\Redis;
 
 Auth::routes();
 Route::get('login/steam', 'Auth\LoginController@steamRedirect')->name('steamlogin');
@@ -33,7 +35,10 @@ Route::post('/addkey/claim', 'KeysController@claim')->name('claimkey')->middlewa
 Route::get('/users', 'UsersController@index')->name('users')->middleware('auth');
 Route::get('/users/{id}', 'UsersController@view')->name('user')->middleware('auth');
 
+// Testing - TBR
+Route::get('/karma', function () {
+    $karma = Redis::zscore('karma', auth()->id());
+    Auth::user()->setAttribute('karma',$karma);
 
-
-// Legacy - TBR
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+    return Response::json(Auth::user());
+})->middleware('auth');

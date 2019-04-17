@@ -42,13 +42,14 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-        public function steamRedirect()
+    public function steamRedirect()
     {
         return Socialite::driver('steam')->redirect();
     }
 
+
     /**
-     * Obtain the user information from GitHub.
+     * Obtain the user information from Steam.
      *
      * @return \Illuminate\Http\Response
      */
@@ -61,11 +62,10 @@ class LoginController extends Controller
             $findUser = User::find($findUser[0]->user_id);
         } else {
                 // Register Account - Steam does not expose Email accounts, user system needs redeveloping first
-
                 return('Can not yet create new user accounts');
         }
 
         Auth::login($findUser);
-        return redirect('home');
+        return redirect($redirectTo);
     }
 }
