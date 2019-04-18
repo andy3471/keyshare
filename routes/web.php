@@ -22,12 +22,12 @@ Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/search', 'HomeController@search')->name('search')->middleware('auth');
 Route::get('/autocomplete/{search}', 'HomeController@autocomplete')->name('autocomplete')->middleware('auth');
 
-Route::get('/games', 'GamesController@index')->name('games')->middleware('auth');
+Route::get('/games', 'HomeController@gamesList')->name('games')->middleware('auth');
 Route::get('/games/{id}', 'GamesController@show')->name('game')->middleware('auth');
 
 Route::get('/keys/{id}', 'KeysController@show')->name('key')->middleware('auth');
-Route::get('/claimedkeys', 'KeysController@claimed')->name('claimedkeys')->middleware('auth');
-Route::get('/sharedkeys', 'KeysController@shared')->name('sharedkeys')->middleware('auth');
+Route::get('/claimedkeys', 'HomeController@claimedkeys')->name('claimedkeys')->middleware('auth');
+Route::get('/sharedkeys', 'HomeController@sharedKeys')->name('sharedkeys')->middleware('auth');
 Route::get('/addkey', 'KeysController@create')->name('addkey')->middleware('auth');
 Route::post('/addkey/store', 'KeysController@store')->name('storekey')->middleware('auth');
 Route::post('/addkey/claim', 'KeysController@claim')->name('claimkey')->middleware('auth');
@@ -38,11 +38,8 @@ Route::get('/users/{id}', 'UsersController@view')->name('user')->middleware('aut
 Route::get('/changepassword', 'HomeController@passwordResetPage')->name('changepassword')->middleware('auth');
 Route::post('/changepassword/save', 'HomeController@passwordResetSave')->name('postpassword')->middleware('auth');
 
-
-// Testing - TBR
-Route::get('/karma', function () {
-    $karma = Redis::zincrby('karma', 1, auth()->id());
-    Auth::user()->setAttribute('karma',$karma);
-
-    return Response::json(Auth::user());
-})->middleware('auth');
+//JSON
+Route::get('game/all', 'GamesController@index')->middleware('auth');
+Route::get('game/claimed', 'KeysController@claimed')->middleware('auth');
+Route::get('game/shared', 'KeysController@shared')->name('sharedkeys')->middleware('auth');
+Route::get('/searchresults', 'HomeController@searchResults')->name('searchresults')->middleware('auth');

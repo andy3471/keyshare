@@ -90,24 +90,24 @@ class KeysController extends Controller
 
     public function claimed() {
         $games = DB::table('games')
-                ->select('games.id', 'games.name', 'keys.id as key_id')
+                ->selectRaw('keys.id, games.name, concat("/keys/", keys.id) as url')
                 ->join('keys', 'keys.game_id', '=', 'games.id')
                 ->where('keys.owned_user_id', '=', auth()->id())
                 ->orderby('games.name')
                 ->paginate(12);
 
-        return view('games.index')->withGames($games)->with('title', 'Claimed Keys');
+        return $games;
     }
 
 
     public function shared() {
         $games = DB::table('games')
-                ->select('games.id', 'games.name', 'keys.id as key_id')
+                ->selectRaw('keys.id, games.name, concat("/keys/", keys.id) as url')
                 ->join('keys', 'keys.game_id', '=', 'games.id')
                 ->where('keys.created_user_id', '=', auth()->id())
                 ->orderby('games.name')
                 ->paginate(12);
 
-        return view('games.index')->withGames($games)->with('title', 'Shared Keys');
+        return $games;
     }
 }
