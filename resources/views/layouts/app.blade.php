@@ -47,40 +47,40 @@
 
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/users/{{auth()->id()}}">View Profile</a>
-                        <a class="dropdown-item" href="./updateuser.php">Update Profile</a>
+                        <a class="dropdown-item" href="/users/{{auth()->id()}}">{{ __('nav.viewprofile') }}</a>
+                        <a class="dropdown-item" href="./updateuser.php">{{ __('nav.updateprofile') }}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('claimedkeys') }}">Claimed Keys</a>
-                        <a class="dropdown-item" href="{{ route('sharedkeys') }}">Shared Keys</a>
+                        <a class="dropdown-item" href="{{ route('claimedkeys') }}">{{ __('nav.claimedkeys') }}</a>
+                        <a class="dropdown-item" href="{{ route('sharedkeys') }}">{{ __('nav.sharedkeys') }}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('changepassword') }}">Change Password</a>
+                        <a class="dropdown-item" href="{{ route('changepassword') }}">{{ __('nav.changepassword') }}</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                           onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
                           {{ __('Logout') }}
                         </a>
-                    
+
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
 
                       </div>
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ route('games') }}">Games</a>
+                      <a class="nav-link" href="{{ route('games') }}">{{ __('games.games') }}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ route('addkey') }}">Add Key</a>
+                      <a class="nav-link" href="{{ route('addkey') }}">{{ __('nav.addkey') }}</a>
                     </li>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ route('users') }}">Top Users</a>
+                      <a class="nav-link" href="{{ route('users') }}">{{ __('nav.topusers') }}s</a>
                     </li>
 
 
                   </ul>
                   <form class="form-inline my-2 my-lg-0" method="get" action="{{ route('search') }}">
-                    <game-autocomplete placeholder="Search..." name="search" id="search" type="search" classes="form-control mr-sm-2"></game-autocomplete>
-                    <button class="btn btn-outline-primary btn-outline-keyshare my-2 my-sm-0" type="submit">Search</button>
+                    <game-autocomplete placeholder="{{ __('nav.search') }}..." name="search" id="search" type="search" classes="form-control mr-sm-2"></game-autocomplete>
+                    <button class="btn btn-outline-primary btn-outline-keyshare my-2 my-sm-0" type="submit">{{ __('nav.search') }}</button>
                   </form>
                 </div>
               @endif
