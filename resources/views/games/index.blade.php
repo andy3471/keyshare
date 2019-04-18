@@ -3,7 +3,9 @@
 @section('content')
 
 <div class="page">
-    <h2> {{$title}} </h1>
+    <div class="title">
+        <h2> {{$title}} </h1>
+    </div>
 
     @if(count($games) > 0)
         <div class="gamegrid">

@@ -2,8 +2,9 @@
 
 @section('content')
 <div class="container">
-    <h2> {{ __('games.addkey') }} </h2>
-
+    <div class="title">
+        <h2> {{ __('games.addkey') }} </h2>
+    </div>
     @if(session()->has('message'))
         <div class="alert alert-success">
             {{ session()->get('message') }}
