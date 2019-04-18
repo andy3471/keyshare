@@ -41,5 +41,5 @@ Route::post('/changepassword/save', 'HomeController@passwordResetSave')->name('p
 //JSON
 Route::get('game/all', 'GamesController@index')->middleware('auth');
 Route::get('game/claimed', 'KeysController@claimed')->middleware('auth');
-Route::get('game/shared', 'KeysController@shared')->name('sharedkeys')->middleware('auth');
+Route::get('game/shared', 'KeysController@shared')->middleware('auth');
 Route::get('/searchresults', 'HomeController@searchResults')->name('searchresults')->middleware('auth');

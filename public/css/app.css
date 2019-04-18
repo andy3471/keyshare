@@ -34,7 +34,7 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: "Nunito", sans-serif;
+  --font-family-sans-serif: "Open Sans", sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -66,7 +66,7 @@ section {
 
 body {
   margin: 0;
-  font-family: "Nunito", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.6;
@@ -6148,7 +6148,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Nunito", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
@@ -6273,7 +6273,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Nunito", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
@@ -10769,6 +10769,7 @@ body {
 .navbar-keyshare .dropdown-menu {
   border-radius: 2px;
   border-color: #b1b1b1;
+  padding: 0rem 0rem;
 }
 
 .navbar-keyshare .dropdown-menu .dropdown-item:hover {
@@ -10777,10 +10778,16 @@ body {
 
 .navbar-keyshare .dropdown-menu .dropdown-divider {
   border-top: 1px solid #b1b1b1;
+  margin: 0 0;
 }
 
 .navbar-keyshare .navbar-brand {
   color: #f1f1f1 !important;
+}
+
+.navbar-keyshare .nav-link {
+  padding-right: 0.75rem !important;
+  padding-left: 0.75rem !important;
 }
 
 .navbar-keyshare .nav-link:hover {
