@@ -26,7 +26,7 @@
         <label for="key"> {{ __('games.key') }}: </label>
         <input name="key" class="form-control" type="text" required>
         <br>
-        <input type="submit" class="btn btn-default" value="Submit">
+        <input type="submit" class="btn btn-keyshare" value="Submit">
     </form>
 </div>
 @endsection

@@ -1,5 +1,5 @@
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Nunito");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
 
 // Variables
 @import "variables";
@@ -7,9 +7,60 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-.navbar-keyshare {
-    background-color: $main;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+body {
+    font-family: "Open Sans", sans-serif;
+    color: $main;
+}
+
+//Games Grid
+.gamegrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(345px, auto));
+    grid-gap: 15px;
+    margin: auto;
+
+    .gamecard {
+        position: relative;
+        width: 100%;
+        max-width: 460px;
+    }
+
+    .gamecard:hover .overlay {
+        opacity: 1;
+    }
+
+    .image {
+        display: block;
+        width: 100%;
+        border-radius: 2px;
+        border: 1px solid grey;
+    }
+
+    .overlay {
+        position: absolute;
+        bottom: 0;
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.5); /* Black see-through */
+        color: #f1f1f1;
+        width: 100%;
+        transition: 0.5s ease;
+        opacity: 0.5;
+        color: white;
+        font-size: 20px;
+        padding: 20px;
+        text-align: center;
+        height: 75px;
+
+        a {
+            color: white;
+        }
+    }
+}
+
+.page {
+    margin: auto;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 //AutoComplete Component
@@ -42,21 +93,79 @@
         }
     }
 }
+
 //Bootstrap Overrides
+.navbar-dark {
+    color: $accent !important;
+}
+.navbar-keyshare {
+    background-color: $main !important;
+    //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    border-bottom: 2px solid $accent;
+    padding: 0.2rem 1rem;
+    color: $accent !important;
+
+    .dropdown-menu {
+        border-radius: $border-radius;
+        border-color: $main-border;
+
+        .dropdown-item:hover {
+            background-color: $accent;
+        }
+
+        .dropdown-divider {
+            border-top: 1px solid $main-border;
+        }
+    }
+}
+
+.jumbotron {
+  // padding-top: 2rem !important;
+    border-radius: 0px !important;
+    background-color: $banner-bg;
+}
+
+.form-control {
+    border-radius: $border-radius !important;
+    border-color: $main-border;
+    color: $main;
+}
 
 .form-control:focus {
     border-color: $accent;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba($accent, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px rgba($accent, 0.3);
 }
 
-//BootstrapAssets
+.btn {
+    border-radius: $border-radius !important;
+}
+
 .btn-outline-keyshare {
     color: $accent !important;
     border-color: $accent !important;
-    border-radius: $border-radius !important;
 }
 
 .btn-outline-keyshare:hover {
     background-color: $accent !important;
     color: white !important;
+}
+
+.btn-keyshare {
+    background-color: $accent;
+    border-color: $accent;
+    color: #fff;
+}
+
+.btn-keyshare:hover {
+    background-color: darken($accent, 10%);
+    border-color: darken($accent, 10%);
+    color: #fff;
+}
+
+.btn-link {
+    color: $accent;
+}
+
+.btn-link:hover {
+    color: darken($accent, 10%);
 }
