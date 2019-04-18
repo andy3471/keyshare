@@ -9,18 +9,17 @@ use Illuminate\Support\Facades\DB;
 
 class GamesController extends Controller
 {
-
     public function index()
     {
         $games = DB::table('games')
                 ->distinct()
-                ->select('games.id', 'games.name', 'keys.id as key_id')
+                ->selectRaw('games.id, games.name, concat("/games/", games.id) as url')
                 ->join('keys', 'keys.game_id', '=', 'games.id')
                 ->where('keys.owned_user_id', '=', null)
                 ->orderby('games.name')
                 ->paginate(12);
 
-        return view('games.index')->withGames($games)->with('title', 'Games');
+        return $games;
     }
 
     public function show($id)

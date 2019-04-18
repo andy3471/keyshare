@@ -22,9 +22,10 @@ Vue.component(
     "game-autocomplete",
     require("./components/GameAutocomplete.vue").default
 );
+
 Vue.component(
-    "example-component",
-    require("./components/ExampleComponent.vue").default
+    "game-list",
+    require("./components/GameList.vue").default
 );
 
 /**
