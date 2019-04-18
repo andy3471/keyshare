@@ -10660,6 +10660,13 @@ body {
   color: #272727;
 }
 
+.title {
+  border-bottom: 1px solid #b1b1b1;
+  margin-bottom: 15px;
+  height: auto;
+  text-align: center;
+}
+
 .gamegrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(345px, auto));
@@ -10765,9 +10772,24 @@ body {
   border-top: 1px solid #b1b1b1;
 }
 
+.navbar-keyshare .navbar-brand {
+  color: #f1f1f1 !important;
+}
+
+.navbar-keyshare .nav-link:hover {
+  color: #f1f1f1 !important;
+  background-color: #4d4d4d;
+}
+
 .jumbotron {
+  padding-top: 2rem !important;
+  padding-bottom: 1rem !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
   border-radius: 0px !important;
+  border-bottom: 1px solid #b1b1b1;
   background-color: #e9ecef;
+  margin-bottom: 0px !important;
 }
 
 .form-control {

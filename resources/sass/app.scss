@@ -7,9 +7,18 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
+//Page
 body {
     font-family: "Open Sans", sans-serif;
     color: $main;
+}
+
+//Title
+.title {
+    border-bottom: 1px solid $main-border;
+    margin-bottom: 15px;
+    height: auto;
+    text-align: center;
 }
 
 //Games Grid
@@ -117,12 +126,25 @@ body {
             border-top: 1px solid $main-border;
         }
     }
+
+    .navbar-brand {
+        color: #f1f1f1 !important;
+    }
+    .nav-link:hover {
+        color: #f1f1f1 !important;
+        background-color: lighten($main, 15%);
+    }
 }
 
 .jumbotron {
-  // padding-top: 2rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: 1rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
     border-radius: 0px !important;
+    border-bottom: 1px solid $main-border;
     background-color: $banner-bg;
+    margin-bottom: 0px !important;
 }
 
 .form-control {
