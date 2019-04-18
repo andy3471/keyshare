@@ -2,35 +2,25 @@
 
 @section('content')
 
-<div class="container">
+<div class="page">
     <h2> {{$title}} </h1>
 
     @if(count($games) > 0)
-        @php ($i = 1)
-        <div class="card-deck">
-        @foreach($games as $game)
-            <div class="card" style="width: 18rem;">
-                @if($title == 'Claimed Keys' or $title == 'Shared Keys')
-                    <a href="/keys\{{$game->key_id}}">
-                @else
-                    <a href="/games\{{$game->id}}">
-                @endif
-                    <img src="{{asset('/images/gamedefault.png')}}" alt="Card image cap" class="card-img-top">
-
-                        <div class="card-body">
-                            <p class="card-text">
-                                {{$game->name}}
-                            </p>
-                            </a>
-                        </div>
-            </div>
-
-                @if(!($i % 4))
-                    </div><br><div class="card-deck">
-                @endif
-                @php ($i++)
-
-        @endforeach
+        <div class="gamegrid">
+            @foreach($games as $game)
+                <div class="gamecard">
+                    @if($title == 'Claimed Keys' or $title == 'Shared Keys')
+                        <a href="/keys\{{$game->key_id}}">
+                    @else
+                        <a href="/games\{{$game->id}}">
+                    @endif
+                    <img src="{{asset('/images/gamedefault.png')}}" alt="Card image cap" class="image">
+                    <div class="overlay">
+                            {{$game->name}}
+                        </a>
+                    </div>
+                </div>
+            @endforeach
         </div>
     @else
         <p> {{ __('games.notfound') }} </p>
@@ -39,6 +29,6 @@
     <br>
 
         {!! $games->links(); !!}
-
 </div>
+
 @endsection

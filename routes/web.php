@@ -37,12 +37,3 @@ Route::get('/users/{id}', 'UsersController@view')->name('user')->middleware('aut
 
 Route::get('/changepassword', 'HomeController@passwordResetPage')->name('changepassword')->middleware('auth');
 Route::post('/changepassword/save', 'HomeController@passwordResetSave')->name('postpassword')->middleware('auth');
-
-
-// Testing - TBR
-Route::get('/karma', function () {
-    $karma = Redis::zscore('karma', auth()->id());
-    Auth::user()->setAttribute('karma',$karma);
-
-    return Response::json(Auth::user());
-})->middleware('auth');
