@@ -33,7 +33,7 @@
         @endforeach
         </div>
     @else
-        <p> No Games Found </p>
+        <p> {{ __('games.notfound') }} </p>
     @endif
 
     <br>

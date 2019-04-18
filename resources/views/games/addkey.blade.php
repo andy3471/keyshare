@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2> Add Key </h2>
+    <h2> {{ __('games.addkey') }} </h2>
 
     @if(session()->has('message'))
         <div class="alert alert-success">
@@ -12,10 +12,10 @@
 
     <form method="POST" action="/addkey/store">
         @csrf
-        <label for="gamename">Game: </label>
+        <label for="gamename">{{ __('games.game') }}: </label>
         <game-autocomplete placeholder="" id="gamename" name="gamename" classes="form-control"></game-autocomplete>
 
-        <label for="platform"> Platform: </label>
+        <label for="platform"> {{ __('games.platform') }}: </label>
         <select class='form-control' name='platform_id'>
             @foreach($platforms as $platform)
                 <option value="{{$platform->id}}">{{$platform->name}}</option>
@@ -23,7 +23,7 @@
         </select>
 
 
-        <label for="key"> Key: </label>
+        <label for="key"> {{ __('games.key') }}: </label>
         <input name="key" class="form-control" type="text" required>
         <br>
         <input type="submit" class="btn btn-default" value="Submit">

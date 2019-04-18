@@ -25,22 +25,22 @@
             <input name="key" class="form-control" type="text" value ="*****-*****-*****-*****" disabled>
             <input type="hidden" name="id" value="{{$key->id}}" /> <br>
             <input type="submit" class="btn btn-default" value="Claim Key">
-            <br> Claim Key to view code 
+            <br> {{ __('keys.claim') }}
 
         @elseif( $key->owned_user_id == auth()->id())
             <input name="key" class="form-control" type="text" value ="{{$key->keycode}}" disabled>
             @if($key->platform == 'Steam')
-                <br><a href="https://store.steampowered.com/account/registerkey?key={{$key->keycode}}"> Redeem on Steam</a> 
+                <br><a href="https://store.steampowered.com/account/registerkey?key={{$key->keycode}}"> Redeem on Steam</a>
             @endif
 
         @else
             <input name="key" class="form-control" type="text" value ="*****-*****-*****-*****" disabled>
             <input type="submit" class="btn btn-default" value="Claim Key" disabled>
-            <br> Key already claimed by another user
+            <br> {{ __('keys.alreadyclaimed') }}
         @endif
     </form>
 
-    <br><p> Key Shared By: </p>
+    <br><p> {{ __('keys.sharedby') }}: </p>
     <div class="media">
         <a href="\user\{{$key->created_user_id}}">
             <img class="mr-3" src="{{asset('/images/defaultpic.jpg')}}" width="150px" height="150px" alt="Generic placeholder image">
