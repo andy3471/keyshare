@@ -49,7 +49,8 @@ body {
         position: absolute;
         bottom: 0;
         background: rgb(0, 0, 0);
-        background: rgba(0, 0, 0, 0.5); /* Black see-through */
+        background: rgba(0, 0, 0, 0.5);
+        /* Black see-through */
         color: #f1f1f1;
         width: 100%;
         transition: 0.5s ease;
@@ -107,6 +108,7 @@ body {
 .navbar-dark {
     color: $accent !important;
 }
+
 .navbar-keyshare {
     background-color: $main !important;
     //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -117,6 +119,7 @@ body {
     .dropdown-menu {
         border-radius: $border-radius;
         border-color: $main-border;
+        padding: 0rem 0rem;
 
         .dropdown-item:hover {
             background-color: $accent;
@@ -124,12 +127,20 @@ body {
 
         .dropdown-divider {
             border-top: 1px solid $main-border;
+            margin: 0 0;
         }
     }
 
     .navbar-brand {
         color: #f1f1f1 !important;
     }
+
+
+    .nav-link {
+        padding-right: .75rem !important;
+        padding-left: .75rem !important;
+    }
+
     .nav-link:hover {
         color: #f1f1f1 !important;
         background-color: lighten($main, 15%);

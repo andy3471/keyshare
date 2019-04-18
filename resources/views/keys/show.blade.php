@@ -24,7 +24,7 @@
         @if( $key->owned_user_id == null)
             <input name="key" class="form-control" type="text" value ="*****-*****-*****-*****" disabled>
             <input type="hidden" name="id" value="{{$key->id}}" /> <br>
-            <input type="submit" class="btn btn-default" value="Claim Key">
+            <input type="submit" class="btn btn-keyshare" value="Claim Key">
             <br> {{ __('keys.claim') }}
 
         @elseif( $key->owned_user_id == auth()->id())
@@ -35,7 +35,7 @@
 
         @else
             <input name="key" class="form-control" type="text" value ="*****-*****-*****-*****" disabled>
-            <input type="submit" class="btn btn-default" value="Claim Key" disabled>
+            <input type="submit" class="btn btn-keyshare" value="Claim Key" disabled>
             <br> {{ __('keys.alreadyclaimed') }}
         @endif
     </form>
