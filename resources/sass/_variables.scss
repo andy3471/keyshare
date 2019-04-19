@@ -11,5 +11,12 @@ sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
-//Borders
-$border-radius: 2px;
+//BootStrap overrids
+$theme-colors: ("success": #377249,
+"danger": #a13420,
+"keyshare": $accent);
+
+$border-radius: .1rem;
+$border-radius-lg: .2rem;
+$border-radius-sm: 1rem;
+$input-border-color: $main-border;
