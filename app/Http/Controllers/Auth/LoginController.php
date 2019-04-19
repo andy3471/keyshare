@@ -55,17 +55,36 @@ class LoginController extends Controller
      */
     public function steamCallback()
     {
-        $user = Socialite::driver('steam')->user();
+        $steamuser = Socialite::driver('steam')->user();
 
-        $findUser = LinkedAccount::where('account_id', '=', $user->id)->get();
-        if ($findUser) {
-            $findUser = User::find($findUser[0]->user_id);
+        $KeyshareUser = LinkedAccount::where('account_id', '=', $steamuser->id)->get();
+
+        if (count($KeyshareUser) == 0) {
+            //If Doesn't Exist, Create User
+            $KeyshareUser = new User;
+            $KeyshareUser->name = $steamuser->nickname;
+            $KeyshareUser->image = $steamuser->avatar;
+            $KeyshareUser->email = uniqid();
+            $KeyshareUser->password = uniqid();
+            $KeyshareUser->save();
+
+            $LinkedAccount = new LinkedAccount;
+            $LinkedAccount->user_id = $KeyshareUser->id;
+            $LinkedAccount->linked_account_provider_id = '1';
+            $LinkedAccount->account_id = $steamuser->id;
+            $LinkedAccount->save();
+
+        } elseif (count($KeyshareUser) == 1) {
+            //If Exists, Find and Update User
+            $KeyshareUser = User::find($KeyshareUser[0]->user_id);
+            $KeyshareUser->name = $steamuser->nickname;
+            $KeyshareUser->image = $steamuser->avatar;
+            $KeyshareUser->save();
         } else {
-                // Register Account - Steam does not expose Email accounts, user system needs redeveloping first
-                return('Can not yet create new user accounts');
+            return 'Error';
         }
 
-        Auth::login($findUser);
-        return redirect($redirectTo);
+        Auth::login($KeyshareUser);
+        return redirect('/games');
     }
 }
