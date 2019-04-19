@@ -4,9 +4,16 @@
 
 <div class="container">
     <h2> {{$game->name}} </h2>
-    <img src="{{ asset('images/gamedefault.png') }}" class="img-responsive mx-auto d-block rounded" width="460" height="215px">
+
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+
+    <img src="{{ asset($game->image) }}" class="img-responsive mx-auto d-block rounded" width="460" height="215px">
     <br>
-    <a href="">{{ __('games.addimage') }}</a><br>
+    <a href="{{ route('editgame', ['id' => $game->id]) }}">{{ __('games.editgame') }}</a><br>
     <br>
     <p> {{$game->description}} </p>
 

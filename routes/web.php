@@ -24,6 +24,8 @@ Route::get('/autocomplete/{search}', 'HomeController@autocomplete')->name('autoc
 
 Route::get('/games', 'HomeController@gamesList')->name('games')->middleware('auth');
 Route::get('/games/{id}', 'GamesController@show')->name('game')->middleware('auth');
+Route::get('/games/edit/{id}', 'GamesController@edit')->name('editgame')->middleware('auth');
+Route::post('/games/update', 'GamesController@update')->name('updategame')->middleware('auth');
 
 Route::get('/keys/{id}', 'KeysController@show')->name('key')->middleware('auth');
 Route::get('/claimedkeys', 'HomeController@claimedkeys')->name('claimedkeys')->middleware('auth');

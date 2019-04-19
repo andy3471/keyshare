@@ -37128,7 +37128,7 @@ var render = function() {
           _c("a", { attrs: { href: game.url } }, [
             _c("img", {
               staticClass: "image",
-              attrs: { src: "/images/gamedefault.png", alt: "Card image cap" }
+              attrs: { src: game.image, alt: "Card image cap" }
             }),
             _vm._v(" "),
             _c("div", { staticClass: "overlay" }, [_vm._v(_vm._s(game.name))])
