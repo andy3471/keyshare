@@ -3,7 +3,9 @@
 @section('content')
 
 <div class="container">
-    <h2> {{ __('games.edit') }}: {{ $game->name }} </h2>
+    <div class="title">
+        <h2> {{ __('games.edit') }}: {{ $game->name }} </h2>
+    </div>
 
     <form method="POST" action="/games/update" enctype="multipart/form-data">
         @foreach ($errors->all() as $error)
