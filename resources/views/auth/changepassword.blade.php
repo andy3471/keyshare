@@ -2,7 +2,9 @@
 
 @section('content')
 <div class="container">
-    <h2>Change Password</h2>
+    <div class="title">
+        <h2>Change Password</h2>
+    </div>
     <form method="POST" action="{{ route('postpassword') }}">
         @csrf
         <label for="password">Current Password</label>
