@@ -24,6 +24,14 @@ class KeysController extends Controller
 
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'gamename' => 'required',
+            'platform_id' => 'required',
+            'key' => 'required',
+            'message' => 'max:255'
+        ]);
+
         //Check Game Exists
         $game = DB::table('games')
                     ->where('name', '=', $request->gamename)
@@ -46,7 +54,8 @@ class KeysController extends Controller
             'game_id' => $game,
             'platform_id' => $request->platform_id,
             'created_user_id' => auth()->id(),
-            'keycode' => $request->key
+            'keycode' => $request->key,
+            'message' => $request->message
         ]);
 
         Redis::zincrby('karma', 1, auth()->id());
@@ -57,7 +66,7 @@ class KeysController extends Controller
     public function show($id){
 
         $key = DB::table('keys')
-                    ->select('keys.id','keys.keycode as keycode', 'games.name as game', 'platforms.name as platform', 'users.name as created_user_name', 'users.id as created_user_id', 'users.image', 'keys.owned_user_id')
+                    ->select('keys.id','keys.keycode as keycode', 'keys.message as message', 'games.name as game', 'platforms.name as platform', 'users.name as created_user_name', 'users.id as created_user_id', 'users.image as created_user_image', 'users.bio as created_user_bio', 'keys.owned_user_id')
                     ->where('keys.id', '=', $id)
                     ->join('platforms', 'platforms.id', '=', 'platforms.id')
                     ->join('users', 'users.id', '=', 'keys.created_user_id')

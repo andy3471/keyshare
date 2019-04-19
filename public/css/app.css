@@ -10669,7 +10669,8 @@ body {
 
 .title {
   border-bottom: 1px solid #b1b1b1;
-  margin-bottom: 15px;
+  margin: 15px;
+  margin-top: none;
   height: auto;
   text-align: center;
 }
@@ -10762,7 +10763,7 @@ body {
 .navbar-keyshare {
   background-color: #272727 !important;
   border-bottom: 2px solid #ff8800;
-  padding: 0.2rem 1rem;
+  padding: 0.1rem 1rem;
   color: #ff8800 !important;
 }
 
@@ -10796,7 +10797,7 @@ body {
 }
 
 .jumbotron {
-  padding-top: 2rem !important;
+  padding-top: 4rem !important;
   padding-bottom: 1rem !important;
   padding-left: 1rem !important;
   padding-right: 1rem !important;

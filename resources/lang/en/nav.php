@@ -22,5 +22,6 @@ return [
     'addkey' => 'Add Key',
     'topusers' => 'Top Users',
     'search' => 'Search',
+    'save' => 'Save',
 
 ];

@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
+@section('header')
+    {{ $game->name }}
+@endsection
+
 @section('content')
 
 <div class="container">
-    <div class="title">
-        <h2> {{$game->name}} </h2>
-    </div>
-
     @if(session()->has('message'))
         <div class="alert alert-success">
             {{ session()->get('message') }}

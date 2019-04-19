@@ -75,11 +75,13 @@ class LoginController extends Controller
             $LinkedAccount->save();
 
         } elseif (count($KeyshareUser) == 1) {
+
             //If Exists, Find and Update User
             $KeyshareUser = User::find($KeyshareUser[0]->user_id);
             $KeyshareUser->name = $steamuser->nickname;
             $KeyshareUser->image = $steamuser->avatar;
             $KeyshareUser->save();
+
         } else {
             return 'Error';
         }

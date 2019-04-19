@@ -35,7 +35,9 @@ Route::post('/addkey/store', 'KeysController@store')->name('storekey')->middlewa
 Route::post('/addkey/claim', 'KeysController@claim')->name('claimkey')->middleware('auth');
 
 Route::get('/users', 'UsersController@index')->name('users')->middleware('auth');
-Route::get('/users/{id}', 'UsersController@view')->name('user')->middleware('auth');
+Route::get('/users/{id}', 'UsersController@show')->name('showuser')->middleware('auth');
+Route::get('/user/edit', 'UsersController@edit')->name('edituser')->middleware('auth');
+Route::post('/user/update', 'UsersController@update')->name('updateuser')->middleware('auth');
 
 Route::get('/changepassword', 'HomeController@passwordResetPage')->name('changepassword')->middleware('auth');
 Route::post('/changepassword/save', 'HomeController@passwordResetSave')->name('postpassword')->middleware('auth');
