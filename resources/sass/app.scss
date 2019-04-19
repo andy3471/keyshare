@@ -16,7 +16,8 @@ body {
 //Title
 .title {
     border-bottom: 1px solid $main-border;
-    margin-bottom: 15px;
+    margin: 15px;
+    margin-top: none;
     height: auto;
     text-align: center;
 }
@@ -113,7 +114,7 @@ body {
     background-color: $main !important;
     //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
     border-bottom: 2px solid $accent;
-    padding: 0.2rem 1rem;
+    padding: 0.1rem 1rem;
     color: $accent !important;
 
     .dropdown-menu {
@@ -148,7 +149,7 @@ body {
 }
 
 .jumbotron {
-    padding-top: 2rem !important;
+    padding-top: 4rem !important;
     padding-bottom: 1rem !important;
     padding-left: 1rem !important;
     padding-right: 1rem !important;

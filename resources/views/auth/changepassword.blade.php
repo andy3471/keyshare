@@ -1,25 +1,26 @@
 @extends('layouts.app')
 
+@section('header')
+    {{ __('user.changepassword') }}
+@endsection
+
 @section('content')
-<div class="container">
-    <div class="title">
-        <h2>Change Password</h2>
-    </div>
-    <form method="POST" action="{{ route('postpassword') }}">
-        @csrf
-        <label for="password">Current Password</label>
-        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="currentpassword" required>
+    <div class="container">
+        <form method="POST" action="{{ route('postpassword') }}">
+            @csrf
+            <label for="password">{{ __('user.currentpassword') }}</label>
+            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="currentpassword" required>
 
-        <label for="password">New Password</label>
-        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="newpassword" required>
+            <label for="password">{{ __('user.newpassword') }}</label>
+            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="newpassword" required>
 
-        <label for="password">Confirm Password</label>
-        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="comfirmpassword" required>
+            <label for="password">{{ __('user.confirmpassword') }}</label>
+            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="comfirmpassword" required>
 
-        <br>
-        <a class="btn btn-keyshare" type="submit">Change Password</a>
+            <br>
+            <a class="btn btn-keyshare" type="submit">{{ __('nav.save') }}</a>
+            </div>
         </div>
+        </form>
     </div>
-    </form>
-</div>
 @endsection

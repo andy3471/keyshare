@@ -1,13 +1,11 @@
 @extends('layouts.app')
 
+@section('header')
+    {{ $title }}
+@endsection
+
 @section('content')
-
-<div class="page">
-    <div class="title">
-        <h2> {{$title}}</h1>
+    <div class="page">
+        <Game-List url="{{ $url }}"></Game-List>
     </div>
-
-<Game-List url="{{ $url }}"></Game-List>
-</div>
-
 @endsection

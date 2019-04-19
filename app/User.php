@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -49,6 +50,27 @@ class User extends Authenticatable
         $karma = Redis::zscore('karma', $id);
         if ($karma == null) {
             $karma = 0;
+
+            $karma = DB::select(DB::raw('
+            SELECT (IFNULL(C.createdkeys,0) - IFNULL(O.ownedkeys,0)) AS karma, U.id FROM homestead.users AS U
+            LEFT OUTER JOIN (
+                SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM homestead.`keys`
+                WHERE created_user_id = '. auth()->id() .'
+                GROUP BY created_user_id
+            ) AS C
+            ON C.user_id = U.id
+            LEFT OUTER JOIN (
+                SELECT count(owned_user_id) AS ownedkeys, owned_user_id AS user_id FROM homestead.`keys`
+                WHERE owned_user_id = '. auth()->id() .'
+                GROUP BY owned_user_id
+            ) AS O
+            ON O.user_id = U.id
+            WHERE U.id = '. auth()->id()
+            ));
+
+            foreach ($karma as $user) {
+                $karma = Redis::zadd('karma', $user->karma, $user->id);
+            }
         }
         return $karma;
     }
