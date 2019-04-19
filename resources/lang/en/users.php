@@ -17,7 +17,9 @@ return [
     'email' => 'E-Mail Address',
     'image' => 'Profile Picture',
     'bio' => 'About Me',
-    'imagereqs' => 'Image must be at 1:1 ratio'
-
+    'imagereqs' => 'Image must be square',
+    'currentpassword' => 'Current Password',
+    'newpassword' => 'New Password',
+    'confirmpassword' => 'Confirm Password'
 
 ];

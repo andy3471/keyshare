@@ -16,7 +16,7 @@ body {
 //Title
 .title {
     border-bottom: 1px solid $main-border;
-    margin: 15px;
+    margin: 1rem;
     margin-top: none;
     height: auto;
     text-align: center;
@@ -25,8 +25,8 @@ body {
 //Games Grid
 .gamegrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(345px, auto));
-    grid-gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, auto));
+    grid-gap: 1rem;
     margin: auto;
 
     .gamecard {
@@ -57,10 +57,9 @@ body {
         transition: 0.5s ease;
         opacity: 0.5;
         color: white;
-        font-size: 20px;
-        padding: 20px;
+        font-size: 1.5rem;
         text-align: center;
-        height: 75px;
+        height: 3rem;
 
         a {
             color: white;
@@ -70,8 +69,8 @@ body {
 
 .page {
     margin: auto;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 1rem;
+    padding-top: none;
 }
 
 //AutoComplete Component
@@ -134,6 +133,7 @@ body {
 
     .navbar-brand {
         color: #f1f1f1 !important;
+        padding-right: 1rem;
     }
 
 
@@ -145,6 +145,14 @@ body {
     .nav-link:hover {
         color: #f1f1f1 !important;
         background-color: lighten($main, 15%);
+    }
+
+    .navbar-search {
+        width: 20rem;
+        background-color: lighten($main, 15%);
+        border-color: darken($main, 15%);
+        color: lighten($main, 50%);
+        box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.45);
     }
 }
 
@@ -159,41 +167,9 @@ body {
     margin-bottom: 0px !important;
 }
 
-.form-control {
-    border-radius: $border-radius !important;
-    border-color: $main-border;
-    color: $main;
-}
-
 .form-control:focus {
     border-color: $accent;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px rgba($accent, 0.3);
-}
-
-.btn {
-    border-radius: $border-radius !important;
-}
-
-.btn-outline-keyshare {
-    color: $accent !important;
-    border-color: $accent !important;
-}
-
-.btn-outline-keyshare:hover {
-    background-color: $accent !important;
-    color: white !important;
-}
-
-.btn-keyshare {
-    background-color: $accent;
-    border-color: $accent;
-    color: #fff;
-}
-
-.btn-keyshare:hover {
-    background-color: darken($accent, 10%);
-    border-color: darken($accent, 10%);
-    color: #fff;
 }
 
 .btn-link {

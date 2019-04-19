@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Hash;
+use Auth;
 use App\User;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\DB;
@@ -65,5 +67,32 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         return view('users.show')->withUser($user);
+    }
+
+    public function passwordResetPage() {
+        return view('users.changepassword');
+    }
+
+    public function passwordResetSave(Request $request) {
+
+        $this->validate($request, [
+            'currentpassword' => 'required',
+            'newpassword' => 'required|string|min:6|confirmed',
+        ]);
+
+
+        if (!(Hash::check($request->currentpassword, Auth::user()->password))) {
+            return redirect()->back()->with("error","Current password is not correct");
+        }
+
+        if($request->currentpassword == $request->newpassword){
+            return redirect()->back()->with("error","New Password cannot be same as your current password. Please choose a different password.");
+        }
+
+        $user = Auth::user();
+        $user->password = bcrypt($request->newpassword);
+        $user->save();
+
+        return redirect()->back()->with("message","Password changed!");
     }
 }

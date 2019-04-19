@@ -39,8 +39,8 @@ Route::get('/users/{id}', 'UsersController@show')->name('showuser')->middleware(
 Route::get('/user/edit', 'UsersController@edit')->name('edituser')->middleware('auth');
 Route::post('/user/update', 'UsersController@update')->name('updateuser')->middleware('auth');
 
-Route::get('/changepassword', 'HomeController@passwordResetPage')->name('changepassword')->middleware('auth');
-Route::post('/changepassword/save', 'HomeController@passwordResetSave')->name('postpassword')->middleware('auth');
+Route::get('/changepassword', 'UsersController@passwordResetPage')->name('changepassword')->middleware('auth');
+Route::post('/changepassword/save', 'UsersController@passwordResetSave')->name('postpassword')->middleware('auth');
 
 //JSON
 Route::get('game/all', 'GamesController@index')->middleware('auth');

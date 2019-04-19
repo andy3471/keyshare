@@ -30,7 +30,7 @@ class test extends Mailable
      */
     public function build()
     {
-        return $this->from('sender@example.com')
-                    ->text('testing123');
+        return $this->subject('Keyshare - Password Reset')
+                    ->view('emails.passwordreset');
     }
 }

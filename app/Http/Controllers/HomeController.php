@@ -89,10 +89,5 @@ class HomeController extends Controller
                 ->get();
 
         return json_encode($games);
-
-    }
-
-    public function passwordResetPage() {
-        return view('auth.changepassword');
     }
 }
