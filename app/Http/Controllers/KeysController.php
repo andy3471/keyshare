@@ -33,7 +33,7 @@ class KeysController extends Controller
         if (count($game) == 0) {
             $game = Games::create([
                 'created_user_id' => auth()->id(),
-                'name' => $request->gamename
+                'name' => $request->gamename,
             ]);
 
             $game = $game->id;
@@ -90,7 +90,7 @@ class KeysController extends Controller
 
     public function claimed() {
         $games = DB::table('games')
-                ->selectRaw('keys.id, games.name, concat("/keys/", keys.id) as url')
+                ->selectRaw('keys.id, games.name, games.image, concat("/keys/", keys.id) as url')
                 ->join('keys', 'keys.game_id', '=', 'games.id')
                 ->where('keys.owned_user_id', '=', auth()->id())
                 ->orderby('games.name')
@@ -102,7 +102,7 @@ class KeysController extends Controller
 
     public function shared() {
         $games = DB::table('games')
-                ->selectRaw('keys.id, games.name, concat("/keys/", keys.id) as url')
+                ->selectRaw('keys.id, games.name, games.image, concat("/keys/", keys.id) as url')
                 ->join('keys', 'keys.game_id', '=', 'games.id')
                 ->where('keys.created_user_id', '=', auth()->id())
                 ->orderby('games.name')

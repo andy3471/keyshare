@@ -55,7 +55,7 @@ class HomeController extends Controller
         $search = $request->search;
 
         $games = DB::table('games')
-                    ->selectRaw('games.id, games.name, concat("/games/", games.id) as url')
+                    ->selectRaw('games.id, games.name, games.image, concat("/games/", games.id) as url')
                     ->where('name', 'like', '%' . $search . '%')
                     ->paginate(12);
 
