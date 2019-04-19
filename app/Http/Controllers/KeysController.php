@@ -57,7 +57,7 @@ class KeysController extends Controller
     public function show($id){
 
         $key = DB::table('keys')
-                    ->select('keys.id','keys.keycode as keycode', 'games.name as game', 'platforms.name as platform', 'users.name as created_user_name', 'users.id as created_user_id', 'keys.owned_user_id')
+                    ->select('keys.id','keys.keycode as keycode', 'games.name as game', 'platforms.name as platform', 'users.name as created_user_name', 'users.id as created_user_id', 'users.image', 'keys.owned_user_id')
                     ->where('keys.id', '=', $id)
                     ->join('platforms', 'platforms.id', '=', 'platforms.id')
                     ->join('users', 'users.id', '=', 'keys.created_user_id')

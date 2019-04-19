@@ -45,3 +45,8 @@ Route::get('game/all', 'GamesController@index')->middleware('auth');
 Route::get('game/claimed', 'KeysController@claimed')->middleware('auth');
 Route::get('game/shared', 'KeysController@shared')->middleware('auth');
 Route::get('/searchresults', 'HomeController@searchResults')->name('searchresults')->middleware('auth');
+
+//TBR
+Route::get('/home', function() {
+    return redirect()->route('games');
+});

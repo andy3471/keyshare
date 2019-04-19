@@ -33,7 +33,7 @@
                   @guest
                   @else
                       <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ Auth::user()->name }}
+                        <img src="{{ Auth::user()->image }}" height="25px" width="25px"> {{ Auth::user()->name }}
                         @php( $i = Auth::user()->getKarma() )
                         @if ($i < 0)
                             <span class="badge badge-pill badge-danger"> {{$i}} </span>
@@ -94,7 +94,6 @@
                   </div>
 
             <div class="Container">
-
             @yield('content')
     </div>
 </body>

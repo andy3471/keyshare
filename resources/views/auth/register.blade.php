@@ -2,7 +2,9 @@
 
 @section('content')
 <div class="container">
-    <h2>{{ __('Register') }}</h2>
+    <div class="title">
+        <h2>{{ __('Register') }}</h2>
+    </div>
 
     <form method="POST" action="{{ route('register') }}">
         @csrf
