@@ -40,21 +40,21 @@
             @endif
         </form>
 
+        @if ($key->message)
+            {{ __('keys.leftMessage') }}: <br>
+             {{$key->message}}
+        @endif
+
         <br><p> {{ __('keys.sharedby') }}: </p>
         <div class="media">
             <a href="\user\{{$key->created_user_id}}">
                 <img class="mr-3" src="{{ $key->created_user_image }}" width="150px" height="150px" alt="Generic placeholder image">
             </a>
             <div class="media-body">
-                <h5 class="mt-0"><a href="\user\{{$key->created_user_id}}">{{$key->created_user_name}}</a></h5>
+                <h5 class="mt-0"><a href="\users\{{$key->created_user_id}}">{{$key->created_user_name}}</a></h5>
                 <p> {{ $key->created_user_bio }} </p>
                 <a href=https://steamcommunity.com/profiles/test> View Steam Profile </a>
             </div>
-            @if ($key->message)
-                <div class="media-body">
-                    <label for="message"> {{ __('keys.leftMessage') }}: </label>
-                    <textarea name="message" class="form-control" type="text" disabled>{{$key->message}}</textarea>
-                </div>
-            @endif
+
     </div>
 @endsection
