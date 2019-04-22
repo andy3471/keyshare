@@ -13,3 +13,7 @@ Built on Laravel, desined for MySQL, Redis and Nginx.
 ## Contributing
 
 -- Docs Required --
+
+## Setting Up Dev Environment
+
+-- Docs Requred --
