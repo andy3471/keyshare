@@ -16,5 +16,6 @@ class KeysTableSeeder extends Seeder
     public function run()
     {
         factory(App\Keys::class, 500)->create();
+        Artisan::call('karma:calculate');
     }
 }
