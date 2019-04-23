@@ -13,16 +13,6 @@ class GamesTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-
-        foreach(range(1, 100) as $index) {
-            $user = User::orderByRaw("RAND()")->first();
-
-            Games::create([
-                'name'      =>  $faker->realText(20),
-                'description'     =>  $faker->paragraph($nbSentences = 1),
-                'created_user_id'     =>  $user->id
-            ]);
-        }
+        factory(App\Games::class, 100)->create();
     }
 }
