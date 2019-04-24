@@ -8,7 +8,7 @@ use App\User;
 
 $factory->define(Games::class, function (Faker $faker) {
     return [
-        'name'              =>  $faker->realText(20),
+        'name'              =>  $faker->unique()->realText(20),
         'description'       =>  $faker->paragraph($nbSentences = 1),
         'created_user_id'   =>  User::all()->random()->id,
     ];

@@ -57,7 +57,6 @@
                     <span class="badge badge-pill {{ $k->color }}"> {{$k->score}} </span>
                 </h5>
                 <p> {{ $key->created_user_bio }} </p>
-                <a href=https://steamcommunity.com/profiles/test> View Steam Profile </a>
             </div>
 
     </div>
