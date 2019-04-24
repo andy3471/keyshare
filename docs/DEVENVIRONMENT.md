@@ -1,6 +1,6 @@
-##Setting Up Dev Environment with Laravel Homestead
+# Setting Up Dev Environment with Laravel Homestead
 
-# Requirements
+## Requirements
 
 Windows:
 [Composer](https://getcomposer.org/download/)
@@ -13,7 +13,8 @@ A Virtual Machine Application is also required, tested on Hyper-V and Virtualbox
 Linux:
 (Commands Required for install for Arch + Ubuntu)
 
-#Recommended Software
+## Recommended Software
+
 Windows:
 [GitBash](https://git-scm.com/downloads) (Recommended: setting the Use Git and optional Unix Tools from the command Promp).
 
@@ -28,7 +29,7 @@ In “Terminal > Integrated > Shell: Windows”
 Linux:
 (Commands Required for install for Arch + Ubuntu)
 
-# Environment
+## Environment Install
 
 Clone the git repository:
 `git clone github.com/andy3471/keyshare.git`
