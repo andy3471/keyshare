@@ -16,5 +16,5 @@ All development environments are running MySQL, Redis and Nginx. Laravel offers 
 
 ## Contributing
 
-[Setting up a dev environment (Incomplete)](docs/DEVENVIRONMMENT.md)  
+[Setting up a dev environment](docs/DEVENVIRONMENT.md)  
 [Contribution guidelines for this project (Incomplete)](docs/CONTRIBUTING.md)
