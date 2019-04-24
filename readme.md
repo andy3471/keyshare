@@ -1,19 +1,20 @@
 ## About Keyshare
 
-Share your Steam Keys with friends via this web app. Create a private circle for sharing spare humble bundle keys.
+Keyshare allows you to share any extra video game key codes that you have left over with your Game Groups.
+
+Currently, keyshare can be self hosted for one group. Users can sign in with a local account, or sign in via steam. They can then add keys for games, which can be claimed by other users.
 
 ## Technologies
 
-Built on Laravel, desined for MySQL, Redis and Nginx.
+Built on the Laravel PHP Framework,
+
+All development environments are running MySQL, Redis and Nginx. Laravel offers support for other DB and web servers, howver these are untested.
 
 ## Install
 
--- Docs Required --
+[Install Guide (Incomplete)](docs/INSTALL.md)
 
 ## Contributing
 
--- Docs Required --
-
-## Setting Up Dev Environment
-
--- Docs Requred --
+[Setting up a dev environment (Incomplete)](docs/DEVENVIRONMMENT.md)
+[Contribution guidelines for this project (Incomplete)](docs/CONTRIBUTING.md)
