@@ -1,0 +1,22 @@
+// Body
+$main: #272727;
+$main-border: #b1b1b1;
+$body-bg: #f8fafc;
+$accent: #ff8800;
+$banner-bg: #e9ecef;
+
+// Typography
+$font-family-sans-serif: "Open Sans",
+sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+//BootStrap overrids
+$theme-colors: ("success": #377249,
+"danger": #a13420,
+"keyshare": $accent);
+
+$border-radius: .1rem;
+$border-radius-lg: .2rem;
+$border-radius-sm: 1rem;
+$input-border-color: $main-border;
