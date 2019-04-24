@@ -51,7 +51,11 @@
                 <img class="mr-3" src="{{ $key->created_user_image }}" width="150px" height="150px" alt="Generic placeholder image">
             </a>
             <div class="media-body">
-                <h5 class="mt-0"><a href="\users\{{$key->created_user_id}}">{{$key->created_user_name}}</a></h5>
+                <h5 class="mt-0">
+                    <a href="\users\{{$key->created_user_id}}">{{$key->created_user_name}}</a>
+                    @php( $k = Auth::user()->getKarma($key->created_user_id) )
+                    <span class="badge badge-pill {{ $k->color }}"> {{$k->score}} </span>
+                </h5>
                 <p> {{ $key->created_user_bio }} </p>
                 <a href=https://steamcommunity.com/profiles/test> View Steam Profile </a>
             </div>

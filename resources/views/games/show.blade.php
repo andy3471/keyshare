@@ -31,7 +31,13 @@
                 <td>
                     <a href="/keys/{{$key->id}}">{{$key->platform}}</a>
                 </td>
-                    <td><a href="/users/{{$key->created_user_id}}">{{$key->created_user_name}}</a></td>
+                    <td>
+                        <a href="/users/{{$key->created_user_id}}">
+                            {{$key->created_user_name}}
+                        </a>
+                        @php( $k = Auth::user()->getKarma($key->created_user_id) )
+                        <span class="badge badge-pill {{ $k->color }}"> {{$k->score}} </span>
+                    </td>
                 <tr>
             @endforeach
         @else

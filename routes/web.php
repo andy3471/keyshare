@@ -48,6 +48,12 @@ Route::get('game/claimed', 'KeysController@claimed')->middleware('auth');
 Route::get('game/shared', 'KeysController@shared')->middleware('auth');
 Route::get('/searchresults', 'HomeController@searchResults')->name('searchresults')->middleware('auth');
 
+//karma
+Route::get('karma', function() {
+    $k = Auth::user()->getKarma();
+    return $k->score;
+});
+
 //TBR
 Route::get('/home', function() {
     return redirect()->route('games');
