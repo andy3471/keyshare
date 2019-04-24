@@ -2,20 +2,20 @@
 
 ## Requirements
 
-Windows:
+Windows:  
 [Composer](https://getcomposer.org/download/)  
 [Vagrant](https://www.vagrantup.com/downloads.html)
 
-A Virtual Machine Application is also required, tested on Hyper-V and Virtualbox. [Supported Applications](https://laravel.com/docs/5.8/homestead):
+A Virtual Machine Application is also required, tested on Hyper-V and Virtualbox. [Supported Applications](https://laravel.com/docs/5.8/homestead):  
 [Virtualbox](https://download.virtualbox.org/virtualbox/6.0.4)  
-[Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v)
+[Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v)  
 
-Linux:
+Linux:  
 (Commands Required for install for Arch + Ubuntu)
 
 ## Recommended Software
 
-Windows:
+Windows:  
 [GitBash](https://git-scm.com/downloads) (Recommended: setting the Use Git and optional Unix Tools from the command Promp).
 
 [Visual Studio Code](https://code.visualstudio.com/)  
