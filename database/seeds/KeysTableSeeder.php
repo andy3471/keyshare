@@ -15,34 +15,7 @@ class KeysTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-
-        foreach(range(1, 500) as $index) {
-            $game = Games::orderByRaw("RAND()")->first();
-            $platform = Platforms::orderByRaw("RAND()")->first();
-            $createduser = User::orderByRaw("RAND()")->first();
-            $owneduser = User::orderByRaw("RAND()")->first();
-
-            if (rand (0,1) == 1) {
-                $owneduser->id = null;
-            }
-
-            if (rand (0,1) == 1) {
-                $message = $faker->paragraph($nbSentences = 1);
-            } else {
-                $message = null;
-            }
-
-            Keys::create([
-                'game_id'           =>  $game->id,
-                'platform_id'       =>  $platform->id,
-                'keycode'           =>  $faker->uuid,
-                'owned_user_id'     =>  $owneduser->id,
-                'created_user_id'   =>  $createduser->id,
-                'message'           =>  $message,
-            ]);
-
-            Artisan::call('karma:calculate');
-        }
+        factory(App\Keys::class, 500)->create();
+        Artisan::call('karma:calculate');
     }
 }
