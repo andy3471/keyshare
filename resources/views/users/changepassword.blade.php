@@ -13,12 +13,6 @@
             </div>
         @endif
 
-        @if(session()->has('message'))
-            <div class="alert alert-success">
-                {{ session()->get('message') }}
-            </div>
-        @endif
-
         <form method="POST" action="{{ route('postpassword') }}">
             @csrf
             <label for="password">{{ __('users.currentpassword') }}</label>
