@@ -15,5 +15,9 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'profileupdated' => 'Profile Updated',
+    'passwordchanged' => 'Password Changed',
+    'passwordsdontmatch' => 'Passwords do not match',
+    'passwordsameascurrent' => 'New Password cannot be same as your current password. Please choose a different password',
 
 ];
