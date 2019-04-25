@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
-use App\Games;
+use App\Game;
 
 class GamesTest extends TestCase
 {
@@ -20,7 +20,7 @@ class GamesTest extends TestCase
     public function testViewGamesPage()
     {
         $user   =   factory(User::class)->create();
-        $game   =   factory(Games::class)->create();
+        $game   =   factory(Game::class)->create();
 
         $this->actingAs($user)->get('/games/' . $game->id)
             ->assertStatus(200)
