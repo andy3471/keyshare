@@ -82,7 +82,20 @@
             <img src="{{ asset('images/LogoWeb.png') }}" alt="360NoHope" width="137" height="110">
         </div>
 
+
+
         <title-header title="@yield('header')"></title-header>
+
+        @if(session()->has('message'))
+            <div class="container">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session()->get('message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        @endif
 
         @yield('content')
 </body>
