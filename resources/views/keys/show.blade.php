@@ -42,7 +42,7 @@
 
         <br><p> {{ __('keys.sharedby') }}: </p>
         <div class="media">
-            <a href="\user\{{$key->created_user_id}}">
+            <a href="\users\{{$key->created_user_id}}">
                 <img class="mr-3" src="{{ $key->created_user_image }}" width="150px" height="150px" alt="Generic placeholder image">
             </a>
             <div class="media-body">
