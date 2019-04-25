@@ -2,11 +2,11 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Games;
+use App\Game;
 use Faker\Generator as Faker;
 use App\User;
 
-$factory->define(Games::class, function (Faker $faker) {
+$factory->define(Game::class, function (Faker $faker) {
     return [
         'name'              =>  $faker->unique()->realText(20),
         'description'       =>  $faker->paragraph($nbSentences = 1),

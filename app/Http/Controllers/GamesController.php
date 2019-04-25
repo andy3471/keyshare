@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Games;
+use App\Game;
 use App\Keys;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +25,7 @@ class GamesController extends Controller
 
     public function show($id)
     {
-        $game = Games::find($id);
+        $game = Game::find($id);
 
         $keys = DB::table('keys')
                     ->select('keys.id', 'platforms.name as platform', 'users.name as created_user_name', 'users.id as created_user_id')
@@ -40,7 +40,7 @@ class GamesController extends Controller
 
     public function edit($id)
     {
-        $game = Games::find($id);
+        $game = Game::find($id);
 
         $keys = DB::table('keys')
                     ->select('keys.id', 'platforms.name as platform', 'users.name as created_user_name', 'users.id as created_user_id')
@@ -70,7 +70,7 @@ class GamesController extends Controller
             $path = $request->file('image')->storeAs( 'public/' . $folderToStore , $filenameToStore);
         }
 
-        $game = Games::find($request->gameid);
+        $game = Game::find($request->gameid);
         $game->name = $request->name;
         $game->description = $request->description;
         if($request->hasFile('image')){
