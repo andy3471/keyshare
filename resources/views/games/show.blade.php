@@ -7,12 +7,6 @@
 @section('content')
 
 <div class="container">
-    @if(session()->has('message'))
-        <div class="alert alert-success">
-            {{ session()->get('message') }}
-        </div>
-    @endif
-
     <img src="{{ asset($game->image) }}" class="img-responsive mx-auto d-block rounded" width="460" height="215px">
     <br>
     <a href="{{ route('editgame', ['id' => $game->id]) }}">{{ __('games.editgame') }}</a><br>

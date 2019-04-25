@@ -6,11 +6,6 @@
 
 @section('content')
     <div class="container">
-        @if(session()->has('message'))
-            <div class="alert alert-success">
-                {{ session()->get('message') }}
-            </div>
-        @endif
 
         <div class="media">
             <img src="{{ $user->image }}" class="mr-3" width="250px" height="250px">
