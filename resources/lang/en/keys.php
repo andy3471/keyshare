@@ -23,4 +23,7 @@ return [
     'message' => 'Leave a Message',
     'leftMessage' => 'Message',
     'add' => 'Add Key',
+    'added' => 'Key Added',
+    'claimsuccess' => 'Key Claimed',
+    'alreadyclaimederror' => 'Error, key already claimed',
 ];

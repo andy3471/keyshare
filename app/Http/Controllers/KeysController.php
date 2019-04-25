@@ -60,7 +60,7 @@ class KeysController extends Controller
 
         Redis::zincrby('karma', 1, auth()->id());
 
-        return redirect()->back()->with('message', 'Key Added');
+        return redirect()->back()->with( 'message', __('keys.added') );
     }
 
     public function show($id){
@@ -91,9 +91,9 @@ class KeysController extends Controller
                     ->update(['owned_user_id' => auth()->id()]);
 
             Redis::zincrby('karma', -1, auth()->id());
-            return redirect()->back()->with('message', 'Key Claimed');
+            return redirect()->back()->with( 'message', __('keys.claimsuccess') );
         } else {
-            return redirect()->back()->with('error', 'Key Already Owned');
+            return redirect()->back()->with( 'error', __('keys.alreadyclaimederror') );
         }
     }
 

@@ -61,7 +61,7 @@ class UsersController extends Controller
         }
         $user->save();
 
-        return redirect()->route('showuser', ['id' => auth()->id() ] )->with('message', 'Profile Updated');
+        return redirect()->route('showuser', ['id' => auth()->id() ] )->with( 'message', __('auth.profileupdated') );
     }
     public function show($id)
     {
@@ -82,17 +82,17 @@ class UsersController extends Controller
 
 
         if (!(Hash::check($request->currentpassword, Auth::user()->password))) {
-            return redirect()->back()->with("error","Current password is not correct");
+            return redirect()->back()->with( "error", __('auth.passwordsdontmatch') );
         }
 
         if($request->currentpassword == $request->newpassword){
-            return redirect()->back()->with("error","New Password cannot be same as your current password. Please choose a different password.");
+            return redirect()->back()->with( "error", __('auth.passwordsameascurrent') );
         }
 
         $user = Auth::user();
         $user->password = bcrypt($request->newpassword);
         $user->save();
 
-        return redirect()->back()->with("message","Password changed!");
+        return redirect()->back()->with( "message", __('auth.passwordchanged') );
     }
 }
