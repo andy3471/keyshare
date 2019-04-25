@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Keys;
-use App\Platforms;
-use App\Games;
+use App\Key;
+use App\Platform;
+use App\Game;
 use Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class KeysController extends Controller
     public function create()
     {
   //      $platforms = Cache::remember('platforms', 3600, function () {
-            $platforms = Platforms::all();
+            $platforms = Platform::all();
   //      });
 
         return view('games.addkey')->with('platforms', $platforms);
@@ -39,7 +39,7 @@ class KeysController extends Controller
 
         //If it doesn't exist, create it
         if (count($game) == 0) {
-            $game = Games::create([
+            $game = Game::create([
                 'created_user_id' => auth()->id(),
                 'name' => $request->gamename,
             ]);
@@ -50,7 +50,7 @@ class KeysController extends Controller
             $game = $game[0]->id;
         }
 
-        $key = Keys::create([
+        $key = Key::create([
             'game_id' => $game,
             'platform_id' => $request->platform_id,
             'created_user_id' => auth()->id(),

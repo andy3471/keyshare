@@ -2,16 +2,16 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Keys;
+use App\Key;
 use Faker\Generator as Faker;
 use App\User;
-use App\Games;
-use App\Platforms;
+use App\Game;
+use App\Platform;
 
-$factory->define(Keys::class, function (Faker $faker) {
+$factory->define(Key::class, function (Faker $faker) {
     return [
-        'game_id'           =>  Games::all()->random()->id,
-        'platform_id'       =>  Platforms::all()->random()->id,
+        'game_id'           =>  Game::all()->random()->id,
+        'platform_id'       =>  Platform::all()->random()->id,
         'keycode'           =>  $faker->uuid,
         'owned_user_id'     =>  function() {
                                     if (rand(0, 1) == 1) {
