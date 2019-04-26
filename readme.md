@@ -6,15 +6,17 @@ Currently, keyshare can be self hosted for one group. Users can sign in with a l
 
 ## Technologies
 
-Built on the Laravel PHP Framework,
+Built on the Laravel PHP Framework, with Vue JS.
 
 All development environments are running MySQL, Redis and Nginx. Laravel offers support for other DB and web servers, howover these are untested.
 
 ## Install
 
-[Install Guide (Incomplete)](docs/INSTALL.md)
+[Install Guide (To Do)](docs/INSTALL.md)
 
 ## Contributing
 
 [Setting up a dev environment](docs/DEVENVIRONMENT.md)  
-[Contribution guidelines for this project (Incomplete)](docs/CONTRIBUTING.md)
+[Debugging](docs/DEBUG.md)  
+[Running Tests (To Do)](docs/TESTS.md)  
+[Contribution guidelines (To Do)](docs/CONTRIBUTING.md)
