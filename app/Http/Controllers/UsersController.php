@@ -13,20 +13,6 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $karma = Redis::zrangebyscore('karma', 0, 9, 'WITHSCORES');
-        $users = array();
-
-        foreach ( $karma as $user) {
-            $user = DB::table('users')
-                    ->select('id', 'name')
-                    ->where('id', '=', $user(0))
-                    ->get();
-
-
-            //$user->karma = $user;
-            array_push($users, $user);
-        }
-        return $users;
     }
 
     public function edit()

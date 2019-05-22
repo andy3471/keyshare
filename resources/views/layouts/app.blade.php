@@ -70,6 +70,19 @@
                             <game-autocomplete placeholder="{{ __('nav.search') }}..." name="search" id="search" type="search" classes="form-control navbar-search"></game-autocomplete>
                         </form>
 
+
+                        @if ( Auth::User()->admin  == 1)
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ __('admin.admin') }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('adminshowusers') }}">{{ __('admin.users') }}</a>
+                                </div>
+                            </li>
+                        @endif
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ Auth::user()->image }}" height="25px" width="25px"> {{ Auth::user()->name }}
@@ -78,6 +91,7 @@
                                 <span class="badge badge-pill {{ $k->color }}"> {{$k->score}} </span>
 
                             </a>
+
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/users/{{auth()->id()}}">{{ __('nav.viewprofile') }}</a>
@@ -98,18 +112,6 @@
                                 </form>
                             </div>
                         </li>
-
-                        @if ( Auth::User()->admin  == 1)
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Admin
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('adminusers') }}">{{ __('admin.users') }}</a>
-                            </div>
-                        </li>
-                        @endif
 
                     </ul>
                 </div>
