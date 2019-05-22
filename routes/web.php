@@ -54,6 +54,12 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/searchresults', 'HomeController@searchResults')->name('searchresults');
 });
 
+Route::middleware(['admin'])->group(function () {
+    Route::get('/admin/users', 'AdminController@usersIndex')->name('adminshowusers');
+    Route::get('/admin/user/{id}', 'AdminController@usersEdit')->name('adminuseredit');
+    Route::post('/admin/user/update', 'AdminController@usersUpdate')->name('adminuserupdate');
+});
+
 
 
 //TBR
