@@ -63,10 +63,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if( config('keyshare.autoapproveusers') == 1) {
+            $approved = 1;
+        } else {
+            $approved = 0;
+        };
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'approved' => $approved,
         ]);
     }
 }

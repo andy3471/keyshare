@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','approved',
     ];
 
     /**
@@ -74,6 +74,7 @@ class User extends Authenticatable
 
             foreach ($karma as $user) {
                 $karma = Redis::zadd('karma', $user->karma, $user->id);
+                $karma = Redis::zscore('karma', $id);
             }
         }
 
