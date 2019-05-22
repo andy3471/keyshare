@@ -33,7 +33,10 @@
                             {{ __('Remember Me') }}
                         </label>
                     </div>
-            <a href="{{ route('steamlogin') }}"><img  src="{{ asset('/images/steamlogin.png') }}" /></a>
+
+            @if ( config('keyshare.steamlogin'))
+                <a href="{{ route('steamlogin') }}"><img  src="{{ asset('/images/steamlogin.png') }}" /></a>
+            @endif
             <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
                     <button type="submit" class="btn btn-keyshare">
@@ -48,7 +51,6 @@
 
                     <a class="btn btn-link" href="{{ route('register') }}">Register</a>
                 </div>
-
             </div>
             <br>
         </form>
