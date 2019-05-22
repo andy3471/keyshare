@@ -18,6 +18,9 @@ return [
     'profileupdated' => 'Profile Updated',
     'passwordchanged' => 'Password Changed',
     'passwordsdontmatch' => 'Passwords do not match',
-    'passwordsameascurrent' => 'New Password cannot be same as your current password. Please choose a different password',
+    'passwordsameascurrent' => 'New password cannot be same as your current password. Please choose a different password',
+    'notapproved' => 'User Awaiting Approval',
+    'notapporvedlong' => 'Your user Account is currently awaiitng aporval be an adminisrator.',
+
 
 ];

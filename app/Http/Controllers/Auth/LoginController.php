@@ -60,26 +60,36 @@ class LoginController extends Controller
         $KeyshareUser = LinkedAccount::where('account_id', '=', $steamuser->id)->get();
 
         if (count($KeyshareUser) == 0) {
+            //Check Config for Auto Approve
+            if( config('keyshare.autoapproveusers') == 1) {
+                $approved = 1;
+            } else {
+                $approved = 0;
+            };
+
             //If Doesn't Exist, Create User
             $KeyshareUser = new User;
-            $KeyshareUser->name = $steamuser->nickname;
-            $KeyshareUser->image = $steamuser->avatar;
-            $KeyshareUser->email = uniqid();
-            $KeyshareUser->password = uniqid();
+                $KeyshareUser->name = $steamuser->nickname;
+                $KeyshareUser->image = $steamuser->avatar;
+                $KeyshareUser->email = uniqid();
+                $KeyshareUser->password = uniqid();
+                $keyshareUser->apporved = $approved;
             $KeyshareUser->save();
 
+
+
             $LinkedAccount = new LinkedAccount;
-            $LinkedAccount->user_id = $KeyshareUser->id;
-            $LinkedAccount->linked_account_provider_id = '1';
-            $LinkedAccount->account_id = $steamuser->id;
+                $LinkedAccount->user_id = $KeyshareUser->id;
+                $LinkedAccount->linked_account_provider_id = '1';
+                $LinkedAccount->account_id = $steamuser->id;
             $LinkedAccount->save();
 
         } elseif (count($KeyshareUser) == 1) {
 
             //If Exists, Find and Update User
             $KeyshareUser = User::find($KeyshareUser[0]->user_id);
-            $KeyshareUser->name = $steamuser->nickname;
-            $KeyshareUser->image = $steamuser->avatar;
+                $KeyshareUser->name = $steamuser->nickname;
+                $KeyshareUser->image = $steamuser->avatar;
             $KeyshareUser->save();
 
         } else {

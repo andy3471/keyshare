@@ -27,6 +27,7 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             @guest
+            @elseif ( Auth::User()->approved == 0)
             @else
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
