@@ -61,6 +61,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'approved' => \App\Http\Middleware\Approved::class,
+        'admin' => \App\Http\Middleware\Admin::class,
+        'steamlogin' => \App\Http\Middleware\SteamLoginEnabled::class,
     ];
 
     /**

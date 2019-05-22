@@ -15,11 +15,12 @@
 use Illuminate\Support\Facades\Redis;
 
 Auth::routes();
-Route::get('login/steam', 'Auth\LoginController@steamRedirect')->name('steamlogin');
-Route::get('login/steam/callback', 'Auth\LoginController@steamCallback');
 Route::get('/notapproved', 'HomeController@notApproved')->name('notapproved');
 
-
+Route::middleware(['steamlogin'])->group(function () {
+    Route::get('login/steam', 'Auth\LoginController@steamRedirect')->name('steamlogin');
+    Route::get('login/steam/callback', 'Auth\LoginController@steamCallback');
+});
 
 Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
