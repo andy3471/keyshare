@@ -90,4 +90,10 @@ class HomeController extends Controller
 
         return json_encode($games);
     }
+
+    public function notApproved()
+    {
+         return view('auth.notApproved');
+    }
+
 }

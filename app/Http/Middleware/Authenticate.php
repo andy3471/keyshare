@@ -16,11 +16,6 @@ class Authenticate extends Middleware
     {
         if (! $request->expectsJson()) {
             return route('login');
-        }
-
-        if ( Auth::user()->approved == 0 ) {
-            Auth::logout();
-            return route('notapproved');
-        }
+        };
     }
 }
