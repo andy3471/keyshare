@@ -17,7 +17,7 @@ body {
 .title {
     border-bottom: 1px solid $main-border;
     margin: 1rem;
-    margin-top: none;
+    margin-top: 0rem;
     height: auto;
     text-align: center;
 }
@@ -69,8 +69,7 @@ body {
 
 .page {
     margin: auto;
-    padding: 1rem;
-    padding-top: none;
+    padding: 0rem 1rem 1rem 1rem;
 }
 
 //AutoComplete Component
