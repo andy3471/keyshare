@@ -18,6 +18,11 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    // TO BE REMOVED
+    public function home() {
+        return redirect()->route('games');
+    }
+
     /**
      * Show the application dashboard.
      *

@@ -63,6 +63,4 @@ Route::middleware(['admin'])->group(function () {
 
 
 //TBR
-Route::get('/home', function() {
-    return redirect()->route('games');
-});
+Route::get('/home', 'HomeController@home')->name('adminuserupdate');
