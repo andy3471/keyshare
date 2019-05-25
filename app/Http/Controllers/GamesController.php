@@ -17,6 +17,8 @@ class GamesController extends Controller
                 ->selectRaw('games.id, games.name, games.image, concat("/games/", games.id) as url')
                 ->join('keys', 'keys.game_id', '=', 'games.id')
                 ->where('keys.owned_user_id', '=', null)
+                ->where('games.removed', '=', '0')
+                ->where('keys.removed', '=', '0')
                 ->orderby('games.name')
                 ->paginate(12);
 
@@ -33,6 +35,7 @@ class GamesController extends Controller
                     ->join('users', 'users.id', '=', 'keys.created_user_id')
                     ->where('game_id', '=', $id)
                     ->where('owned_user_id', '=', null)
+                    ->where('removed', '=', '0')
                     ->get();
 
         return view('games.show')->withGame($game)->withKeys($keys);
@@ -48,6 +51,7 @@ class GamesController extends Controller
                     ->join('users', 'users.id', '=', 'keys.created_user_id')
                     ->where('game_id', '=', $id)
                     ->where('owned_user_id', '=', null)
+                    ->where('removed', '=', '0')
                     ->get();
 
         return view('games.edit')->withGame($game);

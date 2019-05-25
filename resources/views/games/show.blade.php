@@ -7,7 +7,7 @@
 @section('content')
 
 <div class="container">
-    <img src="{{ asset($game->image) }}" class="img-responsive mx-auto d-block rounded" width="460" height="215px">
+    <img src="{{ asset($game->image) }}" class="img-fluid mx-auto d-block rounded">
     <br>
     <a href="{{ route('editgame', ['id' => $game->id]) }}">{{ __('games.editgame') }}</a><br>
     <br>
