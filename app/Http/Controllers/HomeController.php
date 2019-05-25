@@ -39,6 +39,7 @@ class HomeController extends Controller
         $game = DB::table('games')
                 ->select('id')
                 ->where('name', '=', $search)
+                ->where('removed', '=', '0')
                 ->get();
 
         if (count($game) == 0) {
@@ -57,6 +58,7 @@ class HomeController extends Controller
         $games = DB::table('games')
                     ->selectRaw('games.id, games.name, games.image, concat("/games/", games.id) as url')
                     ->where('name', 'like', '%' . $search . '%')
+                    ->where('removed', '=', '0')
                     ->paginate(12);
 
         $games->appends(['search' => $search])->links();
@@ -85,6 +87,7 @@ class HomeController extends Controller
         $games = DB::table('games')
                 ->select('id','name')
                 ->where('name', 'like', '%' . $search . '%')
+                ->where('removed', '=', '0')
                 ->limit(5)
                 ->get();
 
