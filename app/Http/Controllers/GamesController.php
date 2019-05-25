@@ -82,7 +82,7 @@ class GamesController extends Controller
         }
         $game->save();
 
-        return redirect()->route('game', ['id' => $request->gameid] )->with('message', __('game.gameupdated') );
+        return redirect()->route('game', ['id' => $request->gameid] )->with('message', __('games.gameupdated') );
     }
 
 

@@ -29,7 +29,12 @@
             <input name="name" class="form-control" type="text" value="{{ Auth::user()->name }}" required>
 
             <label for="email"> {{ __('users.email') }}: </label>
-            <input name="email" class="form-control" type="text" value="{{ Auth::user()->email }}">
+            @if ( (strpos(Auth::user()->email, '@' )) !== false)
+                @php ($email = Auth::user()->email)
+            @else
+                @php ($email = null)
+            @endif
+            <input name="email" class="form-control" type="text" value="{{ $email }}">
 
             <label for="bio"> {{ __('users.bio') }}: </label>
             <textarea name="bio" class="form-control">{{ Auth::user()->bio }}</textarea>
