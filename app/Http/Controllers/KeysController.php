@@ -68,6 +68,7 @@ class KeysController extends Controller
         $key = DB::table('keys')
                     ->select('keys.id','keys.keycode as keycode', 'keys.message as message', 'games.name as game', 'platforms.name as platform', 'users.name as created_user_name', 'users.id as created_user_id', 'users.image as created_user_image', 'users.bio as created_user_bio', 'keys.owned_user_id')
                     ->where('keys.id', '=', $id)
+                    ->where('keys.removed', '=', '0')
                     ->join('platforms', 'platforms.id', '=', 'platforms.id')
                     ->join('users', 'users.id', '=', 'keys.created_user_id')
                     ->join('games', 'games.id', '=', 'keys.game_id')

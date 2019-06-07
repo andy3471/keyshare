@@ -28,5 +28,5 @@ return [
     'imagereqs' => 'Must be 460x216px',
     'name' => 'Name',
     'description' => 'Description',
-    'gameupdated' => 'Game Updated',
+    'gameupdated ' => 'Game Updated',
 ];

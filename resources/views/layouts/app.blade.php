@@ -27,9 +27,34 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             @guest
+            @elseif ( Auth::User()->approved == 0)
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="{{ Auth::user()->image }}" height="25px" width="25px"> {{ Auth::user()->name }}
+
+                                @php( $k = Auth::user()->getKarma() )
+                                <span class="badge badge-pill {{ $k->color }}"> {{$k->score}} </span>
+
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             @else
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('games') }}">{{ __('games.games') }}</a>
@@ -45,6 +70,19 @@
                             <game-autocomplete placeholder="{{ __('nav.search') }}..." name="search" id="search" type="search" classes="form-control navbar-search"></game-autocomplete>
                         </form>
 
+
+                        @if ( Auth::User()->admin  == 1)
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ __('admin.admin') }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('adminshowusers') }}">{{ __('admin.users') }}</a>
+                                </div>
+                            </li>
+                        @endif
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ Auth::user()->image }}" height="25px" width="25px"> {{ Auth::user()->name }}
@@ -54,24 +92,26 @@
 
                             </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/users/{{auth()->id()}}">{{ __('nav.viewprofile') }}</a>
-                                    <a class="dropdown-item" href="{{ route('edituser') }}">{{ __('nav.updateprofile') }}</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{{ route('claimedkeys') }}">{{ __('nav.claimedkeys') }}</a>
-                                    <a class="dropdown-item" href="{{ route('sharedkeys') }}">{{ __('nav.sharedkeys') }}</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{{ route('changepassword') }}">{{ __('nav.changepassword') }}</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                    </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/users/{{auth()->id()}}">{{ __('nav.viewprofile') }}</a>
+                                <a class="dropdown-item" href="{{ route('edituser') }}">{{ __('nav.updateprofile') }}</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('claimedkeys') }}">{{ __('nav.claimedkeys') }}</a>
+                                <a class="dropdown-item" href="{{ route('sharedkeys') }}">{{ __('nav.sharedkeys') }}</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('changepassword') }}">{{ __('nav.changepassword') }}</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
 
                     </ul>
                 </div>
