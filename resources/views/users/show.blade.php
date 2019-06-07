@@ -8,7 +8,7 @@
     <div class="container">
 
         <div class="media">
-            <img src="{{ $user->image }}" class="mr-3" width="250px" height="250px">
+            <img src="{{ $user->image }}" class="img-fluid mr-3" width="150px" height="150px">
             <div class="media-body">
                 <h5 class="mt-0"> {{ $user->name }}
                     @php( $k = Auth::user()->getKarma($user->id) )
