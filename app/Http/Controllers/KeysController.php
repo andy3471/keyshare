@@ -15,11 +15,7 @@ class KeysController extends Controller
 
     public function create()
     {
-  //      $platforms = Cache::remember('platforms', 3600, function () {
-            $platforms = Platform::all();
-  //      });
-
-        return view('games.addkey')->with('platforms', $platforms);
+        return view('games.addkey');
     }
 
     public function store(Request $request)

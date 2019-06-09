@@ -44,6 +44,10 @@ export default {
     classes: {
       type: String,
       required: true
+    },
+    autocompleteUrl: {
+      type: String,
+      default: "/autocomplete/games/"
     }
   },
   data() {
@@ -57,7 +61,7 @@ export default {
   methods: {
     searchGames() {
       if (this.gameInput.length > 2) {
-        axios.get("/autocomplete/" + this.gameInput).then(response => {
+        axios.get(this.autocompleteUrl + this.gameInput).then(response => {
           this.searchResults = response.data;
           if (
             this.searchResults.length == 1 &&

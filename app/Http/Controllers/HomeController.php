@@ -86,7 +86,7 @@ class HomeController extends Controller
          return view('games.index')->withTitle('Shared Keys')->withurl('/game/shared');
     }
 
-    public function autocomplete($search)
+    public function autocompleteGames($search)
     {
 
         $games = DB::table('games')
@@ -97,6 +97,33 @@ class HomeController extends Controller
                 ->get();
 
         return json_encode($games);
+    }
+
+    public function autocompleteDlc($game, $search)
+    {
+
+        $dlc = DB::table('Dlc')
+                ->select('id','name')
+                ->where('name', 'like', '%' . $search . '%')
+                ->where('removed', '=', '0')
+                ->limit(5)
+                ->get();
+
+        return json_encode($dlc);
+    }
+
+    public function autocompleteTopup($platform, $search)
+    {
+
+        $topup = DB::table('top_ups')
+                ->select('id','name')
+                ->where('name', 'like', '%' . $search . '%')
+                ->where('platform_id', '=', $platform)
+                ->where('removed', '=', '0')
+                ->limit(5)
+                ->get();
+
+        return json_encode($topup);
     }
 
     public function notApproved()

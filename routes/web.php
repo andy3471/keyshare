@@ -25,7 +25,6 @@ Route::middleware(['steamlogin'])->group(function () {
 Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/search', 'HomeController@search')->name('search');
-    Route::get('/autocomplete/{search}', 'HomeController@autocomplete')->name('autocomplete');
 
     Route::get('/games', 'HomeController@gamesList')->name('games');
     Route::get('/games/{id}', 'GamesController@show')->name('game');
@@ -52,6 +51,10 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('game/claimed', 'KeysController@claimed');
     Route::get('game/shared', 'KeysController@shared');
     Route::get('/searchresults', 'HomeController@searchResults')->name('searchresults');
+    Route::get('/platforms/json', 'PlatformsController@index')->name('platforms');
+    Route::get('/autocomplete/games/{search}', 'HomeController@autocompleteGames')->name('gamesautocomplete');
+    Route::get('/autocomplete/dlc/{game}/{search}', 'HomeController@autocompleteDlc')->name('dlcautocomplete');
+    Route::get('/autocomplete/topup/{platform}/{search}', 'HomeController@autocompleteTopup')->name('topupautocomplete');
 });
 
 Route::middleware(['admin'])->group(function () {
