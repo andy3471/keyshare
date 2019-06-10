@@ -112,10 +112,10 @@ class HomeController extends Controller
         return json_encode($dlc);
     }
 
-    public function autocompleteTopup($platform, $search)
+    public function autocompleteSubscription($platform, $search)
     {
 
-        $topup = DB::table('top_ups')
+        $sub = DB::table('Wallet')
                 ->select('id','name')
                 ->where('name', 'like', '%' . $search . '%')
                 ->where('platform_id', '=', $platform)
@@ -123,7 +123,7 @@ class HomeController extends Controller
                 ->limit(5)
                 ->get();
 
-        return json_encode($topup);
+        return json_encode($sub);
     }
 
     public function notApproved()

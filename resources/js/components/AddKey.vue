@@ -8,18 +8,34 @@
     <input type="radio" id="DLC" value="DLC" v-model="KeyType">
     <label for="DLC">DLC</label>
     <br>
-    <input type="radio" id="TopUp" value="TopUp" v-model="KeyType">
-    <label for="topup">Top Up</label>
+    <input type="radio" id="Wallet" value="Wallet" v-model="KeyType">
+    <label for="Wallet">Wallet</label>
+    <br>
+    <input type="radio" id="Subscription" value="Subscription" v-model="KeyType">
+    <label for="Subscription">Subscription</label>
     <br>
 
-    <add-key-game v-if="( this.KeyType == 'Game' )" :platforms="this.platforms"></add-key-game>
-    <add-key-dlc v-if="( this.KeyType == 'DLC' )" :platforms="this.platforms"></add-key-dlc>
-    <add-key-topup v-if="( this.KeyType == 'TopUp' )" :platforms="this.platforms"></add-key-topup>
+    <add-key-game v-if="( this.KeyType == 'Game' )" :platforms="this.platforms" :csrf="this.csrf"></add-key-game>
+    <add-key-dlc v-if="( this.KeyType == 'DLC' )" :platforms="this.platforms" :csrf="this.csrf"></add-key-dlc>
+    <add-key-wallet
+      v-if="( this.KeyType == 'Wallet' )"
+      :platforms="this.platforms"
+      :csrf="this.csrf"
+    ></add-key-wallet>
+    <add-key-subscription
+      v-if="( this.KeyType == 'Subscription' )"
+      :platforms="this.platforms"
+      :csrf="this.csrf"
+    ></add-key-subscription>
   </div>
 </template>
 <script>
 export default {
-  props: {},
+  props: {
+    csrf: {
+      required: true
+    }
+  },
   data() {
     return {
       platforms: [],

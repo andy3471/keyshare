@@ -28,7 +28,15 @@ Vue.component("add-key-game", require("./components/AddKeyGame.vue").default);
 
 Vue.component("add-key-dlc", require("./components/AddKeyDlc.vue").default);
 
-Vue.component("add-key-topup", require("./components/AddKeyTopup.vue").default);
+Vue.component(
+    "add-key-wallet",
+    require("./components/AddKeyWallet.vue").default
+);
+
+Vue.component(
+    "add-key-subscription",
+    require("./components/AddKeySubscription.vue").default
+);
 
 Vue.component("title-header", require("./components/Title.vue").default);
 

@@ -11,10 +11,7 @@
             <div class="alert alert-danger">{{ $error }}</div> <br>
         @endforeach
 
-        <form method="POST" action="/addkey/store">
-            @csrf
-            <add-key></add-key>
-        </form>
+        <add-key csrf="{{csrf_token()}}"></add-key>
 
     </div>
 @endsection

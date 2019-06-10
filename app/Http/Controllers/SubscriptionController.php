@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Wallet;
+use App\Subscription;
 use Illuminate\Http\Request;
 
-class WalletController extends Controller
+class SubscriptionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class WalletController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Wallet  $Wallet
+     * @param  \App\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function show(Wallet $Wallet)
+    public function show(Subscription $subscription)
     {
         //
     }
@@ -52,10 +52,10 @@ class WalletController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Wallet  $Wallet
+     * @param  \App\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function edit(Wallet $Wallet)
+    public function edit(Subscription $subscription)
     {
         //
     }
@@ -64,10 +64,10 @@ class WalletController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Wallet  $Wallet
+     * @param  \App\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Wallet $Wallet)
+    public function update(Request $request, Subscription $subscription)
     {
         //
     }
@@ -75,10 +75,10 @@ class WalletController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Wallet  $Wallet
+     * @param  \App\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Wallet $Wallet)
+    public function destroy(Subscription $subscription)
     {
         //
     }

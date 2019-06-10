@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTopUpsTable extends Migration
+class CreateWalletsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateTopUpsTable extends Migration
      */
     public function up()
     {
-        Schema::create('top_ups', function (Blueprint $table) {
+        Schema::create('wallets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->BigInteger('platform_id')->references('id')->on('platforms');
-            $table->string('name');
+            $table->BigInteger('value');
             $table->string('description')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
@@ -31,6 +31,6 @@ class CreateTopUpsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('top_ups');
+        Schema::dropIfExists('wallets');
     }
 }
