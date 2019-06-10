@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\TopUp;
+use App\Subscription;
 
-class TopUpTableSeeder extends Seeder
+class SubscriptionTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,8 @@ class TopUpTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\TopUp::class, 50)->create();
+        factory(App\Subscription::class, 20)->create();
     }
 }
+
+

@@ -54,7 +54,7 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/platforms/json', 'PlatformsController@index')->name('platforms');
     Route::get('/autocomplete/games/{search}', 'HomeController@autocompleteGames')->name('gamesautocomplete');
     Route::get('/autocomplete/dlc/{game}/{search}', 'HomeController@autocompleteDlc')->name('dlcautocomplete');
-    Route::get('/autocomplete/topup/{platform}/{search}', 'HomeController@autocompleteTopup')->name('topupautocomplete');
+    Route::get('/autocomplete/Wallet/{platform}/{search}', 'HomeController@autocompleteWallet')->name('Walletautocomplete');
 });
 
 Route::middleware(['admin'])->group(function () {

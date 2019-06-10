@@ -1,5 +1,6 @@
 <template>
   <div>
+    <input type="hidden" name="_token" v-bind:value="csrf">
     <label for="platform">Platform:</label>
     <select class="form-control" name="platform_id" v-model="selectedPlatform">
       <option
@@ -9,8 +10,8 @@
       >{{ platform.name }}</option>
     </select>
 
-    <label for="topupname">Top Up Type:</label>
-    <autocomplete placeholder id="topuptype" name="topuptype" classes="form-control"></autocomplete>
+    <label for="Walletname">Value:</label>
+    <autocomplete placeholder id="Wallettype" name="Wallettype" classes="form-control"></autocomplete>
 
     <label for="key">Key:</label>
     <input name="key" class="form-control" type="text" required>
@@ -25,6 +26,9 @@ export default {
   props: {
     platforms: {
       type: Array,
+      required: true
+    },
+    csrf: {
       required: true
     }
   },

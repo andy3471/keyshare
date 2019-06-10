@@ -1782,8 +1782,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {},
+  props: {
+    csrf: {
+      required: true
+    }
+  },
   data: function data() {
     return {
       platforms: [],
@@ -1837,12 +1853,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     platforms: {
       type: Array,
       required: true
+    },
+    csrf: {
+      required: true
     }
+  },
+  data: function data() {
+    return {
+      game: ""
+    };
   }
 });
 
@@ -1879,10 +1910,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     platforms: {
       type: Array,
+      required: true
+    },
+    csrf: {
       required: true
     }
   }
@@ -1890,10 +1928,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AddKeyTopup.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AddKeyTopup.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AddKeySubscription.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AddKeySubscription.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1921,10 +1959,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     platforms: {
       type: Array,
+      required: true
+    },
+    csrf: {
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      selectedPlatform: ""
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AddKeyWallet.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AddKeyWallet.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    platforms: {
+      type: Array,
+      required: true
+    },
+    csrf: {
       required: true
     }
   },
@@ -6637,7 +6730,7 @@ function isSlowBuffer (obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery JavaScript Library v3.4.0
+ * jQuery JavaScript Library v3.4.1
  * https://jquery.com/
  *
  * Includes Sizzle.js
@@ -6647,7 +6740,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2019-04-10T19:48Z
+ * Date: 2019-05-01T21:04Z
  */
 ( function( global, factory ) {
 
@@ -6780,7 +6873,7 @@ function toType( obj ) {
 
 
 var
-	version = "3.4.0",
+	version = "3.4.1",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -11136,8 +11229,12 @@ var documentElement = document.documentElement;
 		},
 		composed = { composed: true };
 
+	// Support: IE 9 - 11+, Edge 12 - 18+, iOS 10.0 - 10.2 only
 	// Check attachment across shadow DOM boundaries when possible (gh-3504)
-	if ( documentElement.attachShadow ) {
+	// Support: iOS 10.0-10.2 only
+	// Early iOS 10 versions support `attachShadow` but not `getRootNode`,
+	// leading to errors. We need to check for `getRootNode`.
+	if ( documentElement.getRootNode ) {
 		isAttached = function( elem ) {
 			return jQuery.contains( elem.ownerDocument, elem ) ||
 				elem.getRootNode( composed ) === elem.ownerDocument;
@@ -11997,8 +12094,7 @@ jQuery.event = {
 
 				// Claim the first handler
 				if ( rcheckableType.test( el.type ) &&
-					el.click && nodeName( el, "input" ) &&
-					dataPriv.get( el, "click" ) === undefined ) {
+					el.click && nodeName( el, "input" ) ) {
 
 					// dataPriv.set( el, "click", ... )
 					leverageNative( el, "click", returnTrue );
@@ -12015,8 +12111,7 @@ jQuery.event = {
 
 				// Force setup before triggering a click
 				if ( rcheckableType.test( el.type ) &&
-					el.click && nodeName( el, "input" ) &&
-					dataPriv.get( el, "click" ) === undefined ) {
+					el.click && nodeName( el, "input" ) ) {
 
 					leverageNative( el, "click" );
 				}
@@ -12057,7 +12152,9 @@ function leverageNative( el, type, expectSync ) {
 
 	// Missing expectSync indicates a trigger call, which must force setup through jQuery.event.add
 	if ( !expectSync ) {
-		jQuery.event.add( el, type, returnTrue );
+		if ( dataPriv.get( el, type ) === undefined ) {
+			jQuery.event.add( el, type, returnTrue );
+		}
 		return;
 	}
 
@@ -12072,9 +12169,13 @@ function leverageNative( el, type, expectSync ) {
 			if ( ( event.isTrigger & 1 ) && this[ type ] ) {
 
 				// Interrupt processing of the outer synthetic .trigger()ed event
-				if ( !saved ) {
+				// Saved data should be false in such cases, but might be a leftover capture object
+				// from an async native handler (gh-4350)
+				if ( !saved.length ) {
 
 					// Store arguments for use when handling the inner native event
+					// There will always be at least one argument (an event object), so this array
+					// will not be confused with a leftover capture object.
 					saved = slice.call( arguments );
 					dataPriv.set( this, type, saved );
 
@@ -12087,14 +12188,14 @@ function leverageNative( el, type, expectSync ) {
 					if ( saved !== result || notAsync ) {
 						dataPriv.set( this, type, false );
 					} else {
-						result = undefined;
+						result = {};
 					}
 					if ( saved !== result ) {
 
 						// Cancel the outer synthetic event
 						event.stopImmediatePropagation();
 						event.preventDefault();
-						return result;
+						return result.value;
 					}
 
 				// If this is an inner synthetic event for an event with a bubbling surrogate
@@ -12109,17 +12210,19 @@ function leverageNative( el, type, expectSync ) {
 
 			// If this is a native event triggered above, everything is now in order
 			// Fire an inner synthetic event with the original arguments
-			} else if ( saved ) {
+			} else if ( saved.length ) {
 
 				// ...and capture the result
-				dataPriv.set( this, type, jQuery.event.trigger(
+				dataPriv.set( this, type, {
+					value: jQuery.event.trigger(
 
-					// Support: IE <=9 - 11+
-					// Extend with the prototype to reset the above stopImmediatePropagation()
-					jQuery.extend( saved.shift(), jQuery.Event.prototype ),
-					saved,
-					this
-				) );
+						// Support: IE <=9 - 11+
+						// Extend with the prototype to reset the above stopImmediatePropagation()
+						jQuery.extend( saved[ 0 ], jQuery.Event.prototype ),
+						saved.slice( 1 ),
+						this
+					)
+				} );
 
 				// Abort handling of the native event
 				event.stopImmediatePropagation();
@@ -34351,7 +34454,7 @@ return jQuery;
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.14.7
+ * @version 1.15.0
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -35955,7 +36058,14 @@ function flip(data, options) {
 
     // flip the variation if required
     var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
-    var flippedVariation = !!options.flipVariations && (isVertical && variation === 'start' && overflowsLeft || isVertical && variation === 'end' && overflowsRight || !isVertical && variation === 'start' && overflowsTop || !isVertical && variation === 'end' && overflowsBottom);
+
+    // flips variation if reference element overflows boundaries
+    var flippedVariationByRef = !!options.flipVariations && (isVertical && variation === 'start' && overflowsLeft || isVertical && variation === 'end' && overflowsRight || !isVertical && variation === 'start' && overflowsTop || !isVertical && variation === 'end' && overflowsBottom);
+
+    // flips variation if popper content overflows boundaries
+    var flippedVariationByContent = !!options.flipVariationsByContent && (isVertical && variation === 'start' && overflowsRight || isVertical && variation === 'end' && overflowsLeft || !isVertical && variation === 'start' && overflowsBottom || !isVertical && variation === 'end' && overflowsTop);
+
+    var flippedVariation = flippedVariationByRef || flippedVariationByContent;
 
     if (overlapsRef || overflowsBoundaries || flippedVariation) {
       // this boolean to detect any flip loop
@@ -36562,7 +36672,23 @@ var modifiers = {
      * The popper will never be placed outside of the defined boundaries
      * (except if `keepTogether` is enabled)
      */
-    boundariesElement: 'viewport'
+    boundariesElement: 'viewport',
+    /**
+     * @prop {Boolean} flipVariations=false
+     * The popper will switch placement variation between `-start` and `-end` when
+     * the reference element overlaps its boundaries.
+     *
+     * The original placement should have a set variation.
+     */
+    flipVariations: false,
+    /**
+     * @prop {Boolean} flipVariationsByContent=false
+     * The popper will switch placement variation between `-start` and `-end` when
+     * the popper element overlaps its reference boundaries.
+     *
+     * The original placement should have a set variation.
+     */
+    flipVariationsByContent: false
   },
 
   /**
@@ -36779,8 +36905,8 @@ var Popper = function () {
   /**
    * Creates a new Popper.js instance.
    * @class Popper
-   * @param {HTMLElement|referenceObject} reference - The reference element used to position the popper
-   * @param {HTMLElement} popper - The HTML element used as the popper
+   * @param {Element|referenceObject} reference - The reference element used to position the popper
+   * @param {Element} popper - The HTML / XML element used as the popper
    * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)
    * @return {Object} instance - The generated Popper.js instance
    */
@@ -37494,29 +37620,63 @@ var render = function() {
             expression: "KeyType"
           }
         ],
-        attrs: { type: "radio", id: "TopUp", value: "TopUp" },
-        domProps: { checked: _vm._q(_vm.KeyType, "TopUp") },
+        attrs: { type: "radio", id: "Wallet", value: "Wallet" },
+        domProps: { checked: _vm._q(_vm.KeyType, "Wallet") },
         on: {
           change: function($event) {
-            _vm.KeyType = "TopUp"
+            _vm.KeyType = "Wallet"
           }
         }
       }),
       _vm._v(" "),
-      _c("label", { attrs: { for: "topup" } }, [_vm._v("Top Up")]),
+      _c("label", { attrs: { for: "Wallet" } }, [_vm._v("Wallet")]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.KeyType,
+            expression: "KeyType"
+          }
+        ],
+        attrs: { type: "radio", id: "Subscription", value: "Subscription" },
+        domProps: { checked: _vm._q(_vm.KeyType, "Subscription") },
+        on: {
+          change: function($event) {
+            _vm.KeyType = "Subscription"
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "Subscription" } }, [_vm._v("Subscription")]),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
       this.KeyType == "Game"
-        ? _c("add-key-game", { attrs: { platforms: this.platforms } })
+        ? _c("add-key-game", {
+            attrs: { platforms: this.platforms, csrf: this.csrf }
+          })
         : _vm._e(),
       _vm._v(" "),
       this.KeyType == "DLC"
-        ? _c("add-key-dlc", { attrs: { platforms: this.platforms } })
+        ? _c("add-key-dlc", {
+            attrs: { platforms: this.platforms, csrf: this.csrf }
+          })
         : _vm._e(),
       _vm._v(" "),
-      this.KeyType == "TopUp"
-        ? _c("add-key-topup", { attrs: { platforms: this.platforms } })
+      this.KeyType == "Wallet"
+        ? _c("add-key-wallet", {
+            attrs: { platforms: this.platforms, csrf: this.csrf }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      this.KeyType == "Subscription"
+        ? _c("add-key-subscription", {
+            attrs: { platforms: this.platforms, csrf: this.csrf }
+          })
         : _vm._e()
     ],
     1
@@ -37547,6 +37707,11 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("input", {
+        attrs: { type: "hidden", name: "_token" },
+        domProps: { value: _vm.csrf }
+      }),
+      _vm._v(" "),
       _c("label", { attrs: { for: "gamename" } }, [_vm._v("Game:")]),
       _vm._v(" "),
       _c("autocomplete", {
@@ -37555,6 +37720,13 @@ var render = function() {
           id: "gamename",
           name: "gamename",
           classes: "form-control"
+        },
+        model: {
+          value: this.game,
+          callback: function($$v) {
+            _vm.$set(this, "game", $$v)
+          },
+          expression: "this.game"
         }
       }),
       _vm._v(" "),
@@ -37630,58 +37802,66 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("label", { attrs: { for: "gamename" } }, [_vm._v("Game:")]),
-      _vm._v(" "),
-      _c("autocomplete", {
-        attrs: {
-          placeholder: "",
-          id: "gamename",
-          name: "gamename",
-          classes: "form-control"
-        }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "platform" } }, [_vm._v("Platform:")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        { staticClass: "form-control", attrs: { name: "platform_id" } },
-        _vm._l(_vm.platforms, function(platform) {
-          return _c(
-            "option",
-            { key: platform.id, domProps: { value: platform.id } },
-            [_vm._v(_vm._s(platform.name))]
-          )
+  return _c("div", [
+    _c(
+      "form",
+      { attrs: { method: "POST", action: "/addkey/store" } },
+      [
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
         }),
-        0
-      ),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "key" } }, [_vm._v("Key:")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { name: "key", type: "text", required: "" }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "message" } }, [_vm._v("Message:")]),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: { name: "message", type: "text" }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "btn btn-keyshare",
-        attrs: { type: "submit", value: "Add Key" }
-      })
-    ],
-    1
-  )
+        _vm._v(" "),
+        _c("label", { attrs: { for: "gamename" } }, [_vm._v("Game:")]),
+        _vm._v(" "),
+        _c("autocomplete", {
+          attrs: {
+            placeholder: "",
+            id: "gamename",
+            name: "gamename",
+            classes: "form-control"
+          }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "platform" } }, [_vm._v("Platform:")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          { staticClass: "form-control", attrs: { name: "platform_id" } },
+          _vm._l(_vm.platforms, function(platform) {
+            return _c(
+              "option",
+              { key: platform.id, domProps: { value: platform.id } },
+              [_vm._v(_vm._s(platform.name))]
+            )
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "key" } }, [_vm._v("Key:")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "key", type: "text", required: "" }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "message" } }, [_vm._v("Message:")]),
+        _vm._v(" "),
+        _c("textarea", {
+          staticClass: "form-control",
+          attrs: { name: "message", type: "text" }
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "btn btn-keyshare",
+          attrs: { type: "submit", value: "Add Key" }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37690,10 +37870,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AddKeyTopup.vue?vue&type=template&id=76561137&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AddKeyTopup.vue?vue&type=template&id=76561137& ***!
-  \**************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AddKeySubscription.vue?vue&type=template&id=e6ee5b34&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AddKeySubscription.vue?vue&type=template&id=e6ee5b34& ***!
+  \*********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -37708,6 +37888,11 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("input", {
+        attrs: { type: "hidden", name: "_token" },
+        domProps: { value: _vm.csrf }
+      }),
+      _vm._v(" "),
       _c("label", { attrs: { for: "platform" } }, [_vm._v("Platform:")]),
       _vm._v(" "),
       _c(
@@ -37749,13 +37934,119 @@ var render = function() {
         0
       ),
       _vm._v(" "),
-      _c("label", { attrs: { for: "topupname" } }, [_vm._v("Top Up Type:")]),
+      _c("label", { attrs: { for: "Walletname" } }, [_vm._v("Value:")]),
       _vm._v(" "),
       _c("autocomplete", {
         attrs: {
           placeholder: "",
-          id: "topuptype",
-          name: "topuptype",
+          id: "Wallettype",
+          name: "Wallettype",
+          classes: "form-control"
+        }
+      }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "key" } }, [_vm._v("Key:")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { name: "key", type: "text", required: "" }
+      }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "message" } }, [_vm._v("Message:")]),
+      _vm._v(" "),
+      _c("textarea", {
+        staticClass: "form-control",
+        attrs: { name: "message", type: "text" }
+      }),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "btn btn-keyshare",
+        attrs: { type: "submit", value: "Add Key" }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AddKeyWallet.vue?vue&type=template&id=ea3c0ffc&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AddKeyWallet.vue?vue&type=template&id=ea3c0ffc& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("input", {
+        attrs: { type: "hidden", name: "_token" },
+        domProps: { value: _vm.csrf }
+      }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "platform" } }, [_vm._v("Platform:")]),
+      _vm._v(" "),
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.selectedPlatform,
+              expression: "selectedPlatform"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { name: "platform_id" },
+          on: {
+            change: function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
+                })
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.selectedPlatform = $event.target.multiple
+                ? $$selectedVal
+                : $$selectedVal[0]
+            }
+          }
+        },
+        _vm._l(_vm.platforms, function(platform) {
+          return _c(
+            "option",
+            { key: platform.id, domProps: { value: platform.id } },
+            [_vm._v(_vm._s(platform.name))]
+          )
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "Walletname" } }, [_vm._v("Value:")]),
+      _vm._v(" "),
+      _c("autocomplete", {
+        attrs: {
+          placeholder: "",
+          id: "Wallettype",
+          name: "Wallettype",
           classes: "form-control"
         }
       }),
@@ -50160,7 +50451,8 @@ Vue.component("game-list", __webpack_require__(/*! ./components/GameList.vue */ 
 Vue.component("add-key", __webpack_require__(/*! ./components/AddKey.vue */ "./resources/js/components/AddKey.vue")["default"]);
 Vue.component("add-key-game", __webpack_require__(/*! ./components/AddKeyGame.vue */ "./resources/js/components/AddKeyGame.vue")["default"]);
 Vue.component("add-key-dlc", __webpack_require__(/*! ./components/AddKeyDlc.vue */ "./resources/js/components/AddKeyDlc.vue")["default"]);
-Vue.component("add-key-topup", __webpack_require__(/*! ./components/AddKeyTopup.vue */ "./resources/js/components/AddKeyTopup.vue")["default"]);
+Vue.component("add-key-wallet", __webpack_require__(/*! ./components/AddKeyWallet.vue */ "./resources/js/components/AddKeyWallet.vue")["default"]);
+Vue.component("add-key-subscription", __webpack_require__(/*! ./components/AddKeySubscription.vue */ "./resources/js/components/AddKeySubscription.vue")["default"]);
 Vue.component("title-header", __webpack_require__(/*! ./components/Title.vue */ "./resources/js/components/Title.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -50439,17 +50731,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/AddKeyTopup.vue":
-/*!*************************************************!*\
-  !*** ./resources/js/components/AddKeyTopup.vue ***!
-  \*************************************************/
+/***/ "./resources/js/components/AddKeySubscription.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/AddKeySubscription.vue ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AddKeyTopup_vue_vue_type_template_id_76561137___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddKeyTopup.vue?vue&type=template&id=76561137& */ "./resources/js/components/AddKeyTopup.vue?vue&type=template&id=76561137&");
-/* harmony import */ var _AddKeyTopup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddKeyTopup.vue?vue&type=script&lang=js& */ "./resources/js/components/AddKeyTopup.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AddKeySubscription_vue_vue_type_template_id_e6ee5b34___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddKeySubscription.vue?vue&type=template&id=e6ee5b34& */ "./resources/js/components/AddKeySubscription.vue?vue&type=template&id=e6ee5b34&");
+/* harmony import */ var _AddKeySubscription_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddKeySubscription.vue?vue&type=script&lang=js& */ "./resources/js/components/AddKeySubscription.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -50459,9 +50751,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AddKeyTopup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AddKeyTopup_vue_vue_type_template_id_76561137___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AddKeyTopup_vue_vue_type_template_id_76561137___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AddKeySubscription_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddKeySubscription_vue_vue_type_template_id_e6ee5b34___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddKeySubscription_vue_vue_type_template_id_e6ee5b34___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -50471,38 +50763,107 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/AddKeyTopup.vue"
+component.options.__file = "resources/js/components/AddKeySubscription.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/AddKeyTopup.vue?vue&type=script&lang=js&":
-/*!**************************************************************************!*\
-  !*** ./resources/js/components/AddKeyTopup.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************/
+/***/ "./resources/js/components/AddKeySubscription.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/AddKeySubscription.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeyTopup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AddKeyTopup.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AddKeyTopup.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeyTopup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeySubscription_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AddKeySubscription.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AddKeySubscription.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeySubscription_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/AddKeyTopup.vue?vue&type=template&id=76561137&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/AddKeyTopup.vue?vue&type=template&id=76561137& ***!
-  \********************************************************************************/
+/***/ "./resources/js/components/AddKeySubscription.vue?vue&type=template&id=e6ee5b34&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/AddKeySubscription.vue?vue&type=template&id=e6ee5b34& ***!
+  \***************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeyTopup_vue_vue_type_template_id_76561137___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AddKeyTopup.vue?vue&type=template&id=76561137& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AddKeyTopup.vue?vue&type=template&id=76561137&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeyTopup_vue_vue_type_template_id_76561137___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeySubscription_vue_vue_type_template_id_e6ee5b34___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AddKeySubscription.vue?vue&type=template&id=e6ee5b34& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AddKeySubscription.vue?vue&type=template&id=e6ee5b34&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeySubscription_vue_vue_type_template_id_e6ee5b34___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeyTopup_vue_vue_type_template_id_76561137___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeySubscription_vue_vue_type_template_id_e6ee5b34___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/AddKeyWallet.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/AddKeyWallet.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AddKeyWallet_vue_vue_type_template_id_ea3c0ffc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddKeyWallet.vue?vue&type=template&id=ea3c0ffc& */ "./resources/js/components/AddKeyWallet.vue?vue&type=template&id=ea3c0ffc&");
+/* harmony import */ var _AddKeyWallet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddKeyWallet.vue?vue&type=script&lang=js& */ "./resources/js/components/AddKeyWallet.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AddKeyWallet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddKeyWallet_vue_vue_type_template_id_ea3c0ffc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddKeyWallet_vue_vue_type_template_id_ea3c0ffc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/AddKeyWallet.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/AddKeyWallet.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/AddKeyWallet.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeyWallet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AddKeyWallet.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AddKeyWallet.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeyWallet_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/AddKeyWallet.vue?vue&type=template&id=ea3c0ffc&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/AddKeyWallet.vue?vue&type=template&id=ea3c0ffc& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeyWallet_vue_vue_type_template_id_ea3c0ffc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AddKeyWallet.vue?vue&type=template&id=ea3c0ffc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AddKeyWallet.vue?vue&type=template&id=ea3c0ffc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeyWallet_vue_vue_type_template_id_ea3c0ffc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddKeyWallet_vue_vue_type_template_id_ea3c0ffc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
