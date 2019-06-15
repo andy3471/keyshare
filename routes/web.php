@@ -35,7 +35,7 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/claimedkeys', 'HomeController@claimedkeys')->name('claimedkeys');
     Route::get('/sharedkeys', 'HomeController@sharedKeys')->name('sharedkeys');
     Route::get('/addkey', 'KeysController@create')->name('addkey');
-    Route::post('/addkey/store', 'KeysController@store')->name('storekey');
+    Route::post('/addkey/game', 'GamesController@store')->name('storegame');
     Route::post('/addkey/claim', 'KeysController@claim')->name('claimkey');
 
     Route::get('/users', 'UsersController@index')->name('users');
