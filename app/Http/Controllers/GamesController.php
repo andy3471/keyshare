@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Game;
-use App\Keys;
+use App\Key;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use \Input as Input;
+use App\Platform;
+use Cache;
+use Illuminate\Support\Facades\Redis;
 
 class GamesController extends Controller
 {
@@ -23,6 +26,46 @@ class GamesController extends Controller
                 ->paginate(12);
 
         return $games;
+    }
+
+    public function store(Request $request) {
+
+        $this->validate($request, [
+            'gamename' => 'required',
+            'platform_id' => 'required',
+            'key' => 'required',
+            'message' => 'max:255'
+        ]);
+
+        //Check Game Exists
+        $game = DB::table('games')
+                    ->where('name', '=', $request->gamename)
+                    ->get();
+
+        //If it doesn't exist, create it
+        if (count($game) == 0) {
+            $game = Game::create([
+                'created_user_id' => auth()->id(),
+                'name' => $request->gamename,
+            ]);
+
+            $game = $game->id;
+
+        } else {
+            $game = $game[0]->id;
+        }
+
+        $key = Key::create([
+            'game_id' => $game,
+            'platform_id' => $request->platform_id,
+            'created_user_id' => auth()->id(),
+            'keycode' => $request->key,
+            'message' => $request->message
+        ]);
+
+        Redis::zincrby('karma', 1, auth()->id());
+
+        return redirect()->back()->with( 'message', __('keys.added') );
     }
 
     public function show($id)

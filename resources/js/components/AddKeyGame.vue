@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form method="POST" action="/addkey/store">
+    <form method="POST" action="/addkey/game">
       <input type="hidden" name="_token" v-bind:value="csrf">
 
       <label for="gamename">Game:</label>

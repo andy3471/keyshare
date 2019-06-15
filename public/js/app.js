@@ -113,7 +113,6 @@ var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ "./node_modules/
 var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ "./node_modules/axios/lib/helpers/parseHeaders.js");
 var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ "./node_modules/axios/lib/helpers/isURLSameOrigin.js");
 var createError = __webpack_require__(/*! ../core/createError */ "./node_modules/axios/lib/core/createError.js");
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(/*! ./../helpers/btoa */ "./node_modules/axios/lib/helpers/btoa.js");
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -125,22 +124,6 @@ module.exports = function xhrAdapter(config) {
     }
 
     var request = new XMLHttpRequest();
-    var loadEvent = 'onreadystatechange';
-    var xDomain = false;
-
-    // For IE 8/9 CORS support
-    // Only supports POST and GET calls and doesn't returns the response headers.
-    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
-    if ( true &&
-        typeof window !== 'undefined' &&
-        window.XDomainRequest && !('withCredentials' in request) &&
-        !isURLSameOrigin(config.url)) {
-      request = new window.XDomainRequest();
-      loadEvent = 'onload';
-      xDomain = true;
-      request.onprogress = function handleProgress() {};
-      request.ontimeout = function handleTimeout() {};
-    }
 
     // HTTP basic authentication
     if (config.auth) {
@@ -155,8 +138,8 @@ module.exports = function xhrAdapter(config) {
     request.timeout = config.timeout;
 
     // Listen for ready state
-    request[loadEvent] = function handleLoad() {
-      if (!request || (request.readyState !== 4 && !xDomain)) {
+    request.onreadystatechange = function handleLoad() {
+      if (!request || request.readyState !== 4) {
         return;
       }
 
@@ -173,9 +156,8 @@ module.exports = function xhrAdapter(config) {
       var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
       var response = {
         data: responseData,
-        // IE sends 1223 instead of 204 (https://github.com/axios/axios/issues/201)
-        status: request.status === 1223 ? 204 : request.status,
-        statusText: request.status === 1223 ? 'No Content' : request.statusText,
+        status: request.status,
+        statusText: request.statusText,
         headers: responseHeaders,
         config: config,
         request: request
@@ -984,54 +966,6 @@ module.exports = function bind(fn, thisArg) {
     return fn.apply(thisArg, args);
   };
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/helpers/btoa.js":
-/*!************************************************!*\
-  !*** ./node_modules/axios/lib/helpers/btoa.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// btoa polyfill for IE<10 courtesy https://github.com/davidchambers/Base64.js
-
-var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-
-function E() {
-  this.message = 'String contains an invalid character';
-}
-E.prototype = new Error;
-E.prototype.code = 5;
-E.prototype.name = 'InvalidCharacterError';
-
-function btoa(input) {
-  var str = String(input);
-  var output = '';
-  for (
-    // initialize result and counter
-    var block, charCode, idx = 0, map = chars;
-    // if the next str index does not exist:
-    //   change the mapping table to "="
-    //   check if d has no fractional digits
-    str.charAt(idx | 0) || (map = '=', idx % 1);
-    // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
-    output += map.charAt(63 & block >> 8 - idx % 1 * 8)
-  ) {
-    charCode = str.charCodeAt(idx += 3 / 4);
-    if (charCode > 0xFF) {
-      throw new E();
-    }
-    block = block << 8 | charCode;
-  }
-  return output;
-}
-
-module.exports = btoa;
 
 
 /***/ }),
@@ -1860,6 +1794,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     platforms: {
@@ -1960,6 +1896,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     platforms: {
@@ -1988,6 +1928,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -6704,19 +6646,9 @@ __webpack_require__.r(__webpack_exports__);
  * @license  MIT
  */
 
-// The _isBuffer check is for Safari 5-7 support, because it's missing
-// Object.prototype.constructor. Remove this eventually
-module.exports = function (obj) {
-  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
-}
-
-function isBuffer (obj) {
-  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
-
-// For Node v0.10 support. Remove this eventually.
-function isSlowBuffer (obj) {
-  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
 }
 
 
@@ -37704,81 +37636,84 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("input", {
-        attrs: { type: "hidden", name: "_token" },
-        domProps: { value: _vm.csrf }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "gamename" } }, [_vm._v("Game:")]),
-      _vm._v(" "),
-      _c("autocomplete", {
-        attrs: {
-          placeholder: "",
-          id: "gamename",
-          name: "gamename",
-          classes: "form-control"
-        },
-        model: {
-          value: this.game,
-          callback: function($$v) {
-            _vm.$set(this, "game", $$v)
-          },
-          expression: "this.game"
-        }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "dlcname" } }, [_vm._v("DLC:")]),
-      _vm._v(" "),
-      _c("autocomplete", {
-        attrs: {
-          placeholder: "",
-          id: "dlcname",
-          name: "dlcname",
-          classes: "form-control"
-        }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "platform" } }, [_vm._v("Platform:")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        { staticClass: "form-control", attrs: { name: "platform_id" } },
-        _vm._l(_vm.platforms, function(platform) {
-          return _c(
-            "option",
-            { key: platform.id, domProps: { value: platform.id } },
-            [_vm._v(_vm._s(platform.name))]
-          )
+  return _c("div", [
+    _c(
+      "form",
+      { attrs: { method: "POST", action: "/addkey/dlc" } },
+      [
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
         }),
-        0
-      ),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "key" } }, [_vm._v("Key:")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { name: "key", type: "text", required: "" }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "message" } }, [_vm._v("Message:")]),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: { name: "message", type: "text" }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "btn btn-keyshare",
-        attrs: { type: "submit", value: "Add Key" }
-      })
-    ],
-    1
-  )
+        _vm._v(" "),
+        _c("label", { attrs: { for: "gamename" } }, [_vm._v("Game:")]),
+        _vm._v(" "),
+        _c("autocomplete", {
+          attrs: {
+            placeholder: "",
+            id: "gamename",
+            name: "gamename",
+            classes: "form-control"
+          },
+          model: {
+            value: this.game,
+            callback: function($$v) {
+              _vm.$set(this, "game", $$v)
+            },
+            expression: "this.game"
+          }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "dlcname" } }, [_vm._v("DLC:")]),
+        _vm._v(" "),
+        _c("autocomplete", {
+          attrs: {
+            placeholder: "",
+            id: "dlcname",
+            name: "dlcname",
+            classes: "form-control"
+          }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "platform" } }, [_vm._v("Platform:")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          { staticClass: "form-control", attrs: { name: "platform_id" } },
+          _vm._l(_vm.platforms, function(platform) {
+            return _c(
+              "option",
+              { key: platform.id, domProps: { value: platform.id } },
+              [_vm._v(_vm._s(platform.name))]
+            )
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "key" } }, [_vm._v("Key:")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "key", type: "text", required: "" }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "message" } }, [_vm._v("Message:")]),
+        _vm._v(" "),
+        _c("textarea", {
+          staticClass: "form-control",
+          attrs: { name: "message", type: "text" }
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "btn btn-keyshare",
+          attrs: { type: "submit", value: "Add Key" }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37805,7 +37740,7 @@ var render = function() {
   return _c("div", [
     _c(
       "form",
-      { attrs: { method: "POST", action: "/addkey/store" } },
+      { attrs: { method: "POST", action: "/addkey/game" } },
       [
         _c("input", {
           attrs: { type: "hidden", name: "_token" },
@@ -37885,89 +37820,97 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("input", {
-        attrs: { type: "hidden", name: "_token" },
-        domProps: { value: _vm.csrf }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "platform" } }, [_vm._v("Platform:")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.selectedPlatform,
-              expression: "selectedPlatform"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { name: "platform_id" },
-          on: {
-            change: function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.selectedPlatform = $event.target.multiple
-                ? $$selectedVal
-                : $$selectedVal[0]
-            }
-          }
-        },
-        _vm._l(_vm.platforms, function(platform) {
-          return _c(
-            "option",
-            { key: platform.id, domProps: { value: platform.id } },
-            [_vm._v(_vm._s(platform.name))]
-          )
+  return _c("div", [
+    _c(
+      "form",
+      { attrs: { method: "POST", action: "/addkey/subscription" } },
+      [
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
         }),
-        0
-      ),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "Walletname" } }, [_vm._v("Value:")]),
-      _vm._v(" "),
-      _c("autocomplete", {
-        attrs: {
-          placeholder: "",
-          id: "Wallettype",
-          name: "Wallettype",
-          classes: "form-control"
-        }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "key" } }, [_vm._v("Key:")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { name: "key", type: "text", required: "" }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "message" } }, [_vm._v("Message:")]),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: { name: "message", type: "text" }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "btn btn-keyshare",
-        attrs: { type: "submit", value: "Add Key" }
-      })
-    ],
-    1
-  )
+        _vm._v(" "),
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "platform" } }, [_vm._v("Platform:")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.selectedPlatform,
+                expression: "selectedPlatform"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { name: "platform_id" },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.selectedPlatform = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          _vm._l(_vm.platforms, function(platform) {
+            return _c(
+              "option",
+              { key: platform.id, domProps: { value: platform.id } },
+              [_vm._v(_vm._s(platform.name))]
+            )
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "Walletname" } }, [_vm._v("Name:")]),
+        _vm._v(" "),
+        _c("autocomplete", {
+          attrs: {
+            placeholder: "",
+            id: "Wallettype",
+            name: "Wallettype",
+            classes: "form-control"
+          }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "key" } }, [_vm._v("Key:")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "key", type: "text", required: "" }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "message" } }, [_vm._v("Message:")]),
+        _vm._v(" "),
+        _c("textarea", {
+          staticClass: "form-control",
+          attrs: { name: "message", type: "text" }
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "btn btn-keyshare",
+          attrs: { type: "submit", value: "Add Key" }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37991,89 +37934,92 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("input", {
-        attrs: { type: "hidden", name: "_token" },
-        domProps: { value: _vm.csrf }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "platform" } }, [_vm._v("Platform:")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.selectedPlatform,
-              expression: "selectedPlatform"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { name: "platform_id" },
-          on: {
-            change: function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.selectedPlatform = $event.target.multiple
-                ? $$selectedVal
-                : $$selectedVal[0]
-            }
-          }
-        },
-        _vm._l(_vm.platforms, function(platform) {
-          return _c(
-            "option",
-            { key: platform.id, domProps: { value: platform.id } },
-            [_vm._v(_vm._s(platform.name))]
-          )
+  return _c("div", [
+    _c(
+      "form",
+      { attrs: { method: "POST", action: "/addkey/wallet" } },
+      [
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
         }),
-        0
-      ),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "Walletname" } }, [_vm._v("Value:")]),
-      _vm._v(" "),
-      _c("autocomplete", {
-        attrs: {
-          placeholder: "",
-          id: "Wallettype",
-          name: "Wallettype",
-          classes: "form-control"
-        }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "key" } }, [_vm._v("Key:")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { name: "key", type: "text", required: "" }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "message" } }, [_vm._v("Message:")]),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: { name: "message", type: "text" }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "btn btn-keyshare",
-        attrs: { type: "submit", value: "Add Key" }
-      })
-    ],
-    1
-  )
+        _vm._v(" "),
+        _c("label", { attrs: { for: "platform" } }, [_vm._v("Platform:")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.selectedPlatform,
+                expression: "selectedPlatform"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { name: "platform_id" },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.selectedPlatform = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          _vm._l(_vm.platforms, function(platform) {
+            return _c(
+              "option",
+              { key: platform.id, domProps: { value: platform.id } },
+              [_vm._v(_vm._s(platform.name))]
+            )
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "Walletname" } }, [_vm._v("Value:")]),
+        _vm._v(" "),
+        _c("autocomplete", {
+          attrs: {
+            placeholder: "",
+            id: "Wallettype",
+            name: "Wallettype",
+            classes: "form-control"
+          }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "key" } }, [_vm._v("Key:")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "key", type: "text", required: "" }
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "message" } }, [_vm._v("Message:")]),
+        _vm._v(" "),
+        _c("textarea", {
+          staticClass: "form-control",
+          attrs: { name: "message", type: "text" }
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "btn btn-keyshare",
+          attrs: { type: "submit", value: "Add Key" }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
