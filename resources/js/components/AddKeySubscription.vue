@@ -14,7 +14,12 @@
       </select>
 
       <label for="Walletname">Name:</label>
-      <autocomplete placeholder id="Wallettype" name="Wallettype" classes="form-control"></autocomplete>
+      <autocomplete
+        :autocompleteUrl="'autocomplete/subscription/' + this.selectedPlatform + '/'"
+        id="Wallettype"
+        name="Wallettype"
+        classes="form-control"
+      ></autocomplete>
 
       <label for="key">Key:</label>
       <input name="key" class="form-control" type="text" required>

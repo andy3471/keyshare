@@ -8,11 +8,17 @@
         id="gamename"
         name="gamename"
         classes="form-control"
-        v-model="this.game"
+        @GameName="changeGame"
       ></autocomplete>
 
       <label for="dlcname">DLC:</label>
-      <autocomplete placeholder id="dlcname" name="dlcname" classes="form-control"></autocomplete>
+      <autocomplete
+        :autocompleteUrl="'autocomplete/dlc/' + this.game + '/'"
+        placeholder
+        id="dlcname"
+        name="dlcname"
+        classes="form-control"
+      ></autocomplete>
 
       <label for="platform">Platform:</label>
       <select class="form-control" name="platform_id">
@@ -47,6 +53,11 @@ export default {
     return {
       game: ""
     };
+  },
+  methods: {
+    changeGame(e) {
+      this.game = e;
+    }
   }
 };
 </script>
