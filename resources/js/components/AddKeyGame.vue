@@ -34,6 +34,11 @@ export default {
     csrf: {
       required: true
     }
+  },
+  data() {
+    return {
+      game: ""
+    };
   }
 };
 </script>

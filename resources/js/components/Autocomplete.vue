@@ -60,6 +60,7 @@ export default {
   },
   methods: {
     searchGames() {
+      this.$emit("GameName", this.gameInput);
       if (this.gameInput.length > 2) {
         axios.get(this.autocompleteUrl + this.gameInput).then(response => {
           this.searchResults = response.data;

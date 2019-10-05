@@ -102,10 +102,12 @@ class HomeController extends Controller
     public function autocompleteDlc($game, $search)
     {
 
-        $dlc = DB::table('Dlc')
-                ->select('id','name')
-                ->where('name', 'like', '%' . $search . '%')
-                ->where('removed', '=', '0')
+        $dlc = DB::table('dlcs')
+                ->select('dlcs.id', 'dlcs.name')
+                ->join('games', 'dlcs.game_id', '=', 'games.id')
+                ->where('dlcs.name', 'like', '%' . $search . '%')
+                ->where('games.name', 'like', '%' . $game . '%')
+                ->where('dlcs.removed', '=', '0')
                 ->limit(5)
                 ->get();
 
@@ -115,7 +117,7 @@ class HomeController extends Controller
     public function autocompleteSubscription($platform, $search)
     {
 
-        $sub = DB::table('Wallet')
+        $sub = DB::table('subscriptions')
                 ->select('id','name')
                 ->where('name', 'like', '%' . $search . '%')
                 ->where('platform_id', '=', $platform)
