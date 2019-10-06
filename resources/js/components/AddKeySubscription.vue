@@ -1,9 +1,9 @@
 <template>
   <div>
-    <form method="POST" action="/addkey/subscription">
-      <input type="hidden" name="_token" v-bind:value="csrf">
+    <form method="POST" action="/addkey/">
+      <input type="hidden" name="_token" v-bind:value="csrf" />
 
-      <input type="hidden" name="_token" v-bind:value="csrf">
+      <input type="hidden" name="_token" v-bind:value="csrf" />
       <label for="platform">Platform:</label>
       <select class="form-control" name="platform_id" v-model="selectedPlatform">
         <option
@@ -22,11 +22,12 @@
       ></autocomplete>
 
       <label for="key">Key:</label>
-      <input name="key" class="form-control" type="text" required>
+      <input name="key" class="form-control" type="text" required />
       <label for="message">Message:</label>
       <textarea name="message" class="form-control" type="text"></textarea>
-      <br>
-      <input type="submit" class="btn btn-keyshare" value="Add Key">
+      <input type="hidden" name="key_type" value="4" />
+      <br />
+      <input type="submit" class="btn btn-keyshare" value="Add Key" />
     </form>
   </div>
 </template>

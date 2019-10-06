@@ -1,19 +1,19 @@
 <template>
   <div>
     <label for="Key Type">Key Type:</label>
-    <br>
-    <input type="radio" id="Game" value="Game" v-model="KeyType" selected>
+    <br />
+    <input type="radio" id="Game" value="Game" v-model="KeyType" selected />
     <label for="Game">Game</label>
-    <br>
-    <input type="radio" id="DLC" value="DLC" v-model="KeyType">
+    <br />
+    <input type="radio" id="DLC" value="DLC" v-model="KeyType" />
     <label for="DLC">DLC</label>
-    <br>
-    <input type="radio" id="Wallet" value="Wallet" v-model="KeyType">
+    <br />
+    <input type="radio" id="Wallet" value="Wallet" v-model="KeyType" />
     <label for="Wallet">Wallet</label>
-    <br>
-    <input type="radio" id="Subscription" value="Subscription" v-model="KeyType">
+    <br />
+    <input type="radio" id="Subscription" value="Subscription" v-model="KeyType" />
     <label for="Subscription">Subscription</label>
-    <br>
+    <br />
 
     <add-key-game v-if="( this.KeyType == 'Game' )" :platforms="this.platforms" :csrf="this.csrf"></add-key-game>
     <add-key-dlc v-if="( this.KeyType == 'DLC' )" :platforms="this.platforms" :csrf="this.csrf"></add-key-dlc>
@@ -44,7 +44,7 @@ export default {
   },
   methods: {},
   mounted() {
-    axios.get("/platforms/json").then(response => {
+    axios.get("/platforms/index").then(response => {
       this.platforms = response.data;
     });
   },

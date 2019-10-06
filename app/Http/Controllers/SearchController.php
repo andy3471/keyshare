@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Game;
 
 class SearchController extends Controller
 {
@@ -52,5 +53,20 @@ class SearchController extends Controller
             ->get();
 
         return json_encode($games);
+    }
+
+    public function autocompleteDlc($gamename, $search)
+    {
+        $game = Game::where('name', $gamename)
+            ->firstOrFail();
+
+        $dlc = DB::table('dlcs')
+            ->select('id', 'name')
+            ->where('name', 'like', '%' . $search . '%')
+            ->where('game_id', '=', $game->id)
+            ->limit(5)
+            ->get();
+
+        return json_encode($dlc);
     }
 }

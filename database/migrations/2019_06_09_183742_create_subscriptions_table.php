@@ -20,7 +20,7 @@ class CreateSubscriptionsTable extends Migration
             $table->string('description')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
-            $table->boolean('removed')->default('0');
+            $table->BigInteger('created_user_id')->references('id')->on('users');
         });
     }
 
