@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Platform;
 
 class PlatformsController extends Controller
 {
     public function show($id)
+    {
+        $platform = Platform::find($id);
+        return view('games.index')->withTitle($platform->name)->withurl('/platform/get/' . $id);
+    }
+
+    public function getPlatform($id)
     {
         $games = DB::table('games')
             ->distinct()
