@@ -39,7 +39,7 @@ Route::middleware(['auth', 'approved'])->group(function () {
 
     Route::get('/keys/{id}', 'KeysController@show')->name('key');
 
-    Route::get('/claimedkeys', 'KeysController@claimedkeys')->name('claimedkeys');
+    Route::get('/claimedkeys', 'KeysController@showClaimed')->name('claimedkeys');
     Route::get('/claimedkeys/get', 'KeysController@getClaimed');
 
     Route::get('/sharedkeys', 'KeysController@showShared')->name('sharedkeys');
@@ -71,3 +71,11 @@ Route::middleware(['admin'])->group(function () {
 
 //TBR
 Route::get('/home', 'HomeController@home')->name('adminuserupdate');
+
+Route::get('/test', function () {
+    if (Gate::allows('approved')) {
+        return 'hello';
+    } else {
+        return 'goodbye';
+    }
+});

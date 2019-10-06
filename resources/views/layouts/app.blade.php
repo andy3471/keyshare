@@ -89,7 +89,7 @@
                         </form>
 
 
-                        @if ( Auth::User()->admin  == 1)
+                        @can('admin',Auth::user())
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ __('admin.admin') }}
@@ -99,7 +99,8 @@
                                     <a class="dropdown-item" href="{{ route('adminshowusers') }}">{{ __('admin.users') }}</a>
                                 </div>
                             </li>
-                        @endif
+                        @endcan
+
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
