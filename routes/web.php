@@ -24,17 +24,27 @@ Route::middleware(['steamlogin'])->group(function () {
 
 Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
-    Route::get('/search', 'HomeController@search')->name('search');
-    Route::get('/autocomplete/{search}', 'HomeController@autocomplete')->name('autocomplete');
 
-    Route::get('/games', 'HomeController@gamesList')->name('games');
+    Route::get('/search', 'SearchController@search')->name('search');
+    Route::get('/search/get', 'SearchController@getSearch');
+
+    Route::get('/autocomplete/{search}', 'SearchController@autocomplete')->name('autocomplete');
+
+    Route::get('/games', 'GamesController@index')->name('games');
+    Route::get('/games/get', 'GamesController@getGames');
+
     Route::get('/games/{id}', 'GamesController@show')->name('game');
     Route::get('/games/edit/{id}', 'GamesController@edit')->name('editgame');
     Route::post('/games/update', 'GamesController@update')->name('updategame');
 
     Route::get('/keys/{id}', 'KeysController@show')->name('key');
-    Route::get('/claimedkeys', 'HomeController@claimedkeys')->name('claimedkeys');
-    Route::get('/sharedkeys', 'HomeController@sharedKeys')->name('sharedkeys');
+
+    Route::get('/claimedkeys', 'KeysController@claimedkeys')->name('claimedkeys');
+    Route::get('/claimedkeys/get', 'KeysController@getClaimed');
+
+    Route::get('/sharedkeys', 'KeysController@showShared')->name('sharedkeys');
+    Route::get('/sharedkeys/get', 'KeysController@getShared');
+
     Route::get('/addkey', 'KeysController@create')->name('addkey');
     Route::post('/addkey/store', 'KeysController@store')->name('storekey');
     Route::post('/addkey/claim', 'KeysController@claim')->name('claimkey');
@@ -47,14 +57,8 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/changepassword', 'UsersController@passwordResetPage')->name('changepassword');
     Route::post('/changepassword/save', 'UsersController@passwordResetSave')->name('postpassword');
 
-    Route::get('/platform/{id}', 'HomeController@platform')->name('platform');
-
-    //JSON
-    Route::get('game/all', 'GamesController@index');
-    Route::get('game/claimed', 'KeysController@claimed');
-    Route::get('game/shared', 'KeysController@shared');
-    Route::get('/searchresults', 'HomeController@searchResults')->name('searchresults');
-    Route::get('/platforms/{id}', 'PlatformsController@show')->name('platforms');
+    Route::get('/platform/{id}', 'PlatformsController@show')->name('platform');
+    Route::get('/platform/get/{id}', 'PlatformsController@getPlatform');
 });
 
 Route::middleware(['admin'])->group(function () {

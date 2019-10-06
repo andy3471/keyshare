@@ -80,7 +80,6 @@ class KeysController extends Controller
 
     public function claim(Request $request)
     {
-        //Check Not Already Owned
         $key = DB::table('keys')
             ->where('id', '=', $request->id)
             ->where('owned_user_id', '=', null)
@@ -99,7 +98,12 @@ class KeysController extends Controller
         }
     }
 
-    public function claimed()
+    public function showClaimed()
+    {
+        return view('games.index')->withTitle('Claimed Keys')->withurl('/claimedkeys/get');
+    }
+
+    public function getClaimed()
     {
         $games = DB::table('games')
             ->selectRaw('keys.id, games.name, games.image, concat("/keys/", keys.id) as url')
@@ -111,8 +115,12 @@ class KeysController extends Controller
         return $games;
     }
 
+    public function showShared()
+    {
+        return view('games.index')->withTitle('Shared Keys')->withurl('/sharedkeys/get');
+    }
 
-    public function shared()
+    public function getShared()
     {
         $games = DB::table('games')
             ->selectRaw('keys.id, games.name, games.image, concat("/keys/", keys.id) as url')
