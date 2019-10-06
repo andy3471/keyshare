@@ -14,37 +14,26 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password','approved',
+        'name', 'email', 'password', 'approved',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    public function linkedAccounts(){
-        return $this->hasMany('App\LinkedAccount');
-    }
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    public function getKarma($id = null){
+
+    public function linkedAccounts()
+    {
+        return $this->hasMany('App\LinkedAccount');
+    }
+
+    public function getKarma($id = null)
+    {
         $k = new \stdClass();
 
         if ($id == null) {
@@ -55,21 +44,22 @@ class User extends Authenticatable
         if ($karma == null) {
             $karma = 0;
 
-            $karma = DB::select(DB::raw('
+            $karma = DB::select(DB::raw(
+                '
             SELECT (IFNULL(C.createdkeys,0) - IFNULL(O.ownedkeys,0)) AS karma, U.id FROM users AS U
             LEFT OUTER JOIN (
                 SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM `keys`
-                WHERE created_user_id = '. $id .'
+                WHERE created_user_id = ' . $id . '
                 GROUP BY created_user_id
             ) AS C
             ON C.user_id = U.id
             LEFT OUTER JOIN (
                 SELECT count(owned_user_id) AS ownedkeys, owned_user_id AS user_id FROM `keys`
-                WHERE owned_user_id = '. $id .'
+                WHERE owned_user_id = ' . $id . '
                 GROUP BY owned_user_id
             ) AS O
             ON O.user_id = U.id
-            WHERE U.id = '. $id
+            WHERE U.id = ' . $id
             ));
 
             foreach ($karma as $user) {
