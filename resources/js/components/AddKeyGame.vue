@@ -1,7 +1,7 @@
 <template>
   <div>
-    <form method="POST" action="/addkey/game">
-      <input type="hidden" name="_token" v-bind:value="csrf">
+    <form method="POST" action="/addkey/">
+      <input type="hidden" name="_token" v-bind:value="csrf" />
 
       <label for="gamename">Game:</label>
       <autocomplete placeholder id="gamename" name="gamename" classes="form-control"></autocomplete>
@@ -16,11 +16,12 @@
       </select>
 
       <label for="key">Key:</label>
-      <input name="key" class="form-control" type="text" required>
+      <input name="key" class="form-control" type="text" required />
       <label for="message">Message:</label>
       <textarea name="message" class="form-control" type="text"></textarea>
-      <br>
-      <input type="submit" class="btn btn-keyshare" value="Add Key">
+      <input type="hidden" name="key_type" value="1" />
+      <br />
+      <input type="submit" class="btn btn-keyshare" value="Add Key" />
     </form>
   </div>
 </template>

@@ -38,5 +38,9 @@
             <p> {{ __('games.nokeys') }} <p>
         @endif
 
+        @foreach($dlc as $dlc)
+            <p>{{ $dlc->name }}</p>
+        @endforeach
+
 </div>
 @endsection
