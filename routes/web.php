@@ -47,11 +47,14 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/changepassword', 'UsersController@passwordResetPage')->name('changepassword');
     Route::post('/changepassword/save', 'UsersController@passwordResetSave')->name('postpassword');
 
+    Route::get('/platform/{id}', 'HomeController@platform')->name('platform');
+
     //JSON
     Route::get('game/all', 'GamesController@index');
     Route::get('game/claimed', 'KeysController@claimed');
     Route::get('game/shared', 'KeysController@shared');
     Route::get('/searchresults', 'HomeController@searchResults')->name('searchresults');
+    Route::get('/platforms/{id}', 'PlatformsController@show')->name('platforms');
 });
 
 Route::middleware(['admin'])->group(function () {
