@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Auth;
+use App\Platform;
 
 class HomeController extends Controller
 {
@@ -19,7 +20,8 @@ class HomeController extends Controller
     }
 
     // TO BE REMOVED
-    public function home() {
+    public function home()
+    {
         return redirect()->route('games');
     }
 
@@ -42,10 +44,10 @@ class HomeController extends Controller
         $search = $request->search;
 
         $game = DB::table('games')
-                ->select('id')
-                ->where('name', '=', $search)
-                ->where('removed', '=', '0')
-                ->get();
+            ->select('id')
+            ->where('name', '=', $search)
+            ->where('removed', '=', '0')
+            ->get();
 
         if (count($game) == 0) {
             return view('games.index')->withTitle($search)->withurl('/searchresults?search=' . $search  . '&');
@@ -61,10 +63,10 @@ class HomeController extends Controller
         $search = $request->search;
 
         $games = DB::table('games')
-                    ->selectRaw('games.id, games.name, games.image, concat("/games/", games.id) as url')
-                    ->where('name', 'like', '%' . $search . '%')
-                    ->where('removed', '=', '0')
-                    ->paginate(12);
+            ->selectRaw('games.id, games.name, games.image, concat("/games/", games.id) as url')
+            ->where('name', 'like', '%' . $search . '%')
+            ->where('removed', '=', '0')
+            ->paginate(12);
 
         $games->appends(['search' => $search])->links();
 
@@ -76,32 +78,37 @@ class HomeController extends Controller
         return view('games.index')->withTitle('Games')->withurl('/game/all');
     }
 
+    public function platform($id)
+    {
+        $platform = Platform::find($id);
+        return view('games.index')->withTitle($platform->name)->withurl('/platforms/' . $id);
+    }
+
     public function claimedKeys()
     {
-         return view('games.index')->withTitle('Claimed Keys')->withurl('/game/claimed');
+        return view('games.index')->withTitle('Claimed Keys')->withurl('/game/claimed');
     }
 
     public function sharedKeys()
     {
-         return view('games.index')->withTitle('Shared Keys')->withurl('/game/shared');
+        return view('games.index')->withTitle('Shared Keys')->withurl('/game/shared');
     }
 
     public function autocomplete($search)
     {
 
         $games = DB::table('games')
-                ->select('id','name')
-                ->where('name', 'like', '%' . $search . '%')
-                ->where('removed', '=', '0')
-                ->limit(5)
-                ->get();
+            ->select('id', 'name')
+            ->where('name', 'like', '%' . $search . '%')
+            ->where('removed', '=', '0')
+            ->limit(5)
+            ->get();
 
         return json_encode($games);
     }
 
     public function notApproved()
     {
-         return view('auth.notApproved');
+        return view('auth.notApproved');
     }
-
 }

@@ -16,6 +16,7 @@ return [
     'games' => 'Games',
     'game' => 'Game',
     'platform' => 'Platform',
+    'platforms' => 'Platforms',
     'key' => 'Key',
     'addkey' => 'Add Key',
     'nokeys' => 'No Keys Available',
