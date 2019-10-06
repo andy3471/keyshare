@@ -60,6 +60,24 @@
                             <a class="nav-link" href="{{ route('games') }}">{{ __('games.games') }}</a>
                         </li>
 
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{{ route('games') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ __('games.platforms') }}
+                            </a>
+
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @foreach ($platforms as $platform)
+                                    <a class="dropdown-item" href="/platform/{{ $platform->id }}">{{ $platform->name }}</a>
+                                @endforeach
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('addkey') }}">{{ __('nav.addkey') }}</a>
                         </li>
@@ -71,7 +89,7 @@
                         </form>
 
 
-                        @if ( Auth::User()->admin  == 1)
+                        @can('admin',Auth::user())
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ __('admin.admin') }}
@@ -81,7 +99,8 @@
                                     <a class="dropdown-item" href="{{ route('adminshowusers') }}">{{ __('admin.users') }}</a>
                                 </div>
                             </li>
-                        @endif
+                        @endcan
+
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

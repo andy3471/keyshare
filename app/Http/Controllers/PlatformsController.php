@@ -3,88 +3,40 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Platform;
-Use Cache;
+use Cache;
 
 class PlatformsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $platforms = Cache::remember('platforms', 360, function () {
+        $platforms = Cache::remember('platforms', 3600, function () {
             return Platform::all();
         });
 
-        return json_encode($platforms);
+        return $platforms;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $platform = Platform::find($id);
+        return view('games.index')->withTitle($platform->name)->withurl('/platform/get/' . $id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function getPlatform($id)
     {
-        //
-    }
+        $games = DB::table('games')
+            ->distinct()
+            ->selectRaw('games.id, games.name, concat("/", games.image) as image, concat("/games/", games.id) as url')
+            ->join('keys', 'keys.game_id', '=', 'games.id')
+            ->where('keys.owned_user_id', '=', null)
+            ->where('games.removed', '=', '0')
+            ->where('keys.removed', '=', '0')
+            ->where('keys.platform_id', '=', $id)
+            ->orderby('games.name')
+            ->paginate(12);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return $games;
     }
 }
