@@ -1,24 +1,24 @@
 @extends('layouts.app')
 
 @section('header')
-    {{ $game->name }}
+    {{ $dlc->name }}
 @endsection
 
 @section('content')
 
 <div class="container">
-    <img src="{{ asset($game->image) }}" class="img-fluid mx-auto d-block rounded">
+    <img src="{{ asset($dlc->image) }}" class="img-fluid mx-auto d-block rounded">
     <br>
-    <a href="{{ route('editgame', ['id' => $game->id]) }}">{{ __('games.editgame') }}</a><br>
+    <a href="{{ route('editdlc', ['id' => $dlc->id]) }}">{{ __('dlc.editdlc') }}</a><br>
     <br>
-    <p> {{$game->description}} </p>
+    <p> {{$dlc->description}} </p>
 
     <table class="table">
 
         @if(count($keys) > 0)
             <tr>
-                <th>{{ __('games.platform') }}</th>
-                <th>{{ __('games.addedby') }}</th>
+                <th>{{ __('dlc.platform') }}</th>
+                <th>{{ __('dlc.addedby') }}</th>
             </tr>
             @foreach($keys as $key)
                 <tr>
@@ -39,8 +39,5 @@
         @endif
     </table>
 
-    <div class="page">
-        <Game-List url="{{ $dlcurl }}"></Game-List>
-    </div>
 </div>
 @endsection

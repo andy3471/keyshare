@@ -43,23 +43,14 @@ class GamesController extends Controller
             ->where('removed', '=', '0')
             ->get();
 
-        $dlc = Dlc::where('game_id', $id);
+        $dlcurl = "/games/dlc/get/" . $id;
 
-        return view('games.show')->withGame($game)->withKeys($keys)->withDlc($dlc);
+        return view('games.show')->withGame($game)->withKeys($keys)->withDlcurl($dlcurl);
     }
 
     public function edit($id)
     {
         $game = Game::find($id);
-
-        $keys = DB::table('keys')
-            ->select('keys.id', 'platforms.name as platform', 'users.name as created_user_name', 'users.id as created_user_id')
-            ->join('platforms', 'platforms.id', '=', 'keys.platform_id')
-            ->join('users', 'users.id', '=', 'keys.created_user_id')
-            ->where('game_id', '=', $id)
-            ->where('owned_user_id', '=', null)
-            ->where('removed', '=', '0')
-            ->get();
 
         return view('games.edit')->withGame($game);
     }
