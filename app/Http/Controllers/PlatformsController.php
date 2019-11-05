@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Platform;
+use Cache;
 
 class PlatformsController extends Controller
 {
+    public function index()
+    {
+        $platforms = Cache::remember('platforms', 3600, function () {
+            return Platform::all();
+        });
+
+        return $platforms;
+    }
+
     public function show($id)
     {
         $platform = Platform::find($id);

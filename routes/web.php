@@ -1,18 +1,6 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-//Testing - TBR
-use Illuminate\Support\Facades\Redis;
+use App\Dlc;
 
 Auth::routes();
 Route::get('/notapproved', 'HomeController@notApproved')->name('notapproved');
@@ -28,7 +16,8 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/search', 'SearchController@search')->name('search');
     Route::get('/search/get', 'SearchController@getSearch');
 
-    Route::get('/autocomplete/{search}', 'SearchController@autocomplete')->name('autocomplete');
+    Route::get('/autocomplete/games/{search}', 'SearchController@autocomplete')->name('autocomplete');
+    Route::get('/autocomplete/{gamename}/{search}', 'SearchController@autocompleteDlc')->name('autocompleteDlc');
 
     Route::get('/games', 'GamesController@index')->name('games');
     Route::get('/games/get', 'GamesController@getGames');
@@ -37,7 +26,7 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/games/edit/{id}', 'GamesController@edit')->name('editgame');
     Route::post('/games/update', 'GamesController@update')->name('updategame');
 
-    Route::get('/keys/{id}', 'KeysController@show')->name('key');
+    Route::get('/keys/{key}', 'KeysController@show')->name('key');
 
     Route::get('/claimedkeys', 'KeysController@showClaimed')->name('claimedkeys');
     Route::get('/claimedkeys/get', 'KeysController@getClaimed');
@@ -45,8 +34,8 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/sharedkeys', 'KeysController@showShared')->name('sharedkeys');
     Route::get('/sharedkeys/get', 'KeysController@getShared');
 
-    Route::get('/addkey', 'KeysController@create')->name('addkey');
-    Route::post('/addkey/store', 'KeysController@store')->name('storekey');
+    Route::get('/addkey/', 'KeysController@create')->name('addkey');
+    Route::post('/addkey/', 'KeysController@store')->name('storekey');
     Route::post('/addkey/claim', 'KeysController@claim')->name('claimkey');
 
     Route::get('/users', 'UsersController@index')->name('users');
@@ -59,6 +48,13 @@ Route::middleware(['auth', 'approved'])->group(function () {
 
     Route::get('/platform/{id}', 'PlatformsController@show')->name('platform');
     Route::get('/platform/get/{id}', 'PlatformsController@getPlatform');
+
+    Route::get('/platforms/index/', 'PlatformsController@index');
+
+    Route::get('/games/dlc/get/{id}', 'DlcController@index');
+    Route::get('/games/dlc/{dlc}', 'DlcController@show')->name('dlc');
+    Route::get('/games/dlc/edit/{dlc}', 'DlcController@edit')->name('editdlc');
+    Route::post('/games/dlc/update', 'DlcController@update')->name('updatedlc');
 });
 
 Route::middleware(['admin'])->group(function () {
@@ -72,10 +68,5 @@ Route::middleware(['admin'])->group(function () {
 //TBR
 Route::get('/home', 'HomeController@home')->name('adminuserupdate');
 
-Route::get('/test', function () {
-    if (Gate::allows('approved')) {
-        return 'hello';
-    } else {
-        return 'goodbye';
-    }
-});
+//TBR
+Route::get('/keytest', 'KeysController@test');

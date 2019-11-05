@@ -18,21 +18,27 @@ window.Vue = require("vue");
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+Vue.component("autocomplete", require("./components/Autocomplete.vue").default);
+
+Vue.component("game-list", require("./components/GameList.vue").default);
+
+Vue.component("add-key", require("./components/AddKey.vue").default);
+
+Vue.component("add-key-game", require("./components/AddKeyGame.vue").default);
+
+Vue.component("add-key-dlc", require("./components/AddKeyDlc.vue").default);
+
 Vue.component(
-    "game-autocomplete",
-    require("./components/GameAutocomplete.vue").default
+    "add-key-wallet",
+    require("./components/AddKeyWallet.vue").default
 );
 
 Vue.component(
-    "game-list",
-    require("./components/GameList.vue").default
+    "add-key-subscription",
+    require("./components/AddKeySubscription.vue").default
 );
 
-Vue.component(
-    "title-header",
-    require("./components/Title.vue").default
-);
-
+Vue.component("title-header", require("./components/Title.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

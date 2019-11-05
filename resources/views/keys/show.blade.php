@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    {{$key->platform}} - {{$key->game}}
+    {{$key->platform->name}} - {{$key->name}}
 @endsection
 
 @section('content')

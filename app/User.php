@@ -32,6 +32,16 @@ class User extends Authenticatable
         return $this->hasMany('App\LinkedAccount');
     }
 
+    public function claimedKeys()
+    {
+        return $this->hasMany('App\Key', 'owned_user_id');
+    }
+
+    public function sharedKeys()
+    {
+        return $this->hasMany('App\Key', 'created_user_id');
+    }
+
     public function getKarma($id = null)
     {
         $k = new \stdClass();
