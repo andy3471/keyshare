@@ -6,13 +6,13 @@
       :class="classes"
       :id="id"
       :name="name"
-      required
+      :required="required == true"
       autocomplete="off"
       :placeholder="placeholder"
       @keydown.down="onArrowDown"
       @keydown.up="onArrowUp"
       @keydown.enter="onEnter"
-    >
+    />
     <ul v-show="listOpen" class="autocomplete-results">
       <li
         v-for="(game, i) in searchResults"
@@ -44,6 +44,14 @@ export default {
     classes: {
       type: String,
       required: true
+    },
+    autocompleteUrl: {
+      type: String,
+      default: "/autocomplete/games/"
+    },
+    required: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -56,8 +64,9 @@ export default {
   },
   methods: {
     searchGames() {
+      this.$emit("GameName", this.gameInput);
       if (this.gameInput.length > 2) {
-        axios.get("/autocomplete/" + this.gameInput).then(response => {
+        axios.get(this.autocompleteUrl + this.gameInput).then(response => {
           this.searchResults = response.data;
           if (
             this.searchResults.length == 1 &&
