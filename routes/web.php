@@ -17,7 +17,7 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/search/get', 'SearchController@getSearch');
 
     Route::get('/autocomplete/games/{search}', 'SearchController@autocomplete')->name('autocomplete');
-    Route::get('/autocomplete/{gamename}/{search}', 'SearchController@autocompleteDlc')->name('autocompleteDlc');
+    Route::get('/autocomplete/dlc/{gamename}/{search}', 'SearchController@autocompleteDlc')->name('autocompleteDlc');
 
     Route::get('/games', 'GamesController@index')->name('games');
     Route::get('/games/get', 'GamesController@getGames');
