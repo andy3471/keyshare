@@ -48,6 +48,10 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/platform/get/{id}', 'PlatformsController@getPlatform');
 
     Route::get('/platforms/index/', 'PlatformsController@index');
+
+    Route::get('/games/dlc/get/{id}', 'DlcController@index');
+    Route::get('/games/dlc/{dlc}', 'DlcController@show');
+    Route::get('/games/dlc/edit/{dlc}', 'DlcController@edit')->name('editdlc');
 });
 
 Route::middleware(['admin'])->group(function () {

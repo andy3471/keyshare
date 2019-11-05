@@ -3,83 +3,53 @@
 namespace App\Http\Controllers;
 
 use App\Dlc;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class DlcController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index($id)
     {
-        //
+        $dlc = DB::table('dlcs')
+        ->distinct()
+        ->selectRaw('dlcs.id, dlcs.name, dlcs.image, concat("/games/dlc/", dlcs.id) as url')
+        ->join('keys', 'keys.dlc_id', '=', 'dlcs.id')
+        ->where('keys.owned_user_id', '=', null)
+        ->where('keys.removed', '=', '0')
+        ->where('keys.game_id', '=', $id)
+        ->orderby('dlcs.name')
+        ->paginate(12);
+
+        return $dlc;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Dlc  $dlc
-     * @return \Illuminate\Http\Response
-     */
     public function show(Dlc $dlc)
     {
-        //
+        $keys = DB::table('keys')
+        ->select('keys.id', 'platforms.name as platform', 'users.name as created_user_name', 'users.id as created_user_id')
+        ->join('platforms', 'platforms.id', '=', 'keys.platform_id')
+        ->join('users', 'users.id', '=', 'keys.created_user_id')
+        ->where('dlc_id', '=', $dlc->id)
+        ->where('owned_user_id', '=', null)
+        ->where('removed', '=', '0')
+        ->get();
+
+        return view('dlc.show')->withDlc($dlc)->withKeys($keys);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Dlc  $dlc
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Dlc $dlc)
     {
-        //
+        return $dlc;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Dlc  $dlc
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Dlc $dlc)
     {
-        //
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Dlc  $dlc
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Dlc $dlc)
     {
-        //
+
     }
 }
