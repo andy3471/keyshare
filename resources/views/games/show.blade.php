@@ -40,6 +40,7 @@
     </table>
 
     <div class="page">
+        <title-header title="DLC"></title-header>
         <Game-List url="{{ $dlcurl }}"></Game-List>
     </div>
 </div>
