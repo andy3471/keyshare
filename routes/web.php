@@ -67,6 +67,3 @@ Route::middleware(['admin'])->group(function () {
 
 //TBR
 Route::get('/home', 'HomeController@home')->name('adminuserupdate');
-
-//TBR
-Route::get('/keytest', 'KeysController@test');
