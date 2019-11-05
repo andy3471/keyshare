@@ -42,16 +42,16 @@
 
         <br><p> {{ __('keys.sharedby') }}: </p>
         <div class="media">
-            <a href="\users\{{$key->created_user_id}}">
-                <img class="mr-3" src="{{ $key->created_user_image }}" width="150px" height="150px" alt="Generic placeholder image">
+            <a href="\users\{{$key->createduser->id}}">
+                <img class="mr-3" src="{{ $key->createduser->image }}" width="150px" height="150px" alt="Generic placeholder image">
             </a>
             <div class="media-body">
                 <h5 class="mt-0">
-                    <a href="\users\{{$key->created_user_id}}">{{$key->created_user_name}}</a>
-                    @php( $k = Auth::user()->getKarma($key->created_user_id) )
+                    <a href="\users\{{$key->createduser->id}}">{{$key->createduser->name}}</a>
+                    @php( $k = Auth::user()->getKarma($key->createduser->id) )
                     <span class="badge badge-pill {{ $k->color }}"> {{$k->score}} </span>
                 </h5>
-                <p> {{ $key->created_user_bio }} </p>
+                <p> {{ $key->createduser->bio }} </p>
             </div>
 
     </div>
