@@ -119,10 +119,4 @@ class KeysController extends Controller
         $keys = User::find(Auth::id())->sharedKeys()->paginate(12);
         return $keys;
     }
-
-    public function test()
-    {
-        $keys = User::find(Auth::id())->claimedKeys()->paginate(12);
-        return $keys;
-    }
 }
