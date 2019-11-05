@@ -6,13 +6,13 @@
       :class="classes"
       :id="id"
       :name="name"
-      required
+      :required="required == true"
       autocomplete="off"
       :placeholder="placeholder"
       @keydown.down="onArrowDown"
       @keydown.up="onArrowUp"
       @keydown.enter="onEnter"
-    >
+    />
     <ul v-show="listOpen" class="autocomplete-results">
       <li
         v-for="(game, i) in searchResults"
@@ -48,6 +48,10 @@ export default {
     autocompleteUrl: {
       type: String,
       default: "/autocomplete/games/"
+    },
+    required: {
+      type: Boolean,
+      default: true
     }
   },
   data() {

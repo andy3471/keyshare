@@ -2055,6 +2055,10 @@ __webpack_require__.r(__webpack_exports__);
     autocompleteUrl: {
       type: String,
       "default": "/autocomplete/games/"
+    },
+    required: {
+      type: Boolean,
+      "default": true
     }
   },
   data: function data() {
@@ -37575,50 +37579,6 @@ var render = function() {
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.KeyType,
-            expression: "KeyType"
-          }
-        ],
-        attrs: { type: "radio", id: "Wallet", value: "Wallet" },
-        domProps: { checked: _vm._q(_vm.KeyType, "Wallet") },
-        on: {
-          change: function($event) {
-            _vm.KeyType = "Wallet"
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "Wallet" } }, [_vm._v("Wallet")]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.KeyType,
-            expression: "KeyType"
-          }
-        ],
-        attrs: { type: "radio", id: "Subscription", value: "Subscription" },
-        domProps: { checked: _vm._q(_vm.KeyType, "Subscription") },
-        on: {
-          change: function($event) {
-            _vm.KeyType = "Subscription"
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "Subscription" } }, [_vm._v("Subscription")]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
       this.KeyType == "Game"
         ? _c("add-key-game", {
             attrs: { platforms: this.platforms, csrf: this.csrf }
@@ -38102,7 +38062,7 @@ var render = function() {
         type: "text",
         id: _vm.id,
         name: _vm.name,
-        required: "",
+        required: _vm.required == true,
         autocomplete: "off",
         placeholder: _vm.placeholder
       },
@@ -51084,8 +51044,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/andy/git/keyshare/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/andy/git/keyshare/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

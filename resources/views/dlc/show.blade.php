@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    {{ $dlc->name }}
+    {{ $dlc->game->name }}- {{ $dlc->name }}
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@
 <div class="container">
     <img src="{{ asset($dlc->image) }}" class="img-fluid mx-auto d-block rounded">
     <br>
-    <a href="{{ route('editdlc', ['id' => $dlc->id]) }}">{{ __('dlc.editdlc') }}</a><br>
+    <a href="{{ route('editdlc', $dlc) }}">{{ __('dlc.editdlc') }}</a><br>
     <br>
     <p> {{$dlc->description}} </p>
 
