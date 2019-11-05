@@ -6,6 +6,7 @@ use App\Key;
 use App\Platform;
 use App\Game;
 use Cache;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -14,6 +15,7 @@ use Auth;
 
 class KeysController extends Controller
 {
+
 
     public function create()
     {
@@ -60,7 +62,7 @@ class KeysController extends Controller
 
             $key->dlc_id = $dlc->id;
         }
-
+        $key->key_type_id = $request->key_type;
         $key->save();
 
         Redis::zincrby('karma', 1, auth()->id());
@@ -71,16 +73,8 @@ class KeysController extends Controller
     public function show($id)
     {
 
-        $key = DB::table('keys')
-            ->select('keys.id', 'keys.keycode as keycode', 'keys.message as message', 'games.name as game', 'platforms.name as platform', 'users.name as created_user_name', 'users.id as created_user_id', 'users.image as created_user_image', 'users.bio as created_user_bio', 'keys.owned_user_id')
-            ->where('keys.id', '=', $id)
-            ->where('keys.removed', '=', '0')
-            ->join('platforms', 'platforms.id', '=', 'platforms.id')
-            ->join('users', 'users.id', '=', 'keys.created_user_id')
-            ->join('games', 'games.id', '=', 'keys.game_id')
-            ->get();
+        $key = Key::find($id);
 
-        $key = $key[0];
         return view('keys.show')->withKey($key);
     }
 
@@ -111,14 +105,8 @@ class KeysController extends Controller
 
     public function getClaimed()
     {
-        $games = DB::table('games')
-            ->selectRaw('keys.id, games.name, games.image, concat("/keys/", keys.id) as url')
-            ->join('keys', 'keys.game_id', '=', 'games.id')
-            ->where('keys.owned_user_id', '=', auth()->id())
-            ->orderby('games.name')
-            ->paginate(12);
-
-        return $games;
+        $keys = User::find(Auth::id())->claimedKeys()->paginate(12);
+        return $keys;
     }
 
     public function showShared()
@@ -128,13 +116,13 @@ class KeysController extends Controller
 
     public function getShared()
     {
-        $games = DB::table('games')
-            ->selectRaw('keys.id, games.name, games.image, concat("/keys/", keys.id) as url')
-            ->join('keys', 'keys.game_id', '=', 'games.id')
-            ->where('keys.created_user_id', '=', auth()->id())
-            ->orderby('games.name')
-            ->paginate(12);
+        $keys = User::find(Auth::id())->sharedKeys()->paginate(12);
+        return $keys;
+    }
 
-        return $games;
+    public function test()
+    {
+        $keys = User::find(Auth::id())->claimedKeys()->paginate(12);
+        return $keys;
     }
 }

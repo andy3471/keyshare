@@ -40,6 +40,7 @@ class GamesController extends Controller
             ->join('users', 'users.id', '=', 'keys.created_user_id')
             ->where('game_id', '=', $id)
             ->where('owned_user_id', '=', null)
+            ->where('dlc_id', '=', null)
             ->where('removed', '=', '0')
             ->get();
 

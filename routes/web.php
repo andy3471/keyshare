@@ -1,5 +1,7 @@
 <?php
 
+use App\Dlc;
+
 Auth::routes();
 Route::get('/notapproved', 'HomeController@notApproved')->name('notapproved');
 
@@ -24,7 +26,7 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/games/edit/{id}', 'GamesController@edit')->name('editgame');
     Route::post('/games/update', 'GamesController@update')->name('updategame');
 
-    Route::get('/keys/{id}', 'KeysController@show')->name('key');
+    Route::get('/keys/{key}', 'KeysController@show')->name('key');
 
     Route::get('/claimedkeys', 'KeysController@showClaimed')->name('claimedkeys');
     Route::get('/claimedkeys/get', 'KeysController@getClaimed');
@@ -50,8 +52,9 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/platforms/index/', 'PlatformsController@index');
 
     Route::get('/games/dlc/get/{id}', 'DlcController@index');
-    Route::get('/games/dlc/{dlc}', 'DlcController@show');
+    Route::get('/games/dlc/{dlc}', 'DlcController@show')->name('dlc');
     Route::get('/games/dlc/edit/{dlc}', 'DlcController@edit')->name('editdlc');
+    Route::post('/games/dlc/update', 'DlcController@update')->name('updatedlc');
 });
 
 Route::middleware(['admin'])->group(function () {
@@ -64,3 +67,6 @@ Route::middleware(['admin'])->group(function () {
 
 //TBR
 Route::get('/home', 'HomeController@home')->name('adminuserupdate');
+
+//TBR
+Route::get('/keytest', 'KeysController@test');
