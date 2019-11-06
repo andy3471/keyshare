@@ -100,7 +100,7 @@ class KeysController extends Controller
 
     public function showClaimed()
     {
-        return view('games.index')->withTitle('Claimed Keys')->withurl('/claimedkeys/get');
+        return view('games.index')->withTitle('Claimed Keys')->withUrl('/claimedkeys/get');
     }
 
     public function getClaimed()
@@ -111,7 +111,7 @@ class KeysController extends Controller
 
     public function showShared()
     {
-        return view('games.index')->withTitle('Shared Keys')->withurl('/sharedkeys/get');
+        return view('games.index')->withTitle('Shared Keys')->withUrl('/sharedkeys/get');
     }
 
     public function getShared()
