@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Dlc;
 
 class GamesController extends Controller
 {
@@ -34,14 +33,11 @@ class GamesController extends Controller
     {
         $game = Game::find($id);
 
-        $keys = DB::table('keys')
-            ->select('keys.id', 'platforms.name as platform', 'users.name as created_user_name', 'users.id as created_user_id')
-            ->join('platforms', 'platforms.id', '=', 'keys.platform_id')
-            ->join('users', 'users.id', '=', 'keys.created_user_id')
-            ->where('game_id', '=', $id)
-            ->where('owned_user_id', '=', null)
-            ->where('dlc_id', '=', null)
-            ->where('removed', '=', '0')
+        $keys = Game::find($id)->keys()
+            ->select('id', 'platform_id', 'created_user_id')
+            ->where('owned_user_id', null)
+            ->where('key_type_id', '1')
+            ->with('platform', 'createduser')
             ->get();
 
         $dlcurl = "/games/dlc/get/" . $id;

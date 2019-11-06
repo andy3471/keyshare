@@ -11,8 +11,7 @@
             <img src="{{ $user->image }}" class="img-fluid mr-3" width="150px" height="150px">
             <div class="media-body">
                 <h5 class="mt-0"> {{ $user->name }}
-                    @php( $k = Auth::user()->getKarma($user->id) )
-                    <span class="badge badge-pill {{ $k->color }}"> {{$k->score}} </span>
+                    <span class="badge badge-pill {{ $user->karma_color }}"> {{ $user->karma_ }} </span>
                 </h5>
                 <p>
                     {{ $user->bio }}
