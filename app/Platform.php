@@ -8,6 +8,6 @@ class Platform extends Model
 {
     public function keys()
     {
-        return $this->hasMany('App\Keys');
+        return $this->hasMany('App\Key');
     }
 }

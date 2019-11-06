@@ -47,9 +47,8 @@
             </a>
             <div class="media-body">
                 <h5 class="mt-0">
-                    <a href="\users\{{$key->createduser->id}}">{{$key->createduser->name}}</a>
-                    @php( $k = Auth::user()->getKarma($key->createduser->id) )
-                    <span class="badge badge-pill {{ $k->color }}"> {{$k->score}} </span>
+                    <a href="\users\{{ $key->createduser->id }}">{{$key->createduser->name}}</a>
+                    <span class="badge badge-pill {{ $key->createduser->karma_color }}"> {{ $key->createduser->karma }} </span>
                 </h5>
                 <p> {{ $key->createduser->bio }} </p>
             </div>

@@ -14,6 +14,11 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $appends = [
+        'karma',
+        'karma_color',
+    ];
+
     protected $fillable = [
         'name', 'email', 'password', 'approved',
     ];
@@ -42,13 +47,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Key', 'created_user_id');
     }
 
-    public function getKarma($id = null)
+    public function getKarmaAttribute()
     {
-        $k = new \stdClass();
-
-        if ($id == null) {
-            $id = auth()->id();
-        }
+        $id = $this->id;
         $karma = Redis::zscore('karma', $id);
 
         if ($karma == null) {
@@ -78,18 +79,21 @@ class User extends Authenticatable
             }
         }
 
-        $k->score = $karma;
+        return $karma;
+    }
+
+    public function getKarmaColorAttribute()
+    {
+        $karma = $this->karma;
 
         if ($karma < 0) {
-            $k->color = 'badge-danger';
+            return 'badge-danger';
         } elseif ($karma < 2) {
-            $k->color = 'badge-warning';
+            return 'badge-warning';
         } elseif ($karma < 15) {
-            $k->color = 'badge-info';
+            return 'badge-info';
         } else {
-            $k->color = 'badge-success';
+            return 'badge-success';
         }
-
-        return $k;
     }
 }
