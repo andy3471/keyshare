@@ -106,8 +106,7 @@
                             <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ Auth::user()->image }}" height="25px" width="25px"> {{ Auth::user()->name }}
 
-                                @php( $k = Auth::user()->getKarma() )
-                                <span class="badge badge-pill {{ $k->color }}"> {{$k->score}} </span>
+                                <span class="badge badge-pill {{ Auth::user()->karma_color }}"> {{ Auth::user()->karma }} </span>
 
                             </a>
 

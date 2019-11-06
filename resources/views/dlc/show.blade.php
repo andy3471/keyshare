@@ -23,14 +23,13 @@
             @foreach($keys as $key)
                 <tr>
                 <td>
-                    <a href="/keys/{{$key->id}}">{{$key->platform}}</a>
+                    <a href="/keys/{{$key->id}}">{{$key->platform->name}}</a>
                 </td>
                     <td>
-                        <a href="/users/{{$key->created_user_id}}">
-                            {{$key->created_user_name}}
+                        <a href="/users/{{$key->createduser->id}}">
+                            {{$key->createduser->name}}
                         </a>
-                        @php( $k = Auth::user()->getKarma($key->created_user_id) )
-                        <span class="badge badge-pill {{ $k->color }}"> {{$k->score}} </span>
+                        <span class="badge badge-pill {{ $key->createduser->karma_color }}"> {{ $key->createduser->karma }} </span>
                     </td>
                 <tr>
             @endforeach

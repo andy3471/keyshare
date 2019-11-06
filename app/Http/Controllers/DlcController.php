@@ -28,13 +28,14 @@ class DlcController extends Controller
 
     public function show(Dlc $dlc)
     {
-        $keys = DB::table('keys')
-            ->select('keys.id', 'platforms.name as platform', 'users.name as created_user_name', 'users.id as created_user_id')
-            ->join('platforms', 'platforms.id', '=', 'keys.platform_id')
-            ->join('users', 'users.id', '=', 'keys.created_user_id')
-            ->where('dlc_id', '=', $dlc->id)
-            ->where('owned_user_id', '=', null)
-            ->where('removed', '=', '0')
+        $id = $dlc->id;
+
+        $keys =  Dlc::find($id)
+            ->keys()
+            ->select('id', 'platform_id', 'created_user_id')
+            ->where('owned_user_id', null)
+            ->where('key_type_id', '2')
+            ->with('platform', 'createduser')
             ->get();
 
         return view('dlc.show')->withDlc($dlc)->withKeys($keys);
