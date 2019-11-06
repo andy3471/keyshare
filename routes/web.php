@@ -35,7 +35,7 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/sharedkeys/get', 'KeysController@getShared');
 
     Route::get('/addkey/', 'KeysController@create')->name('addkey');
-    Route::post('/addkey/', 'KeysController@store')->name('storekey');
+    Route::post('/addkey/store', 'KeysController@store')->name('storekey');
     Route::post('/addkey/claim', 'KeysController@claim')->name('claimkey');
 
     Route::get('/users', 'UsersController@index')->name('users');
