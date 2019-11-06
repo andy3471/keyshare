@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\DB;
 class UsersController extends Controller
 {
     public function index()
-    {
-    }
+    { }
 
     public function edit()
     {
@@ -29,25 +28,25 @@ class UsersController extends Controller
         ]);
 
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $filename = uniqid();
             $extension = $request->file('image')->getClientOriginalExtension();
-            $filenameToStore = $filename . '.'. $extension;
+            $filenameToStore = $filename . '.' . $extension;
             $folderToStore = 'images/users/';
             $fullImagePath = $folderToStore . $filenameToStore;
 
-            $path = $request->file('image')->storeAs( 'public/' . $folderToStore , $filenameToStore);
+            $path = $request->file('image')->storeAs('public/' . $folderToStore, $filenameToStore);
         }
 
         $user = User::find(auth()->id());
         $user->name = $request->name;
         $user->bio = $request->bio;
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $user->image = '/storage/' . $fullImagePath;
         }
         $user->save();
 
-        return redirect()->route('showuser', ['id' => auth()->id() ] )->with( 'message', __('auth.profileupdated') );
+        return redirect()->route('showuser', ['id' => auth()->id()])->with('message', __('auth.profileupdated'));
     }
     public function show($id)
     {
@@ -55,11 +54,13 @@ class UsersController extends Controller
         return view('users.show')->withUser($user);
     }
 
-    public function passwordResetPage() {
+    public function passwordResetPage()
+    {
         return view('users.changepassword');
     }
 
-    public function passwordResetSave(Request $request) {
+    public function passwordResetSave(Request $request)
+    {
 
         $this->validate($request, [
             'currentpassword' => 'required',
@@ -68,17 +69,17 @@ class UsersController extends Controller
 
 
         if (!(Hash::check($request->currentpassword, Auth::user()->password))) {
-            return redirect()->back()->with( "error", __('auth.passwordsdontmatch') );
+            return redirect()->back()->with("error", __('auth.passwordsdontmatch'));
         }
 
-        if($request->currentpassword == $request->newpassword){
-            return redirect()->back()->with( "error", __('auth.passwordsameascurrent') );
+        if ($request->currentpassword == $request->newpassword) {
+            return redirect()->back()->with("error", __('auth.passwordsameascurrent'));
         }
 
         $user = Auth::user();
         $user->password = bcrypt($request->newpassword);
         $user->save();
 
-        return redirect()->back()->with( "message", __('auth.passwordchanged') );
+        return redirect()->back()->with("message", __('auth.passwordchanged'));
     }
 }
