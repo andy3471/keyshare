@@ -67,7 +67,7 @@ class KeysController extends Controller
 
         Redis::zincrby('karma', 1, auth()->id());
 
-        return redirect()->back()->with('message', __('keys.added'));
+	return redirect()->back()->with('message', __('keys.added'));
     }
 
     public function show($id)
