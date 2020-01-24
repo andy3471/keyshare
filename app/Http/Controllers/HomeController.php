@@ -29,4 +29,9 @@ class HomeController extends Controller
     {
         return view('auth.notApproved');
     }
+
+    public function demo()
+    {
+        return view('auth.demomode');
+    }
 }
