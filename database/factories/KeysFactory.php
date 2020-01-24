@@ -19,7 +19,6 @@ $factory->define(Key::class, function (Faker $faker) {
                 $game_id = $key['game_id'];
 
                 $dlc =  Dlc::inRandomOrder()->where('Game_id', $game_id)->first();
-                return $dlc->id;
 
                 if ($dlc == null) {
                     $dlc = factory(App\Dlc::class)->create([
