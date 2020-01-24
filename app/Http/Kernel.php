@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'approved' => \App\Http\Middleware\Approved::class,
         'admin' => \App\Http\Middleware\Admin::class,
         'steamlogin' => \App\Http\Middleware\SteamLoginEnabled::class,
+        'demomode' => \App\Http\Middleware\DemoMode::class,
     ];
 
     /**

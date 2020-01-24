@@ -4,6 +4,7 @@ use App\Dlc;
 
 Auth::routes();
 Route::get('/notapproved', 'HomeController@notApproved')->name('notapproved');
+Route::get('/demo', 'HomeController@demo')->name('demomode');
 
 Route::middleware(['steamlogin'])->group(function () {
     Route::get('login/steam', 'Auth\LoginController@steamRedirect')->name('steamlogin');
@@ -40,11 +41,11 @@ Route::middleware(['auth', 'approved'])->group(function () {
 
     Route::get('/users', 'UsersController@index')->name('users');
     Route::get('/users/{id}', 'UsersController@show')->name('showuser');
-    Route::get('/user/edit', 'UsersController@edit')->name('edituser')->middleware('DemoMode');
-    Route::post('/user/update', 'UsersController@update')->name('updateuser')->middleware('DemoMode');
+    Route::get('/user/edit', 'UsersController@edit')->name('edituser')->middleware('demomode');
+    Route::post('/user/update', 'UsersController@update')->name('updateuser')->middleware('demomode');
 
-    Route::get('/changepassword', 'UsersController@passwordResetPage')->name('changepassword')->middleware('DemoMode');
-    Route::post('/changepassword/save', 'UsersController@passwordResetSave')->name('postpassword')->middleware('DemoMode');
+    Route::get('/changepassword', 'UsersController@passwordResetPage')->name('changepassword')->middleware('demomode');
+    Route::post('/changepassword/save', 'UsersController@passwordResetSave')->name('postpassword')->middleware('demomode');
 
     Route::get('/platform/{id}', 'PlatformsController@show')->name('platform');
     Route::get('/platform/get/{id}', 'PlatformsController@getPlatform');
@@ -59,8 +60,8 @@ Route::middleware(['auth', 'approved'])->group(function () {
 
 Route::middleware(['admin'])->group(function () {
     Route::get('/admin/users', 'AdminController@usersIndex')->name('adminshowusers');
-    Route::get('/admin/user/{id}', 'AdminController@usersEdit')->name('adminuseredit')->middleware('DemoMode');
-    Route::post('/admin/user/update', 'AdminController@usersUpdate')->name('adminuserupdate')->middleware('DemoMode');
+    Route::get('/admin/user/{id}', 'AdminController@usersEdit')->name('adminuseredit')->middleware('demomode');
+    Route::post('/admin/user/update', 'AdminController@usersUpdate')->name('adminuserupdate')->middleware('demomode');
 });
 
 
