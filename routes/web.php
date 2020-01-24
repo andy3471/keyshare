@@ -40,11 +40,11 @@ Route::middleware(['auth', 'approved'])->group(function () {
 
     Route::get('/users', 'UsersController@index')->name('users');
     Route::get('/users/{id}', 'UsersController@show')->name('showuser');
-    Route::get('/user/edit', 'UsersController@edit')->name('edituser');
-    Route::post('/user/update', 'UsersController@update')->name('updateuser');
+    Route::get('/user/edit', 'UsersController@edit')->name('edituser')->middleware('DemoMode');
+    Route::post('/user/update', 'UsersController@update')->name('updateuser')->middleware('DemoMode');
 
-    Route::get('/changepassword', 'UsersController@passwordResetPage')->name('changepassword');
-    Route::post('/changepassword/save', 'UsersController@passwordResetSave')->name('postpassword');
+    Route::get('/changepassword', 'UsersController@passwordResetPage')->name('changepassword')->middleware('DemoMode');
+    Route::post('/changepassword/save', 'UsersController@passwordResetSave')->name('postpassword')->middleware('DemoMode');
 
     Route::get('/platform/{id}', 'PlatformsController@show')->name('platform');
     Route::get('/platform/get/{id}', 'PlatformsController@getPlatform');
@@ -59,8 +59,8 @@ Route::middleware(['auth', 'approved'])->group(function () {
 
 Route::middleware(['admin'])->group(function () {
     Route::get('/admin/users', 'AdminController@usersIndex')->name('adminshowusers');
-    Route::get('/admin/user/{id}', 'AdminController@usersEdit')->name('adminuseredit');
-    Route::post('/admin/user/update', 'AdminController@usersUpdate')->name('adminuserupdate');
+    Route::get('/admin/user/{id}', 'AdminController@usersEdit')->name('adminuseredit')->middleware('DemoMode');
+    Route::post('/admin/user/update', 'AdminController@usersUpdate')->name('adminuserupdate')->middleware('DemoMode');
 });
 
 

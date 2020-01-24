@@ -6,6 +6,9 @@
 
 @section('content')
     <div class="container">
+        @if (config('app.demo_mode') == true)
+            {{ __('auth.demomodelogin') }}
+        @endif
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <label for="email">{{ __('E-Mail Address') }}</label>
