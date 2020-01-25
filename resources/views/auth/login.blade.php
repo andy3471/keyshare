@@ -12,7 +12,15 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <label for="email">{{ __('E-Mail Address') }}</label>
-            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+            <input id="email" 
+                type="email" 
+                class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" 
+                name="email"
+                @if (config('app.demo_mode') == true)
+                    value="admin@admin.com"
+                @else
+                    value="{{ old('email') }}"
+                @endif required autofocus>
 
             @if ($errors->has('email'))
                 <span class="invalid-feedback" role="alert">
@@ -21,7 +29,13 @@
             @endif
 
             <label for="password">{{ __('Password') }}</label>
-            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+            <input id="password" 
+                type="password"
+                class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                name="password"
+                @if (config('app.demo_mode') == true)
+                    value="password" 
+                @endif required>
 
             @if ($errors->has('password'))
                 <span class="invalid-feedback" role="alert">
