@@ -23,11 +23,7 @@ return [
     'notapporvedlong' => 'Your user Account is currently awaiitng aporval be an adminisrator.',
     'demomode' => 'Demo Mode',
     'demomodelong' => 'This action can not be completed, as the site is in demo mode',
-    'demomodelogin' => 'The Application is running in demo mode. Editing users is disabled. please sign in with:
-                        Username: Admin@admin.com
-                        Password: password
-
-                        Please be aware that if you register, users have admin access and can see your email address.'
-
-
+    'demomodelogin' => 'The Application is running in demo mode. Editing users is disabled. please sign in with the email "admin@admin.com" and the password "password". 
+                        Please be aware that any data input may be accessible to users'
+                        Please be aware that any data input may be accessible to users'
 ];
