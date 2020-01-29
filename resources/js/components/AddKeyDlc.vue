@@ -4,16 +4,17 @@
       <input type="hidden" name="_token" v-bind:value="csrf" />
       <label for="gamename">Game:</label>
       <autocomplete
+        v-model="this.game"
         placeholder
         id="gamename"
         name="gamename"
         classes="form-control"
-        @GameName="changeGame"
+        url='/autocomplete/games/'
       ></autocomplete>
 
       <label for="dlcname">DLC:</label>
       <autocomplete
-        :autocompleteUrl="'autocomplete/dlc/' + this.game + '/'"
+        :url="'autocomplete/dlc/' + this.game + '/'"
         placeholder
         id="dlcname"
         name="dlcname"
@@ -56,9 +57,6 @@ export default {
     };
   },
   methods: {
-    changeGame(e) {
-      this.game = e;
-    }
   }
 };
 </script>
