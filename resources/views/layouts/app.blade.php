@@ -85,7 +85,7 @@
 
                     <ul class="navbar-nav ml-auto">
                         <form class="form-inline" method="get" action="{{ route('search') }}">
-                            <autocomplete placeholder="{{ __('nav.search') }}..." name="search" id="search" type="search" classes="form-control navbar-search"></autocomplete>
+                            <autocomplete url='/autocomplete/games/' placeholder="{{ __('nav.search') }}..." name="search" id="search" type="search" classes="form-control navbar-search"></autocomplete>
                         </form>
 
 
