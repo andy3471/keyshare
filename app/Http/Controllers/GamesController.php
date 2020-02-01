@@ -40,9 +40,18 @@ class GamesController extends Controller
             ->with('platform', 'createduser')
             ->get();
 
+        $dlcCount = DB::table('dlcs')
+            ->distinct()
+            ->selectRaw('dlcs.id, dlcs.name, concat("/", dlcs.image) as image, concat("/games/dlc/", dlcs.id) as url')
+            ->join('keys', 'keys.dlc_id', '=', 'dlcs.id')
+            ->where('keys.owned_user_id', '=', null)
+            ->where('keys.removed', '=', '0')
+            ->where('keys.game_id', '=', $id)
+            ->count();
+
         $dlcurl = "/games/dlc/get/" . $id;
 
-        return view('games.show')->withGame($game)->withKeys($keys)->withDlcurl($dlcurl);
+        return view('games.show')->withGame($game)->withKeys($keys)->withDlcurl($dlcurl)->withDlcCount($dlcCount);
     }
 
     public function edit($id)
