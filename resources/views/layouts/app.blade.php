@@ -85,7 +85,7 @@
 
                     <ul class="navbar-nav ml-auto">
                         <form class="form-inline" method="get" action="{{ route('search') }}">
-                            <autocomplete placeholder="{{ __('nav.search') }}..." name="search" id="search" type="search" classes="form-control navbar-search"></autocomplete>
+                            <autocomplete url='/autocomplete/games/' placeholder="{{ __('nav.search') }}..." name="search" id="search" type="search" classes="form-control navbar-search"></autocomplete>
                         </form>
 
 
@@ -137,7 +137,11 @@
         </nav>
 
         <div class="jumbotron">
-            <img src="{{ asset('images/LogoWeb.png') }}" alt="360NoHope" width="137" height="110">
+            @if (file_exists(public_path('images/logo_override.png')))
+                <img src="{{ asset('images/logo_override.png')}}" width="137" height="110">
+            @else 
+                <img src="{{ asset('images/logo_default.png')}}" width="137" height="110">
+            @endif
         </div>
 
 
