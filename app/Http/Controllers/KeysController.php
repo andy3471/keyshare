@@ -73,7 +73,7 @@ class KeysController extends Controller
     public function show($id)
     {
 
-        $key = Key::find($id);
+        $key = Key::where('id', '=', $id)->with('platform')->first();
 
         return view('keys.show')->withKey($key);
     }
