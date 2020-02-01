@@ -38,9 +38,12 @@
         @endif
     </table>
 
-    <div class="page">
-        <title-header title="DLC"></title-header>
-        <Game-List url="{{ $dlcurl }}"></Game-List>
-    </div>
+    @if ($dlcCount > 0)
+        <div class="page">
+            <title-header title="DLC"></title-header>
+            <Game-List url="{{ $dlcurl }}"></Game-List>
+        </div>
+    @endif
+
 </div>
 @endsection

@@ -4,7 +4,7 @@
       <input type="hidden" name="_token" v-bind:value="csrf" />
 
       <label for="gamename">Game:</label>
-      <autocomplete placeholder id="gamename" name="gamename" classes="form-control"></autocomplete>
+      <autocomplete placeholder v-model="game" url="/autocomplete/games/" id="gamename" name="gamename" classes="form-control"></autocomplete>
 
       <label for="platform">Platform:</label>
       <select class="form-control" name="platform_id">
