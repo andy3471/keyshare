@@ -68,9 +68,13 @@ How long sessions last, recommended is 120 minutes.
 
 Enables laravel telescope, should be false for Live.
 
+## Steam
+
+This feature allows the "Sign In With Steam" button to show on the login screen. This requires an API key with steam to be genreated.
+
 ### STEAM_LOGIN
 
-This enables steam login, however it requires the steam URLs and key to be set.
+This enables steam login.
 
 ### STEAM_KEY
 
