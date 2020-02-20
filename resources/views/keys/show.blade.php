@@ -24,7 +24,7 @@
 
             @elseif( $key->owned_user_id == auth()->id())
                 <input name="key" class="form-control" type="text" value ="{{$key->keycode}}" disabled>
-                @if($key->platform == 'Steam')
+                @if($key->platform->name == 'Steam')
                     <br><a href="https://store.steampowered.com/account/registerkey?key={{$key->keycode}}"> Redeem on Steam</a>
                 @endif
 
