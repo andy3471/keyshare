@@ -39,7 +39,7 @@ Copy .env.example File:
 You will need to edit the .env file to set your connection string settings:  
 `nano .env`
 
-Enter the DB username, password and server that you have set up. If you have redis installed externally, you'll need to set up the connection to redis here too. Please see the [Configuration Guide](docs/CONFIG.md) to set up your settings, such as the Steam Login.
+Enter the DB username, password and server that you have set up. If you have redis installed externally, you'll need to set up the connection to redis here too. Please see the [Configuration Guide](./CONFIG.md) to set up your settings, such as the Steam Login.
 
 Make the storage folder
 
@@ -72,7 +72,7 @@ Restart Apache
 
 ## Config
 
-The site should now work. Any issues then please feel free to raise an issue on [GitHub](https://github.com/andy3471/keyshare/issues/new/choose). Please see the [Configuration Guide](docs/CONFIG.md) to set up your settings, such as the Steam Login.
+The site should now work. Any issues then please feel free to raise an issue on [GitHub](https://github.com/andy3471/keyshare/issues/new/choose). Please see the [Configuration Guide](./CONFIG.md) to set up your settings, such as the Steam Login.
 
 # Updating
 
