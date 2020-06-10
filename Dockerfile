@@ -3,6 +3,7 @@ WORKDIR /app
 COPY . /app
 COPY .env.example /app/.env
 RUN composer install
+RUN composer dump-autoload 
 
 FROM php:7.3-apache
 EXPOSE 80
