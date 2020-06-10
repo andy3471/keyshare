@@ -1,0 +1,23 @@
+version: '3'
+services:
+  keyshare:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8003:80"
+    environment:
+      APP_KEY: base64:+7JBw8tEr0aalfJbXOzc6CDxbNKVAKYFEDzXWuVGEVU=
+      DB_HOST: db
+      REDIS_HOST: redis
+  db:
+    image: mysql:5.7.30
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+  redis:
+    image: redis:6.0.4
