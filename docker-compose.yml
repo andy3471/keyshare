@@ -1,33 +1,34 @@
 version: '3'
 services:
-   lunchrota-web:
-    image: andy3471/lunchrota
+  keyshare-web:
+    build: .
     restart: unless-stopped
+    container_name: keyshare-web
     ports:
-     - "8002:80"
+     - "3472:80"
     environment:
+     APP_NAME: KeyshareDemo
+     TELESCOPE_ENABLED: "false"
      APP_KEY: base64:Hsn2BwXdpKHhEiTSDkkuWP1OwbfcZZFQlLoWbjY4lk8=
-     APP_FOOTER_TEXT: "LunchRota Demo System"
-     APP_DEMO_MODE: "true"
-     REDIS_HOST: lunchrota-redis
-     DB_HOST: lunchrota-db
-     DB_DATABASE: lunchrota
-     DB_USERNAME: lunchrota
-     DB_PASSWORD: "%33gS#PXXJ$V"
-     ASSET_URL: https://lunchrota.andyh.app
-  lunchrota-db:
+     REDIS_HOST: keyshare-redis
+     DB_HOST: keyshare-db
+     DB_DATABASE: homestead
+    volumes:
+      - .:/app
+    depends_on:
+      - keyshare-db
+      - keyshare-redis
+  keyshare-db:
     image: mysql:5.7.30
     restart: unless-stopped
+    container_name: keyshare-db
     environment:
-     MYSQL_DATABASE: lunchrota
-     MYSQL_USER: lunchrota
-     MYSQL_PASSWORD: "%33gS#PXXJ$v"
-     MYSQL_ROOT_PASSWORD: "%33gS#PXXJ$v"
-    volumes:
-     - ./lunchrota_db:/var/lib/mysql
-  lunchrota-redis:
+     MYSQL_DATABASE: homestead
+     MYSQL_USER: homestead
+     MYSQL_PASSWORD: "secret"
+     MYSQL_ROOT_PASSWORD: "secret"
+  keyshare-redis:
     image: redis:6.0.4
+    container_name: keyshare-redis
     restart: unless-stopped
-    volumes:
-      - ./lunchrota_redis:/data
     entrypoint: redis-server --appendonly yes
