@@ -19,7 +19,7 @@
         "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.0",
         "predis/predis": "^1.1",
-        "socialiteproviders/steam": "^3.0"
+        "socialiteproviders/steam": "^1.1"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

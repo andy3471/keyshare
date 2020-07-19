@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     container_name: keyshare-web
     ports:
-     - "80:80"
+     - "3472:80"
     environment:
      APP_NAME: KeyshareDemo
      TELESCOPE_ENABLED: "false"
@@ -14,8 +14,10 @@ services:
      DB_HOST: keyshare-db
      DB_DATABASE: homestead
      STEAM_LOGIN: 1
-     STEAM_API_KEY: 12345
-     APP_URL: http://360nohope.co.uk
+     STEAM_API_KEY: C9D04913D118AA2916139FC4F549FFC1
+     APP_URL: https://360nohope.co.uk
+     ASSET_URL: https://360nohope.co.uk
+     REDIRECT_HTTPS: 'true'
     volumes:
       - .:/app
     depends_on:
