@@ -15,7 +15,8 @@ RUN chown -R www-data:www-data /app \
     && docker-php-ext-install pdo pdo_mysql \
     && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     && a2enmod rewrite \
-    && chmod u+x /usr/local/bin/start.sh
+    && chmod u+x /usr/local/bin/start.sh \
+    && php artisan storage:link
 
 RUN pecl install redis && docker-php-ext-enable redis
 
