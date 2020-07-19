@@ -1,0 +1,53 @@
+version: '3'
+services:
+  keyshare-web:
+    image: andy3471/keyshare
+    restart: unless-stopped
+    container_name: keyshare-web
+    ports:
+     - "3472:80"
+    environment:
+     APP_NAME: KeyshareDemo
+     TELESCOPE_ENABLED: "false"
+     APP_KEY: base64:Hsn2BwXdpKHhEiTSDkkuWP1OwbfcZZFQlLoWbjY4lk8=
+     REDIS_HOST: keyshare-redis
+     DB_HOST: keyshare-db
+     DB_DATABASE: homestead
+     STEAM_LOGIN: 1
+     STEAM_API_KEY: 12345
+     APP_URL: https://360nohope.co.uk
+     ASSET_URL: https://360nohope.co.uk
+     REDIRECT_HTTPS: 'true'
+     DB_HOST: db
+     DB_DATABASE: keyshare
+     DB_USERNAME: keyshare
+     DB_PASSWORD: "%33gS#PXXJ$v"
+     MAIL_DRIVER: smtp
+     MAIL_HOST: smtp.gmail.com
+     MAIL_PORT: 587
+     MAIL_USERNAME: 
+     MAIL_ENCRYPTION: 
+     MAIL_FROM_NAME: 
+     MAIL_PASSWORD: 
+    AUTO_APPROVE_USERS: 0
+    volumes:
+      - ./web/logs:/app/storage/logs
+      - ./web/app:/app/storage/app
+      - ./logo_override.png:/app/public/images/logo_override.png
+    depends_on:
+      - keyshare-db
+      - keyshare-redis
+  keyshare-db:
+    image: mysql:5.7.30
+    restart: unless-stopped
+    container_name: keyshare-db
+    environment:
+     MYSQL_DATABASE: homestead
+     MYSQL_USER: homestead
+     MYSQL_PASSWORD: "secret"
+     MYSQL_ROOT_PASSWORD: "secret"
+  keyshare-redis:
+    image: redis:6.0.4
+    container_name: keyshare-redis
+    restart: unless-stopped
+    entrypoint: redis-server --appendonly yes
