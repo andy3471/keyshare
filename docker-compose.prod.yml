@@ -21,7 +21,7 @@ services:
      DB_HOST: db
      DB_DATABASE: keyshare
      DB_USERNAME: keyshare
-     DB_PASSWORD: "%33gS#PXXJ$v"
+     DB_PASSWORD: 
      MAIL_DRIVER: smtp
      MAIL_HOST: smtp.gmail.com
      MAIL_PORT: 587
