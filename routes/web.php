@@ -63,8 +63,3 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/user/{id}', 'AdminController@usersEdit')->name('adminuseredit')->middleware('demomode');
     Route::post('/admin/user/update', 'AdminController@usersUpdate')->name('adminuserupdate')->middleware('demomode');
 });
-
-
-
-//TBR
-Route::get('/home', 'HomeController@home')->name('adminuserupdate');
