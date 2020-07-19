@@ -14,7 +14,7 @@ services:
      DB_HOST: keyshare-db
      DB_DATABASE: homestead
      STEAM_LOGIN: 1
-     STEAM_API_KEY: 4DEC1D142601AD35E92D05B9491CD7ED
+     STEAM_API_KEY: 12345
      APP_URL: http://360nohope.co.uk
     volumes:
       - .:/app
