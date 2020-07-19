@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b56f7626bface3f92e74013d86b33c5b",
+    "content-hash": "61d015e42bb69254bbe64aaf2223fc53",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -952,53 +952,6 @@
                 "url"
             ],
             "time": "2019-07-01T23:21:34+00:00"
-        },
-        {
-            "name": "iignatov/lightopenid",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/WillSkates/LightOpenID.git",
-                "reference": "15264c31aef8bbe7ea18f12b6da4ccdb9927f9fa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/WillSkates/LightOpenID/zipball/15264c31aef8bbe7ea18f12b6da4ccdb9927f9fa",
-                "reference": "15264c31aef8bbe7ea18f12b6da4ccdb9927f9fa",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "openid.php",
-                    "provider/provider.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ignat Ignatov",
-                    "homepage": "https://github.com/iignatov/LightOpenID"
-                },
-                {
-                    "name": "Mewp",
-                    "homepage": "https://code.google.com/p/lightopenid/"
-                }
-            ],
-            "description": "Lightweight PHP5 library for easy OpenID authentication.",
-            "homepage": "https://github.com/iignatov/LightOpenID",
-            "keywords": [
-                "Authentication",
-                "OpenId",
-                "security"
-            ],
-            "time": "2014-01-27T06:01:05+00:00"
         },
         {
             "name": "laravel/framework",
@@ -2601,20 +2554,20 @@
         },
         {
             "name": "socialiteproviders/steam",
-            "version": "v1.1",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SocialiteProviders/Steam.git",
-                "reference": "c6f372646c01e96258ebf603644e95e0e82eeeb7"
+                "reference": "c3577044d579f37a03bbf592795073ec8452ab8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Steam/zipball/c6f372646c01e96258ebf603644e95e0e82eeeb7",
-                "reference": "c6f372646c01e96258ebf603644e95e0e82eeeb7",
+                "url": "https://api.github.com/repos/SocialiteProviders/Steam/zipball/c3577044d579f37a03bbf592795073ec8452ab8e",
+                "reference": "c3577044d579f37a03bbf592795073ec8452ab8e",
                 "shasum": ""
             },
             "require": {
-                "iignatov/lightopenid": "~1.0",
+                "ext-json": "*",
                 "php": "^5.6 || ^7.0",
                 "socialiteproviders/manager": "~2.0 || ~3.0"
             },
@@ -2635,7 +2588,7 @@
                 }
             ],
             "description": "Steam OpenID Provider for Laravel Socialite",
-            "time": "2019-01-11T19:48:14+00:00"
+            "time": "2020-06-24T11:20:01+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
