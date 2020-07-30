@@ -20,5 +20,5 @@ jobs:
       - name: build the image
         run: |
           docker buildx build --push \
-            --tag piwi3910/hello-multiarch:latest \
+            --tag andy3471/keyshare:latest \
             --platform linux/amd64,linux/arm64 .
