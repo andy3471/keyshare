@@ -1,4 +1,8 @@
-## About Keyshare
+
+## Keyshare
+
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/andy3471/keyshare/build%20our%20image)
+![Docker Pulls](https://img.shields.io/docker/pulls/andy3471/keyshare)
 
 Keyshare allows you to share any extra video game key codes that you have left over with your Game Groups.
 
