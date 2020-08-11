@@ -18,6 +18,9 @@ services:
      APP_URL: https://360nohope.co.uk
      ASSET_URL: https://360nohope.co.uk
      REDIRECT_HTTPS: 'false'
+     APP_DEBUG: 'true'
+     APP_DEMO_MODE: 'true'
+     APP_ENV: local
     volumes:
       - .:/app
     depends_on:
