@@ -17,7 +17,7 @@ services:
      STEAM_API_KEY: 12345
      APP_URL: https://360nohope.co.uk
      ASSET_URL: https://360nohope.co.uk
-     REDIRECT_HTTPS: 'true'
+     REDIRECT_HTTPS: 'false'
     volumes:
       - .:/app
     depends_on:
