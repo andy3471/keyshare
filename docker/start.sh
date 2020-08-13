@@ -5,11 +5,11 @@ set -e
 role=${CONTAINER_ROLE:-app}
 env=${APP_ENV:-production}
 
-echo "Clearing cache..."
-(cd /app && php artisan cache:clear && php artisan view:clear)
-
-echo "Running migrations..."
-(cd /app && php artisan migrate)
+if  [ "$role" != "keygen" ]; then
+    (cd /app && php artisan cache:clear && php artisan view:clear)
+    echo "Running migrations..."
+    (cd /app && php artisan migrate)
+fi
 
 if [ "$env" != "local" ]; then
     echo "Caching configuration..."
