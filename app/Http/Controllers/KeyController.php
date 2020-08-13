@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Redis;
 use App\Dlc;
 use Auth;
 
-class KeysController extends Controller
+class KeyController extends Controller
 {
 
 
@@ -43,8 +43,6 @@ class KeysController extends Controller
         $key->message = $request->message;
         $key->created_user_id = Auth::id();
 
-
-
         if ($request->key_type == '1' or $request->key_type == '2') {
             $game = Game::firstOrCreate(
                 ['name' => $request->gamename],
@@ -62,11 +60,11 @@ class KeysController extends Controller
 
             $key->dlc_id = $dlc->id;
         }
+
         $key->key_type_id = $request->key_type;
         $key->save();
 
         Redis::zincrby('karma', 1, auth()->id());
-
         return redirect()->back()->with('message', __('keys.added'));
     }
 
@@ -80,13 +78,9 @@ class KeysController extends Controller
 
     public function claim(Request $request)
     {
-        $key = DB::table('keys')
-            ->where('id', '=', $request->id)
-            ->where('owned_user_id', '=', null)
-            ->count();
+        $key = Key::where('id', '=', $request->id)->where('owned_user_id', '=', null)->first();
 
-        if ($key == 1) {
-
+        if ($key) {
             $key = DB::table('keys')
                 ->where('id', '=', $request->id)
                 ->update(['owned_user_id' => auth()->id()]);

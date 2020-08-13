@@ -20,37 +20,37 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/autocomplete/games/{search}', 'SearchController@autocomplete')->name('autocomplete');
     Route::get('/autocomplete/dlc/{gamename}/{search}', 'SearchController@autocompleteDlc')->name('autocompleteDlc');
 
-    Route::get('/games', 'GamesController@index')->name('games');
-    Route::get('/games/get', 'GamesController@getGames');
+    Route::get('/games', 'GameController@index')->name('games');
+    Route::get('/games/get', 'GameController@getGames');
 
-    Route::get('/games/{id}', 'GamesController@show')->name('game');
-    Route::get('/games/edit/{id}', 'GamesController@edit')->name('editgame');
-    Route::post('/games/update', 'GamesController@update')->name('updategame');
+    Route::get('/games/{id}', 'GameController@show')->name('game');
+    Route::get('/games/edit/{id}', 'GameController@edit')->name('editgame');
+    Route::post('/games/update', 'GameController@update')->name('updategame');
 
-    Route::get('/keys/{key}', 'KeysController@show')->name('key');
+    Route::get('/keys/{key}', 'KeyController@show')->name('key');
 
-    Route::get('/claimedkeys', 'KeysController@showClaimed')->name('claimedkeys');
-    Route::get('/claimedkeys/get', 'KeysController@getClaimed');
+    Route::get('/claimedkeys', 'KeyController@showClaimed')->name('claimedkeys');
+    Route::get('/claimedkeys/get', 'KeyController@getClaimed');
 
-    Route::get('/sharedkeys', 'KeysController@showShared')->name('sharedkeys');
-    Route::get('/sharedkeys/get', 'KeysController@getShared');
+    Route::get('/sharedkeys', 'KeyController@showShared')->name('sharedkeys');
+    Route::get('/sharedkeys/get', 'KeyController@getShared');
 
-    Route::get('/addkey/', 'KeysController@create')->name('addkey');
-    Route::post('/addkey/store', 'KeysController@store')->name('storekey');
-    Route::post('/addkey/claim', 'KeysController@claim')->name('claimkey');
+    Route::get('/addkey/', 'KeyController@create')->name('addkey');
+    Route::post('/addkey/store', 'KeyController@store')->name('storekey');
+    Route::post('/addkey/claim', 'KeyController@claim')->name('claimkey');
 
-    Route::get('/users', 'UsersController@index')->name('users');
-    Route::get('/users/{id}', 'UsersController@show')->name('showuser');
-    Route::get('/user/edit', 'UsersController@edit')->name('edituser')->middleware('demomode');
-    Route::post('/user/update', 'UsersController@update')->name('updateuser')->middleware('demomode');
+    Route::get('/users', 'UserController@index')->name('users');
+    Route::get('/users/{id}', 'UserController@show')->name('showuser');
+    Route::get('/user/edit', 'UserController@edit')->name('edituser')->middleware('demomode');
+    Route::post('/user/update', 'UserController@update')->name('updateuser')->middleware('demomode');
 
-    Route::get('/changepassword', 'UsersController@passwordResetPage')->name('changepassword')->middleware('demomode');
-    Route::post('/changepassword/save', 'UsersController@passwordResetSave')->name('postpassword')->middleware('demomode');
+    Route::get('/changepassword', 'UserController@passwordResetPage')->name('changepassword')->middleware('demomode');
+    Route::post('/changepassword/save', 'UserController@passwordResetSave')->name('postpassword')->middleware('demomode');
 
-    Route::get('/platform/{id}', 'PlatformsController@show')->name('platform');
-    Route::get('/platform/get/{id}', 'PlatformsController@getPlatform');
+    Route::get('/platform/{id}', 'PlatformController@show')->name('platform');
+    Route::get('/platform/get/{id}', 'PlatformController@getPlatform');
 
-    Route::get('/platforms/index/', 'PlatformsController@index');
+    Route::get('/platforms/index/', 'PlatformController@index');
 
     Route::get('/games/dlc/get/{id}', 'DlcController@index');
     Route::get('/games/dlc/{dlc}', 'DlcController@show')->name('dlc');

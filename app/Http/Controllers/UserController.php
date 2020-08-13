@@ -9,7 +9,7 @@ use App\User;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\DB;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     public function index()
     { }

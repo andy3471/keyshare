@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Platform;
 use Cache;
 
-class PlatformsController extends Controller
+class PlatformController extends Controller
 {
     public function index()
     {
