@@ -32,7 +32,6 @@ elif [ "$role" = "scheduler" ]; then
 
 elif [ "$role" = "keygen" ]; then
 
-    echo "Generating an app key..."
     (cd /app && php artisan key:generate --show)
 
 else

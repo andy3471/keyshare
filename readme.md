@@ -81,7 +81,7 @@ Variable | Description
 ------------ | -------------
 APP_NAME | Title of the website
 APP_ENV | Environment being run on, can be set to local for test environments
-APP_KEY | Unique base64 string. Run docker run -e "CONTAINER_ROLE=keygen" andy3471/keyshare to generator one, and paste it in.
+APP_KEY | Unique base64 string. Run ``` sudo docker run -e "CONTAINER_ROLE=keygen" -e "APP_ENV=local" andy3471/keyshare ``` to generate one, and paste it in.
 APP_DEBUG | Enables debug logging
 APP_URL | External URL you will access the site from
 ASSET_URL | External URL that assets are loaded from
