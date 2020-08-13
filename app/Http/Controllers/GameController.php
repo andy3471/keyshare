@@ -6,7 +6,7 @@ use App\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class GamesController extends Controller
+class GameController extends Controller
 {
 
     public function index()
@@ -57,7 +57,6 @@ class GamesController extends Controller
     public function edit($id)
     {
         $game = Game::find($id);
-
         return view('games.edit')->withGame($game);
     }
 
