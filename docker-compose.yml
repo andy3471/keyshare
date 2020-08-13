@@ -13,7 +13,7 @@ services:
      REDIS_HOST: keyshare-redis
      DB_HOST: keyshare-db
      DB_DATABASE: homestead
-     STEAM_LOGIN: 1
+     STEAM_LOGIN: 'true'
      STEAM_API_KEY: 12345
      APP_URL: https://360nohope.co.uk
      ASSET_URL: https://360nohope.co.uk

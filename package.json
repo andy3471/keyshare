@@ -24,8 +24,8 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
-        "andyh-autocomplete": "^1.0.2",
+        "andyh-autocomplete": "^1.0.4",
         "andyh-timepicker": "^1.0.4",
-        "vue-infinite-loading": "^2.4.4"
+        "vue-infinite-loading": "^2.4.5"
     }
 }
