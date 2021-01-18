@@ -42,6 +42,12 @@ services:
      DB_USERNAME: keyshare
      DB_PASSWORD: secret
      REDIS_HOST: keyshare-redis
+     TWITCH_API_ENABLED: 'true'
+     TWITCH_CLIENT_ID: - GET THIS FROM These are the credentials you got from https://dev.twitch.tv/console/apps -
+     TWITCH_CLIENT_SECRET:  - GET THIS FROM These are the credentials you got from https://dev.twitch.tv/console/apps -
+     TWITCH_UPDATE_FREQ: 180
+     TWITCH_CACHE_LIFETIME: 3600
+     DLC_ENABLED: 'false'
     AUTO_APPROVE_USERS: 0
     volumes:
       - ./web/logs:/app/storage/logs
@@ -89,6 +95,12 @@ AUTO_APPROVE_USERS | Boolean value, Whether anyone can sign up for the site, or 
 REDIRECT_HTTPS | Boolean value, Used if you're running keyshare behind a proxy, if the site is using HTTP and the proxy is using HTTPS.
 STEAM_LOGIN | Boolean value, enabled steam login
 STEAM_API_KEY | API key for steam login, generated on https://steamcommunity.com/dev/apikey
+TWITCH_API_ENABLED | Enabled/Disables the external twitch API for game lookups
+TWITCH_CLIENT_ID | If twitch API is enabled, you'll need to supply this. These are the credentials you got from https://dev.twitch.tv/console/apps
+TWITCH_CLIENT_SECRET | Secret to match above ID
+TWITCH_UPDATE_FREQ | How many days should a game exist, before we pull the data from Twitch IGDB again
+TWITCH_CACHE_LIFETIME | For how long should we cache twitch API requests
+DLC_ENABLED | Enabled DLC feature (Recommended is off if you are using Twitch IGDB)
 DB_HOST | MySQL host, usually the container name of the SQL server
 DB_PORT | Defaults to 3306, only override if you're using your own DB server
 DB_DATABASE | Name of the database

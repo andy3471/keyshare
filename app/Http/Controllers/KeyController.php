@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use App\Dlc;
 use Auth;
+use MarcReichel\IGDBLaravel\Models\Game as Igdb;
+use Carbon\Carbon;
 
 class KeyController extends Controller
 {
@@ -44,10 +46,28 @@ class KeyController extends Controller
         $key->created_user_id = Auth::id();
 
         if ($request->key_type == '1' or $request->key_type == '2') {
-            $game = Game::firstOrCreate(
-                ['name' => $request->gamename],
-                ['created_user_id' => $key->created_user_id]
-            );
+            $game = Game::where('name', $request->gamename)->first();
+
+            if(!$game) {
+                $game = new Game;
+                if(config('igdb.enabled')) {
+                    $igdb = Igdb::select(['name', 'summary', 'id'])->with(['cover' => ['image_id']])->where('name', '=', $request->gamename)->first();
+
+                    if($igdb) {
+                        $game->name = $igdb->name;
+                        $game->description = $igdb->summary;
+                        $game->igdb_id = $igdb->id;
+                        $game->image = 'https://images.igdb.com/igdb/image/upload/t_cover_big/' . $igdb->cover->image_id . '.jpg';
+                        $game->igdb_updated = Carbon::today();
+                    } else {
+                        $game->name = $request->gamename;
+                    }
+                } else {
+                    $game->name = $request->gamename;
+                }
+                $game->created_user_id = Auth::id();
+                $game->save();
+            }
 
             $key->game_id = $game->id;
         }

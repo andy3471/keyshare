@@ -9,7 +9,9 @@
 <div class="container">
     <img src="{{ asset($game->image) }}" class="img-fluid mx-auto d-block rounded">
     <br>
-    <a href="{{ route('editgame', ['id' => $game->id]) }}">{{ __('games.editgame') }}</a><br>
+    @can('admin',Auth::user())
+        <a href="{{ route('editgame', ['id' => $game->id]) }}">{{ __('games.editgame') }}</a><br>
+    @endcan
     <br>
     <p> {{$game->description}} </p>
 

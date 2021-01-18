@@ -26,8 +26,9 @@ return [
     'editgame' => 'Edit Game',
     'edit' => 'Edit',
     'image' => 'Image',
-    'imagereqs' => 'Must be 460x216px',
+    'imagereqs' => 'Must be 264x352',
     'name' => 'Name',
     'description' => 'Description',
     'gameupdated ' => 'Game Updated',
+    'igdb_linked' => 'Twitch API Linked Game'
 ];
