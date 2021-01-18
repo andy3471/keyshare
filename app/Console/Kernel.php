@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('demo:refresh')->daily();
+        $schedule->command('igdb:update')->daily();
     }
 
     /**

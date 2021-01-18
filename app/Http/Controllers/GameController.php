@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use MarcReichel\IGDBLaravel\Models\Game as Igdb;
+use Carbon\Carbon;
 
 class GameController extends Controller
 {
 
     public function index()
-    {
+    {   
         return view('games.index')->withTitle('Games')->withurl('/games/get');
     }
 
@@ -40,16 +42,20 @@ class GameController extends Controller
             ->with('platform', 'createduser')
             ->get();
 
-        $dlcCount = DB::table('dlcs')
-            ->distinct()
-            ->selectRaw('dlcs.id, dlcs.name, concat("/", dlcs.image) as image, concat("/games/dlc/", dlcs.id) as url')
-            ->join('keys', 'keys.dlc_id', '=', 'dlcs.id')
-            ->where('keys.owned_user_id', '=', null)
-            ->where('keys.removed', '=', '0')
-            ->where('keys.game_id', '=', $id)
-            ->count();
-
-        $dlcurl = "/games/dlc/get/" . $id;
+        if(config('app.dlc_enabled')) {
+            $dlcCount = DB::table('dlcs')
+                ->distinct()
+                ->selectRaw('dlcs.id, dlcs.name, concat("/", dlcs.image) as image, concat("/games/dlc/", dlcs.id) as url')
+                ->join('keys', 'keys.dlc_id', '=', 'dlcs.id')
+                ->where('keys.owned_user_id', '=', null)
+                ->where('keys.removed', '=', '0')
+                ->where('keys.game_id', '=', $id)
+                ->count();
+            $dlcurl = "/games/dlc/get/" . $id;
+        } else {
+            $dlcCount = 0;
+            $dlcurl = 'null';
+        }
 
         return view('games.show')->withGame($game)->withKeys($keys)->withDlcurl($dlcurl)->withDlcCount($dlcCount);
     }
@@ -57,15 +63,23 @@ class GameController extends Controller
     public function edit($id)
     {
         $game = Game::find($id);
-        return view('games.edit')->withGame($game);
+        $igdb = null;
+
+        if($game->igdb_id && config('igdb.enabled')) {
+            $igdb = Igdb::select(['name'])->where('id', '=', $game->igdb_id)->first();
+        }
+
+        return view('games.edit')->withGame($game)->withIgdb($igdb);
     }
 
     public function update(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
-            'image' => 'image|nullable|max:1999|dimensions:width=460,height=215'
+            'image' => 'image|nullable|max:1999|dimensions:width=264,height=352',
+            'igdbname' => 'nullable'
         ]);
+
 
         if ($request->hasFile('image')) {
             $filename = uniqid();
@@ -83,6 +97,22 @@ class GameController extends Controller
         if ($request->hasFile('image')) {
             $game->image = 'storage/' . $fullImagePath;
         }
+
+        if ($request->igdbname) {
+            $igdb = Igdb::select(['name', 'summary', 'id'])->with(['cover' => ['image_id']])->where('name', '=', $request->igdbname)->first();
+
+            if ($igdb && (!($igdb->id == $game->igdb_id))) {
+                $game->name = $igdb->name;
+                $game->description = $igdb->summary;
+                $game->igdb_id = $igdb->id;
+                $game->image = 'https://images.igdb.com/igdb/image/upload/t_cover_big/' . $igdb->cover->image_id . '.jpg';
+                $game->igdb_updated = Carbon::today();
+            }
+        } else {
+            $game->igdb_id = null;
+            $game->igdb_updated = null;
+        }
+
         $game->save();
 
         return redirect()->route('game', ['id' => $request->gameid])->with('message', __('games.gameupdated'));

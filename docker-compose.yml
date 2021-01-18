@@ -15,12 +15,16 @@ services:
      DB_DATABASE: homestead
      STEAM_LOGIN: 'true'
      STEAM_API_KEY: 12345
-     APP_URL: https://360nohope.co.uk
-     ASSET_URL: https://360nohope.co.uk
+     APP_URL: http://localhost:3472
+     ASSET_URL: http://localhost:3472
      REDIRECT_HTTPS: 'false'
      APP_DEBUG: 'true'
      APP_DEMO_MODE: 'true'
      APP_ENV: local
+     TWITCH_CLIENT_ID: ${TWITCH_CLIENT_ID}
+     TWITCH_CLIENT_SECRET: ${TWITCH_CLIENT_SECRET}
+     TWITCH_API_ENABLED: 'true'
+     DLC_ENABLED: 'false'
     volumes:
       - .:/app
     depends_on:
@@ -30,6 +34,8 @@ services:
     image: mysql:5.7.30
     restart: unless-stopped
     container_name: keyshare-db
+    ports:
+     - "3306:3306"
     environment:
      MYSQL_DATABASE: homestead
      MYSQL_USER: homestead
