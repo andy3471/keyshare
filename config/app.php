@@ -127,6 +127,7 @@ return [
     // Custom Config
 
     'demo_mode' => env('APP_DEMO_MODE', false),
+    'dlc_enabled' => env('DLC_ENABLED', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -180,7 +181,6 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
         //SocialiteProviders

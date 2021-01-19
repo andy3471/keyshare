@@ -11,7 +11,13 @@
             <div class="alert alert-danger">{{ $error }}</div> <br>
         @endforeach
 
-        <add-key csrf="{{csrf_token()}}"></add-key>
+        <add-key csrf="{{csrf_token()}}" 
+            @if( config('app.dlc_enabled') )
+                :dlcenabled="true"
+            @else
+                :dlcenabled="false"
+            @endif
+        />
 
     </div>
 @endsection
