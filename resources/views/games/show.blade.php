@@ -59,8 +59,8 @@
     @if($screenshots) 
         <div class="row">
         @foreach($screenshots as $screenshot)
-            <div class="col-md-4">
-                <img src="https://images.igdb.com/igdb/image/upload/t_screenshot_big/{{$screenshot->image_id}}.jpg"  class="img-fluid">
+            <div class="col-md-4" style="padding-bottom: 15px;">
+                <img src="https://images.igdb.com/igdb/image/upload/t_screenshot_big/{{$screenshot->image_id}}.jpg"  class="img-thumbnail img-fluid">
             </div>
         @endforeach
         </div>
