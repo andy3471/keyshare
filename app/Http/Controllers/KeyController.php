@@ -14,6 +14,8 @@ use App\Dlc;
 use Auth;
 use MarcReichel\IGDBLaravel\Models\Game as Igdb;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\KeyAdded;
 
 class KeyController extends Controller
 {
@@ -83,6 +85,7 @@ class KeyController extends Controller
 
         $key->key_type_id = $request->key_type;
         $key->save();
+        $key->notify(new KeyAdded($key, Auth::user(), $game));
 
         Redis::zincrby('karma', 1, auth()->id());
         return redirect()->back()->with('message', __('keys.added'));

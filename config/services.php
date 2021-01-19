@@ -50,6 +50,12 @@ return [
         'redirect' => env('APP_URL').'/login/steam/callback',
         'api_key' => env('STEAM_API_KEY'),
     ],
+
+    'discord' => [
+        'enabled' => env('DISCORD_ENABLED'),
+        'token' => env('DISCORD_TOKEN'),
+        'channel' =>  env('DISCORD_CHANNEL')
+    ]
     
 
 

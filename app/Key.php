@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Key extends Model
 {
+    use Notifiable;
+
     protected $appends = [
         'url',
         'image',
@@ -66,5 +69,10 @@ class Key extends Model
     public function createdUser()
     {
         return $this->belongsTo('App\User', 'created_user_id');
+    }
+
+    public function routeNotificationForDiscord()
+    {
+        return config('services.discord.channel');
     }
 }
