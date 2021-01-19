@@ -14,6 +14,14 @@
     @endcan
     <br>
     <p> {{$game->description}} </p>
+    @foreach($genres as $genre)
+        <span class="badge bg-secondary">{{$genre->name}}</span>
+    @endforeach
+    <br>
+    @if($igdb && $igdb->aggregated_rating)
+       Rated an average of {{ $igdb->aggregated_rating }}  by {{ $igdb->aggregated_rating_count }} reviewers
+    @endif
+
 
     <table class="table">
 
@@ -47,5 +55,15 @@
         </div>
     @endif
 
+
+    @if($screenshots) 
+        <div class="row">
+        @foreach($screenshots as $screenshot)
+            <div class="col-md-4">
+                <img src="https://images.igdb.com/igdb/image/upload/t_screenshot_big/{{$screenshot->image_id}}.jpg"  class="img-fluid">
+            </div>
+        @endforeach
+        </div>
+    @endif
 </div>
 @endsection
