@@ -17,7 +17,7 @@
                 <tr>
                 <td>
                     <img src="{{ $user->image }}" height="25px" width="25px">
-                    <a href="/admin/user/{{$user->id}}">{{ $user->name }}</a>
+                    <a href="/admin/user/{{$user->id}}">{{ $user->name }} <span class="badge badge-pill {{ $user->karma_color }}"> {{ $user->karma }} </span></a>
                 </td>
                 <td>
                     {{ $user->email }}
