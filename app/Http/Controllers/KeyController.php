@@ -85,7 +85,10 @@ class KeyController extends Controller
 
         $key->key_type_id = $request->key_type;
         $key->save();
-        $key->notify(new KeyAdded($key, Auth::user(), $game));
+
+        if(config('services.discord.enabled')) {
+            $key->notify(new KeyAdded($key, Auth::user(), $game));
+        }
 
         Redis::zincrby('karma', 1, auth()->id());
         return redirect()->back()->with('message', __('keys.added'));
