@@ -12,12 +12,15 @@
     @can('admin',Auth::user())
         <a href="{{ route('editgame', ['id' => $game->id]) }}">{{ __('games.editgame') }}</a><br>
     @endcan
-    <br>
     <p> {{$game->description}} </p>
-    @foreach($genres as $genre)
-        <span class="badge bg-secondary">{{$genre->name}}</span>
-    @endforeach
-    <br>
+    @if($genres)
+        <br>
+        @foreach($genres as $genre)
+            <span class="badge bg-secondary">{{$genre->name}}</span>
+        @endforeach
+        <br>
+    @endif
+    
     @if($igdb && $igdb->aggregated_rating)
        Rated an average of {{ $igdb->aggregated_rating }}  by {{ $igdb->aggregated_rating_count }} reviewers
     @endif
