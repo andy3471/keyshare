@@ -48,6 +48,9 @@ services:
      TWITCH_UPDATE_FREQ: 180
      TWITCH_CACHE_LIFETIME: 3600
      DLC_ENABLED: 'false'
+     DISCORD_ENABLED: 'false'
+     DISCORD_TOKEN: - Get from https://discord.com/developers/applications
+     DISCORD_CHANNEL: - Get from discord application
     AUTO_APPROVE_USERS: 0
     volumes:
       - ./web/logs:/app/storage/logs
@@ -100,6 +103,9 @@ TWITCH_CLIENT_ID | If twitch API is enabled, you'll need to supply this. These a
 TWITCH_CLIENT_SECRET | Secret to match above ID
 TWITCH_UPDATE_FREQ | How many days should a game exist, before we pull the data from Twitch IGDB again
 TWITCH_CACHE_LIFETIME | For how long should we cache twitch API requests
+DISCORD_ENABLED | Enables a discord bot.
+DISCORD_TOKEN | Get a dfiscord bot and client ID from https://discord.com/developers/applications
+DISCORD_CHANNEL | The channel that it should post to. Enable developer mode on discord, right click the channel and copy the ID.
 DLC_ENABLED | Enabled DLC feature (Recommended is off if you are using Twitch IGDB)
 DB_HOST | MySQL host, usually the container name of the SQL server
 DB_PORT | Defaults to 3306, only override if you're using your own DB server

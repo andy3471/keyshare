@@ -184,7 +184,10 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         //SocialiteProviders
-        \SocialiteProviders\Manager\ServiceProvider::class
+        \SocialiteProviders\Manager\ServiceProvider::class,
+
+        //NotificationProviders
+        NotificationChannels\Discord\DiscordServiceProvider::class
     ],
 
     /*
