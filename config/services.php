@@ -52,9 +52,9 @@ return [
     ],
 
     'discord' => [
-        'enabled' => env('DISCORD_ENABLED'),
-        'token' => env('DISCORD_TOKEN'),
-        'channel' =>  env('DISCORD_CHANNEL')
+        'enabled' => env('DISCORD_ENABLED', false),
+        'token' => env('DISCORD_TOKEN', ''),
+        'channel' =>  env('DISCORD_CHANNEL', '')
     ]
     
 
