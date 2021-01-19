@@ -23,9 +23,12 @@
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-dark navbar-keyshare bg-dark fixed-top">
             <a class="navbar-brand mr-auto" href="{{ route('home') }}">{{ config('app.name', 'Laravel') }}</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+            @guest
+            @else
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            @endif
             @guest
             @elseif ( Auth::User()->approved == 0)
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -33,10 +36,6 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ Auth::user()->image }}" height="25px" width="25px"> {{ Auth::user()->name }}
-
-                                @php( $k = Auth::user()->getKarma() )
-                                <span class="badge badge-pill {{ $k->color }}"> {{$k->score}} </span>
-
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

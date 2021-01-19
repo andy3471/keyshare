@@ -25,6 +25,22 @@
             <label for="description"> {{ __('games.description') }}: </label>
             <input name="description" class="form-control" type="text" value="{{ $game->description }}">
             <br>
+
+            @if(config('igdb.enabled'))
+                <label for="IGDB Linked Game"> {{ __('games.igdb_linked') }}: </label>
+                <autocomplete 
+                    placeholder
+                    @if( $igdb )
+                        value="{{$igdb->name}}"
+                    @endif
+                    url="/autocomplete/games/" 
+                    id="igdbname"
+                    name="igdbname" 
+                    classes="form-control"
+                ></autocomplete>
+                <br>
+            @endif
+            
             <input type="submit" class="btn btn-keyshare" value="{{ __('nav.save') }}">
         </form>
 
