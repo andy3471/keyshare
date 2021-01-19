@@ -28,7 +28,7 @@ class PlatformController extends Controller
     {
         $games = DB::table('games')
             ->distinct()
-            ->selectRaw('games.id, games.name, concat("/", games.image) as image, concat("/games/", games.id) as url')
+            ->selectRaw('games.id, games.name, CASE WHEN igdb_id IS NULL THEN concat("/", games.image) ELSE games.image END as image, concat("/games/", games.id) as url')
             ->join('keys', 'keys.game_id', '=', 'games.id')
             ->where('keys.owned_user_id', '=', null)
             ->where('games.removed', '=', '0')
