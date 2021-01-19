@@ -24,9 +24,22 @@
                 </span>
             @endif
             <br>
-            <button type="submit" class="btn btn-keyshare">
-                {{ __('Send Password Reset Link') }}
-            </button>
+
+
+            <div class="form-group row mb-0">
+                <div class="col-md-8 offset-md-4">
+                    <button type="submit" class="btn btn-keyshare">
+                    {{ __('Send Password Reset Link') }}
+                    </button>
+
+                    @if (Route::has('password.request'))
+                        <a class="btn btn-link" href="{{ route('register') }}">
+                            {{ __('Register') }}
+                        </a>
+                    @endif
+
+                    <a class="btn btn-link" href="{{ route('login') }}">Login</a>
+                </div>
         </form>
     </div>
 @endsection

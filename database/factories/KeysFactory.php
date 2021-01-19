@@ -12,7 +12,13 @@ use App\Platform;
 $factory->define(Key::class, function (Faker $faker) {
 
     return [
-        'key_type_id'       =>  rand(1, 2),
+        'key_type_id'       =>  function (array $key) {
+            if(config('app.dlc_enabled')) {
+                return rand(1, 2);
+            } else {
+                return 1;
+            }
+        },
         'game_id'           =>  Game::all()->random()->id,
         'dlc_id'            =>  function (array $key) {
             if ($key['key_type_id'] == 2) {
