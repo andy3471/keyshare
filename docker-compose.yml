@@ -1,0 +1,48 @@
+version: '3'
+services:
+  keyshare-web:
+    build: .
+    restart: unless-stopped
+    container_name: keyshare-web
+    ports:
+     - "3472:80"
+    environment:
+     APP_NAME: KeyshareDemo
+     TELESCOPE_ENABLED: "false"
+     APP_KEY: base64:Hsn2BwXdpKHhEiTSDkkuWP1OwbfcZZFQlLoWbjY4lk8=
+     REDIS_HOST: keyshare-redis
+     DB_HOST: keyshare-db
+     DB_DATABASE: homestead
+     STEAM_LOGIN: 'true'
+     STEAM_API_KEY: 12345
+     APP_URL: http://localhost:3472
+     ASSET_URL: http://localhost:3472
+     REDIRECT_HTTPS: 'false'
+     APP_DEBUG: 'true'
+     APP_DEMO_MODE: 'true'
+     APP_ENV: local
+     TWITCH_CLIENT_ID: ${TWITCH_CLIENT_ID}
+     TWITCH_CLIENT_SECRET: ${TWITCH_CLIENT_SECRET}
+     TWITCH_API_ENABLED: 'true'
+     DLC_ENABLED: 'false'
+    volumes:
+      - .:/app
+    depends_on:
+      - keyshare-db
+      - keyshare-redis
+  keyshare-db:
+    image: mysql:5.7.30
+    restart: unless-stopped
+    container_name: keyshare-db
+    ports:
+     - "3306:3306"
+    environment:
+     MYSQL_DATABASE: homestead
+     MYSQL_USER: homestead
+     MYSQL_PASSWORD: "secret"
+     MYSQL_ROOT_PASSWORD: "secret"
+  keyshare-redis:
+    image: redis:6.0.4
+    container_name: keyshare-redis
+    restart: unless-stopped
+    entrypoint: redis-server --appendonly yes

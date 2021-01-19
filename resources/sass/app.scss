@@ -7,11 +7,19 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
+
 //Page
 body {
     font-family: "Open Sans", sans-serif;
     color: $main;
 }
+
+//Components
+.form-control {
+    border: 1px solid #b1b1b1 !important;
+    border-radius: 0.1rem !important;
+}
+
 
 //Title
 .title {
@@ -25,14 +33,20 @@ body {
 //Games Grid
 .gamegrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(17rem, auto));
-    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, auto));
+    grid-gap: .5rem;
     margin: auto;
 
     .gamecard {
         position: relative;
         width: 100%;
-        max-width: 460px;
+        max-width: 264px;
+        background-color: #272727;
+        border-radius: 2px;
+        border: 1px solid #272727;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .gamecard:hover .overlay {
@@ -42,8 +56,6 @@ body {
     .image {
         display: block;
         width: 100%;
-        border-radius: 2px;
-        border: 1px solid grey;
     }
 
     .overlay {
@@ -55,7 +67,7 @@ body {
         color: #f1f1f1;
         width: 100%;
         transition: 0.5s ease;
-        opacity: 0.5;
+        opacity: 0.8;
         color: white;
         font-size: 1.5rem;
         text-align: center;
