@@ -25,6 +25,9 @@ services:
      TWITCH_CLIENT_SECRET: ${TWITCH_CLIENT_SECRET}
      TWITCH_API_ENABLED: 'true'
      DLC_ENABLED: 'false'
+     DISCORD_ENABLED: ${DISCORD_ENABLED}
+     DISCORD_TOKEN: ${DISCORD_TOKEN}
+     DISCORD_CHANNEL: ${DISCORD_CHANNEL}
     volumes:
       - .:/app
     depends_on:
