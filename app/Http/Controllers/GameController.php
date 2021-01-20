@@ -34,17 +34,17 @@ class GameController extends Controller
     public function show($id)
     {
         $game = Game::find($id);
-
+        $dlcCount = 0;
+        $dlcurl = null;
+        $igdb = null;
+        $genres = null;
+        $screenshots = null;
         $keys = Game::find($id)->keys()
             ->select('id', 'platform_id', 'created_user_id')
             ->where('owned_user_id', null)
             ->where('key_type_id', '1')
             ->with('platform', 'createduser')
             ->get();
-
-        $dlcCount = 0;
-        $dlcurl = null;
-        $igdb = null;
 
         if(config('app.dlc_enabled')) {
             $dlcCount = DB::table('dlcs')
@@ -58,8 +58,11 @@ class GameController extends Controller
             $dlcurl = "/games/dlc/get/" . $id;
         }
 
+
         if($game->igdb_id) {
             $igdb = Igdb::select(['aggregated_rating', 'aggregated_rating_count'])->with(['genres', 'screenshots'])->where('id', '=', $game->igdb_id)->first();
+            $screenshots = $igdb->screenshots;
+            $genres = $igdb->genres;
         }
 
         return view('games.show')
@@ -68,8 +71,8 @@ class GameController extends Controller
             ->withDlcurl($dlcurl)
             ->withDlcCount($dlcCount)
             ->withIgdb($igdb)
-            ->withGenres($igdb->genres)
-            ->withScreenshots($igdb->screenshots);
+            ->withGenres($genres)
+            ->withScreenshots($screenshots);
     }
 
     public function edit($id)

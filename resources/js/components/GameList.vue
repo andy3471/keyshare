@@ -1,6 +1,6 @@
 <template>
   <div class="gamegrid">
-    <div v-for="game in games" :key="game.id" class="gamecard">
+    <div v-for="game in games" :key="game.id" class="gamecard card">
       <a v-bind:href="game.url">
         <img v-bind:src="game.image" alt="Card image cap" class="image" />
         <div class="overlay">{{ game.name }}</div>
