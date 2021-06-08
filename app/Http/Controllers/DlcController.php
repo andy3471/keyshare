@@ -5,13 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Dlc;
 use App\Models\Game;
 use Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Redirect;
 
 class DlcController extends Controller
 {
+    // TODO move to model
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function index($id)
     {
         $dlc = DB::table('dlcs')
@@ -28,8 +33,13 @@ class DlcController extends Controller
     }
 
 
+    /**
+     * @param Dlc $dlc
+     * @return \Inertia\Response
+     */
     public function show(Dlc $dlc)
     {
+        // TODO tidy this
         $id = $dlc->id;
 
         $keys =  Dlc::find($id)
@@ -42,23 +52,33 @@ class DlcController extends Controller
 
         return Inertia::render('Dlc/Show', [
             'dlc' => $dlc,
-            'keys' => $keys
+            'keys' => $keys,
         ]);
     }
 
+    /**
+     * @param Dlc $dlc
+     * @return \Inertia\Response
+     */
     public function edit(Dlc $dlc)
     {
         return Inertia::render('Dlc/Edit', [
-            'dlc' => $dlc
+            'dlc' => $dlc,
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function update(Request $request)
     {
+        // TODO make this a request + job
 
         $this->validate($request, [
             'name' => 'required',
-            'photo' => 'image|nullable|max:1999'
+            'photo' => 'image|nullable|max:1999',
         ]);
 
         if ($request->hasFile('photo')) {
@@ -80,7 +100,7 @@ class DlcController extends Controller
             $dlc->image = $fullImagePath;
         }
 
-        if (!empty($request->gamename)) {
+        if (! empty($request->gamename)) {
             $game = Game::firstOrCreate(
                 ['name' => $request->gamename],
                 ['created_user_id' => Auth::id()]
@@ -93,7 +113,4 @@ class DlcController extends Controller
 
         return Redirect::route('dlc.show', [$dlc]);
     }
-
-    public function destroy(Dlc $dlc)
-    { }
 }

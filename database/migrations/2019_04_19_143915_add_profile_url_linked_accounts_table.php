@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class AddProfileUrlLinkedAccountsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('linked_accounts', function (Blueprint $table) {
@@ -18,11 +13,6 @@ class AddProfileUrlLinkedAccountsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('linked_accounts', function (Blueprint $table) {

@@ -69,6 +69,7 @@
           </b-link>
           <br>
           <a :href="route('login.steam')"><img src="/images/steamlogin.png"></a>
+<!--          TODO needs images -->
           <a :href="route('login.discord')">Login with discord</a>
           <a :href="route('login.twitch')">Login with twitch</a>
         </div>

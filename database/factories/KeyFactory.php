@@ -37,11 +37,11 @@ class KeyFactory extends Factory
             'dlc_id'            =>  function (array $key) {
                 if ($key['key_type_id'] == 2) {
                     $game_id = $key['game_id'];
-    
+
                     $dlc =  Dlc::inRandomOrder()->where('Game_id', $game_id)->first();
-    
+
                     if ($dlc == null) {
-                        $dlc = \App\Models\Dlc::factory()->create([
+                        $dlc = Dlc::factory()->create([
                             'game_id'   =>  $game_id,
                         ]);
                     }
@@ -61,7 +61,7 @@ class KeyFactory extends Factory
                 }
             },
             'created_user_id'   =>  User::all()->random()->id,
-            'message'           =>  $this->faker->paragraph($nbSentences = 1)
+            'message'           =>  $this->faker->paragraph($nbSentences = 1),
         ];
     }
 }

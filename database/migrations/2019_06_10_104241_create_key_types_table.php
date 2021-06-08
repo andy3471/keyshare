@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateKeyTypesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('key_types', function (Blueprint $table) {
@@ -24,15 +19,10 @@ class CreateKeyTypesTable extends Migration
             ['name' => 'Games'],
             ['name' => 'DLC'],
             ['name' => 'Wallet'],
-            ['name' => 'Subscription']
+            ['name' => 'Subscription'],
         ]);
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('key_types');

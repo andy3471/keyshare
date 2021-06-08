@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use Auth;
+use Closure;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 

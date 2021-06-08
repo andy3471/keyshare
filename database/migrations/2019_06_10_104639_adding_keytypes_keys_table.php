@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class AddingKeytypesKeysTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
 
@@ -33,11 +28,6 @@ class AddingKeytypesKeysTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('keys', function (Blueprint $table) {

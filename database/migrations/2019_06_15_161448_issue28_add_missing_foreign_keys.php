@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class Issue28AddMissingForeignKeys extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('dlcs', function (Blueprint $table) {
@@ -34,11 +29,6 @@ class Issue28AddMissingForeignKeys extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('dlcs', function (Blueprint $table) {

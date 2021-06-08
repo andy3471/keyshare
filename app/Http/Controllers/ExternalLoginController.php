@@ -2,23 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Socialite;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use App\Models\LinkedAccount;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Socialite;
 
 class ExternalLoginController extends Controller
 {
 
+    /**
+     * @return mixed
+     */
     public function steamRedirect()
     {
         return Socialite::driver('steam')->redirect();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|string
+     */
     public function steamCallback()
     {
+        // TODO tidy this
         $steamuser = Socialite::driver('steam')->user();
 
         $KeyshareUser = LinkedAccount::where('account_id', '=', $steamuser->id)->get();
@@ -30,7 +35,7 @@ class ExternalLoginController extends Controller
                 'image' => $steamuser->avatar,
                 'email' => uniqid(),
                 'password' => uniqid(),
-                'approved' => config('app.auto_approve')
+                'approved' => config('app.auto_approve'),
             ]);
 
 
@@ -56,13 +61,20 @@ class ExternalLoginController extends Controller
         return redirect('/games');
     }
 
+    /**
+     * @return mixed
+     */
     public function discordRedirect()
     {
         return Socialite::driver('discord')->redirect();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|string
+     */
     public function discordCallback()
     {
+        // TODO tidy this
         $discorduser = Socialite::driver('discord')->user();
 
         $KeyshareUser = LinkedAccount::where('account_id', '=', $discorduser->id)->get();
@@ -74,7 +86,7 @@ class ExternalLoginController extends Controller
                 'image' => $discorduser->avatar,
                 'email' => uniqid(),
                 'password' => uniqid(),
-                'approved' => config('app.auto_approve')
+                'approved' => config('app.auto_approve'),
             ]);
 
 
@@ -97,14 +109,21 @@ class ExternalLoginController extends Controller
         return redirect('/games');
     }
 
-    
+
+    /**
+     * @return mixed
+     */
     public function twitchRedirect()
     {
         return Socialite::driver('twitch')->redirect();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|string
+     */
     public function twitchCallback()
     {
+        // TODO tidy this
         $twitchuser = Socialite::driver('twitch')->user();
 
         $KeyshareUser = LinkedAccount::where('account_id', '=', $twitchuser->id)->get();
@@ -116,7 +135,7 @@ class ExternalLoginController extends Controller
                 'image' => $twitchuser->avatar,
                 'email' => uniqid(),
                 'password' => uniqid(),
-                'approved' => config('app.auto_approve')
+                'approved' => config('app.auto_approve'),
             ]);
 
 

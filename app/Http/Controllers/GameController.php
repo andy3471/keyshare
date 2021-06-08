@@ -13,16 +13,23 @@ use Redirect;
 class GameController extends Controller
 {
 
+    /**
+     * @return \Inertia\Response
+     */
     public function index()
-    {   
+    {
         return Inertia::render('Games', [
             'url' => '/games/get',
-            'title' => 'Games'
+            'title' => 'Games',
         ]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function getGames()
     {
+        // TODO tidy this
         $games = DB::table('games')
             ->distinct()
             ->selectRaw('games.id, games.name, games.image, concat("/games/", games.id) as url')
@@ -36,8 +43,13 @@ class GameController extends Controller
         return $games;
     }
 
+    /**
+     * @param $id
+     * @return \Inertia\Response
+     */
     public function show($id)
     {
+        // TODO tidy this
         $game = Game::find($id);
         $dlcCount = 0;
         $dlcurl = null;
@@ -77,12 +89,17 @@ class GameController extends Controller
             'dlcCount' => $dlcCount,
             'igdb' => $igdb,
             'genres' => $genres,
-            'screenshots' => $screenshots
+            'screenshots' => $screenshots,
         ]);
     }
 
+    /**
+     * @param $id
+     * @return \Inertia\Response
+     */
     public function edit($id)
     {
+        // TODO tidy this
         $game = Game::find($id);
         $igdb = null;
 
@@ -98,12 +115,18 @@ class GameController extends Controller
         return view('games.edit')->withGame($game)->withIgdb($igdb);
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function update(Request $request)
     {
+        // TODO make this a request + Job
         $this->validate($request, [
             'name' => 'required',
             'photo' => 'image|nullable|max:1999',
-            'igdbname' => 'nullable'
+            'igdbname' => 'nullable',
         ]);
 
 
@@ -128,7 +151,7 @@ class GameController extends Controller
         if ($request->igdbname) {
             $igdb = Igdb::select(['name', 'summary', 'id'])->with(['cover' => ['image_id']])->where('name', '=', $request->igdbname)->first();
 
-            if ($igdb && (!($igdb->id == $game->igdb_id))) {
+            if ($igdb && (! ($igdb->id == $game->igdb_id))) {
                 $game->name = $igdb->name;
                 $game->description = $igdb->summary;
                 $game->igdb_id = $igdb->id;

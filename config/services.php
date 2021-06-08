@@ -40,23 +40,23 @@ return [
         'client_id' => null,
         'enabled' => env('STEAM_LOGIN_ENABLED', false),
         'client_secret' => env('STEAM_CLIENT_SECRET', ''),
-        'redirect' => env('APP_URL').'/login/steam/callback'
+        'redirect' => env('APP_URL') . '/login/steam/callback',
     ],
 
-    'discord' => [    
+    'discord' => [
         'enabled' => env('DISCORD_LOGIN_ENABLED', false),
-        'client_id' => env('DISCORD_CLIENT_ID'),  
-        'client_secret' => env('DISCORD_CLIENT_SECRET'),  
-        'redirect' => env('APP_URL').'/login/discord/callback',
+        'client_id' => env('DISCORD_CLIENT_ID'),
+        'client_secret' => env('DISCORD_CLIENT_SECRET'),
+        'redirect' => env('APP_URL') . '/login/discord/callback',
         'allow_gif_avatars' => (bool)env('DISCORD_AVATAR_GIF', true),
         'avatar_default_extension' => env('DISCORD_EXTENSION_DEFAULT', 'jpg'),
     ],
 
-    'twitch' => [    
+    'twitch' => [
         'enabled' => env('TWITCH_LOGIN_ENABLED', false),
-        'client_id' => env('TWITCH_CLIENT_ID'),  
-        'client_secret' => env('TWITCH_CLIENT_SECRET'),  
-        'redirect' => env('APP_URL').'/login/twitch/callback'
+        'client_id' => env('TWITCH_CLIENT_ID'),
+        'client_secret' => env('TWITCH_CLIENT_SECRET'),
+        'redirect' => env('APP_URL') . '/login/twitch/callback',
     ],
-      
+
 ];

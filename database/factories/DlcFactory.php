@@ -27,7 +27,7 @@ class DlcFactory extends Factory
             'game_id'           =>  Game::all()->random()->id,
             'name'              =>  $this->faker->unique()->realText(20),
             'description'       =>  $this->faker->paragraph($nbSentences = 1),
-            'created_user_id'   =>  User::all()->random()->id
+            'created_user_id'   =>  User::all()->random()->id,
         ];
     }
 }

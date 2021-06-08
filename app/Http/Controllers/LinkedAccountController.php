@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class LinkedAccountController extends Controller
 {
+    // TODO Move from External Login COntroller into here
+
     /**
      * Display a listing of the resource.
      *

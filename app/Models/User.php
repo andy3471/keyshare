@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Redis;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
-use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\Jetstream;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -60,27 +60,39 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
         'karma',
-        'karma_color'
+        'karma_color',
     ];
-	
-	
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function linkedAccounts()
     {
         return $this->hasMany('App\Models\LinkedAccount');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function claimedKeys()
     {
         return $this->hasMany('App\Models\Key', 'owned_user_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function sharedKeys()
     {
         return $this->hasMany('App\Models\Key', 'created_user_id');
     }
 
+    /**
+     * @return array
+     */
     public function getKarmaAttribute()
     {
+        // TODO tidy this
         $id = $this->id;
         $karma = Redis::zscore('karma', $id);
 
@@ -114,8 +126,12 @@ class User extends Authenticatable
         return $karma;
     }
 
+    /**
+     * @return string
+     */
     public function getKarmaColorAttribute()
     {
+        // TODO tidy this
         $karma = $this->karma;
 
         if ($karma < 0) {
@@ -129,21 +145,35 @@ class User extends Authenticatable
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function hasTeams()
     {
         return $this->allTeams()->isNotEmpty();
     }
 
+    /**
+     * @param $team
+     * @return bool
+     */
     public function ownsTeam($team)
     {
         return $this->id == optional($team)->user_id;
     }
 
+    /**
+     * @param $team
+     * @return bool
+     */
     public function isCurrentTeam($team)
     {
         return optional($team)->id === $this->currentTeam->id;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function currentTeam()
     {
         if (is_null($this->current_team_id) && $this->id) {
@@ -151,5 +181,4 @@ class User extends Authenticatable
         }
         return $this->belongsTo(Jetstream::teamModel(), 'current_team_id');
     }
-
 }

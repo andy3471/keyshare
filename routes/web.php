@@ -1,17 +1,15 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DlcController;
+use App\Http\Controllers\ExternalLoginController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KeyController;
 use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\DlcController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ExternalLoginController;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +21,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// TODO group routes
 
 Route::get('login/steam', [ExternalLoginController::class, 'steamRedirect'])->name('login.steam');
 Route::get('login/steam/callback', [ExternalLoginController::class, 'steamCallback'])->name('login.steam.callback');
@@ -65,25 +63,25 @@ Route::middleware(['auth:sanctum', 'verified', 'approved'])->group(function () {
     Route::put('addkey/claim', [KeyController::class, 'claim'])->name('key.claim');
 
     //PLATFORMS
-    Route::get('/platform/{id}', [PlatformController::class, 'show'])->name('platform.show');
-    Route::get('/platform/get/{id}', [PlatformController::class, 'getPlatform']);
+    Route::get('platform/{id}', [PlatformController::class, 'show'])->name('platform.show');
+    Route::get('platform/get/{id}', [PlatformController::class, 'getPlatform']);
 
     //DLC
-    Route::get('/games/dlc/get/{id}', [DlcController::class, 'index']);
-    Route::get('/games/dlc/{dlc}', [DlcController::class, 'show'])->name('dlc.show');
+    Route::get('games/dlc/get/{id}', [DlcController::class, 'index']);
+    Route::get('games/dlc/{dlc}', [DlcController::class, 'show'])->name('dlc.show');
 });
 
 Route::middleware(['admin'])->group(function () {
     //Users
-    Route::get('/admin/users', [AdminController::class, 'usersIndex'])->name('admin.users.index');
-    Route::get('/admin/user/{id}', [AdminController::class, 'usersEdit'])->name('admin.users.edit')->middleware('demo');
-    Route::post('/admin/user/update', [AdminController::class, 'usersUpdate'])->name('admin.users.update')->middleware('demo');
+    Route::get('admin/users', [AdminController::class, 'usersIndex'])->name('admin.users.index');
+    Route::get('admin/user/{id}', [AdminController::class, 'usersEdit'])->name('admin.users.edit')->middleware('demo');
+    Route::post('admin/user/update', [AdminController::class, 'usersUpdate'])->name('admin.users.update')->middleware('demo');
 
     //Games
-    Route::get('/games/edit/{id}', [GameController::class, 'edit'])->name('game.edit');
-    Route::put('/games/update', [GameController::class, 'update'])->name('game.update');
+    Route::get('games/edit/{id}', [GameController::class, 'edit'])->name('game.edit');
+    Route::put('games/update', [GameController::class, 'update'])->name('game.update');
 
     //DLC
-    Route::get('/games/dlc/edit/{dlc}', [DlcController::class, 'edit'])->name('dlc.edit');
-    Route::put('/games/dlc/update', [DlcController::class, 'update'])->name('dlc.update');
+    Route::get('games/dlc/edit/{dlc}', [DlcController::class, 'edit'])->name('dlc.edit');
+    Route::put('games/dlc/update', [DlcController::class, 'update'])->name('dlc.update');
 });

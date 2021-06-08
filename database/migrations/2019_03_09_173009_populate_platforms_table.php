@@ -4,11 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class PopulatePlatformsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         DB::table('platforms')->insert([
@@ -23,15 +18,10 @@ class PopulatePlatformsTable extends Migration
             ['name' => 'PS Vita'],
             ['name' => 'Switch'],
             ['name' => 'Xbox 360'],
-            ['name' => 'Xbox One']
+            ['name' => 'Xbox One'],
         ]);
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         DB::table('platforms')->truncate();

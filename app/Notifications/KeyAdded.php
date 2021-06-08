@@ -11,6 +11,11 @@ class KeyAdded extends Notification
 {
     use Queueable;
 
+    private $key;
+    private $game;
+    private $user;
+    private $url;
+
     /**
      * Create a new notification instance.
      *
@@ -44,6 +49,7 @@ class KeyAdded extends Notification
      */
     public function toDiscord($notifiable)
     {
+        // TODO split this into more lines
         return DiscordMessage::create("A key for {$this->game->name} on {$this->key->platform->name} has been added by {$this->user->name}. Claim it at {$this->url}.");
     }
 

@@ -2,28 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Hash;
+use App\Actions\Fortify\PasswordValidationRules;
 use Auth;
-use App\User;
-use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Facades\DB;
+use Hash;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Redirect;
-use App\Actions\Fortify\PasswordValidationRules;
-use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
     use PasswordValidationRules;
 
+    /**
+     * @return \Inertia\Response
+     */
     public function setup()
-    {        
+    {
         return Inertia::render('Auth/Setup');
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function setupUpdate(Request $request)
-    {   
+    {
+        // TODO move to request + job
         $user = Auth::User();
         $this->validate($request, [
             'password' => $this->passwordRules(),
@@ -36,7 +42,7 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->email),
-                'setup_required' => false
+                'setup_required' => false,
             ])->save();
 
             return Redirect::route('game.index');

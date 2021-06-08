@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreatePlatformsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('platforms', function (Blueprint $table) {
@@ -20,11 +15,6 @@ class CreatePlatformsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('platforms');

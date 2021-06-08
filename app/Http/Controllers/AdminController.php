@@ -8,26 +8,39 @@ use Inertia\Inertia;
 
 class AdminController extends Controller
 {
+    // TODO split this into a folder
+    /**
+     * @return \Inertia\Response
+     */
     public function usersIndex() {
         $users = User::orderBy('approved')
                     ->paginate(15);
 
-        // return view('admin.users.index')->withUsers($users);
-
         return Inertia::render('Admin/Users/Index', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
 
+    /**
+     * @param $id
+     * @return \Inertia\Response
+     */
     public function usersEdit($id) {
         $user = User::find($id);
 
         return Inertia::render('Admin/Users/Edit', [
-            'auser' => $user
+            'auser' => $user,
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function usersUpdate(Request $request) {
+        // TODO make this a request + Job
+
         $this->validate($request, [
             'name' => 'required',
             'image' => 'image|nullable|max:1999|dimensions:ratio=1/1',
@@ -43,7 +56,7 @@ class AdminController extends Controller
         if($request->hasFile('image')){
             $filename = uniqid();
             $extension = $request->file('image')->getClientOriginalExtension();
-            $filenameToStore = $filename . '.'. $extension;
+            $filenameToStore = $filename . '.' . $extension;
             $folderToStore = 'images/users/';
             $fullImagePath = $folderToStore . $filenameToStore;
 

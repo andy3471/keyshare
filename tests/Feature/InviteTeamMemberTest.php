@@ -18,7 +18,7 @@ class InviteTeamMemberTest extends TestCase
 
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
-        $response = $this->post('/teams/'.$user->currentTeam->id.'/members', [
+        $response = $this->post('/teams/' . $user->currentTeam->id . '/members', [
             'email' => 'test@example.com',
             'role' => 'admin',
         ]);
@@ -37,7 +37,7 @@ class InviteTeamMemberTest extends TestCase
             'role' => 'admin',
         ]);
 
-        $response = $this->delete('/team-invitations/'.$invitation->id);
+        $response = $this->delete('/team-invitations/' . $invitation->id);
 
         $this->assertCount(0, $user->currentTeam->fresh()->teamInvitations);
     }

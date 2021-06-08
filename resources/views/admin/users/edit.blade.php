@@ -5,8 +5,9 @@
 @endsection
 
 @section('content')
+{{-- TODO remove and replace me --}}
     <div class="container">
-        @if(session()->has('message'))
+        @if (session()->has('message'))
             <div class="alert alert-success">
                 {{ session()->get('message') }}
             </div>
@@ -36,7 +37,7 @@
 
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" name="approved"
-                    @if( $user->approved )
+                    @if ($user->approved)
                         checked
                     @endif
                 >
@@ -44,7 +45,7 @@
             </div>
             <br>
             <input type="submit" class="btn btn-keyshare" value="{{ __('nav.save') }}">
-            
+
         </form>
 
     </div>

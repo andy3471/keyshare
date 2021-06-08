@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class MakeLinkedAccountProvidersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('linked_account_providers', function (Blueprint $table) {
@@ -20,11 +15,6 @@ class MakeLinkedAccountProvidersTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('linked_account_providers');

@@ -20,28 +20,34 @@ use Redirect;
 
 class KeyController extends Controller
 {
-
-
+    /**
+     * @return \Inertia\Response
+     */
     public function create()
     {
+        // TODO tidy this
         $platforms = Cache::remember('platforms', 3600, function () {
             return Platform::all();
         });
 
         return Inertia::render('Keys/Create', [
-            'platforms' => $platforms
+            'platforms' => $platforms,
         ]);
     }
 
-
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function store(Request $request)
     {
-
+        // TODO Make this a request + job
         $this->validate($request, [
             'key_type' => 'required',
             'platform_id' => 'required',
             'key' => 'required',
-            'message' => 'max:255'
+            'message' => 'max:255',
         ]);
 
         $key = new Key;
@@ -53,7 +59,7 @@ class KeyController extends Controller
         if ($request->key_type == '1' or $request->key_type == '2') {
             $game = Game::where('name', $request->gamename)->first();
 
-            if(!$game) {
+            if(! $game) {
                 $game = new Game;
                 if(config('igdb.enabled')) {
                     $igdb = Igdb::select(['name', 'summary', 'id'])->with(['cover' => ['image_id']])->where('name', '=', $request->gamename)->first();
@@ -97,60 +103,73 @@ class KeyController extends Controller
         return Redirect::back();
     }
 
+    /**
+     * @param $id
+     * @return \Inertia\Response
+     */
     public function show($id)
     {
-
         $key = Key::where('id', '=', $id)->with('platform')->with('createdUser')->first();
 
         return Inertia::render('Keys/Show', [
-            'key' => $key
+            'key' => $key,
         ]);
-
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function claim(Request $request)
     {
+        // TODO tidy this
         $key = Key::where('id', '=', $request->key)->where('owned_user_id', '=', null)->first();
 
         if ($key) {
-
             $key = DB::table('keys')
                 ->where('id', '=', $request->key)
                 ->update(['owned_user_id' => auth()->id()]);
-
             Redis::zincrby('karma', -1, auth()->id());
-
-            return Redirect::route('key.show', [$request->key]);
-        } else {
-            return Redirect::route('key.show', [$request->key]);
         }
+
+        return Redirect::route('key.show', [$request->key]);
     }
 
+    /**
+     * @return \Inertia\Response
+     */
     public function showClaimed()
     {
         return Inertia::render('Games', [
             'url' => '/claimedkeys/get',
-            'title' => 'Claimed Keys'
+            'title' => 'Claimed Keys',
         ]);
     }
 
+    /**
+     * @return mixed
+     */
     public function getClaimed()
     {
-        $keys = User::find(Auth::id())->claimedKeys()->paginate(12);
-        return $keys;
+        return User::find(Auth::id())->claimedKeys()->paginate(12);
     }
 
+    /**
+     * @return \Inertia\Response
+     */
     public function showShared()
     {
         return Inertia::render('Games', [
             'url' => '/sharedkeys/get',
-            'title' => 'Shared Keys'
+            'title' => 'Shared Keys',
         ]);
     }
 
+    /**
+     * @return mixed
+     */
     public function getShared()
     {
-        $keys = User::find(Auth::id())->sharedKeys()->paginate(12);
-        return $keys;
+        return User::find(Auth::id())->sharedKeys()->paginate(12);
     }
 }

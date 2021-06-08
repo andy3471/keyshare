@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class AddDeletedFieldKeysTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('keys', function (Blueprint $table) {
@@ -23,11 +18,6 @@ class AddDeletedFieldKeysTable extends Migration
                     ");
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('keys', function (Blueprint $table) {

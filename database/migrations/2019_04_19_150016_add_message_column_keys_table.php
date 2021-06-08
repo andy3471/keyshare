@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class AddMessageColumnKeysTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('keys', function (Blueprint $table) {
@@ -18,11 +13,6 @@ class AddMessageColumnKeysTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('keys', function (Blueprint $table) {

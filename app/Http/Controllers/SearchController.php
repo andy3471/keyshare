@@ -13,8 +13,14 @@ use Redirect;
 
 class SearchController extends Controller
 {
+    // TODO Implement Meilisearch
+    /**
+     * @param Request $request
+     * @return \Inertia\Response
+     */
     public function search(Request $request)
     {
+        // TODO Tidy this
         $search = $request->search;
 
         $game = DB::table('games')
@@ -41,8 +47,8 @@ class SearchController extends Controller
             }
 
             return Inertia::render('Games', [
-                'url' => '/search/get/?search=' . $search  . '&',
-                'title' => $search
+                'url' => '/search/get/?search=' . $search . '&',
+                'title' => $search,
             ]);
 
         } else {
@@ -52,8 +58,13 @@ class SearchController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function getSearch(Request $request)
     {
+        // TODO tidy this - use meilisearch
         $search = $request->search;
 
         $games = DB::table('games')

@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // TODO move to intertia middleware
         Inertia::share('platforms', function () {
             return Cache::remember('platforms', 3600, function () {
                 return Platform::all();

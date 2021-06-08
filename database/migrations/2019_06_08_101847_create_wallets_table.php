@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateWalletsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('wallets', function (Blueprint $table) {
@@ -24,11 +19,6 @@ class CreateWalletsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('wallets');

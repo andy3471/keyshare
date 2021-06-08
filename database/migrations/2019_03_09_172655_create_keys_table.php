@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateKeysTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('keys', function (Blueprint $table) {
@@ -25,11 +20,6 @@ class CreateKeysTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('keys');

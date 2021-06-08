@@ -123,7 +123,7 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    
+
     // Custom Config
 
     'demo_mode' => env('DEMO_MODE', true),
@@ -188,7 +188,7 @@ return [
         NotificationChannels\Discord\DiscordServiceProvider::class,
 
         //Socialite Providers
-        \SocialiteProviders\Manager\ServiceProvider::class 
+        \SocialiteProviders\Manager\ServiceProvider::class,
     ],
 
     /*
