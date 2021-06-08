@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreKeyRequest;
 use App\Models\Dlc;
 use App\Models\Game;
 use App\Models\Key;
@@ -35,21 +36,15 @@ class KeyController extends Controller
         ]);
     }
 
+
     /**
-     * @param Request $request
+     * @param StoreKeyRequest $request
      * @return mixed
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(StoreKeyRequest $request)
     {
-        // TODO Make this a request + job
-        $this->validate($request, [
-            'key_type' => 'required',
-            'platform_id' => 'required',
-            'key' => 'required',
-            'message' => 'max:255',
-        ]);
-
+        // TODO make this a job
         $key = new Key;
         $key->platform_id = $request->platform_id;
         $key->keycode = $request->key;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -34,24 +35,14 @@ class AdminController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param UpdateUserRequest $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function usersUpdate(Request $request) {
-        // TODO make this a request + Job
+    public function usersUpdate(UpdateUserRequest $request) {
+        // TODO make this a job
 
-        $this->validate($request, [
-            'name' => 'required',
-            'image' => 'image|nullable|max:1999|dimensions:ratio=1/1',
-            'bio' => 'nullable',
-        ]);
-
-        $approved = 0;
-
-        if ($request->approved ) {
-            $approved = 1;
-        }
+        $approved = $request->approved ? 1 : 0;
 
         if($request->hasFile('image')){
             $filename = uniqid();

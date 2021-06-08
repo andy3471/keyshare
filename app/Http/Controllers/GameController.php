@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateGameRequest;
 use App\Models\Game;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -115,21 +116,15 @@ class GameController extends Controller
         return view('games.edit')->withGame($game)->withIgdb($igdb);
     }
 
+
     /**
-     * @param Request $request
+     * @param UpdateGameRequest $request
      * @return mixed
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request)
+    public function update(UpdateGameRequest $request)
     {
-        // TODO make this a request + Job
-        $this->validate($request, [
-            'name' => 'required',
-            'photo' => 'image|nullable|max:1999',
-            'igdbname' => 'nullable',
-        ]);
-
-
+        // TODO make this a job
         if ($request->hasFile('photo')) {
             $filename = uniqid();
             $extension = $request->file('photo')->getClientOriginalExtension();

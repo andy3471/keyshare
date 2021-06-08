@@ -49,8 +49,9 @@ class KeyAdded extends Notification
      */
     public function toDiscord($notifiable)
     {
-        // TODO split this into more lines
-        return DiscordMessage::create("A key for {$this->game->name} on {$this->key->platform->name} has been added by {$this->user->name}. Claim it at {$this->url}.");
+        return DiscordMessage::create(
+            "A key for {$this->game->name} on {$this->key->platform->name}
+            has been added by {$this->user->name}. Claim it at {$this->url}.");
     }
 
     /**

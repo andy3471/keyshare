@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateDlcRequest;
 use App\Models\Dlc;
 use App\Models\Game;
 use Auth;
@@ -68,19 +69,12 @@ class DlcController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param UpdateDlcRequest $request
      * @return mixed
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request)
+    public function update(UpdateDlcRequest $request)
     {
-        // TODO make this a request + job
-
-        $this->validate($request, [
-            'name' => 'required',
-            'photo' => 'image|nullable|max:1999',
-        ]);
-
+        // TODO make this a job
         if ($request->hasFile('photo')) {
             $filename = uniqid();
             $extension = $request->file('photo')->getClientOriginalExtension();
