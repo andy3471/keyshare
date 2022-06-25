@@ -17,7 +17,8 @@ RUN chown -R www-data:www-data /app \
     && a2enmod rewrite \
     && chmod u+x /usr/local/bin/start.sh \
     && php artisan storage:link \
-    && apt install mysql-client
+    && apt update \
+    && apt install mariadb-client
 
 RUN pecl install redis && docker-php-ext-enable redis
 
