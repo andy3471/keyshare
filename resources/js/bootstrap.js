@@ -3,22 +3,12 @@ import _ from 'lodash';
 // import bootstrap from 'bootstrap';
 import popper from 'popper.js';
 import jquery from 'jquery';
+import bootstrap from 'bootstrap';
 
-
+window.bootstrap = bootstrap;
 window._ = _;
-
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
-
-try {
-    window.Popper = popper;
-    window.$ = window.jQuery = jquery();
-} catch (e) {
-    console.error(e);
-}
+window.Popper = popper;
+window.$ = window.jQuery = jquery();
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
