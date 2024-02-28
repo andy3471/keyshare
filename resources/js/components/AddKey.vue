@@ -2,13 +2,24 @@
   <div>
     <div v-if="dlcenabled">
       <label for="Key Type">Key Type:</label>
-      <br />
-      <input type="radio" id="Game" value="Game" v-model="KeyType" selected />
+      <br>
+      <input
+        id="Game"
+        v-model="KeyType"
+        type="radio"
+        value="Game"
+        selected
+      >
       <label for="Game">Game</label>
-      <br />
-      <input type="radio" id="DLC" value="DLC" v-model="KeyType" />
+      <br>
+      <input
+        id="DLC"
+        v-model="KeyType"
+        type="radio"
+        value="DLC"
+      >
       <label for="DLC">DLC</label>
-      <br />
+      <br>
       <!-- <input type="radio" id="Wallet" value="Wallet" v-model="KeyType" />
       <label for="Wallet">Wallet</label>
       <br />
@@ -16,30 +27,41 @@
       <label for="Subscription">Subscription</label>
       <br />-->
 
-      <add-key-game v-if="( this.KeyType == 'Game' )" :platforms="this.platforms" :csrf="this.csrf"></add-key-game>
-      <add-key-dlc v-if="( this.KeyType == 'DLC' )" :platforms="this.platforms" :csrf="this.csrf"></add-key-dlc>
+      <add-key-game
+        v-if="( KeyType == 'Game' )"
+        :platforms="platforms"
+        :csrf="csrf"
+      />
+      <add-key-dlc
+        v-if="( KeyType == 'DLC' )"
+        :platforms="platforms"
+        :csrf="csrf"
+      />
       <add-key-wallet
-        v-if="( this.KeyType == 'Wallet' )"
-        :platforms="this.platforms"
-        :csrf="this.csrf"
-      ></add-key-wallet>
+        v-if="( KeyType == 'Wallet' )"
+        :platforms="platforms"
+        :csrf="csrf"
+      />
       <add-key-subscription
-        v-if="( this.KeyType == 'Subscription' )"
-        :platforms="this.platforms"
-        :csrf="this.csrf"
-      ></add-key-subscription>
+        v-if="( KeyType == 'Subscription' )"
+        :platforms="platforms"
+        :csrf="csrf"
+      />
     </div>
     <div v-else>
-      <add-key-game :platforms="this.platforms" :csrf="this.csrf"></add-key-game>
+      <add-key-game
+        :platforms="platforms"
+        :csrf="csrf"
+      />
     </div>
   </div>
- 
 </template>
 <script>
 export default {
   props: {
     csrf: {
-      required: true
+      required: true,
+      type: String
     },
     dlcenabled: {
       required: true,
@@ -53,12 +75,12 @@ export default {
       KeyType: ""
     };
   },
-  methods: {},
+  watch: {},
   mounted() {
     axios.get("/platforms/index").then(response => {
       this.platforms = response.data;
     });
   },
-  watch: {}
+  methods: {}
 };
 </script>
