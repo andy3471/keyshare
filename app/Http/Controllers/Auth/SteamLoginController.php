@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Front\Auth;
+namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Auth\Socialite;
 use App\Models\LinkedAccount;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;

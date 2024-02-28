@@ -1,7 +1,7 @@
 <?php
 
 // TODO: Tidy these routes up
-use App\Http\Controllers\Front\Auth\SteamLoginController;
+use App\Http\Controllers\Auth\SteamLoginController;
 use App\Http\Controllers\Front\DlcController;
 use App\Http\Controllers\Front\GameController;
 use App\Http\Controllers\Front\HomeController;
@@ -40,7 +40,7 @@ Route::middleware(['auth', 'approved'])->group(function () {
 
     // TODO: change these routes
     Route::get('change-password', [UserController::class, 'passwordResetPage'])
-        ->name('password.reset')
+        ->name('password.reset.request')
         ->middleware('demomode');
 
     Route::post('change-password', [UserController::class, 'passwordResetSave'])
