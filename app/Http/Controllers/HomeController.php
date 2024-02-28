@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
@@ -11,26 +12,26 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    public function home()
+    public function home(): RedirectResponse
     {
         return redirect()->route('games');
     }
 
-    public function index()
+    public function index(): View|RedirectResponse
     {
-        if (Auth::guest()) {
+        if (auth()->guest()) {
             return view('auth.login');
         }
 
         return redirect()->route('games');
     }
 
-    public function notApproved()
+    public function notApproved(): View
     {
         return view('auth.notApproved');
     }
 
-    public function demo()
+    public function demo(): View
     {
         return view('auth.demomode');
     }

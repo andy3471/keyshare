@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use MarcReichel\IGDBLaravel\Models\Game as Igdb;
 
 class GameController extends Controller
@@ -15,7 +18,8 @@ class GameController extends Controller
         return view('games.index')->withTitle('Games')->withurl('/games/get');
     }
 
-    public function getGames()
+    // TODO: Refactor
+    public function getGames(): JsonResponse
     {
         $games = DB::table('games')
             ->distinct()
@@ -27,10 +31,11 @@ class GameController extends Controller
             ->orderby('games.name')
             ->paginate(12);
 
-        return $games;
+        return response()->json($games);
     }
 
-    public function show($id)
+    // TODO: Refactor
+    public function show($id): View
     {
         $game = Game::find($id);
         $dlcCount = 0;
@@ -73,7 +78,8 @@ class GameController extends Controller
             ->withScreenshots($screenshots);
     }
 
-    public function edit($id)
+    // TODO: Use route model binding
+    public function edit($id): View
     {
         $game = Game::find($id);
         $igdb = null;
@@ -85,7 +91,9 @@ class GameController extends Controller
         return view('games.edit')->withGame($game)->withIgdb($igdb);
     }
 
-    public function update(Request $request)
+    // TODO: Use form request
+    // TODO: Refactor
+    public function update(Request $request): RedirectResponse
     {
         $this->validate($request, [
             'name' => 'required',

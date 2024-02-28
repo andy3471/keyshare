@@ -86,13 +86,9 @@
 
                         @can('admin',Auth::user())
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a href="{{ route('filament.admin.pages.dashboard') }}" class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ __('admin.admin') }}
                                 </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('adminshowusers') }}">{{ __('admin.users') }}</a>
-                                </div>
                             </li>
                         @endcan
 
@@ -101,7 +97,7 @@
                             <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ Auth::user()->image }}" height="25px" width="25px"> {{ Auth::user()->name }}
 
-                                <span class="badge badge-pill {{ Auth::user()->karma_color }}"> {{ Auth::user()->karma }} </span>
+                                <span class="badge badge-pill {{ Auth::user()->karma_colour }}"> {{ Auth::user()->karma }} </span>
 
                             </a>
 

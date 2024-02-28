@@ -48,7 +48,7 @@
             <div class="media-body">
                 <h5 class="mt-0">
                     <a href="\users\{{ $key->createduser->id }}">{{$key->createduser->name}}</a>
-                    <span class="badge badge-pill {{ $key->createduser->karma_color }}"> {{ $key->createduser->karma }} </span>
+                    <span class="badge badge-pill {{ $key->createduser->karma_colour }}"> {{ $key->createduser->karma }} </span>
                 </h5>
                 <p> {{ $key->createduser->bio }} </p>
             </div>

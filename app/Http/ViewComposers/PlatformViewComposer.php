@@ -3,20 +3,18 @@
 namespace App\Http\ViewComposers;
 
 use App\Models\Platform;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class PlatformViewComposer
 {
-    public function __construct()
+    // TODO: Move this to the model
+    public function compose(View $view): void
     {
-        $this->platforms = Cache::remember('platforms', 3600, function () {
+        $platforms = Cache::remember('platforms', 60 * 60 * 24, function () {
             return Platform::all();
         });
-    }
 
-    public function compose(View $view)
-    {
-        $view->with('platforms', $this->platforms);
+        $view->with('platforms', $platforms);
     }
 }

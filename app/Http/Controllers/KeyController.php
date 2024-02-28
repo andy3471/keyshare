@@ -6,19 +6,22 @@ use App\Models\Dlc;
 use App\Models\Game;
 use App\Models\Key;
 use App\Models\Platform;
-use App\Models\User;
 use App\Notifications\KeyAdded;
 use Auth;
-use Cache;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\View\View;
 use MarcReichel\IGDBLaravel\Models\Game as Igdb;
 
 class KeyController extends Controller
 {
-    public function create()
+    // TODO: Move caching to the platforms model
+    public function create(): View
     {
         $platforms = Cache::remember('platforms', 3600, function () {
             return Platform::all();
@@ -27,7 +30,9 @@ class KeyController extends Controller
         return view('keys.create')->with('platforms', $platforms);
     }
 
-    public function store(Request $request)
+    // TODO: Use form request
+    // TODO: Refactor
+    public function store(Request $request): View
     {
 
         $this->validate($request, [
@@ -91,15 +96,17 @@ class KeyController extends Controller
         return redirect()->back()->with('message', __('keys.added'));
     }
 
-    public function show($id)
+    // TODO: Use route model binding
+    public function show($id): View
     {
-
         $key = Key::where('id', '=', $id)->with('platform')->first();
 
         return view('keys.show')->withKey($key);
     }
 
-    public function claim(Request $request)
+    // TODO: Use route model binding
+    // TODO: Refactor
+    public function claim(Request $request): RedirectResponse
     {
         $key = Key::where('id', '=', $request->id)->where('owned_user_id', '=', null)->first();
 
@@ -116,27 +123,31 @@ class KeyController extends Controller
         }
     }
 
-    public function showClaimed()
+    public function showClaimed(): View
     {
-        return view('games.index')->withTitle('Claimed Keys')->withUrl('/claimedkeys/get');
+        return view('games.index')
+            ->withTitle('Claimed Keys')
+            ->withUrl('/claimedkeys/get');
     }
 
-    public function getClaimed()
+    public function getClaimed(): JsonResponse
     {
-        $keys = User::find(Auth::id())->claimedKeys()->paginate(12);
+        $keys = auth()->user()->claimedKeys()->paginate(12);
 
-        return $keys;
+        return response()->json($keys);
     }
 
-    public function showShared()
+    public function showShared(): View
     {
-        return view('games.index')->withTitle('Shared Keys')->withUrl('/sharedkeys/get');
+        return view('games.index')
+            ->withTitle('Shared Keys')
+            ->withUrl('/sharedkeys/get');
     }
 
-    public function getShared()
+    public function getShared(): JsonResponse
     {
-        $keys = User::find(Auth::id())->sharedKeys()->paginate(12);
+        $keys = auth()->user()->sharedKeys()->paginate(12);
 
-        return $keys;
+        return response()->json($keys);
     }
 }

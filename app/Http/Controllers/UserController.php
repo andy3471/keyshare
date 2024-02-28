@@ -3,22 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Auth;
-use Hash;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-    }
-
-    public function edit()
+    public function edit(): View
     {
         return view('users.edit');
     }
 
-    public function update(Request $request)
+    // TODO: Use form request
+    // TODO: Refactor
+
+    public function update(Request $request): RedirectResponse
     {
         $this->validate($request, [
             'name' => 'required',
@@ -36,7 +36,7 @@ class UserController extends Controller
             $path = $request->file('image')->storeAs('public/'.$folderToStore, $filenameToStore);
         }
 
-        $user = User::find(auth()->id());
+        $user = auth()->user();
         $user->name = $request->name;
         $user->bio = $request->bio;
         if ($request->hasFile('image')) {
@@ -47,19 +47,23 @@ class UserController extends Controller
         return redirect()->route('showuser', ['id' => auth()->id()])->with('message', __('auth.profileupdated'));
     }
 
-    public function show($id)
+    // TODO: Use route model binding
+    public function show($id): View
     {
         $user = User::find($id);
 
         return view('users.show')->withUser($user);
     }
 
-    public function passwordResetPage()
+    public function passwordResetPage(): View
     {
         return view('users.changepassword');
     }
 
-    public function passwordResetSave(Request $request)
+    // TODO: Use form request
+    // TODO: Refactor
+
+    public function passwordResetSave(Request $request): RedirectResponse
     {
 
         $this->validate($request, [
@@ -67,7 +71,7 @@ class UserController extends Controller
             'newpassword' => 'required|string|min:6|confirmed',
         ]);
 
-        if (! (Hash::check($request->currentpassword, Auth::user()->password))) {
+        if (! (Hash::check($request->currentpassword, auth()->user()->password))) {
             return redirect()->back()->with('error', __('auth.passwordsdontmatch'));
         }
 
@@ -75,7 +79,7 @@ class UserController extends Controller
             return redirect()->back()->with('error', __('auth.passwordsameascurrent'));
         }
 
-        $user = Auth::user();
+        $user = auth()->user();
         $user->password = bcrypt($request->newpassword);
         $user->save();
 

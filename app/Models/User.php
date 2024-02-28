@@ -2,59 +2,75 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory;
     use Notifiable;
 
     protected $appends = [
         'karma',
-        'karma_color',
+        'karma_colour',
     ];
 
     protected $fillable = [
-        'name', 'email', 'password', 'approved',
+        'name',
+        'email',
+        'password',
+        'approved',
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    public function linkedAccounts()
+    public function linkedAccounts(): HasMany
     {
-        return $this->hasMany('App\Models\LinkedAccount');
+        return $this->hasMany(LinkedAccount::class);
     }
 
-    public function claimedKeys()
+    public function claimedKeys(): HasMany
     {
-        return $this->hasMany('App\Models\Key', 'owned_user_id');
+        return $this->hasMany(Key::class, 'owned_user_id');
     }
 
-    public function sharedKeys()
+    public function sharedKeys(): HasMany
     {
-        return $this->hasMany('App\Models\Key', 'created_user_id');
+        return $this->hasMany(Key::class, 'created_user_id');
     }
 
-    public function getKarmaAttribute()
+    public function canAccessPanel(Panel $panel): bool
     {
-        $id = $this->id;
-        $karma = Redis::zscore('karma', $id);
+        return $this->admin;
+    }
 
-        if ($karma == null) {
-            $karma = 0;
+    public function karma(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                // TODO: This needs a rewrite
+                $id = $this->id;
+                $karma = Redis::zscore('karma', $id);
 
-            $karma = DB::select(
-                '
+                if ($karma == null) {
+                    $karma = 0;
+
+                    $karma = DB::select(
+                        '
                     SELECT
                         (COALESCE(C.createdkeys, 0) - COALESCE(O.ownedkeys, 0)) AS karma,
                         U.id
@@ -86,27 +102,34 @@ class User extends Authenticatable
                         U.id = 1
             ');
 
-            foreach ($karma as $user) {
-                $karma = Redis::zadd('karma', $user->karma, $user->id);
-                $karma = Redis::zscore('karma', $id);
-            }
-        }
+                    foreach ($karma as $user) {
+                        $karma = Redis::zadd('karma', $user->karma, $user->id);
+                        $karma = Redis::zscore('karma', $id);
+                    }
+                }
 
-        return $karma;
+                return $karma;
+            }
+        );
     }
 
-    public function getKarmaColorAttribute()
+    public function karmaColour(): Attribute
     {
-        $karma = $this->karma;
+        return Attribute::make(
+            get: function () {
+                // TODO: use switch/case
+                $karma = $this->karma;
 
-        if ($karma < 0) {
-            return 'badge-danger';
-        } elseif ($karma < 2) {
-            return 'badge-warning';
-        } elseif ($karma < 15) {
-            return 'badge-info';
-        } else {
-            return 'badge-success';
-        }
+                if ($karma < 0) {
+                    return 'badge-danger';
+                } elseif ($karma < 2) {
+                    return 'badge-warning';
+                } elseif ($karma < 15) {
+                    return 'badge-info';
+                } else {
+                    return 'badge-success';
+                }
+            }
+        );
     }
 }

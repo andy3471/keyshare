@@ -31,7 +31,7 @@
                         <a href="/users/{{$key->createduser->id}}">
                             {{$key->createduser->name}}
                         </a>
-                        <span class="badge badge-pill {{ $key->createduser->karma_color }}"> {{ $key->createduser->karma }} </span>
+                        <span class="badge badge-pill {{ $key->createduser->karma_colour }}"> {{ $key->createduser->karma }} </span>
                     </td>
                 <tr>
             @endforeach

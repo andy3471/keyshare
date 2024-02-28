@@ -11,7 +11,7 @@
             <img src="{{ $user->image }}" class="img-fluid mr-3" width="150px" height="150px">
             <div class="media-body">
                 <h5 class="mt-0"> {{ $user->name }}
-                    <span class="badge badge-pill {{ $user->karma_color }}"> {{ $user->karma_ }} </span>
+                    <span class="badge badge-pill {{ $user->karma_colour }}"> {{ $user->karma }} </span>
                 </h5>
                 <p>
                     {{ $user->bio }}
