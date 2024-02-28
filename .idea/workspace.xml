@@ -5,9 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce6bea2d-2da5-471b-a8c9-e4f092b653ae" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/database/factories/GameFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/keyshare.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/keyshare.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/CalculateKarma.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/CalculateKarma.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Dlc.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Dlc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Game.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Game.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Group.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Group.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Key.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Key.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Subscription.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Subscription.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/DlcFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/DlcFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/GamesFactory.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/KeysFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/KeyFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/SubscriptionFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/SubscriptionFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/WalletFactory.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DlcTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DlcTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/GamesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/GamesTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/KeysTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/KeysTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/SubscriptionTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/SubscriptionTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/UsersTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/WalletTableSeeder.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,8 +226,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "vite",
-    "last_opened_file_path": "/home/ahargrave/git/lunchrota",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/ahargrave/git/keyshare",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -251,7 +273,8 @@
       <workItem from="1653570593609" duration="299000" />
       <workItem from="1709112898041" duration="4225000" />
       <workItem from="1709118579633" duration="63000" />
-      <workItem from="1709120152560" duration="400000" />
+      <workItem from="1709120152560" duration="456000" />
+      <workItem from="1709121243399" duration="593000" />
     </task>
     <servers />
   </component>

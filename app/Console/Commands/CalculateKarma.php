@@ -8,50 +8,30 @@ use Illuminate\Support\Facades\Redis;
 
 class CalculateKarma extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'karma:calculate';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Recalculate Karma';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
-        $karma = DB::select(DB::raw('
-            SELECT (IFNULL(C.createdkeys,0) - IFNULL(O.ownedkeys,0)) AS karma, U.id FROM users AS U
+        $karma = DB::select('
+            SELECT (COALESCE(C.createdkeys, 0) - COALESCE(O.ownedkeys, 0)) AS karma, U.id FROM users AS U
             LEFT OUTER JOIN (
-                SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM `keys`
+                SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM keys
                 GROUP BY created_user_id
             ) AS C
             ON C.user_id = U.id
             LEFT OUTER JOIN (
-                SELECT count(owned_user_id) AS ownedkeys, owned_user_id AS user_id FROM `keys`
+                SELECT count(owned_user_id) AS ownedkeys, owned_user_id AS user_id FROM keys
                 GROUP BY owned_user_id
             ) AS O
-            ON O.user_id = U.id'
-        ));
+            ON O.user_id = U.id
+        ');
 
         Redis::del('karma');
 

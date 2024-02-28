@@ -1,17 +1,23 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
 use App\Models\Dlc;
 use App\Models\Game;
 use App\Models\User;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Dlc::class, function (Faker $faker) {
-    return [
-        'game_id' => Game::all()->random()->id,
-        'name' => $faker->unique()->realText(20),
-        'description' => $faker->paragraph($nbSentences = 1),
-        'created_user_id' => User::all()->random()->id,
-    ];
-});
+class DlcFactory extends Factory
+{
+    protected $model = Dlc::class;
+
+    public function definition(): array
+    {
+        return [
+            'game_id' => Game::all()->random()->id,
+            'name' => fake()->unique()->realText(20),
+            'description' => fake()->paragraph($nbSentences = 1),
+            'created_user_id' => User::all()->random()->id,
+        ];
+    }
+}
