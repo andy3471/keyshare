@@ -1,5 +1,10 @@
 
 import _ from 'lodash';
+// import bootstrap from 'bootstrap';
+import popper from 'popper.js';
+import jquery from 'jquery';
+
+
 window._ = _;
 
 /**
@@ -9,11 +14,11 @@ window._ = _;
  */
 
 try {
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
-
-    require('bootstrap');
-} catch (e) {}
+    window.Popper = popper;
+    window.$ = window.jQuery = jquery();
+} catch (e) {
+    console.error(e);
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

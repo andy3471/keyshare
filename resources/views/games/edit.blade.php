@@ -28,19 +28,19 @@
 
             @if(config('igdb.enabled'))
                 <label for="IGDB Linked Game"> {{ __('games.igdb_linked') }}: </label>
-                <autocomplete 
+                <auto-complete
                     placeholder
                     @if( $igdb )
                         value="{{$igdb->name}}"
                     @endif
-                    url="/autocomplete/games/" 
+                    url="/autocomplete/games/"
                     id="igdbname"
-                    name="igdbname" 
+                    name="igdbname"
                     classes="form-control"
-                ></autocomplete>
+                ></auto-complete>
                 <br>
             @endif
-            
+
             <input type="submit" class="btn btn-keyshare" value="{{ __('nav.save') }}">
         </form>
 

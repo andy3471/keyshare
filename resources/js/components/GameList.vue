@@ -1,14 +1,27 @@
 <template>
   <div class="gamegrid">
-    <div v-for="game in games" :key="game.id" class="gamecard card">
-      <a v-bind:href="game.url">
-        <img v-bind:src="game.image" alt="Card image cap" class="image" />
+    <div
+      v-for="game in games"
+      :key="game.id"
+      class="gamecard card"
+    >
+      <a :href="game.url">
+        <img
+          :src="game.image"
+          alt="Card image cap"
+          class="image"
+        >
         <div class="overlay">{{ game.name }}</div>
       </a>
     </div>
-    <infinite-loading spinner="waveDots" @infinite="infiniteHandler">
-      <div slot="no-more"></div>
-      <div slot="no-results">No Games Found</div>
+    <infinite-loading
+      spinner="waveDots"
+      @infinite="infiniteHandler"
+    >
+      <div slot="no-more" />
+      <div slot="no-results">
+        No Games Found
+      </div>
     </infinite-loading>
   </div>
 </template>
@@ -16,8 +29,16 @@
 import InfiniteLoading from "vue-infinite-loading";
 
 export default {
+  components: {
+    InfiniteLoading
+  },
+
   props: {
-    url: String
+    url: {
+      type: String,
+      required: true,
+      default: ''
+    }
   },
   data() {
     return {
