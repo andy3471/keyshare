@@ -6,7 +6,7 @@
     },
     "devDependencies": {
         "@vitejs/plugin-vue2": "^1.1.2",
-        "axios": "^0.18.1",
+        "axios": "^0.28.0",
         "bootstrap": "^4.5.2",
         "cross-env": "^5.2.1",
         "jquery": "^3.5.1",
