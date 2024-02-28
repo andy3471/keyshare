@@ -52,15 +52,3 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/games/dlc/get/{id}', 'DlcController@index');
     Route::get('/games/dlc/{dlc}', 'DlcController@show')->name('dlc');
 });
-
-//Route::middleware(['admin'])->group(function () {
-//    Route::get('/admin/users', 'AdminController@usersIndex')->name('adminshowusers');
-//    Route::get('/admin/user/{id}', 'AdminController@usersEdit')->name('adminuseredit')->middleware('demomode');
-//    Route::post('/admin/user/update', 'AdminController@usersUpdate')->name('adminuserupdate')->middleware('demomode');
-//
-//    Route::get('/games/dlc/edit/{dlc}', 'DlcController@edit')->name('editdlc');
-//    Route::post('/games/dlc/update', 'DlcController@update')->name('updatedlc');
-//
-//    Route::get('/games/edit/{id}', 'GameController@edit')->name('editgame');
-//    Route::post('/games/update', 'GameController@update')->name('updategame');
-//});
