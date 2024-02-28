@@ -35,7 +35,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\User::class,
+        'model' => \App\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
         'webhook' => [
@@ -54,9 +54,7 @@ return [
     'discord' => [
         'enabled' => env('DISCORD_ENABLED', false),
         'token' => env('DISCORD_TOKEN', ''),
-        'channel' =>  env('DISCORD_CHANNEL', '')
-    ]
-    
-
+        'channel' => env('DISCORD_CHANNEL', ''),
+    ],
 
 ];

@@ -1,10 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Keys;
-use App\Games;
-use App\Platforms;
-use App\User;
 
 class KeysTableSeeder extends Seeder
 {
@@ -15,7 +11,7 @@ class KeysTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Key::class, 500)->create();
+        factory(\App\Models\Key::class, 500)->create();
         Artisan::call('karma:calculate');
     }
 }

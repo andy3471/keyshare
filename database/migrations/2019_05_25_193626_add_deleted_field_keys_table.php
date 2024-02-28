@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Key;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddDeletedFieldKeysTable extends Migration
 {
@@ -17,10 +18,7 @@ class AddDeletedFieldKeysTable extends Migration
             $table->boolean('removed')->default('0');
         });
 
-        DB::update("UPDATE `keys`
-                    SET removed = '0'
-                    WHERE removed is null
-                    ");
+        Key::where('removed', null)->update(['removed' => 0]);
     }
 
     /**

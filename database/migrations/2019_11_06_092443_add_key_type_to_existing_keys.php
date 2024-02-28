@@ -1,8 +1,7 @@
 <?php
 
+use App\Models\Key;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 class AddKeyTypeToExistingKeys extends Migration
 {
@@ -13,10 +12,7 @@ class AddKeyTypeToExistingKeys extends Migration
      */
     public function up()
     {
-	DB::update("UPDATE `keys`
-		SET key_type_id = '1'
-		WHERE key_type_id is null
-	");
+        Key::where('key_type_id', null)->update(['key_type_id' => 1]);
     }
 
     /**

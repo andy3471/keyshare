@@ -3,7 +3,7 @@
 return [
     'enabled' => env('TWITCH_API_ENABLED', 'false'),
     'update_freq' => env('TWITCH_UPDATE_FREQ', 180),
-    
+
     /*
      * These are the credentials you got from https://dev.twitch.tv/console/apps
      */

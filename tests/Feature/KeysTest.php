@@ -2,17 +2,16 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\User;
-use App\Game;
-use App\Key;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Game;
+use App\Models\Key;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class KeysTest extends TestCase
 {
-
-    use WithFaker, RefreshDatabase;
+    use RefreshDatabase, WithFaker;
 
     /**
      * A basic test example.
@@ -40,11 +39,11 @@ class KeysTest extends TestCase
 
     public function testUserCanViewKey()
     {
-        $user   =   factory(User::class)->create();
-        $game   =   factory(Game::class)->create();
-        $key    =   factory(Key::class)->create();
+        $user = factory(User::class)->create();
+        $game = factory(Game::class)->create();
+        $key = factory(Key::class)->create();
 
-        $this->actingAs($user)->get('/keys/' . $key->id)
+        $this->actingAs($user)->get('/keys/'.$key->id)
             ->assertStatus(200);
     }
 }

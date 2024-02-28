@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Dlc;
-use App\Game;
+use App\Models\Dlc;
+use App\Models\Game;
 use Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DlcController extends Controller
 {
@@ -25,12 +25,11 @@ class DlcController extends Controller
         return $dlc;
     }
 
-
     public function show(Dlc $dlc)
     {
         $id = $dlc->id;
 
-        $keys =  Dlc::find($id)
+        $keys = Dlc::find($id)
             ->keys()
             ->select('id', 'platform_id', 'created_user_id')
             ->where('owned_user_id', null)
@@ -51,29 +50,28 @@ class DlcController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'image' => 'image|nullable|max:1999|dimensions:width=460,height=215'
+            'image' => 'image|nullable|max:1999|dimensions:width=460,height=215',
         ]);
 
         if ($request->hasFile('image')) {
             $filename = uniqid();
             $extension = $request->file('image')->getClientOriginalExtension();
-            $filenameToStore = $filename . '.' . $extension;
+            $filenameToStore = $filename.'.'.$extension;
             $folderToStore = 'images/dlc/';
-            $fullImagePath = $folderToStore . $filenameToStore;
+            $fullImagePath = $folderToStore.$filenameToStore;
 
-            $path = $request->file('image')->storeAs('public/' . $folderToStore, $filenameToStore);
+            $path = $request->file('image')->storeAs('public/'.$folderToStore, $filenameToStore);
         }
-
 
         $dlc = Dlc::find($request->dlcid);
 
         $dlc->name = $request->name;
         $dlc->description = $request->description;
         if ($request->hasFile('image')) {
-            $dlc->image = 'storage/' . $fullImagePath;
+            $dlc->image = 'storage/'.$fullImagePath;
         }
 
-        if (!empty($request->gamename)) {
+        if (! empty($request->gamename)) {
             $game = Game::firstOrCreate(
                 ['name' => $request->gamename],
                 ['created_user_id' => Auth::id()]
@@ -84,10 +82,10 @@ class DlcController extends Controller
 
         $dlc->save();
 
-
         return redirect()->route('dlc', $dlc)->with('message', __('dlc.dlcupdated'));
     }
 
     public function destroy(Dlc $dlc)
-    { }
+    {
+    }
 }

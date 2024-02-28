@@ -1,14 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-
     protected $appends = [
-        'url'
+        'url',
     ];
 
     protected $fillable = ['name', 'created_user_id'];
@@ -25,6 +24,6 @@ class Game extends Model
 
     public function keys()
     {
-        return $this->hasMany('App\Key');
+        return $this->hasMany('App\Models\Key');
     }
 }

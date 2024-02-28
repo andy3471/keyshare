@@ -11,8 +11,8 @@ class DlcTableSeeder extends Seeder
      */
     public function run()
     {
-        if(config('app.dlc_enabled')) {
-            factory(App\Dlc::class, 500)->create();
+        if (config('app.dlc_enabled')) {
+            factory(\App\Models\Dlc::class, 500)->create();
         }
     }
 }

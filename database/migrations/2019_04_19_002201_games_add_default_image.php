@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class GamesAddDefaultImage extends Migration
 {
@@ -16,7 +16,7 @@ class GamesAddDefaultImage extends Migration
         Schema::table('games', function (Blueprint $table) {
             $table->string('image')->default('images/gamedefault.png')->change();
 
-        DB::update("UPDATE games
+            DB::update("UPDATE games
                     SET image = 'images/gamedefault.png'
                     WHERE image is null
                     ");
@@ -33,7 +33,7 @@ class GamesAddDefaultImage extends Migration
         Schema::table('games', function (Blueprint $table) {
             $table->string('image')->nullable()->change();
 
-        DB::update("UPDATE games
+            DB::update("UPDATE games
                     SET image = null
                     WHERE image = 'images/gamedefault.png'
                     ");

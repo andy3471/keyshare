@@ -2,25 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Key;
-use App\Platform;
-use App\Game;
-use Cache;
-use App\User;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
-use App\Dlc;
-use Auth;
-use MarcReichel\IGDBLaravel\Models\Game as Igdb;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Notification;
+use App\Models\Dlc;
+use App\Models\Game;
+use App\Models\Key;
+use App\Models\Platform;
+use App\Models\User;
 use App\Notifications\KeyAdded;
+use Auth;
+use Cache;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
+use MarcReichel\IGDBLaravel\Models\Game as Igdb;
 
 class KeyController extends Controller
 {
-
-
     public function create()
     {
         $platforms = Cache::remember('platforms', 3600, function () {
@@ -30,7 +27,6 @@ class KeyController extends Controller
         return view('keys.create')->with('platforms', $platforms);
     }
 
-
     public function store(Request $request)
     {
 
@@ -38,7 +34,7 @@ class KeyController extends Controller
             'key_type' => 'required',
             'platform_id' => 'required',
             'key' => 'required',
-            'message' => 'max:255'
+            'message' => 'max:255',
         ]);
 
         $key = new Key;
@@ -50,16 +46,16 @@ class KeyController extends Controller
         if ($request->key_type == '1' or $request->key_type == '2') {
             $game = Game::where('name', $request->gamename)->first();
 
-            if(!$game) {
+            if (! $game) {
                 $game = new Game;
-                if(config('igdb.enabled')) {
+                if (config('igdb.enabled')) {
                     $igdb = Igdb::select(['name', 'summary', 'id'])->with(['cover' => ['image_id']])->where('name', '=', $request->gamename)->first();
 
-                    if($igdb) {
+                    if ($igdb) {
                         $game->name = $igdb->name;
                         $game->description = $igdb->summary;
                         $game->igdb_id = $igdb->id;
-                        $game->image = 'https://images.igdb.com/igdb/image/upload/t_cover_big/' . $igdb->cover->image_id . '.jpg';
+                        $game->image = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
                         $game->igdb_updated = Carbon::today();
                     } else {
                         $game->name = $request->gamename;
@@ -86,11 +82,12 @@ class KeyController extends Controller
         $key->key_type_id = $request->key_type;
         $key->save();
 
-        if(config('services.discord.enabled')) {
+        if (config('services.discord.enabled')) {
             $key->notify(new KeyAdded($key, Auth::user(), $game));
         }
 
         Redis::zincrby('karma', 1, auth()->id());
+
         return redirect()->back()->with('message', __('keys.added'));
     }
 
@@ -112,6 +109,7 @@ class KeyController extends Controller
                 ->update(['owned_user_id' => auth()->id()]);
 
             Redis::zincrby('karma', -1, auth()->id());
+
             return redirect()->back()->with('message', __('keys.claimsuccess'));
         } else {
             return redirect()->back()->with('error', __('keys.alreadyclaimederror'));
@@ -126,6 +124,7 @@ class KeyController extends Controller
     public function getClaimed()
     {
         $keys = User::find(Auth::id())->claimedKeys()->paginate(12);
+
         return $keys;
     }
 
@@ -137,6 +136,7 @@ class KeyController extends Controller
     public function getShared()
     {
         $keys = User::find(Auth::id())->sharedKeys()->paginate(12);
+
         return $keys;
     }
 }

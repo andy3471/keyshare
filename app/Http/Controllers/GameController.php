@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Game;
+use App\Models\Game;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use MarcReichel\IGDBLaravel\Models\Game as Igdb;
-use Carbon\Carbon;
 
 class GameController extends Controller
 {
-
     public function index()
-    {   
+    {
         return view('games.index')->withTitle('Games')->withurl('/games/get');
     }
 
@@ -20,7 +19,7 @@ class GameController extends Controller
     {
         $games = DB::table('games')
             ->distinct()
-            ->selectRaw('games.id, games.name, games.image, concat("/games/", games.id) as url')
+            ->selectRaw("games.id, games.name, games.image, concat('/games/', games.id) as url")
             ->join('keys', 'keys.game_id', '=', 'games.id')
             ->where('keys.owned_user_id', '=', null)
             ->where('games.removed', '=', '0')
@@ -46,7 +45,7 @@ class GameController extends Controller
             ->with('platform', 'createduser')
             ->get();
 
-        if(config('app.dlc_enabled')) {
+        if (config('app.dlc_enabled')) {
             $dlcCount = DB::table('dlcs')
                 ->distinct()
                 ->selectRaw('dlcs.id, dlcs.name, concat("/", dlcs.image) as image, concat("/games/dlc/", dlcs.id) as url')
@@ -55,11 +54,10 @@ class GameController extends Controller
                 ->where('keys.removed', '=', '0')
                 ->where('keys.game_id', '=', $id)
                 ->count();
-            $dlcurl = "/games/dlc/get/" . $id;
+            $dlcurl = '/games/dlc/get/'.$id;
         }
 
-
-        if($game->igdb_id) {
+        if ($game->igdb_id) {
             $igdb = Igdb::select(['aggregated_rating', 'aggregated_rating_count'])->with(['genres', 'screenshots'])->where('id', '=', $game->igdb_id)->first();
             $screenshots = $igdb->screenshots;
             $genres = $igdb->genres;
@@ -80,7 +78,7 @@ class GameController extends Controller
         $game = Game::find($id);
         $igdb = null;
 
-        if($game->igdb_id && config('igdb.enabled')) {
+        if ($game->igdb_id && config('igdb.enabled')) {
             $igdb = Igdb::select(['name'])->where('id', '=', $game->igdb_id)->first();
         }
 
@@ -92,35 +90,34 @@ class GameController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'image' => 'image|nullable|max:1999|dimensions:width=264,height=352',
-            'igdbname' => 'nullable'
+            'igdbname' => 'nullable',
         ]);
-
 
         if ($request->hasFile('image')) {
             $filename = uniqid();
             $extension = $request->file('image')->getClientOriginalExtension();
-            $filenameToStore = $filename . '.' . $extension;
+            $filenameToStore = $filename.'.'.$extension;
             $folderToStore = 'images/games/';
-            $fullImagePath = $folderToStore . $filenameToStore;
+            $fullImagePath = $folderToStore.$filenameToStore;
 
-            $path = $request->file('image')->storeAs('public/' . $folderToStore, $filenameToStore);
+            $path = $request->file('image')->storeAs('public/'.$folderToStore, $filenameToStore);
         }
 
         $game = Game::find($request->gameid);
         $game->name = $request->name;
         $game->description = $request->description;
         if ($request->hasFile('image')) {
-            $game->image = 'storage/' . $fullImagePath;
+            $game->image = 'storage/'.$fullImagePath;
         }
 
         if ($request->igdbname) {
             $igdb = Igdb::select(['name', 'summary', 'id'])->with(['cover' => ['image_id']])->where('name', '=', $request->igdbname)->first();
 
-            if ($igdb && (!($igdb->id == $game->igdb_id))) {
+            if ($igdb && (! ($igdb->id == $game->igdb_id))) {
                 $game->name = $igdb->name;
                 $game->description = $igdb->summary;
                 $game->igdb_id = $igdb->id;
-                $game->image = 'https://images.igdb.com/igdb/image/upload/t_cover_big/' . $igdb->cover->image_id . '.jpg';
+                $game->image = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
                 $game->igdb_updated = Carbon::today();
             }
         } else {

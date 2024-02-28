@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use View;
 
@@ -15,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function register()
-    { }
+    {
+    }
 
     /**
      * Bootstrap any application services.
@@ -24,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if(env('REDIRECT_HTTPS')) {
+        if (env('REDIRECT_HTTPS')) {
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
 

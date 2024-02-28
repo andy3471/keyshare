@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Subscription;
 
 class SubscriptionTableSeeder extends Seeder
 {
@@ -12,8 +11,6 @@ class SubscriptionTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Subscription::class, 20)->create();
+        factory(\App\Models\Subscription::class, 20)->create();
     }
 }
-
-

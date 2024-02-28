@@ -3,8 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
@@ -24,7 +22,7 @@ class KeyAdded extends Notification
         $this->game = $game;
         $this->user = $user;
 
-        $this->url = config('app.url') . '/keys/' . $key->id;
+        $this->url = config('app.url').'/keys/'.$key->id;
     }
 
     /**

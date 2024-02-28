@@ -2,13 +2,12 @@
 
 namespace App\Http\ViewComposers;
 
-use Illuminate\View\View;
-use App\Platform;
+use App\Models\Platform;
 use Cache;
+use Illuminate\View\View;
 
 class PlatformViewComposer
 {
-
     public function __construct()
     {
         $this->platforms = Cache::remember('platforms', 3600, function () {
