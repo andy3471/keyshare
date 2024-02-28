@@ -13,7 +13,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('postpassword') }}">
+        <form method="POST" action="{{ route('password.reset.save') }}">
             @csrf
             <label for="password">{{ __('users.currentpassword') }}</label>
             <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="currentpassword" required>

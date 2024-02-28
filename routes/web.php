@@ -1,54 +1,52 @@
 <?php
 
 // TODO: Tidy these routes up
+use App\Http\Controllers\Front\Auth\SteamLoginController;
+use App\Http\Controllers\Front\DlcController;
+use App\Http\Controllers\Front\GameController;
+use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\KeyController;
+use App\Http\Controllers\Front\PlatformController;
+use App\Http\Controllers\Front\SearchController;
+use App\Http\Controllers\Front\UserController;
+
 Auth::routes();
-Route::get('/notapproved', 'HomeController@notApproved')->name('notapproved');
-Route::get('/demo', 'HomeController@demo')->name('demomode');
+
+// TODO: These should not be routes
+Route::get('not-approved', [HomeController::class, 'notApproved'])->name('auth.not-approved');
+Route::get('demo', [HomeController::class, 'demo'])->name('auth.demo-mode');
 
 Route::middleware(['steamlogin'])->group(function () {
-    Route::get('login/steam', 'Auth\LoginController@steamRedirect')->name('steamlogin');
-    Route::get('login/steam/callback', 'Auth\LoginController@steamCallback');
+    Route::get('login/steam', [SteamLoginController::class, 'redirect'])
+        ->name('login.linked-account.steam');
+
+    Route::get('login/steam/callback', [SteamLoginController::class, 'callback'])
+        ->name('login.linked-account.steam.callback');
 });
 
 Route::middleware(['auth', 'approved'])->group(function () {
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/', [HomeController::class, 'index'])->name('index');
 
-    Route::get('/search', 'SearchController@search')->name('search');
-    Route::get('/search/get', 'SearchController@getSearch');
+    Route::get('search', [SearchController::class, 'index'])->name('search.index');
 
-    Route::get('/autocomplete/games/{search}', 'SearchController@autocomplete')->name('autocomplete');
-    Route::get('/autocomplete/dlc/{gamename}/{search}', 'SearchController@autocompleteDlc')->name('autocompleteDlc');
+    Route::resource('games', GameController::class)->only(['index', 'show']);
 
-    Route::get('/games', 'GameController@index')->name('games');
-    Route::get('/games/get', 'GameController@getGames');
+    Route::resource('keys', KeyController::class)->only(['show', 'create', 'store']);
+    Route::post('keys/claim', [KeyController::class, 'claim'])->name('keys.claim');
+    Route::get('my/claimed-keys', [KeyController::class, 'claimed'])->name('keys.claimed.index');
+    Route::get('my/shared-keys', [KeyController::class, 'shared'])->name('keys.shared.index');
 
-    Route::get('/games/{id}', 'GameController@show')->name('game');
+    Route::resource('users', UserController::class)->only(['index', 'show', 'edit', 'update']);
 
-    Route::get('/keys/{key}', 'KeyController@show')->name('key');
+    // TODO: change these routes
+    Route::get('change-password', [UserController::class, 'passwordResetPage'])
+        ->name('password.reset')
+        ->middleware('demomode');
 
-    Route::get('/claimedkeys', 'KeyController@showClaimed')->name('claimedkeys');
-    Route::get('/claimedkeys/get', 'KeyController@getClaimed');
+    Route::post('change-password', [UserController::class, 'passwordResetSave'])
+        ->name('password.reset.save')
+        ->middleware('demomode');
 
-    Route::get('/sharedkeys', 'KeyController@showShared')->name('sharedkeys');
-    Route::get('/sharedkeys/get', 'KeyController@getShared');
-
-    Route::get('/addkey/', 'KeyController@create')->name('addkey');
-    Route::post('/addkey/store', 'KeyController@store')->name('storekey');
-    Route::post('/addkey/claim', 'KeyController@claim')->name('claimkey');
-
-    Route::get('/users', 'UserController@index')->name('users');
-    Route::get('/users/{id}', 'UserController@show')->name('showuser');
-    Route::get('/user/edit', 'UserController@edit')->name('edituser')->middleware('demomode');
-    Route::post('/user/update', 'UserController@update')->name('updateuser')->middleware('demomode');
-
-    Route::get('/changepassword', 'UserController@passwordResetPage')->name('changepassword')->middleware('demomode');
-    Route::post('/changepassword/save', 'UserController@passwordResetSave')->name('postpassword')->middleware('demomode');
-
-    Route::get('/platform/{id}', 'PlatformController@show')->name('platform');
-    Route::get('/platform/get/{id}', 'PlatformController@getPlatform');
-
-    Route::get('/platforms/index/', 'PlatformController@index');
-
-    Route::get('/games/dlc/get/{id}', 'DlcController@index');
-    Route::get('/games/dlc/{dlc}', 'DlcController@show')->name('dlc');
+    Route::resource('platforms', PlatformController::class)->only(['show']);
+    Route::resource('dlc', DlcController::class)->only(['show']);
 });

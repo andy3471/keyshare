@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
+use App\Http\Controllers\Controller;
 use App\Models\Dlc;
 use App\Models\Game;
 use App\Models\Key;
 use App\Models\Platform;
 use App\Notifications\KeyAdded;
-use Auth;
 use Carbon\Carbon;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -97,10 +96,8 @@ class KeyController extends Controller
     }
 
     // TODO: Use route model binding
-    public function show($id): View
+    public function show(Key $key): View
     {
-        $key = Key::where('id', '=', $id)->with('platform')->first();
-
         return view('keys.show')->withKey($key);
     }
 
@@ -123,31 +120,17 @@ class KeyController extends Controller
         }
     }
 
-    public function showClaimed(): View
+    public function claimed(): View
     {
         return view('games.index')
             ->withTitle('Claimed Keys')
-            ->withUrl('/claimedkeys/get');
+            ->withUrl(route('api.my.keys.claimed.index'));
     }
 
-    public function getClaimed(): JsonResponse
-    {
-        $keys = auth()->user()->claimedKeys()->paginate(12);
-
-        return response()->json($keys);
-    }
-
-    public function showShared(): View
+    public function shared(): View
     {
         return view('games.index')
             ->withTitle('Shared Keys')
-            ->withUrl('/sharedkeys/get');
-    }
-
-    public function getShared(): JsonResponse
-    {
-        $keys = auth()->user()->sharedKeys()->paginate(12);
-
-        return response()->json($keys);
+            ->withUrl(route('api.my.keys.shared.index'));
     }
 }

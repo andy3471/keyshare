@@ -23,10 +23,9 @@ class Game extends Model
 
     public function url(): Attribute
     {
-        // TODO: use the route helper
         return Attribute::make(
             get: function () {
-                return "/games/{$this->id}";
+                return route('games.show', $this->id);
             }
         );
     }

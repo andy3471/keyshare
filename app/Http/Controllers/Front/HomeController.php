@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -14,7 +15,7 @@ class HomeController extends Controller
 
     public function home(): RedirectResponse
     {
-        return redirect()->route('games');
+        return redirect()->route('games.index');
     }
 
     public function index(): View|RedirectResponse
@@ -23,7 +24,7 @@ class HomeController extends Controller
             return view('auth.login');
         }
 
-        return redirect()->route('games');
+        return redirect()->route('games.index');
     }
 
     public function notApproved(): View

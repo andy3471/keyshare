@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -47,11 +48,8 @@ class UserController extends Controller
         return redirect()->route('showuser', ['id' => auth()->id()])->with('message', __('auth.profileupdated'));
     }
 
-    // TODO: Use route model binding
-    public function show($id): View
+    public function show(User $user): View
     {
-        $user = User::find($id);
-
         return view('users.show')->withUser($user);
     }
 

@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Platform;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
 
 class PlatformController extends Controller
 {
     // TODO: Cache this on te model
     // TODO: Only return require attributes
-    public function index()
+    public function index(): JsonResponse
     {
         $platforms = Cache::remember('platforms', 3600, function () {
             return Platform::all();
@@ -21,16 +21,7 @@ class PlatformController extends Controller
         return response()->json($platforms);
     }
 
-    // TODO: Use route model binding
-    public function show($id): View
-    {
-        $platform = Platform::find($id);
-
-        return view('games.index')->withTitle($platform->name)->withurl('/platform/get/'.$id);
-    }
-
-    // TODO: Use route model binding
-    public function getPlatform($id): JsonResponse
+    public function show(Platform $platform): JsonResponse
     {
         $games = DB::table('games')
             ->distinct()
@@ -39,7 +30,7 @@ class PlatformController extends Controller
             ->where('keys.owned_user_id', '=', null)
             ->where('games.removed', '=', '0')
             ->where('keys.removed', '=', '0')
-            ->where('keys.platform_id', '=', $id)
+            ->where('keys.platform_id', '=', $platform->id)
             ->orderby('games.name')
             ->paginate(12);
 

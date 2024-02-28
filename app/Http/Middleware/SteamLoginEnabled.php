@@ -11,7 +11,7 @@ class SteamLoginEnabled
         if (config('keyshare.steamlogin')) {
             return $next($request);
         } else {
-            return redirect('home');
+            return redirect('index');
         }
     }
 }

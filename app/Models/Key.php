@@ -29,13 +29,13 @@ class Key extends Model
 
     public function name(): Attribute
     {
-        // TODO: use constants
         return Attribute::make(
             get: function () {
-                if ($this->key_type_id == 1) {
-                    return $this->game->name;
-                } elseif ($this->key_type_id == 2) {
-                    return "{$this->game->name}: {$this->dlc->name}";
+                switch ($this->key_type_id) {
+                    case KeyType::GAME:
+                        return $this->game->name;
+                    case KeyType::DLC:
+                        return $this->dlc->name.': '.$this->game->name;
                 }
             }
         );
@@ -43,24 +43,23 @@ class Key extends Model
 
     public function image(): Attribute
     {
-        // TODO: use constants
         return Attribute::make(
             get: function () {
-                if ($this->key_type_id == 1) {
-                    return $this->game->image;
-                } elseif ($this->key_type_id == 2) {
-                    return $this->dlc->image;
+                switch ($this->key_type_id) {
+                    case KeyType::GAME:
+                        return $this->game->image;
+                    case KeyType::DLC:
+                        return $this->dlc->image;
                 }
             }
         );
     }
 
-    public function getUrlAttribute(): Attribute
+    public function url(): Attribute
     {
-        // TODO: Use route helper
         return Attribute::make(
             get: function () {
-                return "/keys/{$this->id}";
+                return route('keys.show', $this->id);
             }
         );
     }
@@ -75,6 +74,11 @@ class Key extends Model
     {
         // TODO: Migrate to polymorphic relationship
         return $this->belongsTo(Dlc::class);
+    }
+
+    public function keyType(): BelongsTo
+    {
+        return $this->belongsTo(KeyType::class);
     }
 
     public function platform(): BelongsTo

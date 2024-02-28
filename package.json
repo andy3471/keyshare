@@ -26,6 +26,7 @@
         "eslint-plugin-vue": "^9.22.0",
         "standard": "^17.1.0",
         "vite-plugin-eslint": "^1.8.1",
-        "vue-infinite-loading": "^2.4.5"
+        "vue-infinite-loading": "^2.4.5",
+        "ziggy-js": "^2.0.3"
     }
 }

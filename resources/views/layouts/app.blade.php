@@ -18,7 +18,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-dark navbar-keyshare bg-dark fixed-top">
-            <a class="navbar-brand mr-auto" href="{{ route('home') }}">{{ config('app.name', 'Laravel') }}</a>
+            <a class="navbar-brand mr-auto" href="{{ route('index') }}">{{ config('app.name', 'Laravel') }}</a>
             @guest
             @else
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,19 +52,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('games') }}">{{ __('games.games') }}</a>
+                            <a class="nav-link" href="{{ route('games.index') }}">{{ __('games.games') }}</a>
                         </li>
 
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="{{ route('games') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="{{ route('games.index') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ __('games.platforms') }}
                             </a>
 
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 @foreach ($platforms as $platform)
-                                    <a class="dropdown-item" href="/platform/{{ $platform->id }}">{{ $platform->name }}</a>
+                                    <a class="dropdown-item" href="{{ route('platforms.show', $platform->id) }}">{{ $platform->name }}</a>
                                 @endforeach
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -74,13 +74,13 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('addkey') }}">{{ __('nav.addkey') }}</a>
+                            <a class="nav-link" href="{{ route('keys.create') }}">{{ __('nav.addkey') }}</a>
                         </li>
                     </ul>
 
                     <ul class="navbar-nav ml-auto">
-                        <form class="form-inline" method="get" action="{{ route('search') }}">
-                            <auto-complete url='/autocomplete/games/' placeholder="{{ __('nav.search') }}..." name="search" id="search" type="search" classes="form-control navbar-search"></auto-complete>
+                        <form class="form-inline" method="get" action="{{ route('search.index') }}">
+                            <auto-complete url='api/search/games/' placeholder="{{ __('nav.search') }}..." name="search" id="search" type="search" classes="form-control navbar-search"></auto-complete>
                         </form>
 
 
@@ -104,12 +104,12 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/users/{{auth()->id()}}">{{ __('nav.viewprofile') }}</a>
-                                <a class="dropdown-item" href="{{ route('edituser') }}">{{ __('nav.updateprofile') }}</a>
+                                <a class="dropdown-item" href="{{ route('users.edit', auth()->user()->id) }}">{{ __('nav.updateprofile') }}</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('claimedkeys') }}">{{ __('nav.claimedkeys') }}</a>
-                                <a class="dropdown-item" href="{{ route('sharedkeys') }}">{{ __('nav.sharedkeys') }}</a>
+                                <a class="dropdown-item" href="{{ route('keys.claimed.index') }}">{{ __('nav.claimedkeys') }}</a>
+                                <a class="dropdown-item" href="{{ route('keys.shared.index') }}">{{ __('nav.sharedkeys') }}</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('changepassword') }}">{{ __('nav.changepassword') }}</a>
+                                <a class="dropdown-item" href="{{ route('password.reset') }}">{{ __('nav.changepassword') }}</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
