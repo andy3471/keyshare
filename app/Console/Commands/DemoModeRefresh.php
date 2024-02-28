@@ -37,8 +37,8 @@ class DemoModeRefresh extends Command
      */
     public function handle()
     {
-        if (config('app.demo_mode')) { 
+        if (config('app.demo_mode')) {
             $this->call('migrate:fresh', ['--seed' => true]);
-        };
+        }
     }
 }

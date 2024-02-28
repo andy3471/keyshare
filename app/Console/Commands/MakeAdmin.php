@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\User;
 use Illuminate\Console\Command;
-use App\User;
 
 class MakeAdmin extends Command
 {
@@ -38,16 +38,15 @@ class MakeAdmin extends Command
      */
     public function handle()
     {
-        $user = User::where('email',$this->argument('user')) -> first();
+        $user = User::where('email', $this->argument('user'))->first();
 
-        if($user) {
+        if ($user) {
             $user->admin = 1;
             $user->approved = 1;
             $user->save();
             $this->info("{$user->name} is now an admin");
-        }
-        else {
-            $this->warn("User not found");
+        } else {
+            $this->warn('User not found');
         }
 
         return 0;

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class Issue28AddMissingForeignKeys extends Migration
 {
@@ -48,7 +48,6 @@ class Issue28AddMissingForeignKeys extends Migration
             $table->bigInteger('game_id')->change();
         });
 
-
         Schema::table('linked_accounts', function (Blueprint $table) {
             $table->dropForeign('linked_accounts_linked_account_provider_id_foreign');
         });
@@ -56,14 +55,12 @@ class Issue28AddMissingForeignKeys extends Migration
             $table->bigInteger('linked_account_provider_id')->change();
         });
 
-
         Schema::table('subscriptions', function (Blueprint $table) {
             $table->dropForeign('subscriptions_platform_id_foreign');
         });
         Schema::table('subscriptions', function (Blueprint $table) {
             $table->bigInteger('platform_id')->change();
         });
-
 
         Schema::table('wallets', function (Blueprint $table) {
             $table->dropForeign('wallets_platform_id_foreign');

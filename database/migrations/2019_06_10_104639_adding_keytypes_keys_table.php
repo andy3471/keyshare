@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddingKeytypesKeysTable extends Migration
 {
@@ -20,8 +20,8 @@ class AddingKeytypesKeysTable extends Migration
             $table->unsignedBigInteger('subscription_id')->nullable();
 
             $table->unsignedBigInteger('game_id')->nullable()->change();
-            $table->unsignedBigInteger('dlc_id')->nullable()->change();  
-            $table->unsignedBigInteger('platform_id')->change();  
+            $table->unsignedBigInteger('dlc_id')->nullable()->change();
+            $table->unsignedBigInteger('platform_id')->change();
 
             $table->foreign('key_type_id')->references('id')->on('key_types');
             $table->foreign('wallet_id')->references('id')->on('wallets');
@@ -49,10 +49,10 @@ class AddingKeytypesKeysTable extends Migration
             $table->dropForeign('keys_platform_id_foreign');
         });
 
-        Schema::table('keys', function (Blueprint $table) { 
-            $table->bigInteger('game_id')->nullable($value = false)->change();  
+        Schema::table('keys', function (Blueprint $table) {
+            $table->bigInteger('game_id')->nullable($value = false)->change();
             $table->bigInteger('dlc_id')->nullable()->change();
-            $table->bigInteger('platform_id')->change();           
+            $table->bigInteger('platform_id')->change();
             $table->dropColumn(['key_type_id', 'wallet_id', 'subscription_id']);
         });
     }

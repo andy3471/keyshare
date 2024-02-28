@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class InsertdataLinkedAccountProvidersTable extends Migration
@@ -14,7 +12,7 @@ class InsertdataLinkedAccountProvidersTable extends Migration
     public function up()
     {
         DB::table('linked_account_providers')->insert([
-            ['name' => 'Steam']
+            ['name' => 'Steam'],
         ]);
     }
 

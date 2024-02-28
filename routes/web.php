@@ -1,7 +1,5 @@
 <?php
 
-use App\Dlc;
-
 Auth::routes();
 Route::get('/notapproved', 'HomeController@notApproved')->name('notapproved');
 Route::get('/demo', 'HomeController@demo')->name('demomode');

@@ -1,8 +1,8 @@
 <?php
 
-use App\User;
-use Illuminate\Support\Str;
+use App\Models\User;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +24,6 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
         'bio' => $faker->paragraph($nbSentences = 1),
         'approved' => '1',
-        'admin' => '0'
+        'admin' => '0',
     ];
 });

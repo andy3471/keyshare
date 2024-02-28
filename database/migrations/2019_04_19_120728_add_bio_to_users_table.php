@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddBioToUsersTable extends Migration
 {
@@ -17,7 +17,7 @@ class AddBioToUsersTable extends Migration
             $table->string('image')->default('/images/defaultpic.jpg');
             $table->string('bio')->nullable();
 
-        DB::update("UPDATE games
+            DB::update("UPDATE games
                     SET image = '/images/defaultpic.jpg'
                     WHERE image is null
                     ");

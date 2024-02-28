@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +12,7 @@ class Key extends Model
     protected $appends = [
         'url',
         'image',
-        'name'
+        'name',
     ];
 
     protected $fillable = [
@@ -20,14 +20,14 @@ class Key extends Model
         'platform_id',
         'keycode',
         'message',
-        'created_user_id'
+        'created_user_id',
     ];
 
     public function getNameAttribute()
     {
         if ($this->key_type_id == 1) {
             return $this->game->name;
-        } else if ($this->key_type_id == 2) {
+        } elseif ($this->key_type_id == 2) {
             return "{$this->game->name}: {$this->dlc->name}";
         }
     }
@@ -36,7 +36,7 @@ class Key extends Model
     {
         if ($this->key_type_id == 1) {
             return $this->game->image;
-        } else if ($this->key_type_id == 2) {
+        } elseif ($this->key_type_id == 2) {
             return $this->dlc->image;
         }
     }
@@ -48,27 +48,27 @@ class Key extends Model
 
     public function game()
     {
-        return $this->belongsTo('App\Game');
+        return $this->belongsTo('App\Models\Game');
     }
 
     public function dlc()
     {
-        return $this->belongsTo('App\Dlc');
+        return $this->belongsTo('App\Models\Dlc');
     }
 
     public function platform()
     {
-        return $this->belongsTo('App\Platform');
+        return $this->belongsTo('App\Models\Platform');
     }
 
     public function claimedUser()
     {
-        return $this->belongsTo('App\User', 'owned_user_id');
+        return $this->belongsTo('App\Models\User', 'owned_user_id');
     }
 
     public function createdUser()
     {
-        return $this->belongsTo('App\User', 'created_user_id');
+        return $this->belongsTo('App\Models\User', 'created_user_id');
     }
 
     public function routeNotificationForDiscord()

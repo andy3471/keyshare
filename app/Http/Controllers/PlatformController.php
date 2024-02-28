@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Platform;
+use App\Models\Platform;
 use Cache;
+use Illuminate\Support\Facades\DB;
 
 class PlatformController extends Controller
 {
@@ -21,7 +20,8 @@ class PlatformController extends Controller
     public function show($id)
     {
         $platform = Platform::find($id);
-        return view('games.index')->withTitle($platform->name)->withurl('/platform/get/' . $id);
+
+        return view('games.index')->withTitle($platform->name)->withurl('/platform/get/'.$id);
     }
 
     public function getPlatform($id)

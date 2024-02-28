@@ -30,5 +30,5 @@ return [
     'name' => 'Name',
     'description' => 'Description',
     'gameupdated ' => 'Game Updated',
-    'igdb_linked' => 'Twitch API Linked Game'
+    'igdb_linked' => 'Twitch API Linked Game',
 ];

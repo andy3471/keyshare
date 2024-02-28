@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Console\Commands;
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
+
 class CalculateKarma extends Command
 {
     /**
@@ -54,7 +56,7 @@ class CalculateKarma extends Command
         Redis::del('karma');
 
         foreach ($karma as $user) {
-            $this->info('UserID:' . $user->id . '   Karma:' . $user->karma);
+            $this->info('UserID:'.$user->id.'   Karma:'.$user->karma);
             Redis::zadd('karma', $user->karma, $user->id);
         }
 

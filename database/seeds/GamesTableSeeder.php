@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-Use App\Games;
-Use App\User;
 
 class GamesTableSeeder extends Seeder
 {
@@ -13,6 +11,6 @@ class GamesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Game::class, 50)->create();
+        factory(\App\Models\Game::class, 50)->create();
     }
 }

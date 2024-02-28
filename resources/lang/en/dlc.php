@@ -2,7 +2,6 @@
 
 return [
 
-
     'games' => 'Games',
     'game' => 'Game',
     'platform' => 'Platform',
@@ -20,5 +19,5 @@ return [
     'name' => 'Name',
     'description' => 'Description',
     'dlcupdated ' => 'DLC Updated',
-    'gamename' => 'Game Name'
+    'gamename' => 'Game Name',
 ];

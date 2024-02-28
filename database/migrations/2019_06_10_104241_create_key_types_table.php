@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateKeyTypesTable extends Migration
 {
@@ -19,12 +19,11 @@ class CreateKeyTypesTable extends Migration
             $table->timestamps();
         });
 
-
         DB::table('key_types')->insert([
             ['name' => 'Games'],
             ['name' => 'DLC'],
             ['name' => 'Wallet'],
-            ['name' => 'Subscription']
+            ['name' => 'Subscription'],
         ]);
     }
 

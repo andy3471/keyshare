@@ -20,6 +20,6 @@ return [
     'imagereqs' => 'Image must be square',
     'currentpassword' => 'Current Password',
     'newpassword' => 'New Password',
-    'confirmpassword' => 'Confirm Password'
+    'confirmpassword' => 'Confirm Password',
 
 ];
