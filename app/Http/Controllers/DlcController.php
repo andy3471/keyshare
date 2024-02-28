@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Dlc;
 use App\Models\Game;
 use Auth;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class DlcController extends Controller
 {
-    public function index($id)
+    // TODO: Needs refactor
+    public function index($id): JsonResponse
     {
         $dlc = DB::table('dlcs')
             ->distinct()
@@ -22,10 +26,11 @@ class DlcController extends Controller
             ->orderby('dlcs.name')
             ->paginate(12);
 
-        return $dlc;
+        return response()->json($dlc);
     }
 
-    public function show(Dlc $dlc)
+    // TODO: Needs refactor
+    public function show(Dlc $dlc): View
     {
         $id = $dlc->id;
 
@@ -40,12 +45,14 @@ class DlcController extends Controller
         return view('dlc.show')->withDlc($dlc)->withKeys($keys);
     }
 
-    public function edit(Dlc $dlc)
+    public function edit(Dlc $dlc): View
     {
         return view('dlc.edit')->withDlc($dlc);
     }
 
-    public function update(Request $request)
+    // TODO: Use form request
+    // TODO: Refactor
+    public function update(Request $request): RedirectResponse
     {
 
         $this->validate($request, [
@@ -83,9 +90,5 @@ class DlcController extends Controller
         $dlc->save();
 
         return redirect()->route('dlc', $dlc)->with('message', __('dlc.dlcupdated'));
-    }
-
-    public function destroy(Dlc $dlc)
-    {
     }
 }

@@ -20,7 +20,7 @@
         @endforeach
         <br>
     @endif
-    
+
     @if($igdb && $igdb->aggregated_rating)
        Rated an average of {{ $igdb->aggregated_rating }}  by {{ $igdb->aggregated_rating_count }} reviewers
     @endif
@@ -42,7 +42,7 @@
                         <a href="/users/{{$key->createduser->id}}">
                             {{$key->createduser->name}}
                         </a>
-                    <span class="badge badge-pill {{ $key->createduser->karma_color }}"> {{ $key->createduser->karma }} </span>
+                    <span class="badge badge-pill {{ $key->createduser->karma_colour }}"> {{ $key->createduser->karma }} </span>
                     </td>
                 <tr>
             @endforeach
@@ -59,7 +59,7 @@
     @endif
 
 
-    @if($screenshots) 
+    @if($screenshots)
         <div class="row">
         @foreach($screenshots as $screenshot)
             <div class="col-md-4" style="padding-bottom: 15px;">

@@ -9,37 +9,13 @@ use MarcReichel\IGDBLaravel\Models\Game as Igdb;
 
 class UpdateGames extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'igdb:update';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Pulls info from IGDB om each game';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle()
     {
+        // TODO: Tidy this
         if (config('igdb.enabled')) {
             $daysToSubtract = config('igdb.update_freq');
             $beforeDate = Carbon::now()->subDay($daysToSubtract);

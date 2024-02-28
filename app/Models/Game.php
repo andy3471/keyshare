@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Game extends Model
 {
@@ -13,20 +15,28 @@ class Game extends Model
         'url',
     ];
 
-    protected $fillable = ['name', 'created_user_id'];
+    protected $fillable = [
+        'name',
+        'created_user_id',
+    ];
 
-    public function getUrlAttribute()
+    public function url(): Attribute
     {
-        return "/games/{$this->id}";
+        // TODO: use the route helper
+        return Attribute::make(
+            get: function () {
+                return "/games/{$this->id}";
+            }
+        );
     }
 
-    public function dlcs()
+    public function dlcs(): HasMany
     {
-        return $this->hasMany('App\Dlcs');
+        return $this->hasMany(Dlc::class);
     }
 
-    public function keys()
+    public function keys(): HasMany
     {
-        return $this->hasMany('App\Models\Key');
+        return $this->hasMany(Key::class);
     }
 }

@@ -11,46 +11,22 @@ use Socialite;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
     protected $redirectTo = '/games';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
 
+    // TODO: This should be a SteamLoginController
     public function steamRedirect()
     {
         return Socialite::driver('steam')->redirect();
     }
 
-    /**
-     * Obtain the user information from Steam.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // TODO: Refactor this
     public function steamCallback()
     {
         $steamuser = Socialite::driver('steam')->user();

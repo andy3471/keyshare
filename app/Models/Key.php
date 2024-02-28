@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 
 class Key extends Model
@@ -25,55 +27,72 @@ class Key extends Model
         'created_user_id',
     ];
 
-    public function getNameAttribute()
+    public function name(): Attribute
     {
-        if ($this->key_type_id == 1) {
-            return $this->game->name;
-        } elseif ($this->key_type_id == 2) {
-            return "{$this->game->name}: {$this->dlc->name}";
-        }
+        // TODO: use constants
+        return Attribute::make(
+            get: function () {
+                if ($this->key_type_id == 1) {
+                    return $this->game->name;
+                } elseif ($this->key_type_id == 2) {
+                    return "{$this->game->name}: {$this->dlc->name}";
+                }
+            }
+        );
     }
 
-    public function getImageAttribute()
+    public function image(): Attribute
     {
-        if ($this->key_type_id == 1) {
-            return $this->game->image;
-        } elseif ($this->key_type_id == 2) {
-            return $this->dlc->image;
-        }
+        // TODO: use constants
+        return Attribute::make(
+            get: function () {
+                if ($this->key_type_id == 1) {
+                    return $this->game->image;
+                } elseif ($this->key_type_id == 2) {
+                    return $this->dlc->image;
+                }
+            }
+        );
     }
 
-    public function getUrlAttribute()
+    public function getUrlAttribute(): Attribute
     {
-        return "/keys/{$this->id}";
+        // TODO: Use route helper
+        return Attribute::make(
+            get: function () {
+                return "/keys/{$this->id}";
+            }
+        );
     }
 
-    public function game()
+    public function game(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Game');
+        // TODO: Migrate to polymorphic relationship
+        return $this->belongsTo(Game::class);
     }
 
-    public function dlc()
+    public function dlc(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Dlc');
+        // TODO: Migrate to polymorphic relationship
+        return $this->belongsTo(Dlc::class);
     }
 
-    public function platform()
+    public function platform(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Platform');
+        return $this->belongsTo(Platform::class);
     }
 
-    public function claimedUser()
+    public function claimedUser(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User', 'owned_user_id');
+        return $this->belongsTo(User::class, 'owned_user_id');
     }
 
-    public function createdUser()
+    public function createdUser(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User', 'created_user_id');
+        return $this->belongsTo(User::class, 'created_user_id');
     }
 
-    public function routeNotificationForDiscord()
+    public function routeNotificationForDiscord(): string
     {
         return config('services.discord.channel');
     }

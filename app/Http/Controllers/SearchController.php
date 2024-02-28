@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use Auth;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use MarcReichel\IGDBLaravel\Models\Game as Igdb;
 
 class SearchController extends Controller
 {
-    public function search(Request $request)
+    // TODO: Refactor
+    public function search(Request $request): View|RedirectResponse
     {
         $search = $request->search;
 
@@ -47,7 +51,9 @@ class SearchController extends Controller
         }
     }
 
-    public function getSearch(Request $request)
+    // TODO: Refactor
+
+    public function getSearch(Request $request): JsonResponse
     {
         $search = $request->search;
 
@@ -59,10 +65,11 @@ class SearchController extends Controller
 
         $games->appends(['search' => $search])->links();
 
-        return $games;
+        return response()->json($games);
     }
 
-    public function autocomplete($search)
+    //TODO: Refactor
+    public function autocomplete($search): JsonResponse
     {
         if (config('igdb.enabled')) {
             $games = Igdb::select(['name', 'id'])->search($search)->get();
@@ -75,10 +82,11 @@ class SearchController extends Controller
                 ->get();
         }
 
-        return json_encode($games);
+        return response()->json($games);
     }
 
-    public function autocompleteDlc($gamename, $search)
+    //TODO: Refactor
+    public function autocompleteDlc($gamename, $search): JsonResponse
     {
         $game = Game::where('name', $gamename)
             ->firstOrFail();
@@ -90,6 +98,6 @@ class SearchController extends Controller
             ->limit(5)
             ->get();
 
-        return json_encode($dlc);
+        return response()->json($dlc);
     }
 }
