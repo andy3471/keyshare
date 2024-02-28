@@ -109,7 +109,7 @@
                                 <a class="dropdown-item" href="{{ route('keys.claimed.index') }}">{{ __('nav.claimedkeys') }}</a>
                                 <a class="dropdown-item" href="{{ route('keys.shared.index') }}">{{ __('nav.sharedkeys') }}</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('password.reset') }}">{{ __('nav.changepassword') }}</a>
+                                <a class="dropdown-item" href="{{ route('password.reset.request') }}">{{ __('nav.changepassword') }}</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
