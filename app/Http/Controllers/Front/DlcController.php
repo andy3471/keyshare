@@ -1,33 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
+use App\Http\Controllers\Controller;
 use App\Models\Dlc;
 use App\Models\Game;
 use Auth;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class DlcController extends Controller
 {
     // TODO: Needs refactor
-    public function index($id): JsonResponse
-    {
-        $dlc = DB::table('dlcs')
-            ->distinct()
-            ->selectRaw('dlcs.id, dlcs.name, concat("/", dlcs.image) as image, concat("/games/dlc/", dlcs.id) as url')
-            ->join('keys', 'keys.dlc_id', '=', 'dlcs.id')
-            ->where('keys.owned_user_id', '=', null)
-            ->where('keys.removed', '=', '0')
-            ->where('keys.game_id', '=', $id)
-            ->orderby('dlcs.name')
-            ->paginate(12);
-
-        return response()->json($dlc);
-    }
 
     // TODO: Needs refactor
     public function show(Dlc $dlc): View

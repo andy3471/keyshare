@@ -77,7 +77,7 @@ export default {
   },
   watch: {},
   mounted() {
-    axios.get("/platforms/index").then(response => {
+    axios.get("/api/platforms").then(response => {
       this.platforms = response.data;
     });
   },

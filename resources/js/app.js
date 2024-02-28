@@ -12,6 +12,9 @@ import AddKeyDlc from "./components/AddKeyDlc.vue";
 import AddKeyWallet from "./components/AddKeyWallet.vue";
 import AddKeySubscription from "./components/AddKeySubscription.vue";
 import TitleHeader from "./components/TitleHeader.vue";
+// import { ZiggyVue } from 'ziggy-js';
+//
+// Vue.use(ZiggyVue)
 
 Vue.component("AutoComplete", AutoComplete);
 Vue.component("TimePicker", TimePicker);

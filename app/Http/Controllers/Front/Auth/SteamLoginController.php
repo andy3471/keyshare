@@ -1,33 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Front\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Auth\Socialite;
 use App\Models\LinkedAccount;
 use App\Models\User;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use Socialite;
 
-class LoginController extends Controller
+class SteamLoginController
 {
-    use AuthenticatesUsers;
-
-    protected $redirectTo = '/games';
-
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
-
-    // TODO: This should be a SteamLoginController
-    public function steamRedirect()
+    public function redirect()
     {
         return Socialite::driver('steam')->redirect();
     }
 
     // TODO: Refactor this
-    public function steamCallback()
+    public function callback()
     {
         $steamuser = Socialite::driver('steam')->user();
 
@@ -69,6 +57,6 @@ class LoginController extends Controller
 
         Auth::login($KeyshareUser);
 
-        return redirect('/games');
+        return redirect()->route('games.index');
     }
 }

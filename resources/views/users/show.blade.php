@@ -18,7 +18,7 @@
 
                     @if(( $user->id == auth()->id() ))
                         <br>
-                        <a href="{{ route('edituser') }}">{{ __('nav.updateprofile') }}</a>
+                        <a href="{{ route('users.edit', $user->id) }}">{{ __('nav.updateprofile') }}</a>
                     @endif
 
                 </p>

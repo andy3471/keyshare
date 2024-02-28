@@ -13,7 +13,7 @@
             </div>
         @endif
 
-        <form action="{{ route('claimkey') }}" method="post">
+        <form action="{{ route('keys.claim') }}" method="post">
         @csrf
 
             @if( $key->owned_user_id == null)
