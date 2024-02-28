@@ -66,11 +66,12 @@ class User extends Authenticatable implements FilamentUser
                 $id = $this->id;
                 $karma = Redis::zscore('karma', $id);
 
-                if ($karma == null) {
-                    $karma = 0;
+                if ($karma) {
+                    return $karma;
+                }
 
-                    $karma = DB::select(
-                        '
+                $karma = DB::select(
+                    '
                     SELECT
                         (COALESCE(C.createdkeys, 0) - COALESCE(O.ownedkeys, 0)) AS karma,
                         U.id
@@ -100,12 +101,11 @@ class User extends Authenticatable implements FilamentUser
                         ) AS O ON O.user_id = U.id
                     WHERE
                         U.id = 1
-            ');
+                ');
 
-                    foreach ($karma as $user) {
-                        $karma = Redis::zadd('karma', $user->karma, $user->id);
-                        $karma = Redis::zscore('karma', $id);
-                    }
+                foreach ($karma as $user) {
+                    $karma = Redis::zadd('karma', $user->karma, $user->id);
+                    $karma = Redis::zscore('karma', $id);
                 }
 
                 return $karma;
@@ -117,18 +117,15 @@ class User extends Authenticatable implements FilamentUser
     {
         return Attribute::make(
             get: function () {
-                // TODO: use switch/case
-                $karma = $this->karma;
-
-                if ($karma < 0) {
+                if ($this->karma < 0) {
                     return 'badge-danger';
-                } elseif ($karma < 2) {
+                } elseif ($this->karma < 2) {
                     return 'badge-warning';
-                } elseif ($karma < 15) {
+                } elseif ($this->karma < 15) {
                     return 'badge-info';
-                } else {
-                    return 'badge-success';
                 }
+
+                return 'badge-success';
             }
         );
     }
