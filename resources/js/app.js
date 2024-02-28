@@ -1,53 +1,36 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 import "./bootstrap";
 
 import Vue from "vue";
 window.Vue = Vue;
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+import AutoComplete from "andyh-autocomplete";
+import TimePicker from "andyh-timepicker";
+import GameList from "./components/GameList.vue";
+import AddKey from "./components/AddKey.vue";
+import AddKeyGame from "./components/AddKeyGame.vue";
+import AddKeyDlc from "./components/AddKeyDlc.vue";
+import AddKeyWallet from "./components/AddKeyWallet.vue";
+import AddKeySubscription from "./components/AddKeySubscription.vue";
+import TitleHeader from "./components/TitleHeader.vue";
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-Vue.component("autocomplete", require("andyh-autocomplete").default);
-Vue.component("time-picker", require("andyh-timepicker").default);
+Vue.component("AutoComplete", AutoComplete);
+Vue.component("TimePicker", TimePicker);
 
-Vue.component("game-list", require("./components/GameList.vue").default);
+Vue.component("GameList", GameList);
 
-Vue.component("add-key", require("./components/AddKey.vue").default);
+Vue.component("AddKey", AddKey);
 
-Vue.component("add-key-game", require("./components/AddKeyGame.vue").default);
+Vue.component("AddKeyGame", AddKeyGame);
 
-Vue.component("add-key-dlc", require("./components/AddKeyDlc.vue").default);
+Vue.component("AddKeyDlc", AddKeyDlc);
 
-Vue.component(
-    "add-key-wallet",
-    require("./components/AddKeyWallet.vue").default
-);
+Vue.component("AddKeyWallet", AddKeyWallet);
 
-Vue.component(
-    "add-key-subscription",
-    require("./components/AddKeySubscription.vue").default
-);
+Vue.component("AddKeySubscription", AddKeySubscription);
 
-Vue.component("title-header", require("./components/Title.vue").default);
+Vue.component("TitleHeader", TitleHeader);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
+// eslint-disable-next-line no-unused-vars
 const app = new Vue({
     el: "#app"
 });
