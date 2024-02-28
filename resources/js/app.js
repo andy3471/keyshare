@@ -1,6 +1,6 @@
 import "./bootstrap";
 
-import Vue from "vue";
+import Vue from 'vue/dist/vue.esm.js';
 window.Vue = Vue;
 
 import AutoComplete from "andyh-autocomplete";
@@ -30,7 +30,6 @@ Vue.component("AddKeySubscription", AddKeySubscription);
 
 Vue.component("TitleHeader", TitleHeader);
 
-// eslint-disable-next-line no-unused-vars
-const app = new Vue({
+window.app = new Vue({
     el: "#app"
 });
