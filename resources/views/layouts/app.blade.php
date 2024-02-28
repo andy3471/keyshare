@@ -9,15 +9,11 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @vite(['resources/js/app.js', 'resources/sass/app.scss'])
 </head>
 <body>
     <div id="app">
@@ -84,7 +80,7 @@
 
                     <ul class="navbar-nav ml-auto">
                         <form class="form-inline" method="get" action="{{ route('search') }}">
-                            <autocomplete url='/autocomplete/games/' placeholder="{{ __('nav.search') }}..." name="search" id="search" type="search" classes="form-control navbar-search"></autocomplete>
+                            <auto-complete url='/autocomplete/games/' placeholder="{{ __('nav.search') }}..." name="search" id="search" type="search" classes="form-control navbar-search"></auto-complete>
                         </form>
 
 
@@ -138,7 +134,7 @@
         <div class="jumbotron">
             @if (file_exists(public_path('images/logo_override.png')))
                 <img src="{{ asset('images/logo_override.png')}}" width="137" height="110">
-            @else 
+            @else
                 <img src="{{ asset('images/logo_default.png')}}" width="137" height="110">
             @endif
         </div>

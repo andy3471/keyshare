@@ -23,13 +23,13 @@
             <input name="name" class="form-control" type="text" value="{{ $dlc->name }}" required>
 
             <label for="Game"> {{ __('dlc.gamename') }}: </label>
-            <autocomplete
+            <auto-complete
                 placeholder="{{ $dlc->game->name }}"
                 id="gamename"
                 name="gamename"
                 classes="form-control"
                 required="false"
-            ></autocomplete>
+            ></auto-complete>
 
 
             <label for="description"> {{ __('dlc.description') }}: </label>
