@@ -9,7 +9,7 @@
 <div class="container">
     <img src="{{ asset($dlc->image) }}" class="img-fluid mx-auto d-block rounded">
     <br>
-    @can('admin',Auth::user())
+    @can('admin',auth()->user())
         <a href="{{ route('editdlc', $dlc) }}">{{ __('dlc.editdlc') }}</a><br>
     @endcan
     <br>

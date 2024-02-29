@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    {{ Auth::user()->name }}
+    {{ auth()->user()->name }}
 @endsection
 
 @section('content')
@@ -19,25 +19,25 @@
 
             @csrf
             <input type="hidden" name="gameid" value="">
-            <img src="{{ Auth::user()->image }}" class="img-responsive mx-auto d-block rounded" width="200" height="200px">
+            <img src="{{ auth()->user()->image }}" class="img-responsive mx-auto d-block rounded" width="200" height="200px">
             <label for="image"> {{ __('users.image') }}: ({{ __('users.imagereqs') }})</label>
             <br>
             <input name="image" type="file">
             <br>
 
             <label for="name"> {{ __('users.name') }}: </label>
-            <input name="name" class="form-control" type="text" value="{{ Auth::user()->name }}" required>
+            <input name="name" class="form-control" type="text" value="{{ auth()->user()->name }}" required>
 
             <label for="email"> {{ __('users.email') }}: </label>
-            @if ( (strpos(Auth::user()->email, '@' )) !== false)
-                @php ($email = Auth::user()->email)
+            @if ( (strpos(auth()->user()->email, '@' )) !== false)
+                @php ($email = auth()->user()->email)
             @else
                 @php ($email = null)
             @endif
             <input name="email" class="form-control" type="text" value="{{ $email }}">
 
             <label for="bio"> {{ __('users.bio') }}: </label>
-            <textarea name="bio" class="form-control">{{ Auth::user()->bio }}</textarea>
+            <textarea name="bio" class="form-control">{{ auth()->user()->bio }}</textarea>
             <br>
             <input type="submit" class="btn btn-keyshare" value="{{ __('nav.save') }}">
         </form>

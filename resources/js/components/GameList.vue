@@ -43,15 +43,15 @@ export default {
   data() {
     return {
       page: 1,
-      lastpage: null,
+      lastPage: null,
       games: []
     };
   },
   methods: {
     infiniteHandler($state) {
       axios.get(this.url + "?page=" + this.page).then(response => {
-        this.lastpage = response.data.last_page;
-        if (this.lastpage >= this.page) {
+        this.lastPage = response.data.last_page;
+        if (this.lastPage >= this.page) {
           this.games = this.games.concat(response.data.data);
           this.page = response.data.current_page + 1;
           $state.loaded();

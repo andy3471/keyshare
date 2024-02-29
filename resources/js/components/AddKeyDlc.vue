@@ -2,7 +2,7 @@
   <div>
     <form
       method="POST"
-      action="/addkey/store"
+      action="/keys/"
     >
       <input
         type="hidden"

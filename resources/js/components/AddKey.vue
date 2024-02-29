@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="dlcenabled">
+    <div v-if="dlcEnabled">
       <label for="Key Type">Key Type:</label>
       <br>
       <input
@@ -63,7 +63,7 @@ export default {
       required: true,
       type: String
     },
-    dlcenabled: {
+    dlcEnabled: {
       required: true,
       default: true,
       type: Boolean

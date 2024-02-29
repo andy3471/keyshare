@@ -31,7 +31,7 @@ class KeyController extends Controller
 
     // TODO: Use form request
     // TODO: Refactor
-    public function store(Request $request): View
+    public function store(Request $request): RedirectResponse
     {
 
         $this->validate($request, [
@@ -45,7 +45,7 @@ class KeyController extends Controller
         $key->platform_id = $request->platform_id;
         $key->keycode = $request->key;
         $key->message = $request->message;
-        $key->created_user_id = Auth::id();
+        $key->created_user_id = auth()->user()->id;
 
         if ($request->key_type == '1' or $request->key_type == '2') {
             $game = Game::where('name', $request->gamename)->first();
@@ -67,7 +67,7 @@ class KeyController extends Controller
                 } else {
                     $game->name = $request->gamename;
                 }
-                $game->created_user_id = Auth::id();
+                $game->created_user_id = auth()->user()->id;
                 $game->save();
             }
 
@@ -87,7 +87,7 @@ class KeyController extends Controller
         $key->save();
 
         if (config('services.discord.enabled')) {
-            $key->notify(new KeyAdded($key, Auth::user(), $game));
+            $key->notify(new KeyAdded($key, auth()->user()->id, $game));
         }
 
         Redis::zincrby('karma', 1, auth()->id());

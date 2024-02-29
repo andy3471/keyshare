@@ -29,11 +29,11 @@ class HomeController extends Controller
 
     public function notApproved(): View
     {
-        return view('auth.notApproved');
+        return view('auth.not-approved');
     }
 
     public function demo(): View
     {
-        return view('auth.demomode');
+        return view('auth.demo-mode');
     }
 }
