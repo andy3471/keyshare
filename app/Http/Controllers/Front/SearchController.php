@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Game;
-use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -36,7 +35,7 @@ class SearchController extends Controller
                     $game->igdb_id = $igdb->id;
                     $game->image = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
                     $game->igdb_updated = Carbon::today();
-                    $game->created_user_id = Auth::id();
+                    $game->created_user_id = auth()->user()->id;
                     $game->save();
 
                     return redirect()->route('games.index', $game);

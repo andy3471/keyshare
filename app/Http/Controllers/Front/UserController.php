@@ -55,7 +55,7 @@ class UserController extends Controller
 
     public function passwordResetPage(): View
     {
-        return view('users.changepassword');
+        return view('users.change-password');
     }
 
     // TODO: Use form request

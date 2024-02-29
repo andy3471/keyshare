@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Dlc;
 use App\Models\Game;
-use Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -66,7 +65,7 @@ class DlcController extends Controller
         if (! empty($request->gamename)) {
             $game = Game::firstOrCreate(
                 ['name' => $request->gamename],
-                ['created_user_id' => Auth::id()]
+                ['created_user_id' => auth()->user()->id]
             );
 
             $dlc->game_id = $game->id;

@@ -31,7 +31,7 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ Auth::user()->image }}" height="25px" width="25px"> {{ Auth::user()->name }}
+                                <img src="{{ auth()->user()->image }}" height="25px" width="25px"> {{ auth()->user()->name }}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -84,7 +84,7 @@
                         </form>
 
 
-                        @can('admin',Auth::user())
+                        @can('admin',auth()->user())
                             <li class="nav-item dropdown">
                                 <a href="{{ route('filament.admin.pages.dashboard') }}" class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ __('admin.admin') }}
@@ -95,9 +95,9 @@
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="./viewuser.php?id=" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ Auth::user()->image }}" height="25px" width="25px"> {{ Auth::user()->name }}
+                                <img src="{{ auth()->user()->image }}" height="25px" width="25px"> {{ auth()->user()->name }}
 
-                                <span class="badge badge-pill {{ Auth::user()->karma_colour }}"> {{ Auth::user()->karma }} </span>
+                                <span class="badge badge-pill {{ auth()->user()->karma_colour }}"> {{ auth()->user()->karma }} </span>
 
                             </a>
 
