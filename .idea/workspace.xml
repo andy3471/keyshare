@@ -5,29 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce6bea2d-2da5-471b-a8c9-e4f092b653ae" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/keyshare.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/keyshare.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/DlcController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/DlcController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/KeyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/KeyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/SearchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/SearchController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/AddKey.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/AddKey.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/AddKeyDlc.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/AddKeyDlc.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/AddKeyGame.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/AddKeyGame.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/AddKeySubscription.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/AddKeySubscription.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/AddKeyWallet.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/AddKeyWallet.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/GameList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/GameList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/edit.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/demomode.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/demo-mode.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/notApproved.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/not-approved.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dlc/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dlc/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/keys/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/keys/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/users/changepassword.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/change-password.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/users/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,8 +235,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/andy/git/keyshare",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/ahargrave/git/keyshare",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -308,6 +287,7 @@
       <workItem from="1709134311457" duration="4888000" />
       <workItem from="1709144395112" duration="5508000" />
       <workItem from="1709156415111" duration="798000" />
+      <workItem from="1709651374104" duration="130000" />
     </task>
     <servers />
   </component>
