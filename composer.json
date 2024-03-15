@@ -78,7 +78,6 @@
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
             "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:models -N",
             "@php artisan ide-helper:meta"
         ],
         "post-root-package-install": [
