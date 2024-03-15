@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce6bea2d-2da5-471b-a8c9-e4f092b653ae" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/keyshare.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/keyshare.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/filament/filament/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/filament/filament/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/markdown-editor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/markdown-editor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/select.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/select.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/filament/support/support.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/support/support.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/filament/widgets/components/chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/widgets/components/chart.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +171,6 @@
       <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
       <path value="$PROJECT_DIR$/vendor/psr/clock" />
-      <path value="$PROJECT_DIR$/vendor/laravelcollective/html" />
       <path value="$PROJECT_DIR$/vendor/spatie/backtrace" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-ignition" />
       <path value="$PROJECT_DIR$/vendor/spatie/flare-client-php" />
@@ -220,6 +229,17 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
       <path value="$PROJECT_DIR$/vendor/sebastian/code-unit" />
       <path value="$PROJECT_DIR$/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/vendor/wendelladriel/laravel-lift" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-html" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/symfony/clock" />
+      <path value="$PROJECT_DIR$/vendor/inertiajs/inertia-laravel" />
+      <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -234,9 +254,10 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.laravel-idea.update-module-directories": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/ahargrave/git/keyshare",
+    "last_opened_file_path": "/home/ahargrave/git/laravel-notifications-discord",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -287,7 +308,8 @@
       <workItem from="1709134311457" duration="4888000" />
       <workItem from="1709144395112" duration="5508000" />
       <workItem from="1709156415111" duration="798000" />
-      <workItem from="1709651374104" duration="130000" />
+      <workItem from="1709651374104" duration="890000" />
+      <workItem from="1710523981170" duration="689000" />
     </task>
     <servers />
   </component>
