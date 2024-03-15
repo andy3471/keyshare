@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce6bea2d-2da5-471b-a8c9-e4f092b653ae" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/keyshare.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/keyshare.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/filament/filament/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/filament/filament/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/markdown-editor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/markdown-editor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/select.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/select.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/support/support.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/support/support.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/widgets/components/chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/widgets/components/chart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/Filament/AdminPanelProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/Filament/AdminPanelProvider.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,6 +231,7 @@
       <path value="$PROJECT_DIR$/vendor/inertiajs/inertia-laravel" />
       <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
+      <path value="$PROJECT_DIR$/vendor/beyondcode/laravel-query-detector" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -257,7 +249,7 @@
     "RunOnceActivity.laravel-idea.update-module-directories": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/ahargrave/git/laravel-notifications-discord",
+    "last_opened_file_path": "/home/ahargrave/git/keyshare",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -309,7 +301,8 @@
       <workItem from="1709144395112" duration="5508000" />
       <workItem from="1709156415111" duration="798000" />
       <workItem from="1709651374104" duration="890000" />
-      <workItem from="1710523981170" duration="689000" />
+      <workItem from="1710523981170" duration="815000" />
+      <workItem from="1710525427146" duration="6000" />
     </task>
     <servers />
   </component>
