@@ -19,7 +19,7 @@ namespace App\Models{
  * @property int $game_id
  * @property string $name
  * @property string|null $description
- * @property string|null $image
+ * @property string $image
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $created_user_id
@@ -48,9 +48,9 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
- * @property string|null $description
+ * @property string $description
  * @property int $created_user_id
- * @property string|null $image
+ * @property string $image
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $removed
