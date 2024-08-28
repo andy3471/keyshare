@@ -8,7 +8,6 @@ class Approved
 {
     public function handle($request, Closure $next)
     {
-
         if (! auth()->user()->approved) {
             return redirect('notapproved');
         }

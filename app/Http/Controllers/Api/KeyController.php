@@ -9,15 +9,21 @@ class KeyController extends Controller
 {
     public function claimed(): JsonResponse
     {
-        $keys = auth()->user()->claimedKeys()->paginate(12);
-
-        return response()->json($keys);
+        return response()->json(
+            auth()
+                ->user()
+                ->claimedKeys()
+                ->paginate(12)
+        );
     }
 
     public function shared(): JsonResponse
     {
-        $keys = auth()->user()->sharedKeys()->paginate(12);
-
-        return response()->json($keys);
+        return response()->json(
+            auth()
+                ->user()
+                ->sharedKeys()
+                ->paginate(12)
+        );
     }
 }

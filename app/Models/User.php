@@ -62,51 +62,24 @@ class User extends Authenticatable implements FilamentUser
     {
         return Attribute::make(
             get: function () {
-                // TODO: This needs a rewrite
                 $id = $this->id;
+
+                // Attempt to get karma from Redis cache
                 $karma = Redis::zscore('karma', $id);
 
-                if ($karma) {
+                // If karma is found in Redis, return it
+                if ($karma !== false) {
                     return $karma;
                 }
 
-                $karma = DB::select(
-                    '
-                    SELECT
-                        (COALESCE(C.createdkeys, 0) - COALESCE(O.ownedkeys, 0)) AS karma,
-                        U.id
-                    FROM
-                        users AS U
-                            LEFT OUTER JOIN (
-                            SELECT
-                                COUNT(created_user_id) AS createdkeys,
-                                created_user_id AS user_id
-                            FROM
-                                keys
-                            WHERE
-                                created_user_id = 1
-                            GROUP BY
-                                created_user_id
-                        ) AS C ON C.user_id = U.id
-                            LEFT OUTER JOIN (
-                            SELECT
-                                count(owned_user_id) AS ownedkeys,
-                                owned_user_id AS user_id
-                            FROM
-                                keys
-                            WHERE
-                                owned_user_id = 1
-                            GROUP BY
-                                owned_user_id
-                        ) AS O ON O.user_id = U.id
-                    WHERE
-                        U.id = 1
-                ');
+                // Calculate karma using Eloquent
+                $createdKeysCount = \App\Models\Key::where('created_user_id', $id)->count();
+                $ownedKeysCount = \App\Models\Key::where('owned_user_id', $id)->count();
 
-                foreach ($karma as $user) {
-                    $karma = Redis::zadd('karma', $user->karma, $user->id);
-                    $karma = Redis::zscore('karma', $id);
-                }
+                $karma = $createdKeysCount - $ownedKeysCount;
+
+                // Cache the karma in Redis and return it
+                Redis::zadd('karma', $karma, $id);
 
                 return $karma;
             }
