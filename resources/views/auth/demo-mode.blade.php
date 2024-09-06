@@ -6,6 +6,6 @@
 
 @section('content')
     <div class="container">
-        <p> {{ __('auth.demomodelong') }} </p>
+        <p>{{ __('auth.demomodelong') }}</p>
     </div>
 @endsection
