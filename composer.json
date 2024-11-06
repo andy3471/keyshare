@@ -7,9 +7,10 @@
     "require": {
         "php": "^8.2",
         "filament/filament": "^3.2",
+        "filament/minimal-theme": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^1.0",
-        "laravel-notification-channels/discord": "dev-master",
+        "laravel-notification-channels/discord": "^1.6.0",
         "laravel/framework": "^11.0",
         "laravel/socialite": "^5.12",
         "laravel/tinker": "^2.8",
@@ -20,8 +21,8 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.12",
-        "barryvdh/laravel-ide-helper": "*",
-        "beyondcode/laravel-query-detector": "dev-l11-compatibility",
+        "barryvdh/laravel-ide-helper": "^3.2.2",
+        "beyondcode/laravel-query-detector": "^2.0",
         "doctrine/dbal": "^3.8",
         "fakerphp/faker": "^1.9.1",
         "larastan/larastan": "^2.9",
@@ -32,16 +33,6 @@
         "phpunit/phpunit": "^10.1",
         "spatie/laravel-ignition": "^2.0"
     },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/andy3471/laravel-notifications-discord"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/laravel-shift/laravel-query-detector.git"
-        }
-    ],
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
@@ -86,5 +77,11 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
+    },
+    "repositories": {
+        "whizzy": {
+            "type": "composer",
+            "url": "https://whizzy.dev/composer"
+        }
     }
 }
