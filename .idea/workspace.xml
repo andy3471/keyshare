@@ -4,42 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce6bea2d-2da5-471b-a8c9-e4f092b653ae" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Filament/Plugins/KeyshareTheme.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeception.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/keyshare.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/keyshare.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/Filament/AdminPanelProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/Filament/AdminPanelProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_06_092443_add_key_type_to_existing_keys.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_06_092443_add_key_type_to_existing_keys.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/filament/filament/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/filament/filament/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/filament/forms/forms.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/filament/forms/forms.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/filament/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/filament/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/filament/echo.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/filament/echo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/date-time-picker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/date-time-picker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/file-upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/file-upload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/key-value.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/key-value.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/markdown-editor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/markdown-editor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/rich-editor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/rich-editor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/textarea.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/textarea.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/notifications/notifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/notifications/notifications.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/support/support.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/support/support.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/tables/components/table.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/tables/components/table.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/widgets/components/chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/widgets/components/chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/widgets/components/stats-overview/stat/chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/widgets/components/stats-overview/stat/chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/vite.config.js" afterDir="false" />
-    </list>
+    <list default="true" id="ce6bea2d-2da5-471b-a8c9-e4f092b653ae" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,7 +12,9 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="EditorConfigPreviewManager">
     <editorConfig file="$PROJECT_DIR$/.editorconfig" previewFile="$PROJECT_DIR$/.editorconfig" />
@@ -277,29 +244,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.laravel-idea.update-module-directories": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/andy/git/keyshare",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/home/andy/.local/share/JetBrains/Toolbox/apps/phpstorm/plugins/javascript-plugin/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.laravel-idea.update-module-directories&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/andy/git/keyshare&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/andy/.local/share/JetBrains/Toolbox/apps/phpstorm/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql",
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;,
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/Console/Commands" />
@@ -316,8 +283,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PS-241.18034.69" />
-        <option value="bundled-php-predefined-ba97393d7c68-48a1a656d44e-com.jetbrains.php.sharedIndexes-PS-241.18034.69" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PS-242.23339.16" />
+        <option value="bundled-php-predefined-a98d8de5180a-90914f2295cb-com.jetbrains.php.sharedIndexes-PS-242.23339.16" />
       </set>
     </attachedChunks>
   </component>
@@ -348,6 +315,7 @@
       <workItem from="1724843103735" duration="20000" />
       <workItem from="1724843179055" duration="17000" />
       <workItem from="1725632919532" duration="212000" />
+      <workItem from="1730910702198" duration="118000" />
     </task>
     <servers />
   </component>
