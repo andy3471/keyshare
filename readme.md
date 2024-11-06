@@ -95,7 +95,6 @@ APP_DEBUG | Enables debug logging
 APP_URL | External URL you will access the site from
 ASSET_URL | External URL that assets are loaded from
 AUTO_APPROVE_USERS | Boolean value, Whether anyone can sign up for the site, or they require an admin to authorise them
-REDIRECT_HTTPS | Boolean value, Used if you're running keyshare behind a proxy, if the site is using HTTP and the proxy is using HTTPS.
 STEAM_LOGIN | Boolean value, enabled steam login
 STEAM_API_KEY | API key for steam login, generated on https://steamcommunity.com/dev/apikey
 TWITCH_API_ENABLED | Enabled/Disables the external twitch API for game lookups
@@ -146,8 +145,6 @@ server {
     }
 }
 ```
-
-If your proxy erver is using HTTPS, be sure to set the REDIRECT_HTTPS environment variable to true. You will also need to set APP_URL to the external URL, and may also need to set ASSET_URL to the same.
 
 ### Manual Install
 
