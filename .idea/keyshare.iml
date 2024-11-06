@@ -98,6 +98,11 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/larastan/larastan" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpmyadmin/sql-parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/phpstan" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/filament/minimal-theme" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpseclib/phpseclib" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/error-solutions" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
