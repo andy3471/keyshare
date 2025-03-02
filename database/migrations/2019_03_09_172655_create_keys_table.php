@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateKeysTable extends Migration
 {
@@ -14,13 +14,12 @@ class CreateKeysTable extends Migration
     public function up()
     {
         Schema::create('keys', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->BigInteger('game_id')->references('id')->on('games');
-            $table->BigInteger('dlc_id')->nullable();
-            $table->BigInteger('platform_id');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('game_id')->references('id')->on('games');
+            $table->foreignUuid('platform_id');
             $table->string('keycode');
-            $table->biginteger('owned_user_id')->references('id')->on('users')->nullable();
-            $table->biginteger('created_user_id')->references('id')->on('users');
+            $table->foreignUuid('claimed_by_user_id')->references('id')->on('users')->nullable();
+            $table->foreignUuid('created_by_user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

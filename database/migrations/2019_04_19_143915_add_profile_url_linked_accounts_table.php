@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddProfileUrlLinkedAccountsTable extends Migration
 {
@@ -14,7 +14,7 @@ class AddProfileUrlLinkedAccountsTable extends Migration
     public function up()
     {
         Schema::table('linked_accounts', function (Blueprint $table) {
-            $table->string('profileurl')->nullable();
+            $table->string('profile_url')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddProfileUrlLinkedAccountsTable extends Migration
     public function down()
     {
         Schema::table('linked_accounts', function (Blueprint $table) {
-            $table->dropColumn('profileurl');
+            $table->dropColumn('profile_url');
         });
     }
 }

@@ -14,7 +14,7 @@ class EditDescriptionLengthGamesTable extends Migration
     public function up()
     {
         Schema::table('games', function (Blueprint $table) {
-            $table->longText('description')->change();
+            $table->text('description')->change();
         });
     }
 

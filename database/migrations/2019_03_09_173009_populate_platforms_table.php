@@ -1,11 +1,23 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class PopulatePlatformsTable extends Migration
 {
+    public array $platforms = [
+        ['name' => 'Steam'],
+        ['name' => 'Ubisoft Connect'],
+        ['name' => 'EA App'],
+        ['name' => 'Windows Store'],
+        ['name' => 'Blizzard'],
+        ['name' => 'GOG'],
+        ['name' => 'PS4'],
+        ['name' => 'PS5'],
+        ['name' => 'PS Vita'],
+        ['name' => 'Switch'],
+        ['name' => 'Xbox'],
+    ];
+
     /**
      * Run the migrations.
      *
@@ -13,20 +25,13 @@ class PopulatePlatformsTable extends Migration
      */
     public function up()
     {
-        DB::table('platforms')->insert([
-            ['name' => 'Steam'],
-            ['name' => 'Uplay'],
-            ['name' => 'Origin'],
-            ['name' => 'Windows Store'],
-            ['name' => 'Blizzard'],
-            ['name' => 'GOG'],
-            ['name' => 'PS3'],
-            ['name' => 'PS4'],
-            ['name' => 'PS Vita'],
-            ['name' => 'Switch'],
-            ['name' => 'Xbox 360'],
-            ['name' => 'Xbox One']
-        ]);
+        foreach ($this->platforms as $idx => $platform) {
+            $this->platforms[$idx]['id'] = Str::orderedUuid()->toString();
+            $this->platforms[$idx]['created_at'] = now();
+            $this->platforms[$idx]['updated_at'] = now();
+        }
+
+        DB::table('platforms')->insert($this->platforms);
     }
 
     /**

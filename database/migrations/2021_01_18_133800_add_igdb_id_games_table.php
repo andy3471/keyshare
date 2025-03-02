@@ -15,7 +15,7 @@ class AddIgdbIdGamesTable extends Migration
     {
         Schema::table('games', function (Blueprint $table) {
             $table->BigInteger('igdb_id')->nullable();
-            $table->dateTime('igdb_updated')->nullable();
+            $table->dateTime('igdb_updated_at')->nullable();
         });
     }
 
@@ -28,7 +28,7 @@ class AddIgdbIdGamesTable extends Migration
     {
         Schema::table('games', function (Blueprint $table) {
             $table->dropColumn('igdb_id');
-            $table->dropColumn('igdb_updated');
+            $table->dropColumn('igdb_updated_at');
         });
     }
 }

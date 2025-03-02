@@ -8,20 +8,40 @@ return [
     |--------------------------------------------------------------------------
     |
     | This file is for storing the credentials for third party services such
-    | as Stripe, Mailgun, SparkPost and others. This file provides a sane
-    | default location for this type of information, allowing packages
-    | to have a conventional place to find your various credentials.
+    | as Mailgun, Postmark, AWS and more. This file provides the de facto
+    | location for this type of information, allowing packages to have
+    | a conventional file to locate the various service credentials.
     |
     */
 
-    'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
-        'secret' => env('MAILGUN_SECRET'),
-        'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+    'battlenet' => [
+        'client_id' => env('BATTLENET_CLIENT_ID'),
+        'client_secret' => env('BATTLENET_CLIENT_SECRET'),
+        'redirect' => env('BATTLENET_REDIRECT_URI'),
+    ],
+
+    'discord' => [
+        'client_id' => env('DISCORD_CLIENT_ID'),
+        'client_secret' => env('DISCORD_CLIENT_SECRET'),
+        'redirect' => env('DISCORD_REDIRECT_URI'),
+
+        'allow_gif_avatars' => (bool) env('DISCORD_AVATAR_GIF', true),
+        'avatar_default_extension' => env('DISCORD_EXTENSION_DEFAULT', 'png'), // only pick from jpg, png, webp
+    ],
+
+    'microsoft' => [
+        'client_id' => env('MICROSOFT_CLIENT_ID'),
+        'client_secret' => env('MICROSOFT_CLIENT_SECRET'),
+        'redirect' => env('MICROSOFT_REDIRECT_URI'),
+        'proxy' => env('PROXY'),  // Optional, will be used for all requests
     ],
 
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
+    ],
+
+    'resend' => [
+        'key' => env('RESEND_KEY'),
     ],
 
     'ses' => [
@@ -30,33 +50,25 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'sparkpost' => [
-        'secret' => env('SPARKPOST_SECRET'),
-    ],
-
-    'stripe' => [
-        'model' => App\User::class,
-        'key' => env('STRIPE_KEY'),
-        'secret' => env('STRIPE_SECRET'),
-        'webhook' => [
-            'secret' => env('STRIPE_WEBHOOK_SECRET'),
-            'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
+    'slack' => [
+        'notifications' => [
+            'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
+            'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
 
     'steam' => [
-        'client_id' => env('STEAM_API_KEY'),
-        'client_secret' => env('STEAM_API_KEY'),
-        'redirect' => env('APP_URL').'/login/steam/callback',
-        'api_key' => env('STEAM_API_KEY'),
+        'client_id' => null,
+        'client_secret' => env('STEAM_CLIENT_SECRET'),
+        'redirect' => env('STEAM_REDIRECT_URI'),
+        'allowed_hosts' => [
+            'example.com',
+        ],
     ],
 
-    'discord' => [
-        'enabled' => env('DISCORD_ENABLED', false),
-        'token' => env('DISCORD_TOKEN', ''),
-        'channel' =>  env('DISCORD_CHANNEL', '')
-    ]
-    
-
-
+    'twitch' => [
+        'client_id' => env('TWITCH_CLIENT_ID'),
+        'client_secret' => env('TWITCH_CLIENT_SECRET'),
+        'redirect' => env('TWITCH_REDIRECT_URI'),
+    ],
 ];

@@ -2,35 +2,24 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Blade;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
-use View;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
-    { }
+    public function register(): void
+    {
+        //
+    }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        if(env('REDIRECT_HTTPS')) {
-            \Illuminate\Support\Facades\URL::forceScheme('https');
-        }
-
-        View::composer(
-            'layouts.app',
-            'App\Http\ViewComposers\PlatformViewComposer'
-        );
+        Model::preventLazyLoading(! app()->isProduction());
     }
 }

@@ -3,14 +3,23 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Discord\DiscordChannel;
 use NotificationChannels\Discord\DiscordMessage;
 
 class KeyAdded extends Notification
 {
+    public $key;
+
+    public $game;
+
+    public $user;
+
+    /**
+     * @var string
+     */
+    public $url;
+
     use Queueable;
 
     /**
@@ -24,16 +33,15 @@ class KeyAdded extends Notification
         $this->game = $game;
         $this->user = $user;
 
-        $this->url = config('app.url') . '/keys/' . $key->id;
+        $this->url = config('app.url').'/keys/'.$key->id;
     }
 
     /**
      * Get the notification's delivery channels.
      *
      * @param  mixed  $notifiable
-     * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return [DiscordChannel::class];
     }
@@ -53,9 +61,8 @@ class KeyAdded extends Notification
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //
