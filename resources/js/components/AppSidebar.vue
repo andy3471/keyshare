@@ -10,10 +10,15 @@ import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
-        href: '/dashboard',
+        title: 'Games',
+        href: '/games',
         icon: LayoutGrid,
     },
+    {
+        title: 'Groups',
+        href: '/groups',
+        icon: BookOpen,
+    }
 ];
 
 const footerNavItems: NavItem[] = [
@@ -31,7 +36,7 @@ const footerNavItems: NavItem[] = [
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
-                        <Link :href="route('dashboard')">
+                        <Link :href="route('games.index')">
                             <AppLogo />
                         </Link>
                     </SidebarMenuButton>

@@ -13,7 +13,7 @@ class GameController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('games/Index');
+        return Inertia::render('games/IndexGames');
     }
 
     // TODO: Refactor

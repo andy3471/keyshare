@@ -182,7 +182,7 @@ namespace App\Models{
  * @property-read int|null $claimed_keys_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Group> $groups
  * @property-read int|null $groups_count
- * @property-read void $karma
+ * @property-read int $karma
  * @property-read string $karma_color
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\LinkedAccount> $linkedAccounts
  * @property-read int|null $linked_accounts_count
