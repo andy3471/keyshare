@@ -7,23 +7,10 @@ use Illuminate\Support\Facades\Artisan;
 
 class CacheAll extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'cache:all';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Command description';
 
-    /**
-     * Execute the console command.
-     */
     public function handle(): void
     {
         $this->info('Caching Icons...');
@@ -43,5 +30,8 @@ class CacheAll extends Command
 
         $this->info('Caching Views...');
         Artisan::call('view:cache');
+
+        $this->info('Caching Karma...');
+        Artisan::call('cache:karma');
     }
 }
