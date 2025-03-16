@@ -39,7 +39,7 @@ class GameController extends Controller
         //            $screenshots = $igdb->screenshots;
         //            $genres = $igdb->genres;
         //        }
-        return Inertia::render('games/Show', [
+        return Inertia::render('games/ShowGame', [
             'game' => $game,
         ]);
     }

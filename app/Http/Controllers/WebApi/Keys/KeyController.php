@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Keys;
+namespace App\Http\Controllers\WebApi\Keys;
 
 use App\Http\Controllers\Controller;
 use App\Resources\KeyResource;

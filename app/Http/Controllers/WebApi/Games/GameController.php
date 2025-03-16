@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Games;
+namespace App\Http\Controllers\WebApi\Games;
 
 use App\Http\Controllers\Controller;
 use App\Models\Game;

@@ -24,7 +24,7 @@ class KeyController extends Controller
     public function create(): Response
     {
         // TODO: Refactor
-        $platforms = Cache::remember('platforms', 3600, function (): array|\Illuminate\Contracts\Pagination\CursorPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Support\Enumerable|\Spatie\LaravelData\CursorPaginatedDataCollection|\Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection {
+        $platforms = Cache::remember('platforms:all', 3600, function (): array|\Illuminate\Contracts\Pagination\CursorPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Support\Enumerable|\Spatie\LaravelData\CursorPaginatedDataCollection|\Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection {
             return PlatformResource::collect(Platform::all());
         });
 
@@ -89,42 +89,42 @@ class KeyController extends Controller
         return back()->with('message', __('keys.added'));
     }
 
-    // TODO: Use route model binding
-    public function show(Key $key): View
-    {
-        return view('keys.show')->withKey($key);
-    }
-
-    // TODO: Use route model binding
-    // TODO: Refactor
-    public function claim(Request $request): RedirectResponse
-    {
-        $key = Key::where('id', '=', $request->id)->where('owned_user_id', '=', null)->first();
-
-        if ($key) {
-            $key = DB::table('keys')
-                ->where('id', '=', $request->id)
-                ->update(['owned_user_id' => auth()->id()]);
-
-            KarmaService::decrement(auth()->user(), 1);
-
-            return back()->with('message', __('keys.claimsuccess'));
-        }
-
-        return back()->with('error', __('keys.alreadyclaimederror'));
-    }
-
-    public function claimed(): View
-    {
-        return view('games.index')
-            ->withTitle('Claimed Keys')
-            ->withUrl(route('api.my.keys.claimed.index'));
-    }
-
-    public function shared(): View
-    {
-        return view('games.index')
-            ->withTitle('Shared Keys')
-            ->withUrl(route('api.my.keys.shared.index'));
-    }
+    //    // TODO: Use route model binding
+    //    public function show(Key $key): View
+    //    {
+    //        return view('keys.show')->withKey($key);
+    //    }
+    //
+    //    // TODO: Use route model binding
+    //    // TODO: Refactor
+    //    public function claim(Request $request): RedirectResponse
+    //    {
+    //        $key = Key::where('id', '=', $request->id)->where('owned_user_id', '=', null)->first();
+    //
+    //        if ($key) {
+    //            $key = DB::table('keys')
+    //                ->where('id', '=', $request->id)
+    //                ->update(['owned_user_id' => auth()->id()]);
+    //
+    //            KarmaService::decrement(auth()->user(), 1);
+    //
+    //            return back()->with('message', __('keys.claimsuccess'));
+    //        }
+    //
+    //        return back()->with('error', __('keys.alreadyclaimederror'));
+    //    }
+    //
+    //    public function claimed(): View
+    //    {
+    //        return view('games.index')
+    //            ->withTitle('Claimed Keys')
+    //            ->withUrl(route('api.my.keys.claimed.index'));
+    //    }
+    //
+    //    public function shared(): View
+    //    {
+    //        return view('games.index')
+    //            ->withTitle('Shared Keys')
+    //            ->withUrl(route('api.my.keys.shared.index'));
+    //    }
 }

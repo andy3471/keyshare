@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Platforms;
+namespace App\Http\Controllers\WebApi\Platforms;
 
 use App\Http\Controllers\Controller;
 use App\Models\Platform;
@@ -14,7 +14,7 @@ class PlatformController extends Controller
     // TODO: Only return require attributes
     public function index(): JsonResponse
     {
-        $platforms = Cache::remember('platforms', 3600, function (): array|\Illuminate\Contracts\Pagination\CursorPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Support\Enumerable|\Spatie\LaravelData\CursorPaginatedDataCollection|\Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection {
+        $platforms = Cache::remember('platforms:all', 3600, function (): array|\Illuminate\Contracts\Pagination\CursorPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Support\Enumerable|\Spatie\LaravelData\CursorPaginatedDataCollection|\Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection {
             return PlatformResource::collect(Platform::all());
         });
 
