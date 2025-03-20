@@ -2,10 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
-use App\Models\User;
-use App\Models\Key;
 
 class CacheKarma extends Command
 {
@@ -17,12 +16,12 @@ class CacheKarma extends Command
     {
         $karmaData = User::withCount([
             'createdKeys as createdkeys' => fn ($query) => $query->selectRaw('COUNT(*)'),
-            'ownedKeys as ownedkeys' => fn ($query) => $query->selectRaw('COUNT(*)')
+            'ownedKeys as ownedkeys' => fn ($query) => $query->selectRaw('COUNT(*)'),
         ])
             ->get()
             ->map(fn ($user) => [
                 'id' => $user->id,
-                'karma' => ($user->createdkeys ?? 0) - ($user->ownedkeys ?? 0)
+                'karma' => ($user->createdkeys ?? 0) - ($user->ownedkeys ?? 0),
             ]);
 
         Redis::del('karma');

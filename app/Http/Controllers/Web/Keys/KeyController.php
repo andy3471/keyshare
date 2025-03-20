@@ -3,28 +3,24 @@
 namespace App\Http\Controllers\Web\Keys;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Keys\StoreKeyRequest;
 use App\Models\Game;
 use App\Models\Key;
 use App\Models\Platform;
 use App\Notifications\KeyAdded;
 use App\Resources\PlatformResource;
 use App\Services\KarmaService;
-use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
 use Inertia\Inertia;
 use Inertia\Response;
-use MarcReichel\IGDBLaravel\Models\Game as Igdb;
 
 class KeyController extends Controller
 {
     public function create(): Response
     {
-        // TODO: Refactor
-        $platforms = Cache::remember('platforms:all', 3600, function (): array|\Illuminate\Contracts\Pagination\CursorPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Support\Enumerable|\Spatie\LaravelData\CursorPaginatedDataCollection|\Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection {
+        $platforms = Cache::remember('platforms:all', 3600, function () {
             return PlatformResource::collect(Platform::all());
         });
 
@@ -33,55 +29,21 @@ class KeyController extends Controller
         ]);
     }
 
-    // TODO: Use form request
-    // TODO: Refactor
-    public function store(Request $request): RedirectResponse
+    public function store(StoreKeyRequest $request): RedirectResponse
     {
+        $game = Game::findOrCreateFromIgdb($request->gamename, auth()->id());
 
-        $this->validate($request, [
-            'key_type' => 'required',
-            'platform_id' => 'required',
-            'key' => 'required',
-            'message' => 'max:255',
+        $key = Key::create([
+            'platform_id' => $request->platform_id,
+            'keycode' => $request->key,
+            'message' => $request->message,
+            'created_by_user_id' => auth()->id(),
+            'game_id' => $game->id,
+            'key_type_id' => $request->key_type,
         ]);
 
-        $key = new Key;
-        $key->platform_id = $request->platform_id;
-        $key->keycode = $request->key;
-        $key->message = $request->message;
-        $key->created_user_id = auth()->user()->id;
-
-        $game = Game::where('name', $request->gamename)->first();
-
-        if (! $game) {
-            $game = new Game;
-            if (config('igdb.enabled')) {
-                $igdb = Igdb::select(['name', 'summary', 'id'])->with(['cover' => ['image_id']])->where('name', '=', $request->gamename)->first();
-
-                if ($igdb) {
-                    $game->name = $igdb->name;
-                    $game->description = $igdb->summary;
-                    $game->igdb_id = $igdb->id;
-                    $game->image = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
-                    $game->igdb_updated = Carbon::today();
-                } else {
-                    $game->name = $request->gamename;
-                }
-            } else {
-                $game->name = $request->gamename;
-            }
-
-            $game->created_user_id = auth()->user()->id;
-            $game->save();
-        }
-
-        $key->game_id = $game->id;
-
-        $key->key_type_id = $request->key_type;
-        $key->save();
-
         if (config('services.discord.enabled')) {
-            $key->notify(new KeyAdded($key, auth()->user()->id, $game));
+            $key->notify(new KeyAdded($key, auth()->id(), $game));
         }
 
         KarmaService::increment(auth()->user(), 1);
@@ -114,17 +76,19 @@ class KeyController extends Controller
     //        return back()->with('error', __('keys.alreadyclaimederror'));
     //    }
     //
-    //    public function claimed(): View
+    //    public function claimed(): Response
     //    {
-    //        return view('games.index')
-    //            ->withTitle('Claimed Keys')
-    //            ->withUrl(route('api.my.keys.claimed.index'));
+    //        return Inertia::render('games/IndexGames', [
+    //            'title' => 'Claimed Keys',
+    //            'url' => route('api.my.keys.claimed.index')
+    //        ]);
     //    }
-    //
-    //    public function shared(): View
+
+    //    public function shared(): Response
     //    {
-    //        return view('games.index')
-    //            ->withTitle('Shared Keys')
-    //            ->withUrl(route('api.my.keys.shared.index'));
+    //        return Inertia::render('games/IndexGames', [
+    //            'title' => 'Shared Keys',
+    //            'url' => route('api.my.keys.shared.index')
+    //        ]);
     //    }
 }
