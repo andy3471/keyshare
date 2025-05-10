@@ -1,0 +1,37 @@
+version: 1
+
+environment:
+  php: 8.3
+  node: 20
+
+services:
+  - docker:
+
+secrets:
+  - GITHUB_TOKEN
+  - GITHUB_USERNAME
+
+pipeline:
+  - name: Composer Install
+    cmd: |
+      composer install
+
+  - name: NPM Install
+    cmd: |
+      npm install
+
+  - name: NPM Build
+    cmd: |
+      npm run build
+
+  - name: Docker Login
+    cmd: |
+      echo "$GITHUB_TOKEN" \
+        | docker login ghcr.io -u "$GITHUB_USERNAME" --password-stdin
+
+  - name: Build and Push Docker Image
+    cmd: |
+      docker build \
+        -t ghcr.io/andy3471/andyh-portfolio:latest \
+        -f ./docker/production/Dockerfile .
+      docker push ghcr.io/andy3471/andyh-portfolio:latest
