@@ -32,6 +32,6 @@ pipeline:
   - name: Build and Push Docker Image
     cmd: |
       docker build \
-        -t ghcr.io/andy3471/andyh-portfolio:latest \
+        -t ghcr.io/andy3471/keyshare:latest \
         -f ./docker/production/Dockerfile .
-      docker push ghcr.io/andy3471/andyh-portfolio:latest
+      docker push ghcr.io/andy3471/keyshare:latest
