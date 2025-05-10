@@ -16,8 +16,6 @@ class GameController extends Controller
     }
 
     // TODO: Refactor
-
-    // TODO: Refactor
     public function show(Game $game): View
     {
         $dlcCount = 0;
