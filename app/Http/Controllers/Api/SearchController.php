@@ -41,7 +41,7 @@ class SearchController
         return response()->json($games);
     }
 
-    //TODO: Refactor
+    // TODO: Refactor
     public function autoCompleteDlc($gamename, $search): JsonResponse
     {
         $game = Game::where('name', $gamename)

@@ -44,7 +44,7 @@ class SteamLoginController
 
         } elseif (count($KeyshareUser) == 1) {
 
-            //If Exists, Find and Update User
+            // If Exists, Find and Update User
             $KeyshareUser = User::find($KeyshareUser[0]->user_id);
             $KeyshareUser->name = $steamuser->nickname;
             $KeyshareUser->image = $steamuser->avatar;
