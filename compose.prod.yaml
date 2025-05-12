@@ -3,9 +3,8 @@ services:
     image: ghcr.io/andy3471/keyshare:latest
     restart: unless-stopped
     volumes:
-      - ${DIRECTORY}/keyshare/storage:/var/www/storage:ro
-    environment:
-      - APP_DEBUG=false
+      - ./keyshare/storage:/var/www/storage
+    env_file: .env
     networks:
       - keyshare
       - traefik
@@ -21,7 +20,6 @@ services:
       - "traefik.http.services.keyshare-demo.loadbalancer.server.port=80"
       - "traefik.docker.network=traefik"
 
-
   postgres:
     image: postgres:16
     restart: unless-stopped
@@ -30,7 +28,7 @@ services:
       - POSTGRES_USER=${DB_USERNAME:-laravel}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-secret}
     volumes:
-      - ${DIRECTORY}/postgres:/var/lib/postgresql/data
+      - ./postgres:/var/lib/postgresql/data
     networks:
       - keyshare
       - traefik
