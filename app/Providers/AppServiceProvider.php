@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use View;
 
@@ -16,5 +17,9 @@ class AppServiceProvider extends ServiceProvider
             'layouts.app',
             'App\Http\ViewComposers\PlatformViewComposer'
         );
+
+        if (app()->isProduction()) {
+            URL::forceScheme('https');
+        }
     }
 }

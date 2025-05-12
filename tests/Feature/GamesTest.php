@@ -17,7 +17,7 @@ class GamesTest extends TestCase
      *
      * @return void
      */
-    public function testViewGamesPage()
+    public function test_view_games_page()
     {
         $user = factory(User::class)->create();
         $game = factory(Game::class)->create();

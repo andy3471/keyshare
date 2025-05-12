@@ -181,10 +181,10 @@ return [
         App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        //SocialiteProviders
+        // SocialiteProviders
         \SocialiteProviders\Manager\ServiceProvider::class,
 
-        //NotificationProviders
+        // NotificationProviders
         NotificationChannels\Discord\DiscordServiceProvider::class,
     ],
 

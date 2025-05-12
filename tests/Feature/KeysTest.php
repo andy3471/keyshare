@@ -18,7 +18,7 @@ class KeysTest extends TestCase
      *
      * @return void
      */
-    public function testUserCanCreateKey()
+    public function test_user_can_create_key()
     {
         $user = factory(User::class)->create();
         $gamename = $this->faker->realText(20);
@@ -34,10 +34,10 @@ class KeysTest extends TestCase
 
         $this->assertDatabaseHas('games', ['name' => $gamename]);
 
-        //Need to assert redirect.
+        // Need to assert redirect.
     }
 
-    public function testUserCanViewKey()
+    public function test_user_can_view_key()
     {
         $user = factory(User::class)->create();
         $game = factory(Game::class)->create();
