@@ -20,6 +20,10 @@ pipeline:
     cmd: |
       npm install
 
+  - name: Ziggy Generate
+    cmd: |
+      php artisan ziggy:generate
+
   - name: NPM Build
     cmd: |
       npm run build
@@ -35,3 +39,16 @@ pipeline:
         -t ghcr.io/andy3471/keyshare:latest \
         -f ./docker/production/Dockerfile .
       docker push ghcr.io/andy3471/keyshare:latest
+
+  - name: Deploy to Server
+    secrets:
+      - DEPLOY_KEY
+    cmd: |
+      ssh -o StrictHostKeyChecking=no admin@andrewflix.uk "
+        cd /home/admin/keyshare-demo &&
+        docker compose pull &&
+        docker compose up -d &&
+        docker compose exec -T keyshare php artisan view:cache &&
+        docker compose exec -T keyshare php artisan migrate --force &&
+        docker compose exec -T keyshare php artisan cache:all
+      "
