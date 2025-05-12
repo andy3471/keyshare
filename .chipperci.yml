@@ -20,9 +20,9 @@ pipeline:
     cmd: |
       npm install
 
-  - name: Ziggy Generate
-    cmd: |
-      php artisan ziggy:generate
+#  - name: Ziggy Generate
+#    cmd: |
+#      php artisan ziggy:generate
 
   - name: NPM Build
     cmd: |
