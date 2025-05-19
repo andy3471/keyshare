@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
@@ -35,19 +37,19 @@ class KeyController extends Controller
     {
 
         $this->validate($request, [
-            'key_type' => 'required',
+            'key_type'    => 'required',
             'platform_id' => 'required',
-            'key' => 'required',
-            'message' => 'max:255',
+            'key'         => 'required',
+            'message'     => 'max:255',
         ]);
 
-        $key = new Key;
-        $key->platform_id = $request->platform_id;
-        $key->keycode = $request->key;
-        $key->message = $request->message;
+        $key                  = new Key;
+        $key->platform_id     = $request->platform_id;
+        $key->keycode         = $request->key;
+        $key->message         = $request->message;
         $key->created_user_id = auth()->user()->id;
 
-        if ($request->key_type == '1' or $request->key_type == '2') {
+        if ($request->key_type === '1' || $request->key_type === '2') {
             $game = Game::where('name', $request->gamename)->first();
 
             if (! $game) {
@@ -56,10 +58,10 @@ class KeyController extends Controller
                     $igdb = Igdb::select(['name', 'summary', 'id'])->with(['cover' => ['image_id']])->where('name', '=', $request->gamename)->first();
 
                     if ($igdb) {
-                        $game->name = $igdb->name;
-                        $game->description = $igdb->summary;
-                        $game->igdb_id = $igdb->id;
-                        $game->image = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
+                        $game->name         = $igdb->name;
+                        $game->description  = $igdb->summary;
+                        $game->igdb_id      = $igdb->id;
+                        $game->image        = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
                         $game->igdb_updated = Carbon::today();
                     } else {
                         $game->name = $request->gamename;
@@ -67,6 +69,7 @@ class KeyController extends Controller
                 } else {
                     $game->name = $request->gamename;
                 }
+
                 $game->created_user_id = auth()->user()->id;
                 $game->save();
             }
@@ -74,7 +77,7 @@ class KeyController extends Controller
             $key->game_id = $game->id;
         }
 
-        if ($request->key_type == '2') {
+        if ($request->key_type === '2') {
             $dlc = Dlc::firstOrCreate(
                 ['name' => $request->dlcname, 'game_id' => $game->id],
                 ['created_user_id' => $key->created_user_id]
@@ -92,7 +95,7 @@ class KeyController extends Controller
 
         Redis::zincrby('karma', 1, auth()->id());
 
-        return redirect()->back()->with('message', __('keys.added'));
+        return back()->with('message', __('keys.added'));
     }
 
     // TODO: Use route model binding
@@ -114,10 +117,10 @@ class KeyController extends Controller
 
             Redis::zincrby('karma', -1, auth()->id());
 
-            return redirect()->back()->with('message', __('keys.claimsuccess'));
-        } else {
-            return redirect()->back()->with('error', __('keys.alreadyclaimederror'));
+            return back()->with('message', __('keys.claimsuccess'));
         }
+
+        return back()->with('error', __('keys.alreadyclaimederror'));
     }
 
     public function claimed(): View

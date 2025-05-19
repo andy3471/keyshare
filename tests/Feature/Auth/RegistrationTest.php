@@ -1,21 +1,23 @@
 <?php
 
-use App\Providers\RouteServiceProvider;
+declare(strict_types=1);
 
-test('registration screen can be rendered', function () {
+use App\Providers\AppServiceProvider;
+
+test('registration screen can be rendered', function (): void {
     $response = $this->get('/register');
 
     $response->assertStatus(200);
 });
 
-test('new users can register', function () {
+test('new users can register', function (): void {
     $response = $this->post('/register', [
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => 'password',
+        'name'                  => 'Test User',
+        'email'                 => 'test@example.com',
+        'password'              => 'password',
         'password_confirmation' => 'password',
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(RouteServiceProvider::HOME);
+    $response->assertRedirect(AppServiceProvider::HOME);
 });

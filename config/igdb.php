@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 return [
-    'enabled' => env('TWITCH_API_ENABLED', 'false'),
+    'enabled'     => env('TWITCH_API_ENABLED', 'false'),
     'update_freq' => env('TWITCH_UPDATE_FREQ', 180),
 
     /*
      * These are the credentials you got from https://dev.twitch.tv/console/apps
      */
     'credentials' => [
-        'client_id' => env('TWITCH_CLIENT_ID', ''),
+        'client_id'     => env('TWITCH_CLIENT_ID', ''),
         'client_secret' => env('TWITCH_CLIENT_SECRET', ''),
     ],
 

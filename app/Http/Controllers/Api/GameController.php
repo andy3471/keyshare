@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -17,7 +19,7 @@ class GameController extends Controller
             ->where('keys.owned_user_id', '=', null)
             ->where('games.removed', '=', '0')
             ->where('keys.removed', '=', '0')
-            ->orderby('games.name')
+            ->oldest('games.name')
             ->paginate(12);
 
         return response()->json($games);

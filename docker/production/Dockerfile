@@ -7,7 +7,7 @@ RUN install-php-extensions \
     pdo_pgsql \
     zip \
     gd
-    
+
 COPY . /app
 
 CMD ["php", "artisan", "octane:frankenphp"]

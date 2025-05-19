@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api;
 
 use App\Models\Game;
@@ -25,7 +27,7 @@ class SearchController
         return response()->json($games);
     }
 
-    public function autoCompleteGames($search): JsonResponse
+    public function autoCompleteGames(string $search): JsonResponse
     {
         if (config('igdb.enabled')) {
             $games = Igdb::select(['name', 'id'])->search($search)->get();
@@ -42,7 +44,7 @@ class SearchController
     }
 
     // TODO: Refactor
-    public function autoCompleteDlc($gamename, $search): JsonResponse
+    public function autoCompleteDlc($gamename, string $search): JsonResponse
     {
         $game = Game::where('name', $gamename)
             ->firstOrFail();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
@@ -15,16 +17,16 @@ class HomeController extends Controller
 
     public function home(): RedirectResponse
     {
-        return redirect()->route('games.index');
+        return to_route('games.index');
     }
 
     public function index(): View|RedirectResponse
     {
         if (auth()->guest()) {
-            return view('auth.login');
+            return view(\Illuminate\Auth\Events\Login::class);
         }
 
-        return redirect()->route('games.index');
+        return to_route('games.index');
     }
 
     public function notApproved(): View

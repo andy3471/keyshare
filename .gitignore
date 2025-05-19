@@ -11,8 +11,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/.vagrant
-/public/images/logo_override.png
+/caddy
 frankenphp
+frankenphp-worker.php
 /config/composer
 /data

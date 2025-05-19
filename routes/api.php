@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,7 +20,7 @@ use App\Http\Controllers\Api\KeyController;
 use App\Http\Controllers\Api\PlatformController;
 use App\Http\Controllers\Api\SearchController;
 
-Route::middleware(['auth', 'approved'])->group(function () {
+Route::middleware(['auth', 'approved'])->name('api.')->group(function (): void {
     Route::resource('platforms', PlatformController::class)->only(['index', 'show']);
 
     Route::get('search', [SearchController::class, 'index'])->name('search.index');

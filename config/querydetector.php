@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     /*
      * Enable or disable the query detection.
@@ -63,9 +65,9 @@ return [
      * \BeyondCode\QueryDetector\Outputs\Log::class
      */
     'output' => [
-        \BeyondCode\QueryDetector\Outputs\Alert::class,
+        BeyondCode\QueryDetector\Outputs\Alert::class,
         //        \BeyondCode\QueryDetector\Outputs\Console::class,
-        \BeyondCode\QueryDetector\Outputs\Log::class,
-        \BeyondCode\QueryDetector\Outputs\Debugbar::class,
+        BeyondCode\QueryDetector\Outputs\Log::class,
+        BeyondCode\QueryDetector\Outputs\Debugbar::class,
     ],
 ];

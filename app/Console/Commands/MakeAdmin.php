@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Models\User;
@@ -22,7 +24,7 @@ class MakeAdmin extends Command
         }
 
         $user->update([
-            'admin' => 1,
+            'admin'    => 1,
             'approved' => 1,
         ]);
 

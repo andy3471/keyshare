@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\GameResource\Pages;
@@ -89,9 +91,9 @@ class GameResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListGames::route('/'),
+            'index'  => Pages\ListGames::route('/'),
             'create' => Pages\CreateGame::route('/create'),
-            'edit' => Pages\EditGame::route('/{record}/edit'),
+            'edit'   => Pages\EditGame::route('/{record}/edit'),
         ];
     }
 }

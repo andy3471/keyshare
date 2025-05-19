@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Game;
@@ -13,8 +15,8 @@ class GameFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->realText(20),
-            'description' => fake()->paragraph($nbSentences = 1),
+            'name'            => fake()->unique()->realText(20),
+            'description'     => fake()->paragraph($nbSentences = 1),
             'created_user_id' => User::all()->random()->id,
         ];
     }

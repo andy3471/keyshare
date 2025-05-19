@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -30,16 +32,25 @@ class Game extends Model
         );
     }
 
+    /**
+     * @return HasMany<Dlc, $this>
+     */
     public function dlcs(): HasMany
     {
         return $this->hasMany(Dlc::class);
     }
 
+    /**
+     * @return HasMany<Key, $this>
+     */
     public function keys(): HasMany
     {
         return $this->hasMany(Key::class);
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_user_id');

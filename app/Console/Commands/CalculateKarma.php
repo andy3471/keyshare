@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
@@ -17,7 +19,7 @@ class CalculateKarma extends Command
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(): void
     {
         // TODO: Tidy code duplication
 
