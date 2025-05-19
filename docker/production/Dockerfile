@@ -5,8 +5,9 @@ RUN install-php-extensions \
     pdo_mysql \
     redis \
     pdo_pgsql \
-    zip
-
+    zip \
+    gd
+    
 COPY . /app
 
-ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
+CMD ["php", "artisan", "octane:frankenphp"]
