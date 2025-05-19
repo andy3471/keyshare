@@ -13,3 +13,6 @@ npm-debug.log
 yarn-error.log
 /.vagrant
 /public/images/logo_override.png
+frankenphp
+/config/composer
+/data
