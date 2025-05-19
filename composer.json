@@ -12,10 +12,12 @@
         "inertiajs/inertia-laravel": "^1.0",
         "laravel-notification-channels/discord": "^1.6.0",
         "laravel/framework": "^11.0",
+        "laravel/octane": "^2.9",
         "laravel/socialite": "^5.12",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.4",
         "marcreichel/igdb-laravel": "^4.1",
+        "sentry/sentry-laravel": "^4.13",
         "socialiteproviders/steam": "^4.2",
         "spatie/laravel-html": "^3.6"
     },

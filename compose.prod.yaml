@@ -17,7 +17,7 @@ services:
       - "traefik.http.routers.keyshare-demo.entrypoints=websecure"
       - "traefik.http.routers.keyshare-demo.tls=true"
       - "traefik.http.routers.keyshare-demo.tls.certresolver=le"
-      - "traefik.http.services.keyshare-demo.loadbalancer.server.port=80"
+      - "traefik.http.services.keyshare-demo.loadbalancer.server.port=8000"
       - "traefik.docker.network=traefik"
 
   postgres:
