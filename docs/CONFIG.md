@@ -44,7 +44,7 @@ A boolean value, this controls if users need approval to sign in, we recommend s
 
 Configures how keyshare logs it's config. Can be configured to any [laravel supported logging driver](https://laravel.com/docs/6.x/logging)
 
-### CACHE_DRIVER
+### CACHE_STORE
 
 This should always be Redis. We recommend installing redis in our install guide.
 
@@ -52,7 +52,7 @@ This should always be Redis. We recommend installing redis in our install guide.
 
 Not currently in use
 
-### BROADCAST_DRIVER
+### BROADCAST_CONNECTION
 
 Not currently in use
 
