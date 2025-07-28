@@ -20,8 +20,8 @@ namespace App\Models{
  * @property string $name
  * @property string|null $description
  * @property string $image
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @property int $created_user_id
  * @property-read \App\Models\Game $game
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $keys
@@ -48,11 +48,11 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
- * @property string $description
+ * @property string|null $description
  * @property int $created_user_id
  * @property string $image
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @property int $removed
  * @property int|null $igdb_id
  * @property string|null $igdb_updated
@@ -102,8 +102,8 @@ namespace App\Models{
  * @property string $keycode
  * @property int|null $owned_user_id
  * @property int $created_user_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @property string|null $message
  * @property int $removed
  * @property int|null $key_type_id
@@ -148,8 +148,8 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|KeyType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|KeyType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|KeyType query()
@@ -169,8 +169,8 @@ namespace App\Models{
  * @property int $user_id
  * @property int $linked_account_provider_id
  * @property string $account_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @property string|null $profileurl
  * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount newModelQuery()
@@ -193,8 +193,8 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $keys
  * @property-read int|null $keys_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Platform newModelQuery()
@@ -217,8 +217,8 @@ namespace App\Models{
  * @property string $name
  * @property string|null $description
  * @property string|null $image
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @property int $created_user_id
  * @method static \Database\Factories\SubscriptionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription newModelQuery()
@@ -243,11 +243,11 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $email
- * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property \Carbon\CarbonImmutable|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
  * @property string $image
  * @property string|null $bio
  * @property int $approved
@@ -255,7 +255,7 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $claimedKeys
  * @property-read int|null $claimed_keys_count
  * @property-read mixed $karma
- * @property-read mixed $karma_colour
+ * @property-read string $karma_colour
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\LinkedAccount> $linkedAccounts
  * @property-read int|null $linked_accounts_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
