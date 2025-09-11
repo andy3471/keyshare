@@ -10,7 +10,7 @@
         "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
         "@tailwindcss/typography": "^0.5.15",
         "@vitejs/plugin-vue2": "^1.1.2",
-        "axios": "^1.6.7",
+        "axios": "^1.12.0",
         "bootstrap": "^4.5.2",
         "cross-env": "^5.2.1",
         "jquery": "^3.5.1",
