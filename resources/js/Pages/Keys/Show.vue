@@ -16,7 +16,7 @@
                     <div class="flex flex-col lg:flex-row gap-6">
                         <!-- Game Image -->
                         <div class="flex-shrink-0">
-                            <Link :href="keyData.game.url || '#'" class="block">
+                            <Link :href="games.show.url(keyData.game.id)" class="block">
                                 <div class="w-[180px]">
                                     <img
                                         v-if="keyData.game.image"
@@ -39,7 +39,7 @@
 
                         <!-- Game Details -->
                         <div class="flex-1">
-                            <Link :href="keyData.game.url || '#'" class="block mb-4">
+                            <Link :href="games.show.url(keyData.game.id)" class="block mb-4">
                                 <h1 class="text-3xl font-bold text-white hover:text-accent-400 transition-colors mb-2">
                                     {{ keyData.game.name }}
                                 </h1>
@@ -221,6 +221,7 @@ import { Head } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { KeyData } from '@/Types/generated';
 import keys from '@/routes/keys';
+import games from '@/routes/games';
 
 interface Props {
     keyData: KeyData;
@@ -232,7 +233,6 @@ const props = defineProps<Props>();
 const keyData = computed(() => props.keyData);
 
 const page = usePage();
-const auth = (page.props.auth as { user: any | null }) || { user: null };
 const flash = (page.props.flash as { message?: string; error?: string }) || {};
 
 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
