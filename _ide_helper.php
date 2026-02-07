@@ -26017,6 +26017,16 @@ namespace Illuminate\Support {
             return \Illuminate\Support\Collection::debug();
         }
 
+        /**
+         * @see \Spatie\LaravelRay\RayServiceProvider::registerMacros()
+         * @param string $description
+         * @static
+         */
+        public static function ray($description = '')
+        {
+            return \Illuminate\Support\Collection::ray($description);
+        }
+
             }
     /**
      */
@@ -26036,6 +26046,16 @@ namespace Illuminate\Support {
     /**
      */
     class Stringable {
+        /**
+         * @see \Spatie\LaravelRay\RayServiceProvider::registerMacros()
+         * @param string $description
+         * @static
+         */
+        public static function ray($description = '')
+        {
+            return \Illuminate\Support\Stringable::ray($description);
+        }
+
         /**
          * @see \Filament\Support\SupportServiceProvider::packageBooted()
          * @return \Illuminate\Support\Stringable
@@ -26254,6 +26274,15 @@ namespace Illuminate\Testing {
             return \Illuminate\Testing\TestResponse::inertiaProps($propName);
         }
 
+        /**
+         * @see \Spatie\LaravelRay\RayServiceProvider::registerMacros()
+         * @static
+         */
+        public static function ray()
+        {
+            return \Illuminate\Testing\TestResponse::ray();
+        }
+
             }
     }
 
@@ -26277,6 +26306,15 @@ namespace Illuminate\Database\Query {
         public static function getSelect()
         {
             return \Illuminate\Database\Query\Builder::getSelect();
+        }
+
+        /**
+         * @see \Spatie\LaravelRay\RayServiceProvider::registerMacros()
+         * @static
+         */
+        public static function ray()
+        {
+            return \Illuminate\Database\Query\Builder::ray();
         }
 
             }
@@ -34738,6 +34776,15 @@ namespace  {
         {
             /** @var \Illuminate\Database\Query\Builder $instance */
             return $instance->macroCall($method, $parameters);
+        }
+
+        /**
+         * @see \Spatie\LaravelRay\RayServiceProvider::registerMacros()
+         * @static
+         */
+        public static function ray()
+        {
+            return \Illuminate\Database\Query\Builder::ray();
         }
 
 }

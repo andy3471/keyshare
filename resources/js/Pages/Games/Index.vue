@@ -13,6 +13,7 @@ import { Head, usePage } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import GameList from '@/Components/GameList.vue';
 import GameFilters from '@/Components/GameFilters.vue';
+import { PlatformData } from '@/Types/generated';
 
 interface Props {
     title: string;
@@ -29,6 +30,6 @@ interface Props {
 const props = defineProps<Props>();
 
 const page = usePage();
-const platforms = (page.props.platforms as Array<{ id: string; name: string }> | undefined) || [];
+const platforms = (page.props.platforms as PlatformData[] | undefined) || [];
 const selectedPlatforms = props.selectedPlatforms || [];
 </script>

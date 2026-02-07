@@ -98,7 +98,7 @@
                             <p class="text-gray-400 text-sm text-center">Click to claim this key</p>
                         </div>
 
-                        <div v-else-if="keyData.owned_user_id === auth.user?.id" class="space-y-4">
+                        <div v-else-if="keyData.key" class="space-y-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-300 mb-2">Your Key Code</label>
                                 <div class="relative">

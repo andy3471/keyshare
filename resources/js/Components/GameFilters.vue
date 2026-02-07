@@ -79,14 +79,10 @@
 import { ref, watch, onMounted, onUnmounted } from 'vue';
 import { router } from '@inertiajs/vue3';
 import { usePage } from '@inertiajs/vue3';
-
-interface Platform {
-    id: string;
-    name: string;
-}
+import { PlatformData } from '@/Types/generated';
 
 interface Props {
-    platforms: Platform[];
+    platforms: PlatformData[];
     selectedPlatforms?: string[];
 }
 

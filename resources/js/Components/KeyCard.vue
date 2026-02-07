@@ -8,7 +8,7 @@
                 {{ keyData.platform?.name || 'Unknown Platform' }}
             </span>
             <div
-                v-if="keyData.owned_user_id === null"
+                v-if="keyData.can.claim"
                 class="flex items-center space-x-1 text-success text-xs font-medium"
             >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
