@@ -30,7 +30,7 @@ class UserData extends Data
             name: $user->name,
             email: $user->email,
             avatar: $user->avatar               ?? null,
-            bio: $user->bio                   ?? null,
+            bio: $user->bio                     ?? null,
             karma: $user->karma !== null ? (int) $user->karma : null,
             karma_colour: $user->karma_colour ?? 'badge-info',
             is_admin: $user->is_admin         ?? false,

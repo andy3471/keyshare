@@ -102,12 +102,6 @@
                                     Shared Keys
                                 </Link>
                                 <div class="border-t border-dark-700 my-1"></div>
-                                <Link
-                                    :href="passwordReset.request.url()"
-                                    class="block px-4 py-2 text-sm text-gray-300 hover:bg-accent-600 hover:text-white transition-colors"
-                                >
-                                    Change Password
-                                </Link>
                                 <form :action="logoutRoute.url()" method="POST" @submit.prevent="logout">
                                     <input type="hidden" name="_token" :value="csrfToken" />
                                     <button
