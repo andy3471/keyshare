@@ -3,17 +3,12 @@ import { Head, usePage } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import GameList from '@/Components/GameList.vue';
 import GameFilters from '@/Components/GameFilters.vue';
-import { PlatformData } from '@/Types/generated';
+import { GameData, PlatformData } from '@/Types/generated';
+import type { Paginated } from '@/types/global';
 
 interface Props {
   title: string;
-  games: {
-    data: { id: number; name: string; image?: string; url: string; hasKey?: boolean; keyCount?: number }[];
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-  };
+  games: Paginated<GameData>;
   selectedPlatforms?: string[];
 }
 

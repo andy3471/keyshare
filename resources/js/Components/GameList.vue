@@ -2,27 +2,11 @@
 import { Link, InfiniteScroll } from '@inertiajs/vue3';
 import KeyAvailabilityBadge from './KeyAvailabilityBadge.vue';
 import gamesRoute from '@/routes/games';
-
-interface Game {
-  id: string;
-  igdb_id?: string;
-  name: string;
-  image?: string;
-  url?: string;
-  hasKey?: boolean;
-  keyCount?: number;
-}
-
-interface GamesData {
-  data: Game[];
-  current_page: number;
-  last_page: number;
-  per_page: number;
-  total: number;
-}
+import { GameData } from '@/Types/generated';
+import type { Paginated } from '@/types/global';
 
 interface Props {
-  games?: GamesData;
+  games?: Paginated<GameData>;
   scrollProp?: string;
 }
 
@@ -49,7 +33,7 @@ const props = withDefaults(defineProps<Props>(), {
         v-for="game in games.data"
         :key="game.id"
         class="game-card group relative"
-        :class="{ 'has-keys': game.hasKey }"
+        :class="{ 'has-keys': game.keyCount !== undefined }"
       >
         <Link :href="gamesRoute.show.url(game.id)">
           <KeyAvailabilityBadge

@@ -5,19 +5,14 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import TitleHeader from '@/Components/TitleHeader.vue';
 import GameList from '@/Components/GameList.vue';
 import KeyCard from '@/Components/KeyCard.vue';
-import { GameShowData } from '@/Types/generated';
+import { GameData, GameShowData } from '@/Types/generated';
+import type { Paginated } from '@/types/global';
 import gamesRoute from '@/routes/games';
 
 interface Props {
   game: GameShowData['game'];
   keys: GameShowData['keys'];
-  childGames?: {
-    data: { id: number; igdb_id: number; name: string; image?: string; url: string; hasKey: boolean; keyCount: number }[];
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-  };
+  childGames?: Paginated<GameData>;
   igdb?: {
     aggregated_rating?: number;
     aggregated_rating_count?: number;

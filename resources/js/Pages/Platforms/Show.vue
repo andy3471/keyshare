@@ -1,17 +1,12 @@
 <script setup lang="ts">
 import AppLayout from '@/Layouts/AppLayout.vue';
 import GameList from '@/Components/GameList.vue';
-import { PlatformData } from '@/Types/generated';
+import { GameData, PlatformData } from '@/Types/generated';
+import type { Paginated } from '@/types/global';
 
 interface Props {
   platform: PlatformData;
-  games: {
-    data: { id: number; name: string; image?: string; url: string; hasKey?: boolean; keyCount?: number }[];
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-  };
+  games: Paginated<GameData>;
 }
 
 defineProps<Props>();
