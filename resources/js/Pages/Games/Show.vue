@@ -6,7 +6,7 @@
             <div v-if="parentGame" class="mb-6">
                 <div class="bg-dark-800 rounded-lg border border-dark-700 p-4 flex items-center gap-4">
                     <span class="text-sm text-gray-400">DLC for:</span>
-                    <Link :href="parentGame.url" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                    <Link :href="gamesRoute.show.url(parentGame.id)" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
                         <img
                             v-if="parentGame.image"
                             :src="parentGame.image"
@@ -193,6 +193,7 @@ import TitleHeader from '@/Components/TitleHeader.vue';
 import GameList from '@/Components/GameList.vue';
 import KeyCard from '@/Components/KeyCard.vue';
 import { GameShowData } from '@/Types/generated';
+import gamesRoute from '@/routes/games';
 
 interface Props {
     game: GameShowData['game'];
@@ -209,10 +210,9 @@ interface Props {
         aggregated_rating_count?: number;
     };
     parentGame?: {
-        igdb_id: number;
+        id: string;
         name: string;
         image?: string;
-        url: string;
     };
 }
 

@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use MarcReichel\IGDBLaravel\Models\Game as IgdbGame;
 use MarcReichel\IGDBLaravel\Models\Genre;
-use MarcReichel\IGDBLaravel\Models\Screenshot;
 
 class Game extends Model
 {
@@ -145,7 +144,7 @@ class Game extends Model
         });
     }
 
-    /** @return Attribute<array<int, Screenshot>, never> */
+    /** @return Attribute<int, never> */
     protected function aggregatedRating(): Attribute
     {
         return Attribute::make(get: function (): ?string {
@@ -155,13 +154,23 @@ class Game extends Model
         });
     }
 
-    /** @return Attribute<array<int, Screenshot>, never> */
+    /** @return Attribute<int, never> */
     protected function aggregatedRatingCount(): Attribute
     {
         return Attribute::make(get: function (): ?string {
             $igdb = $this->getIgdbData();
 
             return $igdb->aggregated_rating_count;
+        });
+    }
+
+    /** @return Attribute<int, never> */
+    protected function parentGameId(): Attribute
+    {
+        return Attribute::make(get: function (): ?int {
+            $igdb = $this->getIgdbData();
+
+            return $igdb->parent_game;
         });
     }
 }

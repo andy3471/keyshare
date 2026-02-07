@@ -27,7 +27,6 @@ class GameData extends Data
         public Optional|Lazy|int $aggregated_rating_count =  new Optional(),
         public ?string $description = null,
         public ?string $image = null,
-        public ?string $url = null,
         public int|Optional|Lazy $keyCount = new Optional(),
     ) {}
 
@@ -40,7 +39,6 @@ class GameData extends Data
             screenshots: Lazy::create(fn (): DataCollection|\Spatie\LaravelData\PaginatedDataCollection|\Spatie\LaravelData\CursorPaginatedDataCollection|\Illuminate\Support\Enumerable|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Contracts\Pagination\CursorPaginator|array => ScreenshotData::collect($game->screenshots)),
             description: $game->description ?? null,
             image: $game->image,
-            url: route('games.show', $game->igdb_id),
             keyCount: Lazy::create(fn () => $game->keys()
                 ->whereNull('owned_user_id')
                 ->where('removed', '=', '0')

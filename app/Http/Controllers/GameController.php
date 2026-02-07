@@ -7,10 +7,8 @@ namespace App\Http\Controllers;
 use App\DataTransferObjects\GameData;
 use App\DataTransferObjects\KeyData;
 use App\Models\Game;
-use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 use Inertia\Response;
 use MarcReichel\IGDBLaravel\Models\Game as IgdbGame;
@@ -50,98 +48,7 @@ class GameController extends Controller
     {
         $game = Game::fromIgdbId((int) $igdb_id);
 
-        $igdbModel = IgdbGame::select([
-            'name',
-            'summary',
-            'id',
-            'parent_game',
-            'aggregated_rating',
-            'aggregated_rating_count',
-        ])
-            ->with(['cover' => ['image_id'], 'genres', 'screenshots'])
-            ->where('id', '=', $game->igdb_id)
-            ->first();
-
-        $igdb        = null;
-        $parentGame  = null;
-
-        if ($igdbModel instanceof IgdbGame) {
-            $parentIgdbId = null;
-
-            // Check if parent_game exists and is not null/empty
-            if (isset($igdbModel->parent_game) && $igdbModel->parent_game !== null && $igdbModel->parent_game !== '') {
-                // parent_game might be an integer ID directly
-                if (is_int($igdbModel->parent_game) && $igdbModel->parent_game > 0) {
-                    $parentIgdbId = $igdbModel->parent_game;
-                }
-                // Or it might be an object with an id property
-                elseif (is_object($igdbModel->parent_game) && isset($igdbModel->parent_game->id)) {
-                    $parentIgdbId = $igdbModel->parent_game->id;
-                }
-                // Or it might be an array (if multiple parents, take first)
-                elseif (is_array($igdbModel->parent_game) && $igdbModel->parent_game !== []) {
-                    $firstParent  = $igdbModel->parent_game[0];
-                    $parentIgdbId = is_int($firstParent) ? $firstParent : ($firstParent->id ?? null);
-                }
-            }
-
-            if ($parentIgdbId && config('igdb.enabled')) {
-                $igdbParent = IgdbGame::select(['name', 'summary', 'id'])
-                    ->with(['cover' => ['image_id']])
-                    ->where('id', '=', $parentIgdbId)
-                    ->first();
-
-                if ($igdbParent) {
-                    $parentGame = GameData::fromIgdb($igdbParent);
-                }
-            }
-
-            // Get child games (DLCs) from IGDB with pagination
-            // Query IGDB for games where parent_game equals this game's IGDB ID
-            $childGamesPaginated = null;
-
-            // Use a cache key based on the game's IGDB ID to avoid re-fetching on every request
-            $cacheKey = 'game_dlcs_'.$game->igdb_id;
-
-            // Fetch all DLCs from IGDB (up to limit) - cache this since it doesn't change often
-            $allChildGames = Cache::remember($cacheKey, 3600, function () use ($game) {
-                return IgdbGame::select(['name', 'summary', 'id'])
-                    ->with(['cover' => ['image_id']])
-                    ->where('parent_game', '=', $game->igdb_id)
-                    ->limit(config('igdb.per_page_limit', 500))
-                    ->get();
-            });
-
-            // Create paginator manually
-            // Note: InfiniteScroll with Inertia::scroll() uses the prop name to scope pagination
-            // So 'childGames' scroll prop will use 'childGames_page' automatically
-            $perPage     = 12;
-            $currentPage = (int) $request->get('childGames_page', 1);
-            $total       = $allChildGames->count();
-
-            // Ensure we don't go beyond available pages
-            $lastPage    = (int) ceil($total / $perPage);
-            $currentPage = min($currentPage, max(1, $lastPage));
-
-            $items = $allChildGames->forPage($currentPage, $perPage)
-                ->map(fn (IgdbGame $igdbChild): GameData => GameData::fromIgdb($igdbChild)->include('hasKey', 'keyCount'))
-                ->values();
-
-            // Build query parameters, preserving existing ones
-            $queryParams = $request->except('childGames_page');
-
-            $childGamesPaginated = new LengthAwarePaginator(
-                $items,
-                $total,
-                $perPage,
-                $currentPage,
-                [
-                    'path'     => $request->url(),
-                    'query'    => $queryParams,
-                    'pageName' => 'childGames_page',
-                ]
-            );
-        }
+        abort_if(! $game instanceof Game, 404);
 
         return Inertia::render('Games/Show', [
             'game'        => fn (): GameData => GameData::from($game)->include('genres', 'screenshots', 'aggregated_rating', 'aggregated_rating_count'),
@@ -153,9 +60,54 @@ class GameController extends Controller
                         ->with('platform', 'createdUser')
                         ->get(), DataCollection::class)
             ),
-            'igdb'        => $igdb,
-            'parentGame'  => $parentGame,
-            'childGames'  => $childGamesPaginated ? Inertia::scroll(fn (): LengthAwarePaginator => $childGamesPaginated) : null,
+            'parentGame'  => function () use ($game): ?GameData {
+                $parentId = $game->parent_game_id;
+
+                if (! $parentId) {
+                    return null;
+                }
+
+                $igdbParent = IgdbGame::select(['name', 'summary', 'id'])
+                    ->with(['cover' => ['image_id']])
+                    ->where('id', '=', $parentId)
+                    ->first();
+
+                if ($igdbParent) {
+                    return GameData::fromIgdb($igdbParent);
+                }
+            },
+            'childGames'  => Inertia::scroll(function () use ($game, $request): LengthAwarePaginator {
+                $allChildGames = IgdbGame::select(['name', 'summary', 'id'])
+                    ->with(['cover' => ['image_id']])
+                    ->where('parent_game', '=', $game->igdb_id)
+                    ->limit(12)
+                    ->get();
+
+                $perPage     = 12;
+                $currentPage = (int) $request->get('childGames_page', 1);
+                $total       = $allChildGames->count();
+
+                $lastPage    = (int) ceil($total / $perPage);
+                $currentPage = min($currentPage, max(1, $lastPage));
+
+                $items = $allChildGames->forPage($currentPage, $perPage)
+                    ->map(fn (IgdbGame $igdbChild): GameData => GameData::fromIgdb($igdbChild)->include('keyCount'))
+                    ->values();
+
+                $queryParams = $request->except('childGames_page');
+
+                return new LengthAwarePaginator(
+                    $items,
+                    $total,
+                    $perPage,
+                    $currentPage,
+                    [
+                        'path'     => $request->url(),
+                        'query'    => $queryParams,
+                        'pageName' => 'childGames_page',
+                    ]
+                );
+            }),
         ]);
     }
 }

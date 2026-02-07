@@ -5,98 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f8ec7e7-8720-40c0-ab26-25fecdfce236" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/DataTransferObjects/GenreData.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/DataTransferObjects/ScreenshotData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/keyshare.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/keyshare.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/GameData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/GameData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Exceptions/Handler.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exceptions/Handler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Filament/Plugins/KeyshareTheme.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Filament/Resources/GameResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Filament/Resources/Games/GameResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Filament/Resources/GameResource/Pages/CreateGame.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Filament/Resources/GameResource/Pages/EditGame.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Filament/Resources/GameResource/Pages/ListGames.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Filament/Resources/Games/Pages/ListGames.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Filament/Resources/UserResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Filament/Resources/Users/UserResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Filament/Resources/UserResource/Pages/CreateUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Filament/Resources/Users/Pages/CreateUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Filament/Resources/UserResource/Pages/EditUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Filament/Resources/Users/Pages/EditUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Filament/Resources/UserResource/Pages/ListUsers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Filament/Resources/Users/Pages/ListUsers.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GameController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GameController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/KeyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/KeyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Auth/LoginRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Auth/LoginRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Game.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Game.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/Filament/AdminPanelProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/Filament/AdminPanelProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/igdb.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/igdb.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/octane.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/octane.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/filament/filament/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/filament/filament/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/filament/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/filament/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/filament/echo.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/filament/echo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/color-picker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/color-picker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/date-time-picker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/date-time-picker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/file-upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/file-upload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/key-value.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/key-value.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/markdown-editor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/markdown-editor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/rich-editor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/rich-editor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/select.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/select.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/tags-input.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/tags-input.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/forms/components/textarea.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/forms/components/textarea.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/notifications/notifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/notifications/notifications.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/support/support.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/support/support.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/widgets/components/chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/widgets/components/chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/filament/widgets/components/stats-overview/stat/chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/filament/widgets/components/stats-overview/stat/chart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/css/filament/admin/tailwind.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/css/filament/admin/theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Components/GameList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Components/GameList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Components/KeyAvailabilityBadge.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Components/KeyAvailabilityBadge.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Games/Show.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Games/Show.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/GameResource/Pages/CreateGame.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/GameResource/Pages/EditGame.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/GameResource/Pages/ListGames.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/GameResource/Pages/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/GameResource/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/UserResource/Pages/CreateUser.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/UserResource/Pages/EditUser.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/UserResource/Pages/ListUsers.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/UserResource/Pages/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/UserResource/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/GameController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/GameController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/KeyController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/KeyController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/SearchController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/SearchController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Actions/Exports/Http/Controllers/DownloadExport.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/Filament/Actions/Exports/Http/Controllers/DownloadExport.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Http/Controllers/Auth/LogoutController.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Http/Controllers/Auth/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Http/Controllers/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Http/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Pages/Auth/Login.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Pages/Auth/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Pages/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/Filament/Pages/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/Filament/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Livewire/Features/SupportFileUploads/FilePreviewController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/Livewire/Features/SupportFileUploads/FilePreviewController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Livewire/Features/SupportFileUploads/FileUploadController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/Livewire/Features/SupportFileUploads/FileUploadController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Livewire/Mechanisms/FrontendAssets/FrontendAssets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/Livewire/Mechanisms/FrontendAssets/FrontendAssets.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Livewire/Mechanisms/HandleRequests/HandleRequests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/Livewire/Mechanisms/HandleRequests/HandleRequests.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/autocomplete/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/autocomplete/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/default/livewire/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/default/livewire/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/filament/admin/auth/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/filament/admin/auth/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/filament/admin/resources/games/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/filament/admin/resources/games/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/filament/admin/resources/users/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/filament/admin/resources/users/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/filament/exports/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/filament/exports/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/games/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/games/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/claimed/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/claimed/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/shared/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/shared/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/livewire/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/livewire/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/search/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/search/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/vite.config.mjs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
