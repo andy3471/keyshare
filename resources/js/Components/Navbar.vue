@@ -20,19 +20,21 @@
                     </Link>
 
                     <!-- Search -->
-                    <form :action="search.index.url()" method="GET" class="flex items-center ml-2">
-                        <div class="relative">
-                            <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                            <input
-                                type="search"
+                    <div class="flex items-center ml-2">
+                        <div class="relative w-64">
+                            <Autocomplete
+                                id="navbar-search"
                                 name="search"
                                 placeholder="Search games..."
-                                class="w-64 pl-10 pr-4 py-2 bg-dark-800 border border-dark-600 text-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500"
+                                url="/autocomplete/games"
+                                input-class="w-64 pl-10 pr-4 py-2 bg-dark-800 border border-dark-600 text-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500"
+                                @select="handleGameSelect"
                             />
+                            <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
                         </div>
-                    </form>
+                    </div>
 
                     <!-- User Dropdown -->
                     <div class="relative group">
@@ -130,7 +132,7 @@
 </template>
 
 <script setup lang="ts">
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import { Link, useForm, usePage, router } from '@inertiajs/vue3';
 import { index, logout as logoutRoute, login } from '@/routes';
 import games from '@/routes/games';
 import keys from '@/routes/keys';
@@ -138,6 +140,7 @@ import users from '@/routes/users';
 import search from '@/routes/search';
 import passwordReset from '@/routes/password/reset';
 import loginLinkedAccount from '@/routes/login';
+import Autocomplete from './Autocomplete.vue';
 
 const page = usePage();
 // Ensure auth is always defined, even if user is null
@@ -149,5 +152,19 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribut
 const logout = () => {
     const form = useForm({});
     form.post(logoutRoute.url());
+};
+
+const handleGameSelect = (item: any) => {
+    // Navigate to the game page using IGDB ID
+    if (item && item.id) {
+        router.visit(games.show.url({ igdb_id: item.id }));
+    }
+};
+
+const handleSearch = (query: string) => {
+    // Navigate to the full search results page
+    if (query && query.trim().length > 0) {
+        router.visit(search.index.url({ search: query.trim() }));
+    }
 };
 </script>

@@ -101,13 +101,29 @@
                         <div v-else-if="keyData.owned_user_id === auth.user?.id" class="space-y-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-300 mb-2">Your Key Code</label>
-                                <input
-                                    name="key"
-                                    class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full opacity-60 cursor-not-allowed font-mono text-lg tracking-wider"
-                                    type="text"
-                                    :value="keyData.keycode"
-                                    disabled
-                                />
+                                <div class="relative">
+                                    <input
+                                        :id="`keycode-${keyData.id}`"
+                                        name="key"
+                                        readonly
+                                        class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 w-full font-mono text-lg tracking-wider cursor-text select-all"
+                                        type="text"
+                                        :value="keyData.keycode"
+                                    />
+                                    <button
+                                        type="button"
+                                        @click="copyKeyCode"
+                                        class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-dark-700 hover:bg-dark-600 text-gray-300 hover:text-white p-2 rounded-lg transition-colors"
+                                        :title="copied ? 'Copied!' : 'Copy to clipboard'"
+                                    >
+                                        <svg v-if="!copied" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                        </svg>
+                                        <svg v-else class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                             <a
                                 v-if="keyData.platform?.name === 'Steam'"
@@ -199,7 +215,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 import { Head } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
@@ -220,6 +236,7 @@ const auth = (page.props.auth as { user: any | null }) || { user: null };
 const flash = (page.props.flash as { message?: string; error?: string }) || {};
 
 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+const copied = ref(false);
 
 const form = useForm({
     id: keyData.value?.id ?? 0,
@@ -231,6 +248,30 @@ watch(() => keyData.value?.id, (newId) => {
         form.id = newId;
     }
 });
+
+const copyKeyCode = async () => {
+    if (!keyData.value?.keycode) return;
+    
+    try {
+        await navigator.clipboard.writeText(keyData.value.keycode);
+        copied.value = true;
+        setTimeout(() => {
+            copied.value = false;
+        }, 2000);
+    } catch (err) {
+        // Fallback for older browsers
+        const input = document.getElementById(`keycode-${keyData.value.id}`) as HTMLInputElement;
+        if (input) {
+            input.select();
+            input.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand('copy');
+            copied.value = true;
+            setTimeout(() => {
+                copied.value = false;
+            }, 2000);
+        }
+    }
+};
 
 const claimKey = () => {
     if (!keyData.value?.id) return;

@@ -33,6 +33,7 @@
                             name="gamename"
                             placeholder="Search for a game or DLC..."
                             url="/autocomplete/games"
+                            input-class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
                             @select="handleGameSelect"
                         />
                         <p class="mt-2 text-xs text-gray-500">Start typing to search IGDB for games and DLCs</p>
