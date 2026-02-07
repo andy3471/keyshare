@@ -24,6 +24,8 @@ class KeyController extends Controller
 {
     public function create(): Response
     {
+        $this->authorize('create', Key::class);
+
         return Inertia::render('Keys/Create', [
             'platforms' => fn (): Collection => PlatformData::collect(Cache::remember('platforms', 3600, function () {
                 return Platform::all();
@@ -33,6 +35,8 @@ class KeyController extends Controller
 
     public function store(StoreGameKeyRequest $request): RedirectResponse
     {
+        $this->authorize('create', Key::class);
+
         $game = Game::fromIgdbId((int) $request->igdb_id);
 
         $key = auth()
@@ -56,6 +60,8 @@ class KeyController extends Controller
 
     public function show(Key $key): Response
     {
+        $this->authorize('view', $key);
+
         return Inertia::render('Keys/Show', [
             'keyData' => fn (): KeyData => KeyData::fromModel(
                 $key
@@ -66,6 +72,8 @@ class KeyController extends Controller
 
     public function claim(Request $request, Key $key): RedirectResponse
     {
+        $this->authorize('claim', $key);
+
         // TODO: move to claim method on Key model
         $key->owned_user_id = auth()->id();
         $key->save();

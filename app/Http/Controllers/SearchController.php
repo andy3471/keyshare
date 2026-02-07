@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\DataTransferObjects\Games\GameData;
+use App\Models\Game;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -16,6 +17,8 @@ class SearchController extends Controller
 {
     public function index(Request $request): Response
     {
+        $this->authorize('viewAny', Game::class);
+
         $search = mb_trim($request->input('search', ''));
 
         return Inertia::render('Search/Index', [
@@ -59,6 +62,8 @@ class SearchController extends Controller
 
     public function autocomplete(Request $request): JsonResponse
     {
+        $this->authorize('viewAny', Game::class);
+
         $query = mb_trim($request->input('q', ''));
 
         if ($query === '' || $query === '0') {

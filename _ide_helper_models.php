@@ -52,9 +52,6 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property string|null $message
- * @property int $removed
- * @property string|null $wallet_id
- * @property string|null $subscription_id
  * @property-read \App\Models\User|null $claimedUser
  * @property-read \App\Models\User $createdUser
  * @property-read \App\Models\Game|null $game
@@ -73,10 +70,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereMessage($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereOwnedUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key wherePlatformId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereRemoved($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereSubscriptionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereWalletId($value)
  */
 	class Key extends \Eloquent {}
 }
@@ -162,7 +156,6 @@ namespace App\Models{
 /**
  * @property string $id
  * @property string $name
- * @property int|null $igdb_id
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $keys
@@ -172,7 +165,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Platform query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Platform whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Platform whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Platform whereIgdbId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Platform whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Platform whereUpdatedAt($value)
  */

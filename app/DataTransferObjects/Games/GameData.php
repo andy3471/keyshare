@@ -42,7 +42,6 @@ class GameData extends Data
             image: $game->image,
             keyCount: Lazy::create(fn () => $game->keys()
                 ->whereNull('owned_user_id')
-                ->where('removed', '=', '0')
                 ->count()),
         );
     }
@@ -75,7 +74,6 @@ class GameData extends Data
 
                 return $game->keys()
                     ->whereNull('owned_user_id')
-                    ->where('removed', '=', '0')
                     ->count();
             }),
         );

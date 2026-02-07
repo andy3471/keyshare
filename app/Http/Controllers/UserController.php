@@ -13,25 +13,31 @@ use Inertia\Response;
 
 class UserController extends Controller
 {
-    public function edit(): Response
+    public function edit(User $user): Response
     {
+        $this->authorize('edit', $user);
+
         return Inertia::render('Users/Edit');
     }
 
-    public function update(UpdateUserRequest $request): RedirectResponse
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
-        $user = auth()->user()->update($request->validated());
+        $this->authorize('edit', $user);
+
+        $user->update($request->validated());
 
         if ($request->hasFile('image')) {
             $user->addMediaFromRequest('image')
                 ->toMediaCollection('avatar');
         }
 
-        return to_route('showuser', ['id' => auth()->id()])->with('message', __('auth.profileupdated'));
+        return to_route('showuser', ['id' => $user->id])->with('message', __('auth.profileupdated'));
     }
 
     public function show(User $user): Response
     {
+        $this->authorize('view', $user);
+
         return Inertia::render('Users/Show', [
             'user' => UserData::fromModel($user),
         ]);

@@ -18,6 +18,8 @@ class GameController extends Controller
 {
     public function index(Request $request): Response
     {
+        $this->authorize('viewAny', Game::class);
+
         $platformIds = $request->array('platforms');
 
         return Inertia::render('Games/Index', [
@@ -25,14 +27,12 @@ class GameController extends Controller
             'games' => Inertia::scroll(function () use ($platformIds) {
                 $games = Game::query()
                     ->whereHas('keys', function ($query) use ($platformIds): void {
-                        $query->whereNull('owned_user_id')
-                            ->where('removed', '=', '0');
+                        $query->whereNull('owned_user_id');
 
                         if ($platformIds !== []) {
                             $query->whereIn('platform_id', $platformIds);
                         }
                     })
-                    ->where('removed', '=', '0')
                     ->with('keys')
                     ->paginate(12);
 
@@ -49,6 +49,8 @@ class GameController extends Controller
         $game = Game::fromIgdbId((int) $igdb_id);
 
         abort_if(! $game instanceof Game, 404);
+
+        $this->authorize('view', $game);
 
         return Inertia::render('Games/Show', [
             'game'        => fn (): GameData => GameData::from($game)->include('genres', 'screenshots', 'aggregated_rating', 'aggregated_rating_count'),

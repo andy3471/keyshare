@@ -78,7 +78,7 @@
                         <input type="hidden" name="_token" :value="csrfToken" />
                         <input type="hidden" name="id" :value="keyData.id" />
 
-                        <div v-if="keyData.owned_user_id === null" class="space-y-4">
+                        <div v-if="keyData.can.claim" class="space-y-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-300 mb-2">Key Code</label>
                                 <input

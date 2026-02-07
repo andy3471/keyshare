@@ -22,6 +22,7 @@ class KeyData extends Data
         public ?UserData $createdUser = null,
         public ?UserData $claimedUser = null,
         public ?GameData $game = null,
+        public KeyCanData $can,
     ) {}
 
     public static function fromModel(Key $key): self
@@ -34,6 +35,7 @@ class KeyData extends Data
             createdUser: $key->relationLoaded('createdUser') && $key->createdUser ? UserData::fromModel($key->createdUser) : null,
             claimedUser: $key->relationLoaded('claimedUser') && $key->claimedUser ? UserData::fromModel($key->claimedUser) : null,
             game: $key->relationLoaded('game')               && $key->game ? GameData::fromModel($key->game) : null,
+            can: KeyCanData::fromModel($key),
         );
     }
 }

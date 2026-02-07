@@ -45,8 +45,6 @@ class GameResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                IconColumn::make('removed')
-                    ->boolean(),
             ])
             ->filters([
                 //
