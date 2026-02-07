@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use App\DataTransferObjects\Users\UserData;
-use App\Models\Platform;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -19,9 +17,7 @@ class HandleInertiaRequests extends Middleware
         return parent::version($request);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
