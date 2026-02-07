@@ -11,8 +11,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(UsersTableSeeder::class);
-        $this->call(GamesTableSeeder::class); // Seeds games from IGDB API
-        $this->call(SubscriptionTableSeeder::class);
+        $this->call(GamesTableSeeder::class);
         $this->call(KeysTableSeeder::class);
     }
 }

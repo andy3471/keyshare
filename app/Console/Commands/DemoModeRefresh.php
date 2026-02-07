@@ -14,8 +14,10 @@ class DemoModeRefresh extends Command
 
     public function handle(): mixed
     {
-        if (config('app.demo_mode')) {
-            $this->call('migrate:fresh', ['--seed' => true]);
+        if (! config('app.demo_mode')) {
+            return null;
         }
+
+        $this->call('migrate:fresh', ['--seed' => true]);
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DataTransferObjects;
+namespace App\DataTransferObjects\Games;
 
 use MarcReichel\IGDBLaravel\Models\Genre;
 use Spatie\LaravelData\Data;

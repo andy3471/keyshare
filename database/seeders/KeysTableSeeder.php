@@ -13,7 +13,6 @@ class KeysTableSeeder extends Seeder
 {
     public function run(): void
     {
-        // Only seed keys if games exist (games must be created via IGDB API)
         if (Game::count() === 0) {
             $this->command->warn('Skipping key seeding: No games found. Games must be created via IGDB API first.');
 

@@ -1,8 +1,8 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\KeyController::index
-* @see app/Http/Controllers/KeyController.php:134
-* @route '/my/shared-keys'
+* @see app/Http/Controllers/KeyController.php:90
+* @route '/keys/shared'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
@@ -11,13 +11,13 @@ export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 index.definition = {
     methods: ["get","head"],
-    url: '/my/shared-keys',
+    url: '/keys/shared',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
 * @see \App\Http\Controllers\KeyController::index
-* @see app/Http/Controllers/KeyController.php:134
-* @route '/my/shared-keys'
+* @see app/Http/Controllers/KeyController.php:90
+* @route '/keys/shared'
 */
 index.url = (options?: RouteQueryOptions) => {
     return index.definition.url + queryParams(options)
@@ -25,8 +25,8 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\KeyController::index
-* @see app/Http/Controllers/KeyController.php:134
-* @route '/my/shared-keys'
+* @see app/Http/Controllers/KeyController.php:90
+* @route '/keys/shared'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
@@ -35,8 +35,8 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\KeyController::index
-* @see app/Http/Controllers/KeyController.php:134
-* @route '/my/shared-keys'
+* @see app/Http/Controllers/KeyController.php:90
+* @route '/keys/shared'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(options),

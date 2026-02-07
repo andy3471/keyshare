@@ -1,9 +1,8 @@
 <template>
     <Link
-        :href="keyData.url"
+        :href="keyRoutes.show(keyData.id)"
         class="group relative bg-dark-800 rounded-lg border border-dark-700 p-4 transition-all duration-300 hover:border-accent-500 hover:shadow-xl hover:shadow-accent-500/20 hover:-translate-y-1"
     >
-        <!-- Platform Badge -->
         <div class="flex items-center justify-between mb-3">
             <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-accent-600/20 text-accent-400 border border-accent-600/30">
                 {{ keyData.platform?.name || 'Unknown Platform' }}
@@ -28,7 +27,6 @@
             </div>
         </div>
 
-        <!-- User Info -->
         <div class="flex items-center space-x-3">
             <div class="relative flex-shrink-0">
                 <img
@@ -60,7 +58,6 @@
             </div>
         </div>
 
-        <!-- Hover Arrow Indicator -->
         <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
             <svg class="w-5 h-5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -72,6 +69,7 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import { KeyData } from '@/Types/generated';
+import keyRoutes from '@/routes/keys';
 
 interface Props {
     keyData: KeyData;

@@ -10,7 +10,7 @@
 
                 <div v-if="auth?.user" class="hidden lg:flex items-center space-x-2">
                     <!-- Games Link -->
-                    <Link :href="games.index.url()" class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800">
+                    <Link :href="index.url()" class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800">
                         Games
                     </Link>
 
@@ -139,7 +139,7 @@ import games from '@/routes/games';
 import keys from '@/routes/keys';
 import users from '@/routes/users';
 import search from '@/routes/search';
-import passwordReset from '@/routes/password/reset';
+import passwordReset from '@/routes/password';
 import loginLinkedAccount from '@/routes/login';
 import Autocomplete from './Autocomplete.vue';
 

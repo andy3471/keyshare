@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DataTransferObjects;
+namespace App\DataTransferObjects\Users;
 
 use App\Models\User;
 use Spatie\LaravelData\Data;

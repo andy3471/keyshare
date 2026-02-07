@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\DataTransferObjects\GameData;
-use App\DataTransferObjects\KeyData;
+use App\DataTransferObjects\Games\GameData;
+use App\DataTransferObjects\Keys\KeyData;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;

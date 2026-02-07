@@ -16,7 +16,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public const HOME = '/home';
+    public const HOME = '/';
 
     public function boot(): void
     {
@@ -35,11 +35,11 @@ class AppServiceProvider extends ServiceProvider
     {
 
         Gate::define('approved', function ($user) {
-            return $user->approved;
+            return $user->is_approved;
         });
 
         Gate::define('admin', function ($user) {
-            return $user->admin;
+            return $user->is_admin;
         });
     }
 

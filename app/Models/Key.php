@@ -26,7 +26,7 @@ class Key extends Model
     protected $fillable = [
         'game_id',
         'platform_id',
-        'keycode',
+        'key',
         'message',
         'created_user_id',
     ];

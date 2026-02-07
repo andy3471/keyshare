@@ -41,8 +41,8 @@ class HandleInertiaRequests extends Middleware
                     'bio'          => $request->user()->bio          ?? null,
                     'karma'        => $request->user()->karma !== null ? (int) $request->user()->karma : 0,
                     'karma_colour' => $request->user()->karma_colour ?? 'badge-info',
-                    'admin'        => (bool) ($request->user()->admin ?? false),
-                    'approved'     => (bool) ($request->user()->approved ?? false),
+                    'admin'        => (bool) ($request->user()->is_admin ?? false),
+                    'approved'     => (bool) ($request->user()->is_approved ?? false),
                 ] : null,
             ],
             'platforms' => Cache::remember('platforms', 3600, function () {

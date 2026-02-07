@@ -13,7 +13,7 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/games';
+    protected $redirectTo = '/';
 
     public function __construct()
     {

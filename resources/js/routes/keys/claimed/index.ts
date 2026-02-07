@@ -1,8 +1,8 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\KeyController::index
-* @see app/Http/Controllers/KeyController.php:102
-* @route '/my/claimed-keys'
+* @see app/Http/Controllers/KeyController.php:78
+* @route '/keys/claimed'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
@@ -11,13 +11,13 @@ export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 index.definition = {
     methods: ["get","head"],
-    url: '/my/claimed-keys',
+    url: '/keys/claimed',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
 * @see \App\Http\Controllers\KeyController::index
-* @see app/Http/Controllers/KeyController.php:102
-* @route '/my/claimed-keys'
+* @see app/Http/Controllers/KeyController.php:78
+* @route '/keys/claimed'
 */
 index.url = (options?: RouteQueryOptions) => {
     return index.definition.url + queryParams(options)
@@ -25,8 +25,8 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\KeyController::index
-* @see app/Http/Controllers/KeyController.php:102
-* @route '/my/claimed-keys'
+* @see app/Http/Controllers/KeyController.php:78
+* @route '/keys/claimed'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(options),
@@ -35,8 +35,8 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\KeyController::index
-* @see app/Http/Controllers/KeyController.php:102
-* @route '/my/claimed-keys'
+* @see app/Http/Controllers/KeyController.php:78
+* @route '/keys/claimed'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(options),

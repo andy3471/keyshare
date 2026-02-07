@@ -29,7 +29,7 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
-        'approved',
+        'is_approved',
     ];
 
     protected $hidden = [
@@ -57,7 +57,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return (bool) $this->admin;
+        return (bool) $this->is_admin;
     }
 
     /** @return Attribute<int, int> */
@@ -65,23 +65,18 @@ class User extends Authenticatable implements FilamentUser
     {
         return Attribute::make(
             get: function () {
-                $id = (string) $this->id;
-
-                // Attempt to get karma from Redis cache
+                $id    = (string) $this->id;
                 $karma = Redis::zscore('karma', $id);
 
-                // If karma is found in Redis, return it
                 if ($karma !== false) {
                     return $karma;
                 }
 
-                // Calculate karma using Eloquent
                 $createdKeysCount = Key::where('created_user_id', $id)->count();
                 $ownedKeysCount   = Key::where('owned_user_id', $id)->count();
 
                 $karma = $createdKeysCount - $ownedKeysCount;
 
-                // Cache the karma in Redis and return it
                 Redis::zadd('karma', $karma, $id);
 
                 return $karma;
@@ -114,9 +109,9 @@ class User extends Authenticatable implements FilamentUser
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'admin'             => 'boolean',
-            'approved'          => 'boolean',
+            'email_verified_at'  => 'datetime',
+            'is_admin'           => 'boolean',
+            'is_approved'        => 'boolean',
         ];
     }
 }

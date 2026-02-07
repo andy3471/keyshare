@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\DataTransferObjects\GameData;
+use App\DataTransferObjects\Games\GameData;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -57,7 +57,7 @@ class SearchController extends Controller
         ]);
     }
 
-    public function autoCompleteGames(Request $request): JsonResponse
+    public function autocomplete(Request $request): JsonResponse
     {
         $query = mb_trim($request->input('q', ''));
 

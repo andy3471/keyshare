@@ -30,7 +30,7 @@ class KeyFactory extends Factory
             'platform_id'   => function () {
                 return Platform::all()->random()->id;
             },
-            'keycode'       => fake()->uuid,
+            'key'           => fake()->uuid,
             'owned_user_id' => function () {
                 if (rand(0, 1) === 1) {
                     return User::all()->random()->id;

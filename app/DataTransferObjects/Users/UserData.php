@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DataTransferObjects;
+namespace App\DataTransferObjects\Users;
 
 use App\Models\User;
 use Spatie\LaravelData\Data;
@@ -19,8 +19,8 @@ class UserData extends Data
         public ?string $bio = null,
         public ?int $karma = null,
         public ?string $karma_colour = null,
-        public ?bool $admin = null,
-        public ?bool $approved = null,
+        public ?bool $is_admin = null,
+        public ?bool $is_approved = null,
     ) {}
 
     public static function fromModel(User $user): self
@@ -33,8 +33,8 @@ class UserData extends Data
             bio: $user->bio                   ?? null,
             karma: $user->karma !== null ? (int) $user->karma : null,
             karma_colour: $user->karma_colour ?? 'badge-info',
-            admin: $user->admin               ?? false,
-            approved: $user->approved         ?? false,
+            is_admin: $user->is_admin         ?? false,
+            is_approved: $user->is_approved   ?? false,
         );
     }
 }

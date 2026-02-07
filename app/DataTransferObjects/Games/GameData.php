@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\DataTransferObjects;
+namespace App\DataTransferObjects\Games;
 
 use App\Models\Game;
+use App\Models\Key;
 use MarcReichel\IGDBLaravel\Models\Game as IgdbGame;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
@@ -44,6 +45,11 @@ class GameData extends Data
                 ->where('removed', '=', '0')
                 ->count()),
         );
+    }
+
+    public static function fromKey(Key $key): self
+    {
+        return self::from($key->game);
     }
 
     public static function fromIgdb(IgdbGame $igdbGame): self

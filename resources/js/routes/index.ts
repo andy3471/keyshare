@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../wayfinder'
 /**
-* @see vendor/marcreichel/igdb-laravel/routes/web.php:14
+* @see [serialized-closure]:2
 * @route '/igdb-webhook/handle/f9f4bbea/{model}/{method}'
 */
 export const handleIgdbWebhook = (args: { model: string | number, method: string | number } | [model: string | number, method: string | number ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -14,7 +14,7 @@ handleIgdbWebhook.definition = {
 } satisfies RouteDefinition<["post"]>
 
 /**
-* @see vendor/marcreichel/igdb-laravel/routes/web.php:14
+* @see [serialized-closure]:2
 * @route '/igdb-webhook/handle/f9f4bbea/{model}/{method}'
 */
 handleIgdbWebhook.url = (args: { model: string | number, method: string | number } | [model: string | number, method: string | number ], options?: RouteQueryOptions) => {
@@ -39,7 +39,7 @@ handleIgdbWebhook.url = (args: { model: string | number, method: string | number
 }
 
 /**
-* @see vendor/marcreichel/igdb-laravel/routes/web.php:14
+* @see [serialized-closure]:2
 * @route '/igdb-webhook/handle/f9f4bbea/{model}/{method}'
 */
 handleIgdbWebhook.post = (args: { model: string | number, method: string | number } | [model: string | number, method: string | number ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -170,8 +170,8 @@ register.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\HomeController::index
-* @see app/Http/Controllers/HomeController.php:23
+* @see \App\Http\Controllers\GameController::index
+* @see app/Http/Controllers/GameController.php:19
 * @route '/'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -185,8 +185,8 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\HomeController::index
-* @see app/Http/Controllers/HomeController.php:23
+* @see \App\Http\Controllers\GameController::index
+* @see app/Http/Controllers/GameController.php:19
 * @route '/'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -194,8 +194,8 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \App\Http\Controllers\HomeController::index
-* @see app/Http/Controllers/HomeController.php:23
+* @see \App\Http\Controllers\GameController::index
+* @see app/Http/Controllers/GameController.php:19
 * @route '/'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -204,12 +204,56 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\HomeController::index
-* @see app/Http/Controllers/HomeController.php:23
+* @see \App\Http\Controllers\GameController::index
+* @see app/Http/Controllers/GameController.php:19
 * @route '/'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(options),
+    method: 'head',
+})
+
+/**
+* @see \App\Http\Controllers\SearchController::autocomplete
+* @see app/Http/Controllers/SearchController.php:60
+* @route '/autocomplete'
+*/
+export const autocomplete = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: autocomplete.url(options),
+    method: 'get',
+})
+
+autocomplete.definition = {
+    methods: ["get","head"],
+    url: '/autocomplete',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\SearchController::autocomplete
+* @see app/Http/Controllers/SearchController.php:60
+* @route '/autocomplete'
+*/
+autocomplete.url = (options?: RouteQueryOptions) => {
+    return autocomplete.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\SearchController::autocomplete
+* @see app/Http/Controllers/SearchController.php:60
+* @route '/autocomplete'
+*/
+autocomplete.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: autocomplete.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\SearchController::autocomplete
+* @see app/Http/Controllers/SearchController.php:60
+* @route '/autocomplete'
+*/
+autocomplete.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: autocomplete.url(options),
     method: 'head',
 })
 

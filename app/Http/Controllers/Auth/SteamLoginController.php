@@ -27,11 +27,11 @@ class SteamLoginController
             $approved = config('keyshare.autoapproveusers') === 1 ? 1 : 0;
 
             $KeyshareUser = User::create([
-                'name'     => $steamuser->nickname,
-                'image'    => $steamuser->avatar,
-                'email'    => uniqid(),
-                'password' => uniqid(),
-                'approved' => $approved,
+                'name'         => $steamuser->nickname,
+                'image'        => $steamuser->avatar,
+                'email'        => uniqid(),
+                'password'     => uniqid(),
+                'is_approved'  => $approved,
             ]);
 
             $LinkedAccount                             = new LinkedAccount;

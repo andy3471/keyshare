@@ -108,7 +108,7 @@
                                         readonly
                                         class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 w-full font-mono text-lg tracking-wider cursor-text select-all"
                                         type="text"
-                                        :value="keyData.keycode"
+                                        :value="keyData.key"
                                     />
                                     <button
                                         type="button"
@@ -127,7 +127,7 @@
                             </div>
                             <a
                                 v-if="keyData.platform?.name === 'Steam'"
-                                :href="`https://store.steampowered.com/account/registerkey?key=${keyData.keycode}`"
+                                :href="`https://store.steampowered.com/account/registerkey?key=${keyData.key}`"
                                 target="_blank"
                                 class="block w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 text-center shadow-lg shadow-primary-600/20 hover:shadow-xl hover:shadow-primary-600/30 hover:-translate-y-0.5"
                             >
@@ -250,10 +250,10 @@ watch(() => keyData.value?.id, (newId) => {
 });
 
 const copyKeyCode = async () => {
-    if (!keyData.value?.keycode) return;
+    if (!keyData.value?.key) return;
     
     try {
-        await navigator.clipboard.writeText(keyData.value.keycode);
+        await navigator.clipboard.writeText(keyData.value.key);
         copied.value = true;
         setTimeout(() => {
             copied.value = false;

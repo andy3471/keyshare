@@ -14,11 +14,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('approved', function ($user) {
-            return $user->approved;
+            return $user->is_approved;
         });
 
         Gate::define('admin', function ($user) {
-            return $user->admin;
+            return $user->is_admin;
         });
     }
 }

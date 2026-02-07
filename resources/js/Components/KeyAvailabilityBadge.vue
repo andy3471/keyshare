@@ -1,5 +1,4 @@
 <template>
-    <!-- Key Availability Badge - Top Right Corner -->
     <div
         v-if="keyCount > 0"
         class="absolute top-2 right-2 z-10 bg-green-500/95 backdrop-blur-sm rounded-full p-2 shadow-lg shadow-green-500/50"

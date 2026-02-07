@@ -18,11 +18,16 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property int $removed
  * @property int|null $igdb_id
+ * @property-read string|null $aggregated_rating
+ * @property-read string|null $aggregated_rating_count
  * @property-read mixed $description
+ * @property-read \Illuminate\Support\Collection|null $genres
  * @property-read string|null $image
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $keys
  * @property-read int|null $keys_count
  * @property-read mixed $name
+ * @property-read int|null $parent_game_id
+ * @property-read \Illuminate\Support\Collection|null $screenshots
  * @property-read string $url
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game newQuery()
@@ -38,19 +43,10 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Group newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Group newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Group query()
- */
-	class Group extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
  * @property string $id
  * @property string|null $game_id
  * @property string $platform_id
- * @property string $keycode
+ * @property string $key
  * @property string|null $owned_user_id
  * @property string $created_user_id
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -76,7 +72,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereCreatedUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereGameId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereKeycode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereMessage($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereOwnedUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key wherePlatformId($value)
@@ -136,32 +132,6 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property string $id
- * @property string $platform_id
- * @property string $name
- * @property string|null $description
- * @property string|null $image
- * @property string $created_user_id
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @method static \Database\Factories\SubscriptionFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereCreatedUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription wherePlatformId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription whereUpdatedAt($value)
- */
-	class Subscription extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * @property string $id
  * @property string $name
  * @property string $email
  * @property \Carbon\CarbonImmutable|null $email_verified_at
@@ -171,8 +141,8 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property string $image
  * @property string|null $bio
- * @property bool $approved
- * @property bool $admin
+ * @property bool $is_approved
+ * @property bool $is_admin
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $claimedKeys
  * @property-read int|null $claimed_keys_count
  * @property-read mixed $karma
@@ -187,14 +157,14 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAdmin($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereApproved($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereBio($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmailVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereIsAdmin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereIsApproved($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)

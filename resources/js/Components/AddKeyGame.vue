@@ -24,21 +24,21 @@
                 </h2>
                 <div class="space-y-4">
                     <div>
-                        <label for="gamename" class="block text-sm font-medium text-gray-300 mb-2">
+                        <label for="igdb_id" class="block text-sm font-medium text-gray-300 mb-2">
                             Game or DLC <span class="text-red-400">*</span>
                         </label>
                         <Autocomplete
-                            id="gamename"
-                            v-model="form.gamename"
-                            name="gamename"
+                            id="igdb_id"
+                            v-model="form.igdb_id"
+                            name="igdb_id"
                             placeholder="Search for a game or DLC..."
                             url="/autocomplete/games"
                             input-class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
                             @select="handleGameSelect"
                         />
                         <p class="mt-2 text-xs text-gray-500">Start typing to search IGDB for games and DLCs</p>
-                        <div v-if="form.errors.gamename" class="mt-2 text-sm text-red-400">
-                            {{ form.errors.gamename }}
+                        <div v-if="form.errors.igdb_id" class="mt-2 text-sm text-red-400">
+                            {{ form.errors.igdb_id }}
                         </div>
                     </div>
 
@@ -155,14 +155,14 @@ interface Props {
 defineProps<Props>();
 
 const form = useForm({
-    gamename: '',
+    igdb_id: '',
     platform_id: '',
     key: '',
     message: '',
 });
 
 const handleGameSelect = (item: any) => {
-    form.gamename = item.name || item;
+    form.igdb_id = item.name || item;
 };
 
 const submit = () => {
@@ -170,7 +170,7 @@ const submit = () => {
         form.setError('platform_id', 'Please select a platform.');
         return;
     }
-    
+
     form.post(keys.store.url(), {
         preserveScroll: true,
         onSuccess: () => {

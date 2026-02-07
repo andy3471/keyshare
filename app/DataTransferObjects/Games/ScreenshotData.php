@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DataTransferObjects;
+namespace App\DataTransferObjects\Games;
 
 use MarcReichel\IGDBLaravel\Models\Screenshot;
 use Spatie\LaravelData\Data;

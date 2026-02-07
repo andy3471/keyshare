@@ -26,7 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo(fn (): string => route('login'));
-        $middleware->redirectUsersTo('/home');
+        $middleware->redirectUsersTo('/games');
 
         $middleware->encryptCookies(except: [
             'XDEBUG_SESSION',

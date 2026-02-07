@@ -1,15 +1,13 @@
 import Auth from './Auth'
-import HomeController from './HomeController'
-import SearchController from './SearchController'
 import GameController from './GameController'
+import SearchController from './SearchController'
 import KeyController from './KeyController'
 import UserController from './UserController'
 
 const Controllers = {
     Auth: Object.assign(Auth, Auth),
-    HomeController: Object.assign(HomeController, HomeController),
-    SearchController: Object.assign(SearchController, SearchController),
     GameController: Object.assign(GameController, GameController),
+    SearchController: Object.assign(SearchController, SearchController),
     KeyController: Object.assign(KeyController, KeyController),
     UserController: Object.assign(UserController, UserController),
 }

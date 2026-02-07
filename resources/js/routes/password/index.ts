@@ -1,5 +1,4 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../wayfinder'
-import reset0fffd7 from './reset'
 /**
 * @see \App\Http\Controllers\Auth\ForgotPasswordController::request
 * @see app/Http/Controllers/Auth/ForgotPasswordController.php:17
@@ -177,7 +176,7 @@ update.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 const password = {
     request: Object.assign(request, request),
     email: Object.assign(email, email),
-    reset: Object.assign(reset, reset0fffd7),
+    reset: Object.assign(reset, reset),
     update: Object.assign(update, update),
 }
 
