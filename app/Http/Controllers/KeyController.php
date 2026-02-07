@@ -10,21 +10,29 @@ use App\Models\Game;
 use App\Models\Key;
 use App\Models\Platform;
 use App\Notifications\KeyAdded;
+use Illuminate\Contracts\Pagination\CursorPaginator;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\AbstractCursorPaginator;
+use Illuminate\Pagination\AbstractPaginator;
+use Illuminate\Support\Enumerable;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use Inertia\Inertia;
 use Inertia\Response;
 use MarcReichel\IGDBLaravel\Models\Game as Igdb;
+use Spatie\LaravelData\CursorPaginatedDataCollection;
+use Spatie\LaravelData\DataCollection;
+use Spatie\LaravelData\PaginatedDataCollection;
 
 class KeyController extends Controller
 {
     public function create(): Response
     {
         return Inertia::render('Keys/Create', [
-            'platforms' => fn (): \Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection|\Spatie\LaravelData\CursorPaginatedDataCollection|\Illuminate\Support\Enumerable|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Contracts\Pagination\CursorPaginator|array => PlatformData::collect(Cache::remember('platforms', 3600, function () {
+            'platforms' => fn (): array => PlatformData::collect(Cache::remember('platforms', 3600, function () {
                 return Platform::all();
             })),
         ]);

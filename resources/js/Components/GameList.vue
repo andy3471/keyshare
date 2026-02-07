@@ -7,7 +7,7 @@
                 class="game-card group relative"
                 :class="{ 'has-keys': game.hasKey }"
             >
-                <Link :href="game.url">
+                <Link :href="gamesRoute.show.url(game.igdb_id || game.id)">
                     <KeyAvailabilityBadge
                         v-if="game.hasKey !== undefined"
                         :has-key="game.hasKey"
@@ -53,12 +53,14 @@
 import { Link } from '@inertiajs/vue3';
 import { InfiniteScroll } from '@inertiajs/vue3';
 import KeyAvailabilityBadge from './KeyAvailabilityBadge.vue';
+import gamesRoute from '@/routes/games';
 
 interface Game {
-    id: number;
+    id: string;
+    igdb_id?: string;
     name: string;
     image?: string;
-    url: string;
+    url?: string;
     hasKey?: boolean;
     keyCount?: number;
 }

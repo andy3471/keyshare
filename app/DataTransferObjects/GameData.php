@@ -7,6 +7,9 @@ namespace App\DataTransferObjects;
 use App\Models\Game;
 use MarcReichel\IGDBLaravel\Models\Game as IgdbGame;
 use Spatie\LaravelData\Data;
+
+use Spatie\LaravelData\Lazy;
+use Spatie\LaravelData\Optional;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]
@@ -18,6 +21,7 @@ class GameData extends Data
         public ?string $description = null,
         public ?string $image = null,
         public ?string $url = null,
+        public int|Optional|Lazy $keyCount = new Optional(),
     ) {}
 
     public static function fromModel(Game $game): self
@@ -26,7 +30,12 @@ class GameData extends Data
             id: (string) $game->igdb_id,
             name: $game->name,
             description: $game->description ?? null,
-            image: $game->image             ?? null,
+            image: $game->image,
+            url: route('games.show', $game->igdb_id),
+            keyCount: Lazy::create(fn () => $game->keys()
+                ->whereNull('owned_user_id')
+                ->where('removed', '=', '0')
+                ->count()),
         );
     }
 
@@ -39,10 +48,22 @@ class GameData extends Data
         }
 
         return new self(
-            id: $igdbGame->id,
+            id: (string) $igdbGame->id,
             name: $igdbGame->name           ?? 'Unknown',
             description: $igdbGame->summary ?? null,
             image: $image,
+            keyCount: Lazy::create(function () use ($igdbGame) {
+                $game = Game::where('igdb_id', $igdbGame->id)->first();
+
+                if (!$game) {
+                    return 0;
+                }
+
+                return $game->keys()
+                    ->whereNull('owned_user_id')
+                    ->where('removed', '=', '0')
+                    ->count();
+            }),
         );
     }
 }
