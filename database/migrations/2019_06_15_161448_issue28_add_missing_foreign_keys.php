@@ -17,7 +17,7 @@ class Issue28AddMissingForeignKeys extends Migration
     {
         // Only add foreign keys that don't already exist in base migrations
         // dlcs.game_id, subscriptions.platform_id, and wallets.platform_id already have foreign keys
-        
+
         Schema::table('linked_accounts', function (Blueprint $table) {
             // This foreign key wasn't in the initial migration due to order
             $table->foreign('linked_account_provider_id')->references('id')->on('linked_account_providers');

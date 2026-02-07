@@ -24,26 +24,26 @@ class CreateKeyTypesTable extends Migration
 
         DB::table('key_types')->insert([
             [
-                'id' => 1,
-                'name' => 'Games',
+                'id'         => 1,
+                'name'       => 'Games',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id' => 2,
-                'name' => 'DLC',
+                'id'         => 2,
+                'name'       => 'DLC',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id' => 3,
-                'name' => 'Wallet',
+                'id'         => 3,
+                'name'       => 'Wallet',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id' => 4,
-                'name' => 'Subscription',
+                'id'         => 4,
+                'name'       => 'Subscription',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

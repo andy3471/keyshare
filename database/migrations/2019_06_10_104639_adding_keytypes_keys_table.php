@@ -45,7 +45,7 @@ class AddingKeytypesKeysTable extends Migration
             $table->dropForeign(['wallet_id']);
             $table->dropForeign(['subscription_id']);
             $table->dropForeign(['dlc_id']);
-            
+
             // Drop columns added in this migration
             $table->dropColumn(['key_type_id', 'wallet_id', 'subscription_id']);
         });

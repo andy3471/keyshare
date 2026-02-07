@@ -40,23 +40,6 @@ class Key extends Model
     }
 
     /**
-     * @return BelongsTo<Dlc, $this>
-     */
-    public function dlc(): BelongsTo
-    {
-        // TODO: Migrate to polymorphic relationship
-        return $this->belongsTo(Dlc::class);
-    }
-
-    /**
-     * @return BelongsTo<KeyType, $this>
-     */
-    public function keyType(): BelongsTo
-    {
-        return $this->belongsTo(KeyType::class);
-    }
-
-    /**
      * @return BelongsTo<Platform, $this>
      */
     public function platform(): BelongsTo
@@ -89,30 +72,7 @@ class Key extends Model
     {
         return Attribute::make(
             get: function () {
-                // Access the relationship properly - check if loaded, otherwise load it
-                if ($this->relationLoaded('keyType')) {
-                    $keyType = $this->relations['keyType'];
-                } elseif ($this->key_type_id) {
-                    $keyType = $this->keyType()->first();
-                } else {
-                    return null;
-                }
-                
-                // If keyType is not a model instance (e.g., it's the ID), return null
-                if (!($keyType instanceof KeyType)) {
-                    return null;
-                }
-                
-                $keyTypeName = $keyType->name;
-                
-                if ($keyTypeName === 'Games') {
-                    return $this->game?->name;
-                }
-                if ($keyTypeName === 'DLC') {
-                    return ($this->dlc?->name ?? '').': '.($this->game?->name ?? '');
-                }
-                
-                return null;
+                return $this->game?->name ?? null;
             }
         );
     }
@@ -121,30 +81,7 @@ class Key extends Model
     {
         return Attribute::make(
             get: function () {
-                // Access the relationship properly - check if loaded, otherwise load it
-                if ($this->relationLoaded('keyType')) {
-                    $keyType = $this->relations['keyType'];
-                } elseif ($this->key_type_id) {
-                    $keyType = $this->keyType()->first();
-                } else {
-                    return null;
-                }
-                
-                // If keyType is not a model instance (e.g., it's the ID), return null
-                if (!($keyType instanceof KeyType)) {
-                    return null;
-                }
-                
-                $keyTypeName = $keyType->name;
-                
-                if ($keyTypeName === 'Games') {
-                    return $this->game?->image;
-                }
-                if ($keyTypeName === 'DLC') {
-                    return $this->dlc?->image;
-                }
-                
-                return null;
+                return $this->game?->image;
             }
         );
     }

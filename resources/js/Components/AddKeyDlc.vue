@@ -90,7 +90,6 @@
             </div>
         </div>
 
-        <input type="hidden" name="key_type" value="2" />
 
         <button
             type="submit"
@@ -121,7 +120,6 @@ const form = useForm({
     platform_id: '',
     key: '',
     message: '',
-    key_type: '2',
 });
 
 const handleGameSelect = (item: any) => {

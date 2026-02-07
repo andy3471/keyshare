@@ -21,7 +21,7 @@ class MakeLinkedAccountsTable extends Migration
             $table->uuid('linked_account_provider_id');
             $table->string('account_id');
             $table->timestamps();
-            
+
             $table->foreign('user_id')->references('id')->on('users');
             // Note: linked_account_provider_id foreign key is added later in issue28_add_missing_foreign_keys migration
         });

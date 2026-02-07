@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\Front\GameController::index
-* @see app/Http/Controllers/Front/GameController.php:20
+* @see app/Http/Controllers/Front/GameController.php:17
 * @route '/games'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\GameController::index
-* @see app/Http/Controllers/Front/GameController.php:20
+* @see app/Http/Controllers/Front/GameController.php:17
 * @route '/games'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Front\GameController::index
-* @see app/Http/Controllers/Front/GameController.php:20
+* @see app/Http/Controllers/Front/GameController.php:17
 * @route '/games'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\GameController::index
-* @see app/Http/Controllers/Front/GameController.php:20
+* @see app/Http/Controllers/Front/GameController.php:17
 * @route '/games'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -45,68 +45,62 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\GameController::show
-* @see app/Http/Controllers/Front/GameController.php:38
-* @route '/games/{game}'
+* @see app/Http/Controllers/Front/GameController.php:75
+* @route '/game/{igdb_id}'
 */
-export const show = (args: { game: string | number | { id: string | number } } | [game: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { igdb_id: string | number } | [igdb_id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
 
 show.definition = {
     methods: ["get","head"],
-    url: '/games/{game}',
+    url: '/game/{igdb_id}',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
 * @see \App\Http\Controllers\Front\GameController::show
-* @see app/Http/Controllers/Front/GameController.php:38
-* @route '/games/{game}'
+* @see app/Http/Controllers/Front/GameController.php:75
+* @route '/game/{igdb_id}'
 */
-show.url = (args: { game: string | number | { id: string | number } } | [game: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+show.url = (args: { igdb_id: string | number } | [igdb_id: string | number ] | string | number, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
-        args = { game: args }
-    }
-
-    if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
-        args = { game: args.id }
+        args = { igdb_id: args }
     }
 
     if (Array.isArray(args)) {
         args = {
-            game: args[0],
+            igdb_id: args[0],
         }
     }
 
     args = applyUrlDefaults(args)
 
     const parsedArgs = {
-        game: typeof args.game === 'object'
-        ? args.game.id
-        : args.game,
+        igdb_id: args.igdb_id,
     }
 
     return show.definition.url
-            .replace('{game}', parsedArgs.game.toString())
+            .replace('{igdb_id}', parsedArgs.igdb_id.toString())
             .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\Front\GameController::show
-* @see app/Http/Controllers/Front/GameController.php:38
-* @route '/games/{game}'
+* @see app/Http/Controllers/Front/GameController.php:75
+* @route '/game/{igdb_id}'
 */
-show.get = (args: { game: string | number | { id: string | number } } | [game: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { igdb_id: string | number } | [igdb_id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
 
 /**
 * @see \App\Http\Controllers\Front\GameController::show
-* @see app/Http/Controllers/Front/GameController.php:38
-* @route '/games/{game}'
+* @see app/Http/Controllers/Front/GameController.php:75
+* @route '/game/{igdb_id}'
 */
-show.head = (args: { game: string | number | { id: string | number } } | [game: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { igdb_id: string | number } | [igdb_id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })

@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Dlc;
 use App\Models\Game;
 use App\Models\Key;
-use App\Models\KeyType;
 use App\Models\Platform;
 use App\Models\User;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class KeyFactory extends Factory
@@ -19,32 +18,14 @@ class KeyFactory extends Factory
     public function definition(): array
     {
         return [
-            'key_type_id' => function (array $key) {
-                if (config('app.dlc_enabled')) {
-                    return rand(1, 2);
-                }
-                
-                return 1;
-            },
-            'game_id' => Game::all()->random()->id,
-            'dlc_id'  => function (array $key) {
-                // Check if key_type_id matches DLC (ID = 2)
-                if ($key['key_type_id'] === KeyType::DLC) {
-                    $game_id = $key['game_id'];
-
-                    $dlc = Dlc::inRandomOrder()->where('game_id', $game_id)->first();
-
-                    if ($dlc === null) {
-                        $dlc = Dlc::factory()->create([
-                            'game_id' => $game_id,
-                        ]);
-                    }
-
-                    return $dlc->id;
+            'game_id' => function () {
+                // Get any game (DLCs are identified via IGDB, not stored in DB)
+                $games = Game::all();
+                if ($games->isEmpty()) {
+                    throw new Exception('No games available. Games must be created via IGDB API first.');
                 }
 
-                return null;
-
+                return $games->random()->id;
             },
             'platform_id'   => function () {
                 return Platform::all()->random()->id;

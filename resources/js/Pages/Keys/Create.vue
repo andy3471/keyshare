@@ -14,7 +14,6 @@
 
             <AddKey
                 :platforms="platforms"
-                :dlc-enabled="dlcEnabled"
             />
         </div>
     </AppLayout>
@@ -28,7 +27,6 @@ import { PlatformData } from '@/Types/generated';
 
 interface Props {
     platforms: PlatformData[];
-    dlcEnabled: boolean;
     errors?: Record<string, string | string[]>;
 }
 

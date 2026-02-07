@@ -23,7 +23,7 @@ class CreateWalletsTable extends Migration
             $table->string('image')->nullable();
             $table->uuid('created_user_id');
             $table->timestamps();
-            
+
             $table->foreign('platform_id')->references('id')->on('platforms');
             $table->foreign('created_user_id')->references('id')->on('users');
         });

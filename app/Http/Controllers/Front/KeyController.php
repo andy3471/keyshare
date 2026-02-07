@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Models\Dlc;
 use App\Models\Game;
 use App\Models\Key;
-use App\Models\KeyType;
 use App\Models\Platform;
 use App\Notifications\KeyAdded;
 use Illuminate\Http\RedirectResponse;
@@ -25,18 +23,25 @@ class KeyController extends Controller
     // TODO: Move caching to the platforms model
     public function create(): Response
     {
+        // IGDB is required for game creation
+        if (! config('igdb.enabled')) {
+            return Inertia::render('Keys/Create', [
+                'platforms'  => [],
+                'error'      => 'IGDB API is required but not enabled. Please configure TWITCH_CLIENT_ID and TWITCH_CLIENT_SECRET in your .env file.',
+            ]);
+        }
+
         $platforms = Cache::remember('platforms', 3600, function () {
             return Platform::all();
         });
 
         // Ensure $platforms is a Collection of Platform models (cache might return array)
-        if (!($platforms instanceof \Illuminate\Database\Eloquent\Collection)) {
+        if (! ($platforms instanceof \Illuminate\Database\Eloquent\Collection)) {
             $platforms = Platform::all();
         }
 
         return Inertia::render('Keys/Create', [
             'platforms'  => $platforms->map(fn (Platform $p): \App\DataTransferObjects\PlatformData => \App\DataTransferObjects\PlatformData::fromModel($p))->toArray(),
-            'dlcEnabled' => config('app.dlc_enabled', false),
         ]);
     }
 
@@ -45,14 +50,20 @@ class KeyController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
+        // IGDB is required - games can only be created from IGDB
+        if (! config('igdb.enabled')) {
+            return back()->withErrors(['gamename' => 'IGDB API is required but not enabled. Please configure TWITCH_CLIENT_ID and TWITCH_CLIENT_SECRET.']);
+        }
+
         $this->validate($request, [
-            'key_type'    => 'required',
             'platform_id' => ['required', 'uuid', 'exists:platforms,id'],
             'key'         => 'required',
             'message'     => 'max:255',
+            'gamename'    => 'required',
         ], [
-            'platform_id.uuid' => 'Please select a valid platform.',
+            'platform_id.uuid'   => 'Please select a valid platform.',
             'platform_id.exists' => 'The selected platform does not exist.',
+            'gamename.required'  => 'Please select a game.',
         ]);
 
         $key                  = new Key;
@@ -61,47 +72,18 @@ class KeyController extends Controller
         $key->message         = $request->message;
         $key->created_user_id = auth()->user()->id;
 
-        if ($request->key_type === '1' || $request->key_type === '2') {
-            $game = Game::where('name', $request->gamename)->first();
+        // Search for game in IGDB (could be a regular game or DLC)
+        // Load parent_game relationship so createFromIgdb can detect DLCs automatically
+        $igdb = Igdb::select(['name', 'summary', 'id'])->with(['cover' => ['image_id'], 'parent_game'])->where('name', '=', $request->gamename)->first();
 
-            if (! $game) {
-                $game = new Game;
-                if (config('igdb.enabled')) {
-                    $igdb = Igdb::select(['name', 'summary', 'id'])->with(['cover' => ['image_id']])->where('name', '=', $request->gamename)->first();
-
-                    if ($igdb) {
-                        $game->name         = $igdb->name;
-                        $game->description  = $igdb->summary;
-                        $game->igdb_id      = $igdb->id;
-                        $game->image        = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
-                        $game->igdb_updated = \Illuminate\Support\Facades\Date::today();
-                    } else {
-                        $game->name = $request->gamename;
-                        $game->description = null;
-                    }
-                } else {
-                    $game->name = $request->gamename;
-                    $game->description = null;
-                }
-
-                $game->created_user_id = auth()->user()->id;
-                $game->save();
-            }
-
-            $key->game_id = $game->id;
+        if (! $igdb) {
+            return back()->withErrors(['gamename' => 'Game not found in IGDB. Please search for a valid game name.']);
         }
 
-        if ($request->key_type === '2') {
-            $dlc = Dlc::firstOrCreate(
-                ['name' => $request->dlcname, 'game_id' => $game->id],
-                ['created_user_id' => $key->created_user_id]
-            );
+        // createFromIgdb will automatically detect if it's a DLC and handle parent game creation
+        $game         = Game::createFromIgdb($igdb);
+        $key->game_id = $game->id;
 
-            $key->dlc_id = $dlc->id;
-        }
-
-        // Set key_type_id (1 = Games, 2 = DLC, 3 = Wallet, 4 = Subscription)
-        $key->key_type_id = (int) $request->key_type;
         $key->save();
 
         if (config('services.discord.enabled')) {
@@ -116,7 +98,7 @@ class KeyController extends Controller
     // TODO: Use route model binding
     public function show(Key $key): Response
     {
-        $key->load(['platform', 'createdUser', 'claimedUser', 'game', 'dlc']);
+        $key->load(['platform', 'createdUser', 'claimedUser', 'game']);
 
         return Inertia::render('Keys/Show', [
             'keyData' => \App\DataTransferObjects\KeyData::fromModel($key),
@@ -145,22 +127,17 @@ class KeyController extends Controller
     public function claimed(Request $request): Response
     {
         $keys = auth()->user()->claimedKeys()->with('game')->paginate(12);
-        
+
         // Transform paginated keys to games format for InfiniteScroll
-        $gamesPaginator = $keys->through(function ($key) {
-            $game = $key->game;
-            $image = '/images/default-game.png';
-            
-            if ($game && $game->image) {
-                // Format image path: add leading slash if not from IGDB, otherwise use full URL
-                $image = $game->igdb_id === null ? '/'.$game->image : $game->image;
-            }
-            
+        $gamesPaginator = $keys->through(function ($key): array {
+            $game  = $key->game;
+            $image = $game?->image ?? '/images/default-game.png';
+
             return [
-                'id' => $key->game_id,
-                'name' => $game->name ?? 'Unknown',
+                'id'    => $key->game_id,
+                'name'  => $game->name ?? 'Unknown',
                 'image' => $image,
-                'url' => '/games/'.$key->game_id,
+                'url'   => '/games/'.$key->game_id,
             ];
         });
 
@@ -172,22 +149,18 @@ class KeyController extends Controller
     public function shared(Request $request): Response
     {
         $keys = auth()->user()->sharedKeys()->with('game')->paginate(12);
-        
+
         // Transform paginated keys to games format for InfiniteScroll
-        $gamesPaginator = $keys->through(function ($key) {
-            $game = $key->game;
-            $image = '/images/default-game.png';
-            
-            if ($game && $game->image) {
-                // Format image path: add leading slash if not from IGDB, otherwise use full URL
-                $image = $game->igdb_id === null ? '/'.$game->image : $game->image;
-            }
-            
+        $gamesPaginator = $keys->through(function ($key): array {
+            $game  = $key->game;
+            $image = $game?->image ?? '/images/default-game.png';
+
             return [
-                'id' => $key->game_id,
-                'name' => $game->name ?? 'Unknown',
+                'id'    => $key->game_id,
+                'igdb_id' => $game?->igdb_id,
+                'name'  => $game->name ?? 'Unknown',
                 'image' => $image,
-                'url' => '/games/'.$key->game_id,
+                'url'   => $game ? route('games.show', $game->igdb_id) : '#',
             ];
         });
 

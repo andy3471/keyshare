@@ -14,28 +14,6 @@
                         Games
                     </Link>
 
-                    <!-- Platforms Dropdown -->
-                    <div class="relative group">
-                        <button class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800 flex items-center">
-                            Platforms
-                            <svg class="ml-1 h-4 w-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        <div class="absolute left-0 mt-2 w-48 bg-dark-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-dark-700 overflow-hidden">
-                            <div class="py-1">
-                                <Link
-                                    v-for="platform in platformsList"
-                                    :key="platform.id"
-                                    :href="platformsRoutes.show.url(platform.id)"
-                                    class="block px-4 py-2 text-sm text-gray-300 hover:bg-accent-600 hover:text-white transition-colors"
-                                >
-                                    {{ platform.name }}
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Add Key Link -->
                     <Link :href="keys.create.url()" class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800">
                         Add Key
@@ -109,6 +87,13 @@
                                 >
                                     Update Profile
                                 </Link>
+                                <Link
+                                    v-if="auth?.user?.admin"
+                                    href="/admin"
+                                    class="block px-4 py-2 text-sm text-gray-300 hover:bg-accent-600 hover:text-white transition-colors"
+                                >
+                                    Admin
+                                </Link>
                                 <div class="border-t border-dark-700 my-1"></div>
                                 <Link
                                     :href="keys.claimed.index.url()"
@@ -157,7 +142,6 @@
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 import { index, logout as logoutRoute, login } from '@/routes';
 import games from '@/routes/games';
-import platformsRoutes from '@/routes/platforms';
 import keys from '@/routes/keys';
 import users from '@/routes/users';
 import search from '@/routes/search';
@@ -167,7 +151,6 @@ import loginLinkedAccount from '@/routes/login';
 const page = usePage();
 // Ensure auth is always defined, even if user is null
 const auth = (page.props.auth as { user: any | null } | undefined) ?? { user: null };
-const platformsList = (page.props.platforms as Array<{ id: number; name: string }> | undefined) || [];
 const appName = 'Keyshare';
 
 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';

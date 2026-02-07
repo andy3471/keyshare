@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 return [
-    'enabled'     => env('TWITCH_API_ENABLED', 'false'),
+    'enabled'     => (env('TWITCH_API_ENABLED', 'false') === 'true' || env('TWITCH_API_ENABLED', false) === true)
+                     && ! empty(env('TWITCH_CLIENT_ID'))
+                     && ! empty(env('TWITCH_CLIENT_SECRET')),
     'update_freq' => env('TWITCH_UPDATE_FREQ', 180),
 
     /*

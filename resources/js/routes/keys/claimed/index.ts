@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Front\KeyController::index
-* @see app/Http/Controllers/Front/KeyController.php:145
+* @see app/Http/Controllers/Front/KeyController.php:127
 * @route '/my/claimed-keys'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::index
-* @see app/Http/Controllers/Front/KeyController.php:145
+* @see app/Http/Controllers/Front/KeyController.php:127
 * @route '/my/claimed-keys'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::index
-* @see app/Http/Controllers/Front/KeyController.php:145
+* @see app/Http/Controllers/Front/KeyController.php:127
 * @route '/my/claimed-keys'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::index
-* @see app/Http/Controllers/Front/KeyController.php:145
+* @see app/Http/Controllers/Front/KeyController.php:127
 * @route '/my/claimed-keys'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Front\SearchController::index
-* @see app/Http/Controllers/Front/SearchController.php:19
+* @see app/Http/Controllers/Front/SearchController.php:17
 * @route '/search'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\SearchController::index
-* @see app/Http/Controllers/Front/SearchController.php:19
+* @see app/Http/Controllers/Front/SearchController.php:17
 * @route '/search'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Front\SearchController::index
-* @see app/Http/Controllers/Front/SearchController.php:19
+* @see app/Http/Controllers/Front/SearchController.php:17
 * @route '/search'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\SearchController::index
-* @see app/Http/Controllers/Front/SearchController.php:19
+* @see app/Http/Controllers/Front/SearchController.php:17
 * @route '/search'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -45,7 +45,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\SearchController::autoCompleteGames
-* @see app/Http/Controllers/Front/SearchController.php:64
+* @see app/Http/Controllers/Front/SearchController.php:99
 * @route '/autocomplete/games'
 */
 export const autoCompleteGames = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -60,7 +60,7 @@ autoCompleteGames.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\SearchController::autoCompleteGames
-* @see app/Http/Controllers/Front/SearchController.php:64
+* @see app/Http/Controllers/Front/SearchController.php:99
 * @route '/autocomplete/games'
 */
 autoCompleteGames.url = (options?: RouteQueryOptions) => {
@@ -69,7 +69,7 @@ autoCompleteGames.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Front\SearchController::autoCompleteGames
-* @see app/Http/Controllers/Front/SearchController.php:64
+* @see app/Http/Controllers/Front/SearchController.php:99
 * @route '/autocomplete/games'
 */
 autoCompleteGames.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -79,7 +79,7 @@ autoCompleteGames.get = (options?: RouteQueryOptions): RouteDefinition<'get'> =>
 
 /**
 * @see \App\Http\Controllers\Front\SearchController::autoCompleteGames
-* @see app/Http/Controllers/Front/SearchController.php:64
+* @see app/Http/Controllers/Front/SearchController.php:99
 * @route '/autocomplete/games'
 */
 autoCompleteGames.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -89,7 +89,7 @@ autoCompleteGames.head = (options?: RouteQueryOptions): RouteDefinition<'head'> 
 
 /**
 * @see \App\Http\Controllers\Front\SearchController::autoCompleteDlc
-* @see app/Http/Controllers/Front/SearchController.php:83
+* @see app/Http/Controllers/Front/SearchController.php:113
 * @route '/autocomplete/dlc/{gamename}'
 */
 export const autoCompleteDlc = (args: { gamename: string | number } | [gamename: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -104,7 +104,7 @@ autoCompleteDlc.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\SearchController::autoCompleteDlc
-* @see app/Http/Controllers/Front/SearchController.php:83
+* @see app/Http/Controllers/Front/SearchController.php:113
 * @route '/autocomplete/dlc/{gamename}'
 */
 autoCompleteDlc.url = (args: { gamename: string | number } | [gamename: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -131,7 +131,7 @@ autoCompleteDlc.url = (args: { gamename: string | number } | [gamename: string |
 
 /**
 * @see \App\Http\Controllers\Front\SearchController::autoCompleteDlc
-* @see app/Http/Controllers/Front/SearchController.php:83
+* @see app/Http/Controllers/Front/SearchController.php:113
 * @route '/autocomplete/dlc/{gamename}'
 */
 autoCompleteDlc.get = (args: { gamename: string | number } | [gamename: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -141,7 +141,7 @@ autoCompleteDlc.get = (args: { gamename: string | number } | [gamename: string |
 
 /**
 * @see \App\Http\Controllers\Front\SearchController::autoCompleteDlc
-* @see app/Http/Controllers/Front/SearchController.php:83
+* @see app/Http/Controllers/Front/SearchController.php:113
 * @route '/autocomplete/dlc/{gamename}'
 */
 autoCompleteDlc.head = (args: { gamename: string | number } | [gamename: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({

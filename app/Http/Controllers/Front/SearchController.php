@@ -8,95 +8,143 @@ use App\Http\Controllers\Controller;
 use App\Models\Game;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 use MarcReichel\IGDBLaravel\Models\Game as Igdb;
 
 class SearchController extends Controller
 {
-    // TODO: Refactor
-    public function index(Request $request): Response|RedirectResponse
+    public function index(Request $request): Response
     {
-        $search = $request->search;
+        $search = $request->input('search', '');
 
-        $game = DB::table('games')
-            ->select('id')
-            ->where('name', '=', $search)
-            ->where('removed', '=', '0')
-            ->get();
-
-        if (count($game) === 0) {
-            if (config('igdb.enabled')) {
-                $igdb = Igdb::select(['name', 'summary', 'id'])->with(['cover' => ['image_id']])->where('name', '=', $request->search)->first();
-
-                if ($igdb) {
-                    $game                  = new Game;
-                    $game->name            = $igdb->name;
-                    $game->description     = $igdb->summary;
-                    $game->igdb_id         = $igdb->id;
-                    $game->image           = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
-                    $game->igdb_updated    = \Illuminate\Support\Facades\Date::today();
-                    $game->created_user_id = auth()->user()->id;
-                    $game->save();
-
-                    return to_route('games.show', $game);
-                }
-            }
-
-            $games = DB::table('games')
-                ->selectRaw('games.id, games.name, CASE WHEN igdb_id IS NULL THEN concat("/", games.image) ELSE games.image END as image, concat("/games/", games.id) as url')
-                ->where('name', 'like', '%'.$search.'%')
-                ->where('removed', '=', '0')
-                ->paginate(12);
-
+        // IGDB is required - games can only be created/searched from IGDB
+        if (! config('igdb.enabled')) {
             return Inertia::render('Search/Index', [
                 'title' => $search,
-                'games' => Inertia::scroll(fn () => $games),
+                'games' => Inertia::scroll(fn () => collect([])->paginate(12)),
+                'error' => 'IGDB API is required but not enabled. Please configure TWITCH_CLIENT_ID and TWITCH_CLIENT_SECRET.',
             ]);
         }
 
-        $gameId = $game[0]->id;
+        if (empty($search)) {
+            return Inertia::render('Search/Index', [
+                'title' => 'Search',
+                'games' => Inertia::scroll(fn () => collect([])->paginate(12)),
+            ]);
+        }
 
-        return to_route('games.show', $gameId);
+        // Use IGDB fuzzy search
+        $perPage = 12;
+        $currentPage = $request->get('page', 1);
+        
+        // Fetch more results than needed for pagination (IGDB search doesn't support pagination directly)
+        $limit = config('igdb.per_page_limit', 500);
+        $igdbGames = Igdb::select(['name', 'summary', 'id', 'parent_game'])
+            ->with(['cover' => ['image_id']])
+            ->search($search)
+            ->limit($limit)
+            ->get();
+
+        // Get or create games from IGDB results and include key availability
+        $allGames = collect();
+        foreach ($igdbGames as $igdbGame) {
+            $game = Game::where('igdb_id', $igdbGame->id)->first();
+            if (! $game) {
+                $game = Game::createFromIgdb($igdbGame);
+            }
+
+            // Get image from IGDB
+            $image = null;
+            if ($igdbGame->cover && isset($igdbGame->cover->image_id)) {
+                $image = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdbGame->cover->image_id.'.jpg';
+            }
+
+            // Count available keys
+            $keyCount = $game->keys()
+                ->whereNull('owned_user_id')
+                ->where('removed', '=', '0')
+                ->count();
+            $hasKey = $keyCount > 0;
+
+            $allGames->push([
+                'id'       => $game->id,
+                'igdb_id'  => $game->igdb_id,
+                'name'     => $igdbGame->name,
+                'image'    => $image,
+                'url'      => route('games.show', $game->igdb_id),
+                'hasKey'   => $hasKey,
+                'keyCount' => $keyCount,
+            ]);
+        }
+
+        // Manual pagination
+        $total = $allGames->count();
+        $items = $allGames->forPage($currentPage, $perPage);
+
+        $paginatedGames = new \Illuminate\Pagination\LengthAwarePaginator(
+            $items,
+            $total,
+            $perPage,
+            $currentPage,
+            ['path' => $request->url(), 'query' => $request->except('page')]
+        );
+
+        return Inertia::render('Search/Index', [
+            'title' => $search,
+            'games' => Inertia::scroll(fn (): \Illuminate\Pagination\LengthAwarePaginator => $paginatedGames),
+        ]);
     }
 
     public function autoCompleteGames(Request $request)
     {
         $search = $request->input('q', '');
-        
-        if (config('igdb.enabled')) {
-            $games = \MarcReichel\IGDBLaravel\Models\Game::select(['name', 'id'])->search($search)->limit(5)->get();
-            return response()->json($games);
+
+        // IGDB is required for autocomplete
+        if (! config('igdb.enabled')) {
+            return response()->json(['error' => 'IGDB API is required but not enabled.'], 400);
         }
-        
-        $games = DB::table('games')
-            ->select('id', 'name')
-            ->where('name', 'like', '%'.$search.'%')
-            ->where('removed', '=', '0')
-            ->limit(5)
-            ->get();
-            
+
+        $games = Igdb::select(['name', 'id'])->search($search)->limit(5)->get();
+
         return response()->json($games);
     }
 
     public function autoCompleteDlc(Request $request, string $gamename)
     {
         $search = $request->input('q', '');
-        
-        $game = Game::where('name', $gamename)->first();
-        
-        if (!$game) {
+
+        // Find game by searching IGDB for the name, then get its DLCs
+        if (!config('igdb.enabled')) {
             return response()->json([]);
         }
         
-        $dlc = DB::table('dlcs')
-            ->select('id', 'name')
+        // Search IGDB for the parent game
+        $igdbParent = Igdb::select(['id', 'name'])->where('name', '=', $gamename)->whereNull('parent_game')->first();
+        
+        if (!$igdbParent) {
+            return response()->json([]);
+        }
+        
+        // Find or create the parent game
+        $game = Game::where('igdb_id', $igdbParent->id)->first();
+        if (!$game) {
+            $game = Game::createFromIgdb($igdbParent);
+        }
+        
+        // Get DLCs from IGDB for this parent game
+        $igdbDlcs = Igdb::select(['id', 'name'])
+            ->where('parent_game', '=', $igdbParent->id)
             ->where('name', 'like', '%'.$search.'%')
-            ->where('game_id', '=', $game->id)
             ->limit(5)
             ->get();
-            
-        return response()->json($dlc);
+        
+        // Return DLC data
+        return response()->json($igdbDlcs->map(function ($igdbDlc) {
+            return [
+                'id' => $igdbDlc->id,
+                'name' => $igdbDlc->name,
+            ];
+        }));
     }
 }

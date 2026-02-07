@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class LinkedAccount extends Model
 {
     use HasUuids;
+
     /**
      * @return BelongsTo<User, $this>
      */

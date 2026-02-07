@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 // TODO: Tidy these routes up
 use App\Http\Controllers\Auth\SteamLoginController;
-use App\Http\Controllers\Front\DlcController;
 use App\Http\Controllers\Front\GameController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\KeyController;
@@ -31,7 +30,8 @@ Route::middleware(['auth', 'approved'])->group(function (): void {
 
     Route::get('search', [SearchController::class, 'index'])->name('search.index');
 
-    Route::resource('games', GameController::class)->only(['index', 'show']);
+    Route::get('games', [GameController::class, 'index'])->name('games.index');
+    Route::get('game/{igdb_id}', [GameController::class, 'show'])->name('games.show');
 
     Route::resource('keys', KeyController::class)->only(['show', 'create', 'store']);
     Route::post('keys/claim', [KeyController::class, 'claim'])->name('keys.claim');
@@ -50,8 +50,7 @@ Route::middleware(['auth', 'approved'])->group(function (): void {
         ->middleware('demomode');
 
     Route::resource('platforms', PlatformController::class)->only(['show']);
-    Route::resource('dlc', DlcController::class)->only(['show']);
-    
+
     // Autocomplete routes (return JSON for autocomplete component)
     Route::get('autocomplete/games', [SearchController::class, 'autoCompleteGames'])->name('autocomplete.games');
     Route::get('autocomplete/dlc/{gamename}', [SearchController::class, 'autoCompleteDlc'])->name('autocomplete.dlc');

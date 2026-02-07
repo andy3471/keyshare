@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Api;
 use App\Models\Game;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use MarcReichel\IGDBLaravel\Models\Game as Igdb;
 
 class SearchController
@@ -16,46 +15,92 @@ class SearchController
     {
         $search = $request->search;
 
-        $games = DB::table('games')
-            ->selectRaw('games.id, games.name, games.image, concat("/games/", games.id) as url')
+        // Search IGDB directly since we don't store names
+        if (!config('igdb.enabled')) {
+            return response()->json(['error' => 'IGDB API is required but not enabled.'], 400);
+        }
+        
+        $igdbGames = Igdb::select(['id', 'name'])
             ->where('name', 'like', '%'.$search.'%')
-            ->where('removed', '=', '0')
-            ->paginate(12);
+            ->whereNull('parent_game') // Only base games
+            ->limit(12)
+            ->get();
+        
+        // Get or create games from IGDB results
+        $games = collect();
+        foreach ($igdbGames as $igdbGame) {
+            $game = Game::where('igdb_id', $igdbGame->id)->first();
+            if (!$game) {
+                // Create game if it doesn't exist
+                $game = Game::createFromIgdb($igdbGame);
+            }
+            $games->push([
+                'id' => $game->id,
+                'igdb_id' => $game->igdb_id,
+                'name' => $game->name,
+                'image' => $game->image,
+                'url' => route('games.show', $game->igdb_id),
+            ]);
+        }
+        
+        // Create a paginator-like structure
+        $paginatedGames = new \Illuminate\Pagination\LengthAwarePaginator(
+            $games,
+            $games->count(),
+            12,
+            1
+        );
+        
+        $paginatedGames->appends(['search' => $search])->links();
 
-        $games->appends(['search' => $search])->links();
-
-        return response()->json($games);
+        return response()->json($paginatedGames);
     }
 
     public function autoCompleteGames(string $search): JsonResponse
     {
-        if (config('igdb.enabled')) {
-            $games = Igdb::select(['name', 'id'])->search($search)->get();
-        } else {
-            $games = DB::table('games')
-                ->select('id', 'name')
-                ->where('name', 'like', '%'.$search.'%')
-                ->where('removed', '=', '0')
-                ->limit(5)
-                ->get();
+        // IGDB is required for autocomplete
+        if (! config('igdb.enabled')) {
+            return response()->json(['error' => 'IGDB API is required but not enabled.'], 400);
         }
+
+        $games = Igdb::select(['name', 'id'])->search($search)->get();
 
         return response()->json($games);
     }
 
-    // TODO: Refactor
     public function autoCompleteDlc($gamename, string $search): JsonResponse
     {
-        $game = Game::where('name', $gamename)
-            ->firstOrFail();
+        // Find game by searching IGDB for the name, then get its DLCs
+        if (! config('igdb.enabled')) {
+            return response()->json([]);
+        }
 
-        $dlc = DB::table('dlcs')
-            ->select('id', 'name')
+        // Search IGDB for the parent game
+        $igdbParent = Igdb::select(['id', 'name'])->where('name', '=', $gamename)->whereNull('parent_game')->first();
+
+        if (! $igdbParent) {
+            return response()->json([]);
+        }
+
+        // Find or create the parent game
+        $game = Game::where('igdb_id', $igdbParent->id)->first();
+        if (! $game) {
+            $game = Game::createFromIgdb($igdbParent);
+        }
+
+        // Get DLCs from IGDB for this parent game
+        $igdbDlcs = Igdb::select(['id', 'name'])
+            ->where('parent_game', '=', $igdbParent->id)
             ->where('name', 'like', '%'.$search.'%')
-            ->where('game_id', '=', $game->id)
             ->limit(5)
             ->get();
 
-        return response()->json($dlc);
+        // Return DLC data
+        return response()->json($igdbDlcs->map(function ($igdbDlc): array {
+            return [
+                'id'   => $igdbDlc->id,
+                'name' => $igdbDlc->name,
+            ];
+        }));
     }
 }

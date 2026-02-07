@@ -13,8 +13,7 @@ class KeyData extends Data
     public function __construct(
         public string $id,
         public ?string $game_id = null,
-        public ?string $dlc_id = null,
-        public string $platform_id,
+        public string $platform_id = '',
         public ?string $keycode = null,
         public ?string $message = null,
         public ?string $created_user_id = null,
@@ -26,7 +25,6 @@ class KeyData extends Data
         public ?UserData $createdUser = null,
         public ?UserData $claimedUser = null,
         public ?GameData $game = null,
-        public ?DlcData $dlc = null,
     ) {}
 
     public static function fromModel(\App\Models\Key $key): self
@@ -34,7 +32,6 @@ class KeyData extends Data
         return new self(
             id: (string) $key->id,
             game_id: $key->game_id ? (string) $key->game_id : null,
-            dlc_id: $key->dlc_id ? (string) $key->dlc_id : null,
             platform_id: (string) $key->platform_id,
             keycode: $key->keycode                 ?? null,
             message: $key->message                 ?? null,
@@ -47,7 +44,6 @@ class KeyData extends Data
             createdUser: $key->relationLoaded('createdUser') && $key->createdUser ? UserData::fromModel($key->createdUser) : null,
             claimedUser: $key->relationLoaded('claimedUser') && $key->claimedUser ? UserData::fromModel($key->claimedUser) : null,
             game: $key->relationLoaded('game')               && $key->game ? GameData::fromModel($key->game) : null,
-            dlc: $key->relationLoaded('dlc')                 && $key->dlc ? DlcData::fromModel($key->dlc) : null,
         );
     }
 }

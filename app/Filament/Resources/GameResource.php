@@ -26,17 +26,11 @@ class GameResource extends Resource
             ->schema([
                 Forms\Components\Section::make()
                     ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\Textarea::make('description')
-                            ->columnSpanFull(),
-                        Forms\Components\FileUpload::make('image')
-                            ->image(),
+                        Forms\Components\TextInput::make('igdb_id')
+                            ->numeric()
+                            ->required(),
                         Forms\Components\Toggle::make('removed')
                             ->required(),
-                        Forms\Components\TextInput::make('igdb_id')
-                            ->numeric(),
                     ]),
             ]);
     }
@@ -46,11 +40,13 @@ class GameResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->getStateUsing(fn (Game $record) => $record->name)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_user_id')
+                Tables\Columns\TextColumn::make('igdb_id')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->getStateUsing(fn (Game $record) => $record->image),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -61,12 +57,6 @@ class GameResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\IconColumn::make('removed')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('igdb_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('igdb_updated')
-                    ->dateTime()
-                    ->sortable(),
             ])
             ->filters([
                 //

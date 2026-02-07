@@ -32,8 +32,8 @@ class UserData extends Data
             bio: $user->bio                   ?? null,
             karma: $user->karma !== null ? (int) $user->karma : null,
             karma_colour: $user->karma_colour ?? 'badge-info',
-            admin: $user->admin ?? false,
-            approved: $user->approved ?? false,
+            admin: $user->admin               ?? false,
+            approved: $user->approved         ?? false,
         );
     }
 }

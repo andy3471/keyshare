@@ -2,7 +2,7 @@
     <form @submit.prevent="submit" class="space-y-4">
         <div>
             <label for="gamename" class="block text-sm font-medium text-gray-300 mb-2">
-                Game:
+                Game or DLC:
             </label>
             <Autocomplete
                 id="gamename"
@@ -74,7 +74,6 @@
             </div>
         </div>
 
-        <input type="hidden" name="key_type" value="1" />
 
         <button
             type="submit"
@@ -104,7 +103,6 @@ const form = useForm({
     platform_id: '',
     key: '',
     message: '',
-    key_type: '1',
 });
 
 const handleGameSelect = (item: any) => {

@@ -6,15 +6,29 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDlcsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
+        // Remove dlc_id from keys table
+        Schema::table('keys', function (Blueprint $table) {
+            $table->dropForeign(['dlc_id']);
+            $table->dropColumn('dlc_id');
+        });
+
+        // Drop dlcs table
+        Schema::dropIfExists('dlcs');
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        // Recreate dlcs table
         Schema::create('dlcs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('game_id');
@@ -27,15 +41,11 @@ class CreateDlcsTable extends Migration
             $table->foreign('game_id')->references('id')->on('games');
             $table->foreign('created_user_id')->references('id')->on('users');
         });
-    }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('dlcs');
+        // Re-add dlc_id to keys table
+        Schema::table('keys', function (Blueprint $table) {
+            $table->uuid('dlc_id')->nullable();
+            $table->foreign('dlc_id')->references('id')->on('dlcs');
+        });
     }
-}
+};

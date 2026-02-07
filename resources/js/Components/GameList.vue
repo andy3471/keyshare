@@ -1,12 +1,18 @@
 <template>
-    <InfiniteScroll v-if="games && games.data" data="games" preserve-url>
+    <InfiniteScroll v-if="games && games.data" :data="props.scrollProp" preserve-url>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mx-auto mt-6">
             <div
                 v-for="game in games.data"
                 :key="game.id"
-                class="game-card group"
+                class="game-card group relative"
+                :class="{ 'has-keys': game.hasKey }"
             >
                 <Link :href="game.url">
+                    <KeyAvailabilityBadge
+                        v-if="game.hasKey !== undefined"
+                        :has-key="game.hasKey"
+                        :key-count="game.keyCount || 0"
+                    />
                     <img
                         v-if="game.image"
                         :src="game.image"
@@ -46,12 +52,15 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import { InfiniteScroll } from '@inertiajs/vue3';
+import KeyAvailabilityBadge from './KeyAvailabilityBadge.vue';
 
 interface Game {
     id: number;
     name: string;
     image?: string;
     url: string;
+    hasKey?: boolean;
+    keyCount?: number;
 }
 
 interface GamesData {
@@ -64,6 +73,7 @@ interface GamesData {
 
 interface Props {
     games?: GamesData;
+    scrollProp?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -74,6 +84,7 @@ const props = withDefaults(defineProps<Props>(), {
         per_page: 12,
         total: 0,
     }),
+    scrollProp: 'games',
 });
 </script>
 
@@ -82,6 +93,14 @@ const props = withDefaults(defineProps<Props>(), {
     @apply relative w-full max-w-[264px] bg-dark-800 rounded-lg border border-dark-700 flex justify-center items-center transition-all duration-300 overflow-hidden;
     @apply hover:border-accent-500 hover:shadow-xl hover:shadow-accent-500/30 hover:-translate-y-1;
     aspect-ratio: 3 / 4;
+}
+
+.game-card.has-keys {
+    @apply border-green-500/50;
+}
+
+.game-card.has-keys:hover {
+    @apply border-green-500 shadow-green-500/30;
 }
 
 .game-card:hover .game-overlay {

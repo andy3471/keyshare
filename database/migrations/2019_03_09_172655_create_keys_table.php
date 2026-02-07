@@ -24,7 +24,7 @@ class CreateKeysTable extends Migration
             $table->uuid('owned_user_id')->nullable();
             $table->uuid('created_user_id');
             $table->timestamps();
-            
+
             // Foreign keys for tables that exist at this point
             $table->foreign('game_id')->references('id')->on('games');
             $table->foreign('owned_user_id')->references('id')->on('users');

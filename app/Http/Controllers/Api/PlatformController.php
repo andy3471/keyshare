@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Game;
 use App\Models\Platform;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 
 class PlatformController extends Controller
 {
@@ -25,16 +25,28 @@ class PlatformController extends Controller
 
     public function show(Platform $platform): JsonResponse
     {
-        $games = DB::table('games')
-            ->distinct()
-            ->selectRaw("games.id, games.name, CASE WHEN igdb_id IS NULL THEN concat('/', games.image) ELSE games.image END as image, concat('/games/', games.id) as url")
-            ->join('keys', 'keys.game_id', '=', 'games.id')
-            ->where('keys.owned_user_id', '=')
-            ->where('games.removed', '=', '0')
-            ->where('keys.removed', '=', '0')
-            ->where('keys.platform_id', '=', $platform->id)
-            ->oldest('games.name')
+        $games = Game::whereHas('keys', function ($query) use ($platform): void {
+            $query->whereNull('owned_user_id')
+                ->where('removed', '=', '0')
+                ->where('platform_id', '=', $platform->id);
+        })
+            ->where('removed', '=', '0')
             ->paginate(12);
+
+        // Sort by name (from IGDB) after fetching
+        $games->getCollection()->sortBy(function ($game) {
+            return $game->name ?? '';
+        });
+
+        // Transform to include IGDB images
+        $games->getCollection()->transform(function ($game): array {
+            return [
+                'id'    => $game->id,
+                'name'  => $game->name,
+                'image' => $game->image,
+                'url'   => route('games.show', $game->igdb_id),
+            ];
+        });
 
         return response()->json($games);
     }
