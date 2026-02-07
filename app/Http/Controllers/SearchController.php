@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\DataTransferObjects\Games\GameData;
+use App\DataTransferObjects\Search\AutocompleteGameData;
 use App\Models\Game;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -71,10 +72,12 @@ class SearchController extends Controller
         }
 
         return response()->json(
-            IgdbGame::select(['name', 'id'])
-                ->search($query)
-                ->limit(5)
-                ->get()
+            AutocompleteGameData::collect(
+                IgdbGame::select(['name', 'id'])
+                    ->search($query)
+                    ->limit(5)
+                    ->get()
+            )
         );
     }
 }

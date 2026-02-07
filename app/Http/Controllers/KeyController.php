@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\DataTransferObjects\Games\GameData;
 use App\DataTransferObjects\Keys\KeyData;
 use App\DataTransferObjects\Platforms\PlatformData;
+use App\DataTransferObjects\Search\AutocompleteGameData;
 use App\Http\Requests\StoreGameKeyRequest;
 use App\Models\Game;
 use App\Models\Key;
@@ -22,7 +23,7 @@ use Inertia\Response;
 
 class KeyController extends Controller
 {
-    public function create(): Response
+    public function create(Request $request): Response
     {
         $this->authorize('create', Key::class);
 
@@ -30,6 +31,7 @@ class KeyController extends Controller
             'platforms' => fn (): Collection => PlatformData::collect(Cache::remember('platforms', 3600, function () {
                 return Platform::all();
             })),
+            'game' => fn (): ?AutocompleteGameData => $request->filled('game_id') ? AutocompleteGameData::fromIgdbId((int) $request->string('game_id')->toString()) : null,
         ]);
     }
 

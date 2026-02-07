@@ -2,10 +2,11 @@
 import { Head } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import AddKey from '@/Components/AddKey.vue';
-import { PlatformData } from '@/Types/generated';
+import { AutocompleteGameData, PlatformData } from '@/Types/generated';
 
 interface Props {
   platforms: PlatformData[];
+  game?: AutocompleteGameData | null;
 }
 
 defineProps<Props>();
@@ -17,6 +18,7 @@ defineProps<Props>();
     <div class="max-w-4xl mx-auto px-4 py-6">
       <AddKey
         :platforms="platforms"
+        :game="game"
       />
     </div>
   </AppLayout>

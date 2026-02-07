@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from 'vue';
-import type { AutocompleteItem } from '@/types/global';
+import { AutocompleteGameData } from '@/Types/generated';
 
 interface Props {
   id?: string;
   name?: string;
   placeholder?: string;
   url: string;
-  modelValue?: string;
+  modelValue?: AutocompleteGameData | null;
   inputClass?: string;
 }
 
@@ -16,13 +16,12 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string];
-  'select': [item: AutocompleteItem];
+  'update:modelValue': [value: AutocompleteGameData | null];
   'search': [query: string];
 }>();
 
-const query = ref(props.modelValue ?? '');
-const results = ref<AutocompleteItem[]>([]);
+const query = ref(props.modelValue?.name ?? '');
+const results = ref<AutocompleteGameData[]>([]);
 const loading = ref(false);
 const showResults = ref(false);
 const selectedIndex = ref(-1);
@@ -31,19 +30,19 @@ const inputRef = ref<HTMLInputElement | null>(null);
 let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 let abortController: AbortController | null = null;
 
+// Sync display text when modelValue changes externally (e.g. pre-fill)
 watch(() => props.modelValue, (newValue) => {
-  query.value = newValue ?? '';
+  query.value = newValue?.name ?? '';
 });
 
 const handleInput = () => {
-  emit('update:modelValue', query.value);
+  // User is typing — clear the selected value
+  emit('update:modelValue', null);
 
-  // Clear previous debounce timer
   if (debounceTimer) {
     clearTimeout(debounceTimer);
   }
 
-  // Cancel previous request
   if (abortController) {
     abortController.abort();
   }
@@ -55,10 +54,9 @@ const handleInput = () => {
     return;
   }
 
-  // Debounce the API call
   debounceTimer = setTimeout(() => {
     void fetchResults();
-  }, 300); // 300ms debounce
+  }, 300);
 };
 
 const handleFocus = () => {
@@ -75,7 +73,6 @@ const fetchResults = async () => {
   loading.value = true;
   showResults.value = true;
 
-  // Create new abort controller for this request
   abortController = new AbortController();
 
   try {
@@ -91,7 +88,7 @@ const fetchResults = async () => {
     });
 
     if (response.ok) {
-      const data = (await response.json()) as AutocompleteItem[];
+      const data = (await response.json()) as AutocompleteGameData[];
       results.value = Array.isArray(data) ? data : [];
       showResults.value = results.value.length > 0 || query.value.length >= 2;
       selectedIndex.value = -1;
@@ -100,7 +97,6 @@ const fetchResults = async () => {
       showResults.value = false;
     }
   } catch (error: unknown) {
-    // Ignore abort errors
     if (error instanceof DOMException && error.name === 'AbortError') {
       return;
     }
@@ -113,10 +109,9 @@ const fetchResults = async () => {
   }
 };
 
-const select = (item: AutocompleteItem) => {
+const select = (item: AutocompleteGameData) => {
   query.value = item.name;
-  emit('update:modelValue', query.value);
-  emit('select', item);
+  emit('update:modelValue', item);
   showResults.value = false;
   selectedIndex.value = -1;
   results.value = [];
@@ -137,7 +132,6 @@ const navigateUp = () => {
 };
 
 const scrollToSelected = () => {
-  // Scroll the selected item into view
   const dropdown = containerRef.value?.querySelector('.max-h-60');
   if (dropdown != null && selectedIndex.value >= 0) {
     const selectedElement = dropdown.children[selectedIndex.value] as HTMLElement | undefined;
@@ -149,7 +143,6 @@ const selectCurrent = () => {
   if (selectedIndex.value >= 0 && results.value[selectedIndex.value]) {
     select(results.value[selectedIndex.value]);
   } else if (results.value.length === 1) {
-    // If only one result, select it
     select(results.value[0]);
   }
 };
@@ -158,15 +151,12 @@ const handleEnter = (event: KeyboardEvent) => {
   event.preventDefault();
   event.stopPropagation();
 
-  // Get the current value directly from the input element to ensure we have the latest value
   const inputValue = inputRef.value?.value;
   const currentValue = inputValue ?? query.value;
 
-  // If there's a selected item in the dropdown, select it
   if (selectedIndex.value >= 0 && selectedIndex.value < results.value.length) {
     selectCurrent();
   } else {
-    // Otherwise, emit search event with whatever query is in the input
     emit('search', currentValue);
     showResults.value = false;
   }
@@ -207,6 +197,7 @@ onUnmounted(() => {
     <div class="relative">
       <input
         :id="id"
+        ref="inputRef"
         v-model="query"
         :name="name"
         :placeholder="placeholder"
@@ -263,7 +254,7 @@ onUnmounted(() => {
         <div class="max-h-60 overflow-auto">
           <div
             v-for="(result, index) in results"
-            :key="index"
+            :key="result.id"
             :class="[
               'px-4 py-3 cursor-pointer transition-colors',
               index === selectedIndex
@@ -274,7 +265,7 @@ onUnmounted(() => {
             @mouseenter="selectedIndex = index"
           >
             <div class="font-medium">
-              {{ result.name || result }}
+              {{ result.name }}
             </div>
           </div>
         </div>

@@ -5,7 +5,8 @@ import games from '@/routes/games';
 import keys from '@/routes/keys';
 import users from '@/routes/users';
 import Autocomplete from './Autocomplete.vue';
-import type { AuthUser, AutocompleteItem } from '@/types/global';
+import { AutocompleteGameData } from '@/Types/generated';
+import type { AuthUser } from '@/types/global';
 
 const page = usePage();
 // Ensure auth is always defined, even if user is null
@@ -19,9 +20,10 @@ const logout = () => {
   form.post(logoutRoute.url());
 };
 
-const handleGameSelect = (item: AutocompleteItem) => {
-  // Navigate to the game page using IGDB ID
-  router.visit(games.show.url({ igdb_id: item.id }));
+const handleGameSelect = (item: AutocompleteGameData | null) => {
+  if (item) {
+    router.visit(games.show.url({ igdb_id: item.id }));
+  }
 };
 
 const handleSearch = (query: string) => {
@@ -80,7 +82,7 @@ const handleSearch = (query: string) => {
                 placeholder="Search games..."
                 url="/autocomplete"
                 input-class="w-64 pl-10 pr-4 py-2 bg-dark-800 border border-dark-600 text-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500"
-                @select="handleGameSelect"
+                @update:model-value="handleGameSelect"
                 @search="handleSearch"
               />
               <svg

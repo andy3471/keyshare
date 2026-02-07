@@ -117,7 +117,7 @@ const submit = () => {
                   @change="handleImageChange"
                 >
                 <p class="mt-2 text-xs text-gray-500">
-                  1:1 ratio required (square image). Max size: 2MB
+                  Max size: 2MB
                 </p>
                 <div
                   v-if="form.errors.image"

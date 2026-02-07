@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import TitleHeader from '@/Components/TitleHeader.vue';
 import GameList from '@/Components/GameList.vue';
 import KeyCard from '@/Components/KeyCard.vue';
 import { GameData, GameShowData } from '@/Types/generated';
-import type { Paginated } from '@/types/global';
+import type { AuthUser, Paginated } from '@/types/global';
 import gamesRoute from '@/routes/games';
+import keysRoute from '@/routes/keys';
 
 interface Props {
   game: GameShowData['game'];
@@ -25,6 +26,9 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
+const page = usePage();
+const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
 
 const selectedImageIndex = ref<number | null>(null);
 
@@ -211,9 +215,31 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <h2 class="text-2xl font-bold text-white mb-4 mt-8">
-        Available Keys
-      </h2>
+      <div class="flex items-center justify-between mb-4 mt-8">
+        <h2 class="text-2xl font-bold text-white">
+          Available Keys
+        </h2>
+        <Link
+          v-if="auth.user"
+          :href="keysRoute.create.url({ query: { game_id: game.id } })"
+          class="inline-flex items-center gap-2 bg-accent-600 hover:bg-accent-700 active:bg-accent-800 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-all duration-200 shadow-lg shadow-accent-600/20 hover:shadow-xl hover:shadow-accent-600/30 hover:-translate-y-0.5 active:translate-y-0"
+        >
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 4v16m8-8H4"
+            />
+          </svg>
+          Add a Key
+        </Link>
+      </div>
 
       <div
         v-if="keys.length === 0"

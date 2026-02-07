@@ -7,11 +7,6 @@ declare global {
   }
 }
 
-export interface AutocompleteItem {
-  id: string;
-  name: string;
-}
-
 export interface AuthUser {
   user: UserData | null;
 }

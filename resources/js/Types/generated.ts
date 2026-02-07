@@ -95,3 +95,7 @@ karma_colour: string | null
 is_admin: boolean | null
 is_approved: boolean | null
 };
+export type AutocompleteGameData = {
+id: string
+name: string
+};
