@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class LoginController extends Controller
 {
@@ -16,5 +18,14 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function showLoginForm(): Response
+    {
+        return Inertia::render('Auth/Login', [
+            'demoMode'          => config('app.demo_mode', false),
+            'steamLoginEnabled' => config('keyshare.steamlogin', false),
+            'canResetPassword'  => true,
+        ]);
     }
 }

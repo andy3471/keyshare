@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Front;
 
+use App\DataTransferObjects\UserData;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class UserController extends Controller
 {
-    public function edit(): View
+    public function edit(): Response
     {
-        return view('users.edit');
+        return Inertia::render('Users/Edit');
     }
 
     // TODO: Use form request
@@ -51,14 +53,16 @@ class UserController extends Controller
         return to_route('showuser', ['id' => auth()->id()])->with('message', __('auth.profileupdated'));
     }
 
-    public function show(User $user): View
+    public function show(User $user): Response
     {
-        return view('users.show')->withUser($user);
+        return Inertia::render('Users/Show', [
+            'user' => UserData::fromModel($user),
+        ]);
     }
 
-    public function passwordResetPage(): View
+    public function passwordResetPage(): Response
     {
-        return view('users.change-password');
+        return Inertia::render('Users/ChangePassword');
     }
 
     // TODO: Use form request

@@ -17,7 +17,7 @@ class DlcController extends Controller
             ->distinct()
             ->selectRaw('dlcs.id, dlcs.name, concat("/", dlcs.image) as image, concat("/games/dlc/", dlcs.id) as url')
             ->join('keys', 'keys.dlc_id', '=', 'dlcs.id')
-            ->where('keys.owned_user_id', '=', null)
+            ->where('keys.owned_user_id', '=')
             ->where('keys.removed', '=', '0')
             ->where('keys.game_id', '=', $game->id)
             ->oldest('dlcs.name')

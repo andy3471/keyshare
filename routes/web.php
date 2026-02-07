@@ -51,4 +51,8 @@ Route::middleware(['auth', 'approved'])->group(function (): void {
 
     Route::resource('platforms', PlatformController::class)->only(['show']);
     Route::resource('dlc', DlcController::class)->only(['show']);
+    
+    // Autocomplete routes (return JSON for autocomplete component)
+    Route::get('autocomplete/games', [SearchController::class, 'autoCompleteGames'])->name('autocomplete.games');
+    Route::get('autocomplete/dlc/{gamename}', [SearchController::class, 'autoCompleteDlc'])->name('autocomplete.dlc');
 });

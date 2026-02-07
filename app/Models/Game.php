@@ -23,15 +23,6 @@ class Game extends Model
         'created_user_id',
     ];
 
-    public function url(): Attribute
-    {
-        return Attribute::make(
-            get: function () {
-                return route('games.show', $this->id);
-            }
-        );
-    }
-
     /**
      * @return HasMany<Dlc, $this>
      */
@@ -54,5 +45,14 @@ class Game extends Model
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_user_id');
+    }
+
+    protected function url(): Attribute
+    {
+        return Attribute::make(
+            get: function (): string {
+                return route('games.show', $this->id);
+            }
+        );
     }
 }

@@ -14,11 +14,6 @@ class CalculateKarma extends Command
 
     protected $description = 'Recalculate Karma';
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function handle(): void
     {
         // TODO: Tidy code duplication

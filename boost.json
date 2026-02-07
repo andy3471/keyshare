@@ -1,0 +1,18 @@
+{
+    "agents": [
+        "cursor"
+    ],
+    "guidelines": true,
+    "herd_mcp": false,
+    "mcp": true,
+    "packages": [
+        "filament/filament"
+    ],
+    "sail": true,
+    "skills": [
+        "wayfinder-development",
+        "livewire-development",
+        "inertia-vue-development",
+        "tailwindcss-development"
+    ]
+}

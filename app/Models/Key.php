@@ -29,43 +29,6 @@ class Key extends Model
         'created_user_id',
     ];
 
-    public function name(): Attribute
-    {
-        return Attribute::make(
-            get: function () {
-                switch ($this->key_type_id) {
-                    case KeyType::GAME:
-                        return $this->game->name;
-                    case KeyType::DLC:
-                        return $this->dlc->name.': '.$this->game->name;
-                }
-            }
-        );
-    }
-
-    public function image(): Attribute
-    {
-        return Attribute::make(
-            get: function () {
-                switch ($this->key_type_id) {
-                    case KeyType::GAME:
-                        return $this->game->image;
-                    case KeyType::DLC:
-                        return $this->dlc->image;
-                }
-            }
-        );
-    }
-
-    public function url(): Attribute
-    {
-        return Attribute::make(
-            get: function () {
-                return route('keys.show', $this->id);
-            }
-        );
-    }
-
     /**
      * @return BelongsTo<Game, $this>
      */
@@ -119,5 +82,42 @@ class Key extends Model
     public function routeNotificationForDiscord(): string
     {
         return config('services.discord.channel');
+    }
+
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                switch ($this->key_type_id) {
+                    case KeyType::GAME:
+                        return $this->game->name;
+                    case KeyType::DLC:
+                        return $this->dlc->name.': '.$this->game->name;
+                }
+            }
+        );
+    }
+
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                switch ($this->key_type_id) {
+                    case KeyType::GAME:
+                        return $this->game->image;
+                    case KeyType::DLC:
+                        return $this->dlc->image;
+                }
+            }
+        );
+    }
+
+    protected function url(): Attribute
+    {
+        return Attribute::make(
+            get: function (): string {
+                return route('keys.show', $this->id);
+            }
+        );
     }
 }

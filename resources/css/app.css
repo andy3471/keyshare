@@ -1,0 +1,119 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+    body {
+        @apply bg-dark-950 text-gray-100 font-sans;
+    }
+}
+
+@layer components {
+    /* Game Grid */
+    .game-grid {
+        @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mx-auto;
+    }
+
+    .game-card {
+        @apply relative w-full max-w-[264px] bg-dark-800 rounded border border-dark-700 flex justify-center items-center transition-all duration-300 hover:border-accent-500 hover:shadow-lg hover:shadow-accent-500/20;
+    }
+
+    .game-card:hover .game-overlay {
+        @apply opacity-100;
+    }
+
+    .game-image {
+        @apply block w-full h-full object-cover rounded;
+    }
+
+    .game-image-placeholder {
+        @apply min-h-[264px] relative;
+        background-image: 
+            radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+            linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+    }
+
+    .game-image-placeholder::before {
+        content: '';
+        @apply absolute inset-0 opacity-20;
+        background-image: 
+            repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(139, 92, 246, 0.05) 10px, rgba(139, 92, 246, 0.05) 20px);
+    }
+
+    .game-overlay {
+        @apply absolute bottom-0 bg-black/70 text-white w-full transition-opacity duration-300 opacity-80 text-xl text-center h-12 flex items-center justify-center rounded-b;
+    }
+
+    /* Page Container */
+    .page-container {
+        @apply mx-auto px-4 pt-6 pb-4 max-w-7xl;
+    }
+
+    /* Title Header */
+    .title-header {
+        @apply border-b border-dark-700 mx-4 mt-0 mb-0 h-auto text-center py-4 text-2xl font-display;
+    }
+
+    /* Autocomplete */
+    .autocomplete {
+        @apply relative;
+    }
+
+    .autocomplete-results {
+        @apply p-0 m-0 border border-gray-600 rounded-b overflow-auto bg-dark-800 absolute z-50 w-full max-h-60;
+    }
+
+    .autocomplete-result {
+        @apply list-none text-left p-2 cursor-pointer mt-0.5 hover:bg-accent-600 hover:text-white transition-colors;
+    }
+
+    .autocomplete-result.is-active {
+        @apply bg-accent-600 text-white;
+    }
+
+    /* Buttons */
+    .btn-primary {
+        @apply bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded transition-colors;
+    }
+
+    .btn-accent {
+        @apply bg-accent-600 hover:bg-accent-700 text-white font-semibold py-2 px-4 rounded transition-colors;
+    }
+
+    .btn-danger {
+        @apply bg-danger-600 hover:bg-danger-700 text-white font-semibold py-2 px-4 rounded transition-colors;
+    }
+
+    /* Form Controls */
+    .form-control {
+        @apply border border-gray-600 rounded bg-dark-800 text-gray-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent;
+    }
+
+    /* Badges */
+    .badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    }
+
+    .badge-success {
+        @apply bg-success text-white;
+    }
+
+    .badge-warning {
+        @apply bg-warning text-white;
+    }
+
+    .badge-danger {
+        @apply bg-danger text-white;
+    }
+
+    .badge-info {
+        @apply bg-primary-600 text-white;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}

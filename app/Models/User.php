@@ -64,7 +64,7 @@ class User extends Authenticatable implements FilamentUser
         return (bool) $this->admin;
     }
 
-    public function karma(): Attribute
+    protected function karma(): Attribute
     {
         return Attribute::make(
             get: function () {
@@ -92,16 +92,18 @@ class User extends Authenticatable implements FilamentUser
         );
     }
 
-    public function karmaColour(): Attribute
+    protected function karmaColour(): Attribute
     {
         return Attribute::make(
             get: function (): string {
                 if ($this->karma < 0) {
                     return 'badge-danger';
                 }
+
                 if ($this->karma < 2) {
                     return 'badge-warning';
                 }
+
                 if ($this->karma < 15) {
                     return 'badge-info';
                 }
@@ -115,6 +117,8 @@ class User extends Authenticatable implements FilamentUser
     {
         return [
             'email_verified_at' => 'datetime',
+            'admin' => 'boolean',
+            'approved' => 'boolean',
         ];
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Sentry\Laravel\Integration;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,9 +25,11 @@ class Handler extends ExceptionHandler
 
     public function register(): void
     {
-        $this->reportable(function (Throwable $e): void {
-            Integration::captureUnhandledException($e);
-        });
+        if (class_exists(\Sentry\Laravel\Integration::class)) {
+            $this->reportable(function (Throwable $e): void {
+                \Sentry\Laravel\Integration::captureUnhandledException($e);
+            });
+        }
     }
 
     public function render($request, Throwable $exception)

@@ -10,25 +10,28 @@ use App\Models\Game;
 use App\Models\Key;
 use App\Models\Platform;
 use App\Notifications\KeyAdded;
-use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
-use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 use MarcReichel\IGDBLaravel\Models\Game as Igdb;
 
 class KeyController extends Controller
 {
     // TODO: Move caching to the platforms model
-    public function create(): View
+    public function create(): Response
     {
         $platforms = Cache::remember('platforms', 3600, function () {
             return Platform::all();
         });
 
-        return view('keys.create')->with('platforms', $platforms);
+        return Inertia::render('Keys/Create', [
+            'platforms'  => $platforms->map(fn (Platform $p): \App\DataTransferObjects\PlatformData => \App\DataTransferObjects\PlatformData::fromModel($p))->toArray(),
+            'dlcEnabled' => config('app.dlc_enabled', false),
+        ]);
     }
 
     // TODO: Use form request
@@ -62,7 +65,7 @@ class KeyController extends Controller
                         $game->description  = $igdb->summary;
                         $game->igdb_id      = $igdb->id;
                         $game->image        = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
-                        $game->igdb_updated = Carbon::today();
+                        $game->igdb_updated = \Illuminate\Support\Facades\Date::today();
                     } else {
                         $game->name = $request->gamename;
                     }
@@ -99,9 +102,13 @@ class KeyController extends Controller
     }
 
     // TODO: Use route model binding
-    public function show(Key $key): View
+    public function show(Key $key): Response
     {
-        return view('keys.show')->withKey($key);
+        $key->load(['platform', 'createdUser', 'claimedUser', 'game', 'dlc']);
+
+        return Inertia::render('Keys/Show', [
+            'keyData' => \App\DataTransferObjects\KeyData::fromModel($key),
+        ]);
     }
 
     // TODO: Use route model binding
@@ -123,17 +130,57 @@ class KeyController extends Controller
         return back()->with('error', __('keys.alreadyclaimederror'));
     }
 
-    public function claimed(): View
+    public function claimed(Request $request): Response
     {
-        return view('games.index')
-            ->withTitle('Claimed Keys')
-            ->withUrl(route('api.my.keys.claimed.index'));
+        $keys = auth()->user()->claimedKeys()->with('game')->paginate(12);
+        
+        // Transform paginated keys to games format for InfiniteScroll
+        $gamesPaginator = $keys->through(function ($key) {
+            $game = $key->game;
+            $image = '/images/default-game.png';
+            
+            if ($game && $game->image) {
+                // Format image path: add leading slash if not from IGDB, otherwise use full URL
+                $image = $game->igdb_id === null ? '/'.$game->image : $game->image;
+            }
+            
+            return [
+                'id' => $key->game_id,
+                'name' => $game->name ?? 'Unknown',
+                'image' => $image,
+                'url' => '/games/'.$key->game_id,
+            ];
+        });
+
+        return Inertia::render('Keys/Claimed', [
+            'games' => Inertia::scroll(fn () => $gamesPaginator),
+        ]);
     }
 
-    public function shared(): View
+    public function shared(Request $request): Response
     {
-        return view('games.index')
-            ->withTitle('Shared Keys')
-            ->withUrl(route('api.my.keys.shared.index'));
+        $keys = auth()->user()->sharedKeys()->with('game')->paginate(12);
+        
+        // Transform paginated keys to games format for InfiniteScroll
+        $gamesPaginator = $keys->through(function ($key) {
+            $game = $key->game;
+            $image = '/images/default-game.png';
+            
+            if ($game && $game->image) {
+                // Format image path: add leading slash if not from IGDB, otherwise use full URL
+                $image = $game->igdb_id === null ? '/'.$game->image : $game->image;
+            }
+            
+            return [
+                'id' => $key->game_id,
+                'name' => $game->name ?? 'Unknown',
+                'image' => $image,
+                'url' => '/games/'.$key->game_id,
+            ];
+        });
+
+        return Inertia::render('Keys/Shared', [
+            'games' => Inertia::scroll(fn () => $gamesPaginator),
+        ]);
     }
 }

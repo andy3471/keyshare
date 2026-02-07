@@ -6,7 +6,8 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class HomeController extends Controller
 {
@@ -29,13 +30,13 @@ class HomeController extends Controller
         return to_route('games.index');
     }
 
-    public function notApproved(): View
+    public function notApproved(): Response
     {
-        return view('auth.not-approved');
+        return Inertia::render('Auth/NotApproved');
     }
 
-    public function demo(): View
+    public function demo(): Response
     {
-        return view('auth.demo-mode');
+        return Inertia::render('Auth/DemoMode');
     }
 }

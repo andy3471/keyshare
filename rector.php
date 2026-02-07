@@ -8,15 +8,9 @@ use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\Config\RectorConfig;
 use Rector\Set\ValueObject\SetList;
-use Rector\Strict\Rector\If_\BooleanInIfConditionRuleFixerRector;
-use RectorLaravel\Rector\Class_\AddExtendsAnnotationToModelFactoriesRector;
 use RectorLaravel\Rector\ClassMethod\AddGenericReturnTypeToRelationsRector;
 use RectorLaravel\Rector\FuncCall\FactoryFuncCallToStaticCallRector;
-use RectorLaravel\Rector\FuncCall\NowFuncWithStartOfDayMethodCallToTodayFuncRector;
 use RectorLaravel\Rector\MethodCall\EloquentOrderByToLatestOrOldestRector;
-use RectorLaravel\Rector\MethodCall\RedirectBackToBackHelperRector;
-use RectorLaravel\Rector\MethodCall\RedirectRouteToToRouteHelperRector;
-use RectorLaravel\Rector\MethodCall\ValidationRuleArrayStringValueToArrayRector;
 use RectorLaravel\Set\LaravelLevelSetList;
 use RectorLaravel\Set\LaravelSetList;
 
@@ -47,12 +41,7 @@ return RectorConfig::configure()
     ])
     ->withRules([
         EloquentOrderByToLatestOrOldestRector::class,
-        RedirectRouteToToRouteHelperRector::class,
-        ValidationRuleArrayStringValueToArrayRector::class,
-        RedirectBackToBackHelperRector::class,
-        NowFuncWithStartOfDayMethodCallToTodayFuncRector::class,
         FactoryFuncCallToStaticCallRector::class,
-        AddExtendsAnnotationToModelFactoriesRector::class,
         AddGenericReturnTypeToRelationsRector::class,
     ])
     ->withPreparedSets(
@@ -61,12 +50,10 @@ return RectorConfig::configure()
         typeDeclarations: true,
         privatization: true,
         earlyReturn: true,
-        strictBooleans: true
     )
     ->withSkip([
         EncapsedStringsToSprintfRector::class,
         ExplicitBoolCompareRector::class,
-        BooleanInIfConditionRuleFixerRector::class,
         ArgumentAdderRector::class => [
             __DIR__.'/app/Http/Middleware/Filament/Authenticate.php',
         ],

@@ -4,31 +4,37 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Front;
 
+use App\DataTransferObjects\DlcData;
+use App\DataTransferObjects\KeyData;
 use App\Http\Controllers\Controller;
 use App\Models\Dlc;
 use App\Models\Game;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class DlcController extends Controller
 {
     // TODO: Needs refactor
 
     // TODO: Needs refactor
-    public function show(Dlc $dlc): View
+    public function show(Dlc $dlc): Response
     {
-        $id = $dlc->id;
-
-        $keys = Dlc::find($id)
-            ->keys()
+        $keys = $dlc->keys()
             ->select('id', 'platform_id', 'created_user_id')
-            ->where('owned_user_id', null)
+            ->where('owned_user_id')
             ->where('key_type_id', '2')
-            ->with('platform', 'createduser')
-            ->get();
+            ->with('platform', 'createdUser')
+            ->get()
+            ->map(fn (\App\Models\Key $key): KeyData => KeyData::fromModel($key));
 
-        return view('dlc.show')->withDlc($dlc)->withKeys($keys);
+        $dlc->load('game');
+
+        return Inertia::render('Dlc/Show', [
+            'dlc'  => DlcData::fromModel($dlc),
+            'keys' => $keys->toArray(),
+        ]);
     }
 
     public function edit(Dlc $dlc): View

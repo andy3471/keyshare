@@ -16,7 +16,7 @@ class GameController extends Controller
             ->distinct()
             ->selectRaw("games.id, games.name, games.image, concat('/games/', games.id) as url")
             ->join('keys', 'keys.game_id', '=', 'games.id')
-            ->where('keys.owned_user_id', '=', null)
+            ->where('keys.owned_user_id', '=')
             ->where('games.removed', '=', '0')
             ->where('keys.removed', '=', '0')
             ->oldest('games.name')
