@@ -8,6 +8,5 @@ use Illuminate\Support\Facades\Schedule;
 Schedule::command(DemoModeRefresh::class)
     ->daily();
 
-
 Schedule::command(DemoModeRefresh::class)
     ->daily();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -20,17 +22,17 @@ return Application::configure(basePath: dirname(__DIR__))
             'XDEBUG_SESSION',
         ]);
 
-        $middleware->append(\App\Http\Middleware\CheckForMaintenanceMode::class);
+        $middleware->append(App\Http\Middleware\CheckForMaintenanceMode::class);
 
         $middleware->throttleApi('60,1');
 
         $middleware->alias([
-            'admin' => \App\Http\Middleware\Admin::class,
-            'approved' => \App\Http\Middleware\Approved::class,
-            'auth' => \App\Http\Middleware\Authenticate::class,
-            'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            'demomode' => \App\Http\Middleware\DemoMode::class,
-            'steamlogin' => \App\Http\Middleware\SteamLoginEnabled::class,
+            'admin'      => App\Http\Middleware\Admin::class,
+            'approved'   => App\Http\Middleware\Approved::class,
+            'auth'       => App\Http\Middleware\Authenticate::class,
+            'bindings'   => Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'demomode'   => App\Http\Middleware\DemoMode::class,
+            'steamlogin' => App\Http\Middleware\SteamLoginEnabled::class,
         ]);
 
         $middleware->priority([

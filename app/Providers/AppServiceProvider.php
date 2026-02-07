@@ -45,6 +45,24 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
+    /** Register any application services. */
+    public function register(): void
+    {
+        //
+    }
+
+    public function bootAuth(): void
+    {
+
+        Gate::define('approved', function ($user) {
+            return $user->is_approved;
+        });
+
+        Gate::define('admin', function ($user) {
+            return $user->is_admin;
+        });
+    }
+
     private function configureVite(): void
     {
         Vite::useAggressivePrefetching();
@@ -67,25 +85,5 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::automaticallyEagerLoadRelationships();
         Model::preventLazyLoading(app()->isLocal());
-    }
-
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        //
-    }
-
-    public function bootAuth(): void
-    {
-
-        Gate::define('approved', function ($user) {
-            return $user->is_approved;
-        });
-
-        Gate::define('admin', function ($user) {
-            return $user->is_admin;
-        });
     }
 }
