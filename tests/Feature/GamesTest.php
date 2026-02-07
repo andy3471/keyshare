@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
 use App\Models\Game;
@@ -10,17 +12,16 @@ use Tests\TestCase;
 
 class GamesTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     /**
      * A basic feature test example.
-     *
-     * @return void
      */
-    public function testViewGamesPage()
+    public function test_view_games_page(): void
     {
-        $user = factory(User::class)->create();
-        $game = factory(Game::class)->create();
+        $user = User::factory()->create();
+        $game = Game::factory()->create();
 
         $this->actingAs($user)->get('/games/'.$game->id)
             ->assertStatus(200)

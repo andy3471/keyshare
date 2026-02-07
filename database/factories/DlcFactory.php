@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Dlc;
@@ -14,9 +16,9 @@ class DlcFactory extends Factory
     public function definition(): array
     {
         return [
-            'game_id' => Game::all()->random()->id,
-            'name' => fake()->unique()->realText(20),
-            'description' => fake()->paragraph($nbSentences = 1),
+            'game_id'         => Game::all()->random()->id,
+            'name'            => fake()->unique()->realText(20),
+            'description'     => fake()->paragraph($nbSentences = 1),
             'created_user_id' => User::all()->random()->id,
         ];
     }

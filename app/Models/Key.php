@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -64,33 +66,51 @@ class Key extends Model
         );
     }
 
+    /**
+     * @return BelongsTo<Game, $this>
+     */
     public function game(): BelongsTo
     {
         // TODO: Migrate to polymorphic relationship
         return $this->belongsTo(Game::class);
     }
 
+    /**
+     * @return BelongsTo<Dlc, $this>
+     */
     public function dlc(): BelongsTo
     {
         // TODO: Migrate to polymorphic relationship
         return $this->belongsTo(Dlc::class);
     }
 
+    /**
+     * @return BelongsTo<KeyType, $this>
+     */
     public function keyType(): BelongsTo
     {
         return $this->belongsTo(KeyType::class);
     }
 
+    /**
+     * @return BelongsTo<Platform, $this>
+     */
     public function platform(): BelongsTo
     {
         return $this->belongsTo(Platform::class);
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function claimedUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owned_user_id');
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function createdUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_user_id');

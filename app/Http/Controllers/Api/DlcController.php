@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -18,7 +20,7 @@ class DlcController extends Controller
             ->where('keys.owned_user_id', '=', null)
             ->where('keys.removed', '=', '0')
             ->where('keys.game_id', '=', $game->id)
-            ->orderby('dlcs.name')
+            ->oldest('dlcs.name')
             ->paginate(12);
 
         return response()->json($dlc);

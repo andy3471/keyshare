@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
@@ -18,10 +20,10 @@ class GameController extends Controller
     // TODO: Refactor
     public function show(Game $game): View
     {
-        $dlcCount = 0;
-        $dlcurl = null;
-        $igdb = null;
-        $genres = null;
+        $dlcCount    = 0;
+        $dlcurl      = null;
+        $igdb        = null;
+        $genres      = null;
         $screenshots = null;
 
         $keys = $game->keys()
@@ -44,9 +46,9 @@ class GameController extends Controller
         }
 
         if ($game->igdb_id) {
-            $igdb = Igdb::select(['aggregated_rating', 'aggregated_rating_count'])->with(['genres', 'screenshots'])->where('id', '=', $game->igdb_id)->first();
+            $igdb        = Igdb::select(['aggregated_rating', 'aggregated_rating_count'])->with(['genres', 'screenshots'])->where('id', '=', $game->igdb_id)->first();
             $screenshots = $igdb->screenshots;
-            $genres = $igdb->genres;
+            $genres      = $igdb->genres;
         }
 
         return view('games.show')

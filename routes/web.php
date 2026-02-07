@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // TODO: Tidy these routes up
 use App\Http\Controllers\Auth\SteamLoginController;
 use App\Http\Controllers\Front\DlcController;
@@ -16,7 +18,7 @@ Auth::routes();
 Route::get('not-approved', [HomeController::class, 'notApproved'])->name('auth.not-approved');
 Route::get('demo', [HomeController::class, 'demo'])->name('auth.demo-mode');
 
-Route::middleware(['steamlogin'])->group(function () {
+Route::middleware(['steamlogin'])->group(function (): void {
     Route::get('login/steam', [SteamLoginController::class, 'redirect'])
         ->name('login.linked-account.steam');
 
@@ -24,7 +26,7 @@ Route::middleware(['steamlogin'])->group(function () {
         ->name('login.linked-account.steam.callback');
 });
 
-Route::middleware(['auth', 'approved'])->group(function () {
+Route::middleware(['auth', 'approved'])->group(function (): void {
     Route::get('/', [HomeController::class, 'index'])->name('index');
 
     Route::get('search', [SearchController::class, 'index'])->name('search.index');

@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class KeyType extends Model
 {
-    const GAME = 1;
+    public const GAME = 1;
 
-    const DLC = 2;
+    public const DLC = 2;
 
-    const WALLET = 3;
+    public const WALLET = 3;
 
-    const SUBSCRIPTION = 4;
+    public const SUBSCRIPTION = 4;
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Notifications;
 
 use App\Models\Game;
@@ -25,7 +27,7 @@ class KeyAdded extends Notification
         $this->url = config('app.url').'/keys/'.$key->id;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return [DiscordChannel::class];
     }
@@ -35,7 +37,7 @@ class KeyAdded extends Notification
         return DiscordMessage::create("A key for {$this->game->name} on {$this->key->platform->name} has been added by {$this->user->name}. Claim it at {$this->url}.");
     }
 
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

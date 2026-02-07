@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -10,8 +12,8 @@ class SteamLoginEnabled
     {
         if (config('keyshare.steamlogin')) {
             return $next($request);
-        } else {
-            return redirect('index');
         }
+
+        return redirect('index');
     }
 }

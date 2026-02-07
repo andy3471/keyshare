@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+use App\Console\Commands\DemoModeRefresh;
+use App\Console\Commands\UpdateGames;
+use Illuminate\Support\Facades\Schedule;
+
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -10,3 +16,9 @@
 | simple approach to interacting with each command's IO methods.
 |
 */
+
+Schedule::command(DemoModeRefresh::class)
+    ->daily();
+
+Schedule::command(UpdateGames::class)
+    ->daily();

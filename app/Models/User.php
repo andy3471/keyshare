@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Filament\Models\Contracts\FilamentUser;
@@ -33,20 +35,25 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
+    /**
+     * @return HasMany<LinkedAccount, $this>
+     */
     public function linkedAccounts(): HasMany
     {
         return $this->hasMany(LinkedAccount::class);
     }
 
+    /**
+     * @return HasMany<Key, $this>
+     */
     public function claimedKeys(): HasMany
     {
         return $this->hasMany(Key::class, 'owned_user_id');
     }
 
+    /**
+     * @return HasMany<Key, $this>
+     */
     public function sharedKeys(): HasMany
     {
         return $this->hasMany(Key::class, 'created_user_id');
@@ -54,7 +61,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->admin;
+        return (bool) $this->admin;
     }
 
     public function karma(): Attribute
@@ -72,8 +79,8 @@ class User extends Authenticatable implements FilamentUser
                 }
 
                 // Calculate karma using Eloquent
-                $createdKeysCount = \App\Models\Key::where('created_user_id', $id)->count();
-                $ownedKeysCount = \App\Models\Key::where('owned_user_id', $id)->count();
+                $createdKeysCount = Key::where('created_user_id', $id)->count();
+                $ownedKeysCount   = Key::where('owned_user_id', $id)->count();
 
                 $karma = $createdKeysCount - $ownedKeysCount;
 
@@ -88,17 +95,26 @@ class User extends Authenticatable implements FilamentUser
     public function karmaColour(): Attribute
     {
         return Attribute::make(
-            get: function () {
+            get: function (): string {
                 if ($this->karma < 0) {
                     return 'badge-danger';
-                } elseif ($this->karma < 2) {
+                }
+                if ($this->karma < 2) {
                     return 'badge-warning';
-                } elseif ($this->karma < 15) {
+                }
+                if ($this->karma < 15) {
                     return 'badge-info';
                 }
 
                 return 'badge-success';
             }
         );
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+        ];
     }
 }

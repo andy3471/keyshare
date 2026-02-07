@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
@@ -40,23 +42,23 @@ class DlcController extends Controller
     {
 
         $this->validate($request, [
-            'name' => 'required',
+            'name'  => 'required',
             'image' => 'image|nullable|max:1999|dimensions:width=460,height=215',
         ]);
 
         if ($request->hasFile('image')) {
-            $filename = uniqid();
-            $extension = $request->file('image')->getClientOriginalExtension();
+            $filename        = uniqid();
+            $extension       = $request->file('image')->getClientOriginalExtension();
             $filenameToStore = $filename.'.'.$extension;
-            $folderToStore = 'images/dlc/';
-            $fullImagePath = $folderToStore.$filenameToStore;
+            $folderToStore   = 'images/dlc/';
+            $fullImagePath   = $folderToStore.$filenameToStore;
 
             $path = $request->file('image')->storeAs('public/'.$folderToStore, $filenameToStore);
         }
 
         $dlc = Dlc::find($request->dlcid);
 
-        $dlc->name = $request->name;
+        $dlc->name        = $request->name;
         $dlc->description = $request->description;
         if ($request->hasFile('image')) {
             $dlc->image = 'storage/'.$fullImagePath;
@@ -73,6 +75,6 @@ class DlcController extends Controller
 
         $dlc->save();
 
-        return redirect()->route('dlc', $dlc)->with('message', __('dlc.dlcupdated'));
+        return to_route('dlc', $dlc)->with('message', __('dlc.dlcupdated'));
     }
 }

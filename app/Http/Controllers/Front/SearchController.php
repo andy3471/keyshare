@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
@@ -24,30 +26,29 @@ class SearchController extends Controller
             ->where('removed', '=', '0')
             ->get();
 
-        if (count($game) == 0) {
+        if (count($game) === 0) {
             if (config('igdb.enabled')) {
                 $igdb = Igdb::select(['name', 'summary', 'id'])->with(['cover' => ['image_id']])->where('name', '=', $request->search)->first();
 
                 if ($igdb) {
-                    $game = new Game;
-                    $game->name = $igdb->name;
-                    $game->description = $igdb->summary;
-                    $game->igdb_id = $igdb->id;
-                    $game->image = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
-                    $game->igdb_updated = Carbon::today();
+                    $game                  = new Game;
+                    $game->name            = $igdb->name;
+                    $game->description     = $igdb->summary;
+                    $game->igdb_id         = $igdb->id;
+                    $game->image           = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
+                    $game->igdb_updated    = Carbon::today();
                     $game->created_user_id = auth()->user()->id;
                     $game->save();
 
-                    return redirect()->route('games.index', $game);
+                    return to_route('games.index', $game);
                 }
             }
 
             return view('games.index')->withTitle($search)->withurl(route('api.games.search.index', ['search' => $search]));
-        } else {
-            $game = $game[0]->id;
-
-            return redirect()->route('games.index', $game);
         }
+        $game = $game[0]->id;
+
+        return to_route('games.index', $game);
     }
 
     // TODO: Refactor

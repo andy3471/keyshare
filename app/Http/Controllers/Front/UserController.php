@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
@@ -22,30 +24,31 @@ class UserController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name'  => 'required',
             'image' => 'image|nullable|max:1999|dimensions:ratio=1/1',
-            'bio' => 'nullable',
+            'bio'   => 'nullable',
         ]);
 
         if ($request->hasFile('image')) {
-            $filename = uniqid();
-            $extension = $request->file('image')->getClientOriginalExtension();
+            $filename        = uniqid();
+            $extension       = $request->file('image')->getClientOriginalExtension();
             $filenameToStore = $filename.'.'.$extension;
-            $folderToStore = 'images/users/';
-            $fullImagePath = $folderToStore.$filenameToStore;
+            $folderToStore   = 'images/users/';
+            $fullImagePath   = $folderToStore.$filenameToStore;
 
             $path = $request->file('image')->storeAs('public/'.$folderToStore, $filenameToStore);
         }
 
-        $user = auth()->user();
+        $user       = auth()->user();
         $user->name = $request->name;
-        $user->bio = $request->bio;
+        $user->bio  = $request->bio;
         if ($request->hasFile('image')) {
             $user->image = '/storage/'.$fullImagePath;
         }
+
         $user->save();
 
-        return redirect()->route('showuser', ['id' => auth()->id()])->with('message', __('auth.profileupdated'));
+        return to_route('showuser', ['id' => auth()->id()])->with('message', __('auth.profileupdated'));
     }
 
     public function show(User $user): View
@@ -66,21 +69,21 @@ class UserController extends Controller
 
         $this->validate($request, [
             'currentpassword' => 'required',
-            'newpassword' => 'required|string|min:6|confirmed',
+            'newpassword'     => 'required|string|min:6|confirmed',
         ]);
 
         if (! (Hash::check($request->currentpassword, auth()->user()->password))) {
-            return redirect()->back()->with('error', __('auth.passwordsdontmatch'));
+            return back()->with('error', __('auth.passwordsdontmatch'));
         }
 
-        if ($request->currentpassword == $request->newpassword) {
-            return redirect()->back()->with('error', __('auth.passwordsameascurrent'));
+        if ($request->currentpassword === $request->newpassword) {
+            return back()->with('error', __('auth.passwordsameascurrent'));
         }
 
-        $user = auth()->user();
+        $user           = auth()->user();
         $user->password = bcrypt($request->newpassword);
         $user->save();
 
-        return redirect()->back()->with('message', __('auth.passwordchanged'));
+        return back()->with('message', __('auth.passwordchanged'));
     }
 }

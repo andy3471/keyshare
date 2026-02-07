@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -12,9 +14,9 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'admin' => 'Admin',
+    'admin'          => 'Admin',
     'profileupdated' => 'The profile has now been updated',
-    'users' => 'Users',
-    'notapproved' => 'User Awaiting Approval',
-    'approved' => 'User Approved',
+    'users'          => 'Users',
+    'notapproved'    => 'User Awaiting Approval',
+    'approved'       => 'User Approved',
 ];
