@@ -18,7 +18,6 @@ class UserController extends Controller
         return Inertia::render('Users/Edit');
     }
 
-
     public function update(UpdateUserRequest $request): RedirectResponse
     {
         $user = auth()->user()->update($request->validated());
