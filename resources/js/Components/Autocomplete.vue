@@ -104,6 +104,7 @@ const loading = ref(false);
 const showResults = ref(false);
 const selectedIndex = ref(-1);
 const containerRef = ref<HTMLElement | null>(null);
+const inputRef = ref<HTMLInputElement | null>(null);
 let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 let abortController: AbortController | null = null;
 
@@ -231,13 +232,23 @@ const selectCurrent = () => {
     }
 };
 
-const handleEnter = () => {
+const handleEnter = (event: KeyboardEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    // Get the current value directly from the input element to ensure we have the latest value
+    const inputValue = inputRef.value?.value;
+    const currentValue = (inputValue !== undefined && inputValue !== null) ? String(inputValue) : (query.value || '');
+    
+    console.log('handleEnter - inputRef.value?.value:', inputRef.value?.value, 'query.value:', query.value, 'currentValue:', currentValue);
+    
     // If there's a selected item in the dropdown, select it
     if (selectedIndex.value >= 0 && results.value[selectedIndex.value]) {
         selectCurrent();
-    } else if (query.value && query.value.length >= 2) {
-        // Otherwise, if there's a query, emit search event
-        emit('search', query.value);
+    } else {
+        // Otherwise, emit search event with whatever query is in the input
+        console.log('Emitting search event with query:', currentValue);
+        emit('search', currentValue);
         showResults.value = false;
     }
 };
