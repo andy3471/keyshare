@@ -11,7 +11,7 @@ use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 class GameData extends Data
 {
     public function __construct(
-        public int $id,
+        public string $id,
         public string $name,
         public ?string $description = null,
         public ?string $image = null,
@@ -22,7 +22,7 @@ class GameData extends Data
     public static function fromModel(\App\Models\Game $game): self
     {
         return new self(
-            id: $game->id,
+            id: (string) $game->id,
             name: $game->name,
             description: $game->description ?? null,
             image: $game->image             ?? null,

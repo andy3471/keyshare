@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Front\KeyController::create
-* @see app/Http/Controllers/Front/KeyController.php:25
+* @see app/Http/Controllers/Front/KeyController.php:26
 * @route '/keys/create'
 */
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::create
-* @see app/Http/Controllers/Front/KeyController.php:25
+* @see app/Http/Controllers/Front/KeyController.php:26
 * @route '/keys/create'
 */
 create.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ create.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::create
-* @see app/Http/Controllers/Front/KeyController.php:25
+* @see app/Http/Controllers/Front/KeyController.php:26
 * @route '/keys/create'
 */
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::create
-* @see app/Http/Controllers/Front/KeyController.php:25
+* @see app/Http/Controllers/Front/KeyController.php:26
 * @route '/keys/create'
 */
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -45,7 +45,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::store
-* @see app/Http/Controllers/Front/KeyController.php:39
+* @see app/Http/Controllers/Front/KeyController.php:45
 * @route '/keys'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -60,7 +60,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::store
-* @see app/Http/Controllers/Front/KeyController.php:39
+* @see app/Http/Controllers/Front/KeyController.php:45
 * @route '/keys'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -69,7 +69,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::store
-* @see app/Http/Controllers/Front/KeyController.php:39
+* @see app/Http/Controllers/Front/KeyController.php:45
 * @route '/keys'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -79,7 +79,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::show
-* @see app/Http/Controllers/Front/KeyController.php:107
+* @see app/Http/Controllers/Front/KeyController.php:117
 * @route '/keys/{key}'
 */
 export const show = (args: { key: string | number | { id: string | number } } | [key: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::show
-* @see app/Http/Controllers/Front/KeyController.php:107
+* @see app/Http/Controllers/Front/KeyController.php:117
 * @route '/keys/{key}'
 */
 show.url = (args: { key: string | number | { id: string | number } } | [key: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
@@ -127,7 +127,7 @@ show.url = (args: { key: string | number | { id: string | number } } | [key: str
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::show
-* @see app/Http/Controllers/Front/KeyController.php:107
+* @see app/Http/Controllers/Front/KeyController.php:117
 * @route '/keys/{key}'
 */
 show.get = (args: { key: string | number | { id: string | number } } | [key: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -137,7 +137,7 @@ show.get = (args: { key: string | number | { id: string | number } } | [key: str
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::show
-* @see app/Http/Controllers/Front/KeyController.php:107
+* @see app/Http/Controllers/Front/KeyController.php:117
 * @route '/keys/{key}'
 */
 show.head = (args: { key: string | number | { id: string | number } } | [key: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -147,7 +147,7 @@ show.head = (args: { key: string | number | { id: string | number } } | [key: st
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::claim
-* @see app/Http/Controllers/Front/KeyController.php:118
+* @see app/Http/Controllers/Front/KeyController.php:128
 * @route '/keys/claim'
 */
 export const claim = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -162,7 +162,7 @@ claim.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::claim
-* @see app/Http/Controllers/Front/KeyController.php:118
+* @see app/Http/Controllers/Front/KeyController.php:128
 * @route '/keys/claim'
 */
 claim.url = (options?: RouteQueryOptions) => {
@@ -171,7 +171,7 @@ claim.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::claim
-* @see app/Http/Controllers/Front/KeyController.php:118
+* @see app/Http/Controllers/Front/KeyController.php:128
 * @route '/keys/claim'
 */
 claim.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -181,7 +181,7 @@ claim.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::claimed
-* @see app/Http/Controllers/Front/KeyController.php:135
+* @see app/Http/Controllers/Front/KeyController.php:145
 * @route '/my/claimed-keys'
 */
 export const claimed = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -196,7 +196,7 @@ claimed.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::claimed
-* @see app/Http/Controllers/Front/KeyController.php:135
+* @see app/Http/Controllers/Front/KeyController.php:145
 * @route '/my/claimed-keys'
 */
 claimed.url = (options?: RouteQueryOptions) => {
@@ -205,7 +205,7 @@ claimed.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::claimed
-* @see app/Http/Controllers/Front/KeyController.php:135
+* @see app/Http/Controllers/Front/KeyController.php:145
 * @route '/my/claimed-keys'
 */
 claimed.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -215,7 +215,7 @@ claimed.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::claimed
-* @see app/Http/Controllers/Front/KeyController.php:135
+* @see app/Http/Controllers/Front/KeyController.php:145
 * @route '/my/claimed-keys'
 */
 claimed.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -225,7 +225,7 @@ claimed.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::shared
-* @see app/Http/Controllers/Front/KeyController.php:162
+* @see app/Http/Controllers/Front/KeyController.php:172
 * @route '/my/shared-keys'
 */
 export const shared = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -240,7 +240,7 @@ shared.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::shared
-* @see app/Http/Controllers/Front/KeyController.php:162
+* @see app/Http/Controllers/Front/KeyController.php:172
 * @route '/my/shared-keys'
 */
 shared.url = (options?: RouteQueryOptions) => {
@@ -249,7 +249,7 @@ shared.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::shared
-* @see app/Http/Controllers/Front/KeyController.php:162
+* @see app/Http/Controllers/Front/KeyController.php:172
 * @route '/my/shared-keys'
 */
 shared.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -259,7 +259,7 @@ shared.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::shared
-* @see app/Http/Controllers/Front/KeyController.php:162
+* @see app/Http/Controllers/Front/KeyController.php:172
 * @route '/my/shared-keys'
 */
 shared.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

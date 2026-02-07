@@ -11,7 +11,7 @@ use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 class UserData extends Data
 {
     public function __construct(
-        public int $id,
+        public string $id,
         public string $name,
         public ?string $email = null,
         public ?string $image = null,
@@ -25,7 +25,7 @@ class UserData extends Data
     public static function fromModel(\App\Models\User $user): self
     {
         return new self(
-            id: $user->id,
+            id: (string) $user->id,
             name: $user->name,
             email: $user->email,
             image: $user->image               ?? null,

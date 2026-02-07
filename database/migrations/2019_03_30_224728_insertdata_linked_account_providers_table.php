@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class InsertdataLinkedAccountProvidersTable extends Migration
 {
@@ -13,8 +15,9 @@ class InsertdataLinkedAccountProvidersTable extends Migration
      */
     public function up()
     {
+        $now = now();
         DB::table('linked_account_providers')->insert([
-            ['name' => 'Steam'],
+            ['id' => Str::uuid(), 'name' => 'Steam', 'created_at' => $now, 'updated_at' => $now],
         ]);
     }
 

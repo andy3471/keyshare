@@ -16,13 +16,16 @@ class CreateWalletsTable extends Migration
     public function up()
     {
         Schema::create('wallets', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->BigInteger('platform_id')->references('id')->on('platforms');
+            $table->uuid('id')->primary();
+            $table->uuid('platform_id');
             $table->BigInteger('value');
             $table->string('description')->nullable();
             $table->string('image')->nullable();
+            $table->uuid('created_user_id');
             $table->timestamps();
-            $table->BigInteger('created_user_id')->references('id')->on('users');
+            
+            $table->foreign('platform_id')->references('id')->on('platforms');
+            $table->foreign('created_user_id')->references('id')->on('users');
         });
     }
 

@@ -16,10 +16,14 @@ class SubscriptionFactory extends Factory
     public function definition(): array
     {
         return [
-            'platform_id'     => Platform::all()->random()->id,
+            'platform_id'     => function () {
+                return Platform::all()->random()->id;
+            },
             'name'            => fake()->unique()->realText(10),
             'description'     => fake()->paragraph($nbSentences = 1),
-            'created_user_id' => User::all()->random()->id,
+            'created_user_id' => function () {
+                return User::all()->random()->id;
+            },
         ];
     }
 }

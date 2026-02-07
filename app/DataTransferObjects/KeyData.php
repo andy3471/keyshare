@@ -11,14 +11,14 @@ use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 class KeyData extends Data
 {
     public function __construct(
-        public int $id,
-        public ?int $game_id = null,
-        public ?int $dlc_id = null,
-        public int $platform_id = 0,
+        public string $id,
+        public ?string $game_id = null,
+        public ?string $dlc_id = null,
+        public string $platform_id,
         public ?string $keycode = null,
         public ?string $message = null,
-        public ?int $created_user_id = null,
-        public ?int $owned_user_id = null,
+        public ?string $created_user_id = null,
+        public ?string $owned_user_id = null,
         public ?string $name = null,
         public ?string $image = null,
         public ?string $url = null,
@@ -32,14 +32,14 @@ class KeyData extends Data
     public static function fromModel(\App\Models\Key $key): self
     {
         return new self(
-            id: $key->id,
-            game_id: $key->game_id ?? null,
-            dlc_id: $key->dlc_id   ?? null,
-            platform_id: $key->platform_id,
+            id: (string) $key->id,
+            game_id: $key->game_id ? (string) $key->game_id : null,
+            dlc_id: $key->dlc_id ? (string) $key->dlc_id : null,
+            platform_id: (string) $key->platform_id,
             keycode: $key->keycode                 ?? null,
             message: $key->message                 ?? null,
-            created_user_id: $key->created_user_id ?? null,
-            owned_user_id: $key->owned_user_id     ?? null,
+            created_user_id: $key->created_user_id ? (string) $key->created_user_id : null,
+            owned_user_id: $key->owned_user_id ? (string) $key->owned_user_id : null,
             name: $key->name                       ?? null,
             image: $key->image                     ?? null,
             url: $key->url                         ?? null,

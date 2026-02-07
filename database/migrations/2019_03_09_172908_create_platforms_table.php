@@ -16,8 +16,9 @@ class CreatePlatformsTable extends Migration
     public function up()
     {
         Schema::create('platforms', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
             $table->string('name');
+            $table->integer('igdb_id')->nullable();
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 class Key extends Model
 {
     use HasFactory;
+    use HasUuids;
     use Notifiable;
 
     protected $appends = [
@@ -87,12 +89,30 @@ class Key extends Model
     {
         return Attribute::make(
             get: function () {
-                switch ($this->key_type_id) {
-                    case KeyType::GAME:
-                        return $this->game->name;
-                    case KeyType::DLC:
-                        return $this->dlc->name.': '.$this->game->name;
+                // Access the relationship properly - check if loaded, otherwise load it
+                if ($this->relationLoaded('keyType')) {
+                    $keyType = $this->relations['keyType'];
+                } elseif ($this->key_type_id) {
+                    $keyType = $this->keyType()->first();
+                } else {
+                    return null;
                 }
+                
+                // If keyType is not a model instance (e.g., it's the ID), return null
+                if (!($keyType instanceof KeyType)) {
+                    return null;
+                }
+                
+                $keyTypeName = $keyType->name;
+                
+                if ($keyTypeName === 'Games') {
+                    return $this->game?->name;
+                }
+                if ($keyTypeName === 'DLC') {
+                    return ($this->dlc?->name ?? '').': '.($this->game?->name ?? '');
+                }
+                
+                return null;
             }
         );
     }
@@ -101,12 +121,30 @@ class Key extends Model
     {
         return Attribute::make(
             get: function () {
-                switch ($this->key_type_id) {
-                    case KeyType::GAME:
-                        return $this->game->image;
-                    case KeyType::DLC:
-                        return $this->dlc->image;
+                // Access the relationship properly - check if loaded, otherwise load it
+                if ($this->relationLoaded('keyType')) {
+                    $keyType = $this->relations['keyType'];
+                } elseif ($this->key_type_id) {
+                    $keyType = $this->keyType()->first();
+                } else {
+                    return null;
                 }
+                
+                // If keyType is not a model instance (e.g., it's the ID), return null
+                if (!($keyType instanceof KeyType)) {
+                    return null;
+                }
+                
+                $keyTypeName = $keyType->name;
+                
+                if ($keyTypeName === 'Games') {
+                    return $this->game?->image;
+                }
+                if ($keyTypeName === 'DLC') {
+                    return $this->dlc?->image;
+                }
+                
+                return null;
             }
         );
     }

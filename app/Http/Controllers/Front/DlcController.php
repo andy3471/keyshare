@@ -9,6 +9,7 @@ use App\DataTransferObjects\KeyData;
 use App\Http\Controllers\Controller;
 use App\Models\Dlc;
 use App\Models\Game;
+use App\Models\KeyType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -24,7 +25,7 @@ class DlcController extends Controller
         $keys = $dlc->keys()
             ->select('id', 'platform_id', 'created_user_id')
             ->where('owned_user_id')
-            ->where('key_type_id', '2')
+            ->where('key_type_id', KeyType::getIdByName('DLC'))
             ->with('platform', 'createdUser')
             ->get()
             ->map(fn (\App\Models\Key $key): KeyData => KeyData::fromModel($key));

@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Front\DlcController::show
-* @see app/Http/Controllers/Front/DlcController.php:22
+* @see app/Http/Controllers/Front/DlcController.php:23
 * @route '/dlc/{dlc}'
 */
 export const show = (args: { dlc: string | number | { id: string | number } } | [dlc: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\DlcController::show
-* @see app/Http/Controllers/Front/DlcController.php:22
+* @see app/Http/Controllers/Front/DlcController.php:23
 * @route '/dlc/{dlc}'
 */
 show.url = (args: { dlc: string | number | { id: string | number } } | [dlc: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
@@ -49,7 +49,7 @@ show.url = (args: { dlc: string | number | { id: string | number } } | [dlc: str
 
 /**
 * @see \App\Http\Controllers\Front\DlcController::show
-* @see app/Http/Controllers/Front/DlcController.php:22
+* @see app/Http/Controllers/Front/DlcController.php:23
 * @route '/dlc/{dlc}'
 */
 show.get = (args: { dlc: string | number | { id: string | number } } | [dlc: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -59,7 +59,7 @@ show.get = (args: { dlc: string | number | { id: string | number } } | [dlc: str
 
 /**
 * @see \App\Http\Controllers\Front\DlcController::show
-* @see app/Http/Controllers/Front/DlcController.php:22
+* @see app/Http/Controllers/Front/DlcController.php:23
 * @route '/dlc/{dlc}'
 */
 show.head = (args: { dlc: string | number | { id: string | number } } | [dlc: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({

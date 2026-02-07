@@ -16,10 +16,11 @@ class CreateGamesTable extends Migration
     public function up()
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->bigInteger('created_user_id')->references('id')->on('users');
+            $table->uuid('created_user_id');
+            $table->foreign('created_user_id')->references('id')->on('users');
             $table->string('image')->nullable();
             $table->timestamps();
         });

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Dlc;
 use App\Models\Game;
 use App\Models\Key;
+use App\Models\KeyType;
 use App\Models\Platform;
 use App\Notifications\KeyAdded;
 use Illuminate\Http\RedirectResponse;
@@ -28,6 +29,11 @@ class KeyController extends Controller
             return Platform::all();
         });
 
+        // Ensure $platforms is a Collection of Platform models (cache might return array)
+        if (!($platforms instanceof \Illuminate\Database\Eloquent\Collection)) {
+            $platforms = Platform::all();
+        }
+
         return Inertia::render('Keys/Create', [
             'platforms'  => $platforms->map(fn (Platform $p): \App\DataTransferObjects\PlatformData => \App\DataTransferObjects\PlatformData::fromModel($p))->toArray(),
             'dlcEnabled' => config('app.dlc_enabled', false),
@@ -41,9 +47,12 @@ class KeyController extends Controller
 
         $this->validate($request, [
             'key_type'    => 'required',
-            'platform_id' => 'required',
+            'platform_id' => ['required', 'uuid', 'exists:platforms,id'],
             'key'         => 'required',
             'message'     => 'max:255',
+        ], [
+            'platform_id.uuid' => 'Please select a valid platform.',
+            'platform_id.exists' => 'The selected platform does not exist.',
         ]);
 
         $key                  = new Key;
@@ -91,7 +100,8 @@ class KeyController extends Controller
             $key->dlc_id = $dlc->id;
         }
 
-        $key->key_type_id = $request->key_type;
+        // Set key_type_id (1 = Games, 2 = DLC, 3 = Wallet, 4 = Subscription)
+        $key->key_type_id = (int) $request->key_type;
         $key->save();
 
         if (config('services.discord.enabled')) {

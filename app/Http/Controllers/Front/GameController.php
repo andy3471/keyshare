@@ -8,6 +8,7 @@ use App\DataTransferObjects\GameData;
 use App\DataTransferObjects\KeyData;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
+use App\Models\KeyType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -43,7 +44,7 @@ class GameController extends Controller
         $keys = $game->keys()
             ->select('id', 'platform_id', 'created_user_id')
             ->where('owned_user_id')
-            ->where('key_type_id', '1')
+            ->where('key_type_id', KeyType::getIdByName('Games'))
             ->with('platform', 'createdUser')
             ->get()
             ->map(fn (\App\Models\Key $key): KeyData => KeyData::fromModel($key));

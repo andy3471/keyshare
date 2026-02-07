@@ -129,6 +129,11 @@ const handleGameSelect = (item: any) => {
 };
 
 const submit = () => {
+    if (!form.platform_id) {
+        form.setError('platform_id', 'Please select a platform.');
+        return;
+    }
+    
     form.post(keys.store.url(), {
         preserveScroll: true,
         onSuccess: () => {

@@ -7,6 +7,7 @@ namespace Database\Factories;
 use App\Models\Dlc;
 use App\Models\Game;
 use App\Models\Key;
+use App\Models\KeyType;
 use App\Models\Platform;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -22,19 +23,19 @@ class KeyFactory extends Factory
                 if (config('app.dlc_enabled')) {
                     return rand(1, 2);
                 }
-
+                
                 return 1;
-
             },
             'game_id' => Game::all()->random()->id,
             'dlc_id'  => function (array $key) {
-                if ($key['key_type_id'] === 2) {
+                // Check if key_type_id matches DLC (ID = 2)
+                if ($key['key_type_id'] === KeyType::DLC) {
                     $game_id = $key['game_id'];
 
-                    $dlc = Dlc::inRandomOrder()->where('Game_id', $game_id)->first();
+                    $dlc = Dlc::inRandomOrder()->where('game_id', $game_id)->first();
 
                     if ($dlc === null) {
-                        $dlc = factory(Dlc::class)->create([
+                        $dlc = Dlc::factory()->create([
                             'game_id' => $game_id,
                         ]);
                     }
@@ -45,7 +46,9 @@ class KeyFactory extends Factory
                 return null;
 
             },
-            'platform_id'   => Platform::all()->random()->id,
+            'platform_id'   => function () {
+                return Platform::all()->random()->id;
+            },
             'keycode'       => fake()->uuid,
             'owned_user_id' => function () {
                 if (rand(0, 1) === 1) {

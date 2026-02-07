@@ -13,14 +13,14 @@
 
 namespace App\Models{
 /**
- * @property int $id
- * @property int $game_id
+ * @property string $id
+ * @property string $game_id
  * @property string $name
  * @property string|null $description
  * @property string $image
+ * @property string $created_user_id
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property int $created_user_id
  * @property-read \App\Models\Game $game
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $keys
  * @property-read int|null $keys_count
@@ -42,17 +42,17 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property string|null $description
- * @property int $created_user_id
+ * @property string $created_user_id
  * @property string $image
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property int $removed
  * @property int|null $igdb_id
  * @property string|null $igdb_updated
- * @property-read \App\Models\User|null $createdBy
+ * @property-read \App\Models\User $createdBy
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Dlc> $dlcs
  * @property-read int|null $dlcs_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $keys
@@ -87,22 +87,22 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @property int $id
- * @property int|null $game_id
- * @property int|null $dlc_id
- * @property int $platform_id
+ * @property string $id
+ * @property string|null $game_id
+ * @property string|null $dlc_id
+ * @property string $platform_id
  * @property string $keycode
- * @property int|null $owned_user_id
- * @property int $created_user_id
+ * @property string|null $owned_user_id
+ * @property string $created_user_id
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property string|null $message
  * @property int $removed
  * @property int|null $key_type_id
- * @property int|null $wallet_id
- * @property int|null $subscription_id
+ * @property string|null $wallet_id
+ * @property string|null $subscription_id
  * @property-read \App\Models\User|null $claimedUser
- * @property-read \App\Models\User|null $createdUser
+ * @property-read \App\Models\User $createdUser
  * @property-read \App\Models\Dlc|null $dlc
  * @property-read \App\Models\Game|null $game
  * @property-read mixed $image
@@ -153,14 +153,14 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @property int $id
- * @property int $user_id
- * @property int $linked_account_provider_id
+ * @property string $id
+ * @property string $user_id
+ * @property string $linked_account_provider_id
  * @property string $account_id
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property string|null $profileurl
- * @property-read \App\Models\User|null $user
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount query()
@@ -177,8 +177,9 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $name
+ * @property int|null $igdb_id
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $keys
@@ -188,6 +189,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Platform query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Platform whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Platform whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Platform whereIgdbId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Platform whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Platform whereUpdatedAt($value)
  */
@@ -196,14 +198,14 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @property int $id
- * @property int $platform_id
+ * @property string $id
+ * @property string $platform_id
  * @property string $name
  * @property string|null $description
  * @property string|null $image
+ * @property string $created_user_id
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property int $created_user_id
  * @method static \Database\Factories\SubscriptionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscription newQuery()
@@ -222,7 +224,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property string $email
  * @property \Carbon\CarbonImmutable|null $email_verified_at

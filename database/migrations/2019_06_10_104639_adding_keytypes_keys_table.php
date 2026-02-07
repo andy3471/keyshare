@@ -17,21 +17,18 @@ class AddingKeytypesKeysTable extends Migration
     {
 
         Schema::table('keys', function (Blueprint $table) {
+            // Add new columns
             $table->unsignedBigInteger('key_type_id')->nullable();
-            $table->unsignedBigInteger('wallet_id')->nullable();
-            $table->unsignedBigInteger('subscription_id')->nullable();
+            $table->uuid('wallet_id')->nullable();
+            $table->uuid('subscription_id')->nullable();
 
-            $table->unsignedBigInteger('game_id')->nullable()->change();
-            $table->unsignedBigInteger('dlc_id')->nullable()->change();
-            $table->unsignedBigInteger('platform_id')->change();
-
+            // Add foreign keys for new columns and columns that weren't in initial migration
             $table->foreign('key_type_id')->references('id')->on('key_types');
             $table->foreign('wallet_id')->references('id')->on('wallets');
             $table->foreign('subscription_id')->references('id')->on('subscriptions');
             $table->foreign('dlc_id')->references('id')->on('dlcs');
-            $table->foreign('game_id')->references('id')->on('games');
             $table->foreign('platform_id')->references('id')->on('platforms');
-
+            // Note: game_id foreign key already exists from create_keys_table migration
         });
     }
 
@@ -43,18 +40,13 @@ class AddingKeytypesKeysTable extends Migration
     public function down()
     {
         Schema::table('keys', function (Blueprint $table) {
-            $table->dropForeign('keys_key_type_id_foreign');
-            $table->dropForeign('keys_wallet_id_foreign');
-            $table->dropForeign('keys_subscription_id_foreign');
-            $table->dropForeign('keys_dlc_id_foreign');
-            $table->dropForeign('keys_game_id_foreign');
-            $table->dropForeign('keys_platform_id_foreign');
-        });
-
-        Schema::table('keys', function (Blueprint $table) {
-            $table->bigInteger('game_id')->nullable($value = false)->change();
-            $table->bigInteger('dlc_id')->nullable()->change();
-            $table->bigInteger('platform_id')->change();
+            // Drop foreign keys added in this migration
+            $table->dropForeign(['key_type_id']);
+            $table->dropForeign(['wallet_id']);
+            $table->dropForeign(['subscription_id']);
+            $table->dropForeign(['dlc_id']);
+            
+            // Drop columns added in this migration
             $table->dropColumn(['key_type_id', 'wallet_id', 'subscription_id']);
         });
     }
