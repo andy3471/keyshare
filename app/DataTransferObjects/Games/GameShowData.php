@@ -19,7 +19,6 @@ class GameShowData extends Data
         public DataCollection $keys,
         public ?int $dlcCount = null,
         public ?string $dlcUrl = null,
-        public ?array $igdb = null,
         public ?array $genres = null,
         public ?array $screenshots = null,
     ) {}

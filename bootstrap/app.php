@@ -2,15 +2,21 @@
 
 declare(strict_types=1);
 
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Foundation\Http\Middleware\Authorize;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Session\Middleware\AuthenticateSession;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders()
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
-        api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
         channels: __DIR__.'/../routes/channels.php',
         health: '/up',
@@ -26,9 +32,13 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->throttleApi('60,1');
 
+        $middleware->web(append: [
+            HandleInertiaRequests::class,
+        ]);
+
         $middleware->alias([
-            'auth'       => App\Http\Middleware\Authenticate::class,
-            'bindings'   => Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'auth'       => Authenticate::class,
+            'bindings'   => SubstituteBindings::class,
             'demomode'   => App\Http\Middleware\DemoMode::class,
             'steamlogin' => App\Http\Middleware\SteamLoginEnabled::class,
         ]);
