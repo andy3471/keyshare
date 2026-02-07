@@ -27,8 +27,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->throttleApi('60,1');
 
         $middleware->alias([
-            'admin'      => App\Http\Middleware\Admin::class,
-            'approved'   => App\Http\Middleware\Approved::class,
             'auth'       => App\Http\Middleware\Authenticate::class,
             'bindings'   => Illuminate\Routing\Middleware\SubstituteBindings::class,
             'demomode'   => App\Http\Middleware\DemoMode::class,
