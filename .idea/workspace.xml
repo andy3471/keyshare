@@ -5,20 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f8ec7e7-8720-40c0-ab26-25fecdfce236" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/keyshare.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/keyshare.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Media.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/Games/GameListData.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/Keys/KeyCreateData.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/Keys/KeyData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/Keys/KeyData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/Users/UserProfileData.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_ide_helper_models.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper_models.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/Users/UserData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/Users/UserData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/HandleInertiaRequests.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/HandleInertiaRequests.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Key.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Key.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Platform.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Platform.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Components/KeyCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Components/KeyCard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Components/Navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Keys/Show.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Keys/Show.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Users/Edit.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Users/Edit.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Users/Show.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Users/Show.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/KeyController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/KeyController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/UserController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/UserController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/users/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/users/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -317,7 +321,7 @@
       <workItem from="1747678771475" duration="1918000" />
       <workItem from="1753737163861" duration="153000" />
       <workItem from="1770484913222" duration="2904000" />
-      <workItem from="1770491044343" duration="1058000" />
+      <workItem from="1770491044343" duration="1999000" />
     </task>
     <servers />
   </component>

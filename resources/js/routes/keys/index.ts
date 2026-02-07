@@ -2,6 +2,40 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefa
 import claimed from './claimed'
 import shared from './shared'
 /**
+* @see \App\Http\Controllers\KeyController::claim
+* @see app/Http/Controllers/KeyController.php:66
+* @route '/keys/claim'
+*/
+export const claim = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: claim.url(options),
+    method: 'post',
+})
+
+claim.definition = {
+    methods: ["post"],
+    url: '/keys/claim',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\KeyController::claim
+* @see app/Http/Controllers/KeyController.php:66
+* @route '/keys/claim'
+*/
+claim.url = (options?: RouteQueryOptions) => {
+    return claim.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\KeyController::claim
+* @see app/Http/Controllers/KeyController.php:66
+* @route '/keys/claim'
+*/
+claim.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: claim.url(options),
+    method: 'post',
+})
+
+/**
 * @see \App\Http\Controllers\KeyController::create
 * @see app/Http/Controllers/KeyController.php:24
 * @route '/keys/create'
@@ -147,47 +181,13 @@ show.head = (args: { key: string | { id: string } } | [key: string | { id: strin
     method: 'head',
 })
 
-/**
-* @see \App\Http\Controllers\KeyController::claim
-* @see app/Http/Controllers/KeyController.php:66
-* @route '/keys/claim'
-*/
-export const claim = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
-    url: claim.url(options),
-    method: 'post',
-})
-
-claim.definition = {
-    methods: ["post"],
-    url: '/keys/claim',
-} satisfies RouteDefinition<["post"]>
-
-/**
-* @see \App\Http\Controllers\KeyController::claim
-* @see app/Http/Controllers/KeyController.php:66
-* @route '/keys/claim'
-*/
-claim.url = (options?: RouteQueryOptions) => {
-    return claim.definition.url + queryParams(options)
-}
-
-/**
-* @see \App\Http\Controllers\KeyController::claim
-* @see app/Http/Controllers/KeyController.php:66
-* @route '/keys/claim'
-*/
-claim.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
-    url: claim.url(options),
-    method: 'post',
-})
-
 const keys = {
-    create: Object.assign(create, create),
-    store: Object.assign(store, store),
-    show: Object.assign(show, show),
     claim: Object.assign(claim, claim),
     claimed: Object.assign(claimed, claimed),
     shared: Object.assign(shared, shared),
+    create: Object.assign(create, create),
+    store: Object.assign(store, store),
+    show: Object.assign(show, show),
 }
 
 export default keys

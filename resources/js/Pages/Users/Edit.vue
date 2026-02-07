@@ -28,7 +28,7 @@
                             <div class="flex-shrink-0">
                                 <div class="relative">
                                     <img
-                                        :src="imagePreview || auth.user?.image || '/images/default-avatar.png'"
+                                        :src="imagePreview || auth.user?.avatar"
                                         :alt="auth.user?.name"
                                         class="w-32 h-32 rounded-full border-4 border-dark-600 shadow-lg object-cover"
                                     />

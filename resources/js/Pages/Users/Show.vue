@@ -8,12 +8,12 @@
                 <div class="absolute inset-0 opacity-10">
                     <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(139, 92, 246, 0.1) 10px, rgba(139, 92, 246, 0.1) 20px);"></div>
                 </div>
-                
+
                 <div class="relative flex flex-col md:flex-row items-start md:items-center gap-6">
                     <!-- Avatar with Karma Badge -->
                     <div class="relative flex-shrink-0">
                         <img
-                            :src="user.image || '/images/default-avatar.png'"
+                            :src="user.avatar"
                             :alt="user.name"
                             class="w-32 h-32 rounded-full border-4 border-dark-600 shadow-xl"
                         />

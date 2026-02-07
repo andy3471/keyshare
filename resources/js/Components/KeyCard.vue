@@ -30,7 +30,7 @@
         <div class="flex items-center space-x-3">
             <div class="relative flex-shrink-0">
                 <img
-                    :src="keyData.createdUser?.image || '/images/default-avatar.png'"
+                    :src="keyData.createdUser?.avatar"
                     :alt="keyData.createdUser?.name || 'Unknown User'"
                     class="w-12 h-12 rounded-full border-2 border-dark-600 group-hover:border-accent-500 transition-colors"
                 />

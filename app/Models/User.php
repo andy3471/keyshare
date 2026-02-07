@@ -13,11 +13,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Redis;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasMedia
 {
     use HasFactory;
     use HasUuids;
+    use InteractsWithMedia;
     use Notifiable;
 
     protected $appends = [
@@ -58,6 +61,23 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return (bool) $this->is_admin;
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('avatar')
+            ->useFallbackUrl('/images/defaultpic.jpg')
+            ->singleFile();
+    }
+
+    /** @return Attribute<string, never> */
+    protected function avatar(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                return $this->getFirstMediaUrl('avatar');
+            }
+        );
     }
 
     /** @return Attribute<int, int> */

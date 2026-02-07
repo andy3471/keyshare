@@ -44,7 +44,7 @@
                                     {{ keyData.game.name }}
                                 </h1>
                             </Link>
-                            
+
                             <div v-if="keyData.game.description" class="text-gray-300 mb-4">
                                 <p class="text-sm leading-relaxed line-clamp-4">{{ keyData.game.description }}</p>
                             </div>
@@ -73,7 +73,7 @@
                             <span class="text-primary-300 font-semibold">{{ keyData.platform.name }}</span>
                         </div>
                     </div>
-                    
+
                     <form @submit.prevent="claimKey" class="space-y-4">
                         <input type="hidden" name="_token" :value="csrfToken" />
                         <input type="hidden" name="id" :value="keyData.id" />
@@ -164,7 +164,7 @@
                     <div class="flex flex-col items-center text-center">
                         <Link :href="`/users/${keyData.createdUser?.id}`" class="relative mb-4">
                             <img
-                                :src="keyData.createdUser?.image || '/images/default-avatar.png'"
+                                :src="keyData.createdUser?.avatar"
                                 :alt="keyData.createdUser?.name"
                                 class="w-24 h-24 rounded-full border-2 border-dark-600 hover:border-accent-500 transition-colors"
                             />
@@ -251,7 +251,7 @@ watch(() => keyData.value?.id, (newId) => {
 
 const copyKeyCode = async () => {
     if (!keyData.value?.key) return;
-    
+
     try {
         await navigator.clipboard.writeText(keyData.value.key);
         copied.value = true;
@@ -275,7 +275,7 @@ const copyKeyCode = async () => {
 
 const claimKey = () => {
     if (!keyData.value?.id) return;
-    
+
     form.post(keys.claim.url(), {
         preserveScroll: true,
     });

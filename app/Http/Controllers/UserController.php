@@ -18,28 +18,15 @@ class UserController extends Controller
         return Inertia::render('Users/Edit');
     }
 
-    // TODO: Use form request
-    // TODO: Refactor
 
     public function update(UpdateUserRequest $request): RedirectResponse
     {
-        if ($request->hasFile('image')) {
-            $filename        = uniqid();
-            $extension       = $request->file('image')->getClientOriginalExtension();
-            $filenameToStore = $filename.'.'.$extension;
-            $folderToStore   = 'images/users/';
-            $fullImagePath   = $folderToStore.$filenameToStore;
-
-            $path = $request->file('image')->storeAs('public/'.$folderToStore, $filenameToStore);
-        }
-
         $user = auth()->user()->update($request->validated());
 
         if ($request->hasFile('image')) {
-            $user->image = '/storage/'.$fullImagePath;
+            $user->addMediaFromRequest('image')
+                ->toMediaCollection('avatar');
         }
-
-        $user->save();
 
         return to_route('showuser', ['id' => auth()->id()])->with('message', __('auth.profileupdated'));
     }

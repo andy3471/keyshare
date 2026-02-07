@@ -1,5 +1,127 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
+* @see \App\Http\Controllers\KeyController::claim
+* @see app/Http/Controllers/KeyController.php:66
+* @route '/keys/claim'
+*/
+export const claim = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: claim.url(options),
+    method: 'post',
+})
+
+claim.definition = {
+    methods: ["post"],
+    url: '/keys/claim',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\KeyController::claim
+* @see app/Http/Controllers/KeyController.php:66
+* @route '/keys/claim'
+*/
+claim.url = (options?: RouteQueryOptions) => {
+    return claim.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\KeyController::claim
+* @see app/Http/Controllers/KeyController.php:66
+* @route '/keys/claim'
+*/
+claim.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: claim.url(options),
+    method: 'post',
+})
+
+/**
+* @see \App\Http\Controllers\KeyController::claimed
+* @see app/Http/Controllers/KeyController.php:78
+* @route '/keys/claimed'
+*/
+export const claimed = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: claimed.url(options),
+    method: 'get',
+})
+
+claimed.definition = {
+    methods: ["get","head"],
+    url: '/keys/claimed',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\KeyController::claimed
+* @see app/Http/Controllers/KeyController.php:78
+* @route '/keys/claimed'
+*/
+claimed.url = (options?: RouteQueryOptions) => {
+    return claimed.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\KeyController::claimed
+* @see app/Http/Controllers/KeyController.php:78
+* @route '/keys/claimed'
+*/
+claimed.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: claimed.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\KeyController::claimed
+* @see app/Http/Controllers/KeyController.php:78
+* @route '/keys/claimed'
+*/
+claimed.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: claimed.url(options),
+    method: 'head',
+})
+
+/**
+* @see \App\Http\Controllers\KeyController::shared
+* @see app/Http/Controllers/KeyController.php:90
+* @route '/keys/shared'
+*/
+export const shared = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: shared.url(options),
+    method: 'get',
+})
+
+shared.definition = {
+    methods: ["get","head"],
+    url: '/keys/shared',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\KeyController::shared
+* @see app/Http/Controllers/KeyController.php:90
+* @route '/keys/shared'
+*/
+shared.url = (options?: RouteQueryOptions) => {
+    return shared.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\KeyController::shared
+* @see app/Http/Controllers/KeyController.php:90
+* @route '/keys/shared'
+*/
+shared.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: shared.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\KeyController::shared
+* @see app/Http/Controllers/KeyController.php:90
+* @route '/keys/shared'
+*/
+shared.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: shared.url(options),
+    method: 'head',
+})
+
+/**
 * @see \App\Http\Controllers\KeyController::create
 * @see app/Http/Controllers/KeyController.php:24
 * @route '/keys/create'
@@ -145,128 +267,6 @@ show.head = (args: { key: string | { id: string } } | [key: string | { id: strin
     method: 'head',
 })
 
-/**
-* @see \App\Http\Controllers\KeyController::claim
-* @see app/Http/Controllers/KeyController.php:66
-* @route '/keys/claim'
-*/
-export const claim = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
-    url: claim.url(options),
-    method: 'post',
-})
-
-claim.definition = {
-    methods: ["post"],
-    url: '/keys/claim',
-} satisfies RouteDefinition<["post"]>
-
-/**
-* @see \App\Http\Controllers\KeyController::claim
-* @see app/Http/Controllers/KeyController.php:66
-* @route '/keys/claim'
-*/
-claim.url = (options?: RouteQueryOptions) => {
-    return claim.definition.url + queryParams(options)
-}
-
-/**
-* @see \App\Http\Controllers\KeyController::claim
-* @see app/Http/Controllers/KeyController.php:66
-* @route '/keys/claim'
-*/
-claim.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
-    url: claim.url(options),
-    method: 'post',
-})
-
-/**
-* @see \App\Http\Controllers\KeyController::claimed
-* @see app/Http/Controllers/KeyController.php:78
-* @route '/keys/claimed'
-*/
-export const claimed = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: claimed.url(options),
-    method: 'get',
-})
-
-claimed.definition = {
-    methods: ["get","head"],
-    url: '/keys/claimed',
-} satisfies RouteDefinition<["get","head"]>
-
-/**
-* @see \App\Http\Controllers\KeyController::claimed
-* @see app/Http/Controllers/KeyController.php:78
-* @route '/keys/claimed'
-*/
-claimed.url = (options?: RouteQueryOptions) => {
-    return claimed.definition.url + queryParams(options)
-}
-
-/**
-* @see \App\Http\Controllers\KeyController::claimed
-* @see app/Http/Controllers/KeyController.php:78
-* @route '/keys/claimed'
-*/
-claimed.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: claimed.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\KeyController::claimed
-* @see app/Http/Controllers/KeyController.php:78
-* @route '/keys/claimed'
-*/
-claimed.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: claimed.url(options),
-    method: 'head',
-})
-
-/**
-* @see \App\Http\Controllers\KeyController::shared
-* @see app/Http/Controllers/KeyController.php:90
-* @route '/keys/shared'
-*/
-export const shared = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: shared.url(options),
-    method: 'get',
-})
-
-shared.definition = {
-    methods: ["get","head"],
-    url: '/keys/shared',
-} satisfies RouteDefinition<["get","head"]>
-
-/**
-* @see \App\Http\Controllers\KeyController::shared
-* @see app/Http/Controllers/KeyController.php:90
-* @route '/keys/shared'
-*/
-shared.url = (options?: RouteQueryOptions) => {
-    return shared.definition.url + queryParams(options)
-}
-
-/**
-* @see \App\Http\Controllers\KeyController::shared
-* @see app/Http/Controllers/KeyController.php:90
-* @route '/keys/shared'
-*/
-shared.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: shared.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\KeyController::shared
-* @see app/Http/Controllers/KeyController.php:90
-* @route '/keys/shared'
-*/
-shared.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: shared.url(options),
-    method: 'head',
-})
-
-const KeyController = { create, store, show, claim, claimed, shared }
+const KeyController = { claim, claimed, shared, create, store, show }
 
 export default KeyController

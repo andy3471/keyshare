@@ -24,10 +24,10 @@ Route::middleware(['auth'])->group(function (): void {
 
     Route::get('search', [SearchController::class, 'index'])->name('search.index');
 
-    Route::resource('keys', KeyController::class)->only(['show', 'create', 'store']);
     Route::post('keys/claim', [KeyController::class, 'claim'])->name('keys.claim');
     Route::get('keys/claimed', [KeyController::class, 'claimed'])->name('keys.claimed.index');
     Route::get('keys/shared', [KeyController::class, 'shared'])->name('keys.shared.index');
+    Route::resource('keys', KeyController::class)->only(['show', 'create', 'store']);
 
     // TODO: We need a change password process
     Route::resource('users', UserController::class)->only(['show', 'edit', 'update']);

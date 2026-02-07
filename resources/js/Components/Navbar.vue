@@ -42,7 +42,7 @@
                         <button class="flex items-center space-x-2 text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800">
                             <div class="relative">
                                 <img
-                                    :src="auth?.user?.image || '/images/default-avatar.png'"
+                                    :src="auth?.user?.avatar"
                                     :alt="auth?.user?.name"
                                     class="h-8 w-8 rounded-full border-2 border-dark-600 group-hover:border-accent-500 transition-colors"
                                 />
@@ -166,13 +166,13 @@ const handleSearch = (query: string) => {
     // Navigate to the full search results page
     const trimmedQuery = (query || '').trim();
     console.log('handleSearch called with query:', query, 'trimmed:', trimmedQuery, 'type:', typeof query);
-    
+
     // Build URL manually to ensure search parameter is always included
     const baseUrl = '/search';
-    const url = trimmedQuery 
+    const url = trimmedQuery
         ? `${baseUrl}?search=${encodeURIComponent(trimmedQuery)}`
         : `${baseUrl}?search=`;
-    
+
     console.log('Navigating to:', url);
     router.visit(url);
 };
