@@ -1,3 +1,21 @@
+<script setup lang="ts">
+import { Link, usePage, Head } from '@inertiajs/vue3';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import { UserData } from '@/Types/generated';
+import users from '@/routes/users';
+import keys from '@/routes/keys';
+import type { AuthUser } from '@/types/global';
+
+interface Props {
+  user: UserData;
+}
+
+defineProps<Props>();
+
+const page = usePage();
+const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
+</script>
+
 <template>
   <AppLayout :title="user.name">
     <Head :title="user.name" />
@@ -150,21 +168,3 @@
     </div>
   </AppLayout>
 </template>
-
-<script setup lang="ts">
-import { Link, usePage, Head } from '@inertiajs/vue3';
-import AppLayout from '@/Layouts/AppLayout.vue';
-import { UserData } from '@/Types/generated';
-import users from '@/routes/users';
-import keys from '@/routes/keys';
-import type { AuthUser } from '@/types/global';
-
-interface Props {
-  user: UserData;
-}
-
-defineProps<Props>();
-
-const page = usePage();
-const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
-</script>

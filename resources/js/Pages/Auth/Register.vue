@@ -1,3 +1,22 @@
+<script setup lang="ts">
+import { Head, Link, useForm } from '@inertiajs/vue3';
+import AuthLayout from '@/Layouts/AuthLayout.vue';
+import { register, login } from '@/routes';
+
+const form = useForm({
+  name: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
+});
+
+const submit = () => {
+  form.post(register.url(), {
+    onFinish: () => form.reset('password', 'password_confirmation'),
+  });
+};
+</script>
+
 <template>
   <AuthLayout>
     <Head title="Register" />
@@ -112,22 +131,3 @@
     </form>
   </AuthLayout>
 </template>
-
-<script setup lang="ts">
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import AuthLayout from '@/Layouts/AuthLayout.vue';
-import { register, login } from '@/routes';
-
-const form = useForm({
-  name: '',
-  email: '',
-  password: '',
-  password_confirmation: '',
-});
-
-const submit = () => {
-  form.post(register.url(), {
-    onFinish: () => form.reset('password', 'password_confirmation'),
-  });
-};
-</script>

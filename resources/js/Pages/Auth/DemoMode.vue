@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { Head } from '@inertiajs/vue3';
+import AuthLayout from '@/Layouts/AuthLayout.vue';
+</script>
+
 <template>
   <AuthLayout>
     <Head title="Demo Mode" />
@@ -12,8 +17,3 @@
     </div>
   </AuthLayout>
 </template>
-
-<script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
-import AuthLayout from '@/Layouts/AuthLayout.vue';
-</script>

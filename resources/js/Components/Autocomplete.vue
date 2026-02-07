@@ -1,106 +1,3 @@
-<template>
-  <div
-    ref="containerRef"
-    class="relative"
-  >
-    <div class="relative">
-      <input
-        :id="id"
-        v-model="query"
-        :name="name"
-        :placeholder="placeholder"
-        :class="inputClass"
-        type="text"
-        autocomplete="off"
-        @input="handleInput"
-        @focus="handleFocus"
-        @keydown.down.prevent="navigateDown"
-        @keydown.up.prevent="navigateUp"
-        @keydown.enter.prevent="handleEnter"
-        @keydown.escape="closeDropdown"
-      >
-      <!-- Loading Indicator -->
-      <div
-        v-if="loading"
-        class="absolute right-3 top-1/2 transform -translate-y-1/2"
-      >
-        <svg
-          class="animate-spin h-5 w-5 text-accent-400"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            class="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            stroke-width="4"
-          />
-          <path
-            class="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-          />
-        </svg>
-      </div>
-    </div>
-
-    <!-- Dropdown Results -->
-    <Transition
-      enter-active-class="transition ease-out duration-100"
-      enter-from-class="opacity-0 scale-95"
-      enter-to-class="opacity-100 scale-100"
-      leave-active-class="transition ease-in duration-75"
-      leave-from-class="opacity-100 scale-100"
-      leave-to-class="opacity-0 scale-95"
-    >
-      <div
-        v-if="showResults && results.length > 0"
-        class="absolute z-50 w-full mt-2 bg-dark-800 border border-dark-600 rounded-lg overflow-hidden shadow-xl"
-      >
-        <div class="max-h-60 overflow-auto">
-          <div
-            v-for="(result, index) in results"
-            :key="index"
-            :class="[
-              'px-4 py-3 cursor-pointer transition-colors',
-              index === selectedIndex
-                ? 'bg-accent-600 text-white'
-                : 'text-gray-300 hover:bg-dark-700 hover:text-white'
-            ]"
-            @click="select(result)"
-            @mouseenter="selectedIndex = index"
-          >
-            <div class="font-medium">
-              {{ result.name || result }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </Transition>
-
-    <!-- No Results Message -->
-    <Transition
-      enter-active-class="transition ease-out duration-100"
-      enter-from-class="opacity-0"
-      enter-to-class="opacity-100"
-      leave-active-class="transition ease-in duration-75"
-      leave-from-class="opacity-100"
-      leave-to-class="opacity-0"
-    >
-      <div
-        v-if="showResults && !loading && query.length >= 2 && results.length === 0"
-        class="absolute z-50 w-full mt-2 bg-dark-800 border border-dark-600 rounded-lg p-4 shadow-xl"
-      >
-        <p class="text-gray-400 text-sm text-center">
-          No games found. Try a different search term.
-        </p>
-      </div>
-    </Transition>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from 'vue';
 import type { AutocompleteItem } from '@/types/global';
@@ -301,3 +198,106 @@ onUnmounted(() => {
   }
 });
 </script>
+
+<template>
+  <div
+    ref="containerRef"
+    class="relative"
+  >
+    <div class="relative">
+      <input
+        :id="id"
+        v-model="query"
+        :name="name"
+        :placeholder="placeholder"
+        :class="inputClass"
+        type="text"
+        autocomplete="off"
+        @input="handleInput"
+        @focus="handleFocus"
+        @keydown.down.prevent="navigateDown"
+        @keydown.up.prevent="navigateUp"
+        @keydown.enter.prevent="handleEnter"
+        @keydown.escape="closeDropdown"
+      >
+      <!-- Loading Indicator -->
+      <div
+        v-if="loading"
+        class="absolute right-3 top-1/2 transform -translate-y-1/2"
+      >
+        <svg
+          class="animate-spin h-5 w-5 text-accent-400"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          />
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Dropdown Results -->
+    <Transition
+      enter-active-class="transition ease-out duration-100"
+      enter-from-class="opacity-0 scale-95"
+      enter-to-class="opacity-100 scale-100"
+      leave-active-class="transition ease-in duration-75"
+      leave-from-class="opacity-100 scale-100"
+      leave-to-class="opacity-0 scale-95"
+    >
+      <div
+        v-if="showResults && results.length > 0"
+        class="absolute z-50 w-full mt-2 bg-dark-800 border border-dark-600 rounded-lg overflow-hidden shadow-xl"
+      >
+        <div class="max-h-60 overflow-auto">
+          <div
+            v-for="(result, index) in results"
+            :key="index"
+            :class="[
+              'px-4 py-3 cursor-pointer transition-colors',
+              index === selectedIndex
+                ? 'bg-accent-600 text-white'
+                : 'text-gray-300 hover:bg-dark-700 hover:text-white'
+            ]"
+            @click="select(result)"
+            @mouseenter="selectedIndex = index"
+          >
+            <div class="font-medium">
+              {{ result.name || result }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Transition>
+
+    <!-- No Results Message -->
+    <Transition
+      enter-active-class="transition ease-out duration-100"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="transition ease-in duration-75"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0"
+    >
+      <div
+        v-if="showResults && !loading && query.length >= 2 && results.length === 0"
+        class="absolute z-50 w-full mt-2 bg-dark-800 border border-dark-600 rounded-lg p-4 shadow-xl"
+      >
+        <p class="text-gray-400 text-sm text-center">
+          No games found. Try a different search term.
+        </p>
+      </div>
+    </Transition>
+  </div>
+</template>

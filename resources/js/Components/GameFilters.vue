@@ -1,3 +1,89 @@
+<script setup lang="ts">
+import { ref, watch, onMounted, onUnmounted } from 'vue';
+import { router } from '@inertiajs/vue3';
+import { PlatformData } from '@/Types/generated';
+import { index as gamesIndex } from '@/routes';
+
+interface Props {
+  platforms: PlatformData[];
+  selectedPlatforms?: string[];
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  selectedPlatforms: () => [],
+});
+
+const showPlatformDropdown = ref(false);
+const selectedPlatforms = ref<string[]>([...props.selectedPlatforms]);
+
+const togglePlatformDropdown = () => {
+  showPlatformDropdown.value = !showPlatformDropdown.value;
+};
+
+const togglePlatform = (platformId: string) => {
+  const index = selectedPlatforms.value.indexOf(platformId);
+  if (index > -1) {
+    selectedPlatforms.value.splice(index, 1);
+  } else {
+    selectedPlatforms.value.push(platformId);
+  }
+  applyFilters();
+};
+
+const removePlatform = (platformId: string) => {
+  const index = selectedPlatforms.value.indexOf(platformId);
+  if (index > -1) {
+    selectedPlatforms.value.splice(index, 1);
+    applyFilters();
+  }
+};
+
+const clearFilters = () => {
+  selectedPlatforms.value = [];
+  applyFilters();
+};
+
+const getPlatformName = (platformId: string): string => {
+  const platform = props.platforms.find(p => p.id === platformId);
+  return platform?.name ?? platformId;
+};
+
+const applyFilters = () => {
+  const query: Record<string, string[]> = {};
+
+  if (selectedPlatforms.value.length > 0) {
+    query.platforms = selectedPlatforms.value;
+  }
+
+  router.get(gamesIndex.url({ query }), {}, {
+    preserveState: true,
+    preserveScroll: true,
+    replace: true,
+  });
+};
+
+// Close dropdown when clicking outside
+const handleClickOutside = (event: MouseEvent) => {
+  const target = event.target as HTMLElement;
+  if (!target.closest('.relative')) {
+    showPlatformDropdown.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
+
+// Watch for URL changes to sync selected platforms
+watch(() => props.selectedPlatforms, (newValue) => {
+  selectedPlatforms.value = [...newValue];
+}, { immediate: true });
+</script>
+
 <template>
   <div class="bg-dark-800 rounded-lg border border-dark-700 p-4 mb-6">
     <div class="flex flex-wrap items-center gap-4">
@@ -104,89 +190,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from 'vue';
-import { router } from '@inertiajs/vue3';
-import { PlatformData } from '@/Types/generated';
-import { index as gamesIndex } from '@/routes';
-
-interface Props {
-  platforms: PlatformData[];
-  selectedPlatforms?: string[];
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  selectedPlatforms: () => [],
-});
-
-const showPlatformDropdown = ref(false);
-const selectedPlatforms = ref<string[]>([...props.selectedPlatforms]);
-
-const togglePlatformDropdown = () => {
-  showPlatformDropdown.value = !showPlatformDropdown.value;
-};
-
-const togglePlatform = (platformId: string) => {
-  const index = selectedPlatforms.value.indexOf(platformId);
-  if (index > -1) {
-    selectedPlatforms.value.splice(index, 1);
-  } else {
-    selectedPlatforms.value.push(platformId);
-  }
-  applyFilters();
-};
-
-const removePlatform = (platformId: string) => {
-  const index = selectedPlatforms.value.indexOf(platformId);
-  if (index > -1) {
-    selectedPlatforms.value.splice(index, 1);
-    applyFilters();
-  }
-};
-
-const clearFilters = () => {
-  selectedPlatforms.value = [];
-  applyFilters();
-};
-
-const getPlatformName = (platformId: string): string => {
-  const platform = props.platforms.find(p => p.id === platformId);
-  return platform?.name ?? platformId;
-};
-
-const applyFilters = () => {
-  const query: Record<string, string[]> = {};
-
-  if (selectedPlatforms.value.length > 0) {
-    query.platforms = selectedPlatforms.value;
-  }
-
-  router.get(gamesIndex.url({ query }), {}, {
-    preserveState: true,
-    preserveScroll: true,
-    replace: true,
-  });
-};
-
-// Close dropdown when clicking outside
-const handleClickOutside = (event: MouseEvent) => {
-  const target = event.target as HTMLElement;
-  if (!target.closest('.relative')) {
-    showPlatformDropdown.value = false;
-  }
-};
-
-onMounted(() => {
-  document.addEventListener('click', handleClickOutside);
-});
-
-onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside);
-});
-
-// Watch for URL changes to sync selected platforms
-watch(() => props.selectedPlatforms, (newValue) => {
-  selectedPlatforms.value = [...newValue];
-}, { immediate: true });
-</script>

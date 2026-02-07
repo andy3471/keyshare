@@ -1,3 +1,11 @@
+<script setup lang="ts">
+interface Props {
+  keyCount: number;
+}
+
+defineProps<Props>();
+</script>
+
 <template>
   <div
     v-if="keyCount > 0"
@@ -41,11 +49,3 @@
     </svg>
   </div>
 </template>
-
-<script setup lang="ts">
-interface Props {
-  keyCount: number;
-}
-
-defineProps<Props>();
-</script>

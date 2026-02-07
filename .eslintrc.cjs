@@ -63,6 +63,7 @@ module.exports = {
     'no-void': ['error', { allowAsStatement: true }],
 
     // Vue
+    'vue/block-order': ['error', { order: ['script', 'template', 'style'] }],
     'vue/html-indent': ['error', 2],
     'vue/multi-word-component-names': 'warn',
     'vue/no-reserved-component-names': 'warn',

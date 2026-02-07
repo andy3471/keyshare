@@ -1,3 +1,43 @@
+<script setup lang="ts">
+import { Link, InfiniteScroll } from '@inertiajs/vue3';
+import KeyAvailabilityBadge from './KeyAvailabilityBadge.vue';
+import gamesRoute from '@/routes/games';
+
+interface Game {
+  id: string;
+  igdb_id?: string;
+  name: string;
+  image?: string;
+  url?: string;
+  hasKey?: boolean;
+  keyCount?: number;
+}
+
+interface GamesData {
+  data: Game[];
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  total: number;
+}
+
+interface Props {
+  games?: GamesData;
+  scrollProp?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  games: () => ({
+    data: [],
+    current_page: 1,
+    last_page: 1,
+    per_page: 12,
+    total: 0,
+  }),
+  scrollProp: 'games',
+});
+</script>
+
 <template>
   <InfiniteScroll
     v-if="games && games.data"
@@ -93,46 +133,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { Link, InfiniteScroll } from '@inertiajs/vue3';
-import KeyAvailabilityBadge from './KeyAvailabilityBadge.vue';
-import gamesRoute from '@/routes/games';
-
-interface Game {
-  id: string;
-  igdb_id?: string;
-  name: string;
-  image?: string;
-  url?: string;
-  hasKey?: boolean;
-  keyCount?: number;
-}
-
-interface GamesData {
-  data: Game[];
-  current_page: number;
-  last_page: number;
-  per_page: number;
-  total: number;
-}
-
-interface Props {
-  games?: GamesData;
-  scrollProp?: string;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  games: () => ({
-    data: [],
-    current_page: 1,
-    last_page: 1,
-    per_page: 12,
-    total: 0,
-  }),
-  scrollProp: 'games',
-});
-</script>
 
 <style scoped>
 .game-card {

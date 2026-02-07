@@ -1,3 +1,81 @@
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+import { Head, Link } from '@inertiajs/vue3';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import TitleHeader from '@/Components/TitleHeader.vue';
+import GameList from '@/Components/GameList.vue';
+import KeyCard from '@/Components/KeyCard.vue';
+import { GameShowData } from '@/Types/generated';
+import gamesRoute from '@/routes/games';
+
+interface Props {
+  game: GameShowData['game'];
+  keys: GameShowData['keys'];
+  childGames?: {
+    data: { id: number; igdb_id: number; name: string; image?: string; url: string; hasKey: boolean; keyCount: number }[];
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+  };
+  igdb?: {
+    aggregated_rating?: number;
+    aggregated_rating_count?: number;
+  };
+  parentGame?: {
+    id: string;
+    name: string;
+    image?: string;
+  };
+}
+
+const props = defineProps<Props>();
+
+const selectedImageIndex = ref<number | null>(null);
+
+const openImageModal = (index: number) => {
+  selectedImageIndex.value = index;
+  document.body.style.overflow = 'hidden';
+};
+
+const closeImageModal = () => {
+  selectedImageIndex.value = null;
+  document.body.style.overflow = '';
+};
+
+const nextImage = () => {
+  if (selectedImageIndex.value !== null && props.game.screenshots && selectedImageIndex.value < props.game.screenshots.length - 1) {
+    selectedImageIndex.value = selectedImageIndex.value + 1;
+  }
+};
+
+const previousImage = () => {
+  if (selectedImageIndex.value !== null && selectedImageIndex.value > 0) {
+    selectedImageIndex.value--;
+  }
+};
+
+const handleKeyDown = (event: KeyboardEvent) => {
+  if (selectedImageIndex.value === null) return;
+
+  if (event.key === 'Escape') {
+    closeImageModal();
+  } else if (event.key === 'ArrowLeft') {
+    previousImage();
+  } else if (event.key === 'ArrowRight') {
+    nextImage();
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown);
+});
+</script>
+
 <template>
   <AppLayout :title="game.name">
     <Head :title="game.name" />
@@ -306,84 +384,6 @@
     </div>
   </AppLayout>
 </template>
-
-<script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
-import { Head, Link } from '@inertiajs/vue3';
-import AppLayout from '@/Layouts/AppLayout.vue';
-import TitleHeader from '@/Components/TitleHeader.vue';
-import GameList from '@/Components/GameList.vue';
-import KeyCard from '@/Components/KeyCard.vue';
-import { GameShowData } from '@/Types/generated';
-import gamesRoute from '@/routes/games';
-
-interface Props {
-  game: GameShowData['game'];
-  keys: GameShowData['keys'];
-  childGames?: {
-    data: { id: number; igdb_id: number; name: string; image?: string; url: string; hasKey: boolean; keyCount: number }[];
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-  };
-  igdb?: {
-    aggregated_rating?: number;
-    aggregated_rating_count?: number;
-  };
-  parentGame?: {
-    id: string;
-    name: string;
-    image?: string;
-  };
-}
-
-const props = defineProps<Props>();
-
-const selectedImageIndex = ref<number | null>(null);
-
-const openImageModal = (index: number) => {
-  selectedImageIndex.value = index;
-  document.body.style.overflow = 'hidden';
-};
-
-const closeImageModal = () => {
-  selectedImageIndex.value = null;
-  document.body.style.overflow = '';
-};
-
-const nextImage = () => {
-  if (selectedImageIndex.value !== null && props.game.screenshots && selectedImageIndex.value < props.game.screenshots.length - 1) {
-    selectedImageIndex.value = selectedImageIndex.value + 1;
-  }
-};
-
-const previousImage = () => {
-  if (selectedImageIndex.value !== null && selectedImageIndex.value > 0) {
-    selectedImageIndex.value--;
-  }
-};
-
-const handleKeyDown = (event: KeyboardEvent) => {
-  if (selectedImageIndex.value === null) return;
-
-  if (event.key === 'Escape') {
-    closeImageModal();
-  } else if (event.key === 'ArrowLeft') {
-    previousImage();
-  } else if (event.key === 'ArrowRight') {
-    nextImage();
-  }
-};
-
-onMounted(() => {
-  window.addEventListener('keydown', handleKeyDown);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeyDown);
-});
-</script>
 
 <style scoped>
 </style>

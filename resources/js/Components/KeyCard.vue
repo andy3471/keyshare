@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { Link } from '@inertiajs/vue3';
+import { KeyData } from '@/Types/generated';
+import keyRoutes from '@/routes/keys';
+
+interface Props {
+  keyData: KeyData;
+}
+
+defineProps<Props>();
+</script>
+
 <template>
   <Link
     :href="keyRoutes.show(keyData.id)"
@@ -98,15 +110,3 @@
     </div>
   </Link>
 </template>
-
-<script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { KeyData } from '@/Types/generated';
-import keyRoutes from '@/routes/keys';
-
-interface Props {
-  keyData: KeyData;
-}
-
-defineProps<Props>();
-</script>

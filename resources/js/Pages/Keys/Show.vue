@@ -1,3 +1,69 @@
+<script setup lang="ts">
+import { computed, ref, watch } from 'vue';
+import { Link, useForm, usePage, Head } from '@inertiajs/vue3';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import { KeyData } from '@/Types/generated';
+import type { FlashProps } from '@/types/global';
+import keys from '@/routes/keys';
+import games from '@/routes/games';
+
+interface Props {
+  keyData: KeyData;
+}
+
+const props = defineProps<Props>();
+
+// Access the keyData prop directly
+const keyData = computed(() => props.keyData);
+
+const page = usePage();
+const flash = (page.props.flash as FlashProps | undefined) ?? {};
+
+const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
+const copied = ref(false);
+
+const form = useForm({
+  id: keyData.value.id,
+});
+
+// Watch for changes to key.id and update form
+watch(() => keyData.value.id, (newId) => {
+  form.id = newId;
+});
+
+const copyKeyCode = async () => {
+  if (!keyData.value.key) return;
+
+  try {
+    await navigator.clipboard.writeText(keyData.value.key);
+    copied.value = true;
+    setTimeout(() => {
+      copied.value = false;
+    }, 2000);
+  } catch {
+    // Fallback for older browsers
+    const input = document.getElementById(`keycode-${keyData.value.id}`) as HTMLInputElement | null;
+    if (input != null) {
+      input.select();
+      input.setSelectionRange(0, 99999); // For mobile devices
+      document.execCommand('copy');
+      copied.value = true;
+      setTimeout(() => {
+        copied.value = false;
+      }, 2000);
+    }
+  }
+};
+
+const claimKey = () => {
+  if (!keyData.value.id) return;
+
+  form.post(keys.claim.url(), {
+    preserveScroll: true,
+  });
+};
+</script>
+
 <template>
   <AppLayout
     v-if="keyData"
@@ -347,69 +413,3 @@
     </div>
   </AppLayout>
 </template>
-
-<script setup lang="ts">
-import { computed, ref, watch } from 'vue';
-import { Link, useForm, usePage, Head } from '@inertiajs/vue3';
-import AppLayout from '@/Layouts/AppLayout.vue';
-import { KeyData } from '@/Types/generated';
-import type { FlashProps } from '@/types/global';
-import keys from '@/routes/keys';
-import games from '@/routes/games';
-
-interface Props {
-  keyData: KeyData;
-}
-
-const props = defineProps<Props>();
-
-// Access the keyData prop directly
-const keyData = computed(() => props.keyData);
-
-const page = usePage();
-const flash = (page.props.flash as FlashProps | undefined) ?? {};
-
-const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
-const copied = ref(false);
-
-const form = useForm({
-  id: keyData.value.id,
-});
-
-// Watch for changes to key.id and update form
-watch(() => keyData.value.id, (newId) => {
-  form.id = newId;
-});
-
-const copyKeyCode = async () => {
-  if (!keyData.value.key) return;
-
-  try {
-    await navigator.clipboard.writeText(keyData.value.key);
-    copied.value = true;
-    setTimeout(() => {
-      copied.value = false;
-    }, 2000);
-  } catch {
-    // Fallback for older browsers
-    const input = document.getElementById(`keycode-${keyData.value.id}`) as HTMLInputElement | null;
-    if (input != null) {
-      input.select();
-      input.setSelectionRange(0, 99999); // For mobile devices
-      document.execCommand('copy');
-      copied.value = true;
-      setTimeout(() => {
-        copied.value = false;
-      }, 2000);
-    }
-  }
-};
-
-const claimKey = () => {
-  if (!keyData.value.id) return;
-
-  form.post(keys.claim.url(), {
-    preserveScroll: true,
-  });
-};
-</script>

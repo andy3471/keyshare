@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import Navbar from '@/Components/Navbar.vue';
+import TitleHeader from '@/Components/TitleHeader.vue';
+import FlashMessages from '@/Components/FlashMessages.vue';
+
+interface Props {
+  title?: string;
+}
+
+defineProps<Props>();
+</script>
+
 <template>
   <div class="min-h-screen bg-dark-950">
     <Navbar />
@@ -14,15 +26,3 @@
     </main>
   </div>
 </template>
-
-<script setup lang="ts">
-import Navbar from '@/Components/Navbar.vue';
-import TitleHeader from '@/Components/TitleHeader.vue';
-import FlashMessages from '@/Components/FlashMessages.vue';
-
-interface Props {
-  title?: string;
-}
-
-defineProps<Props>();
-</script>

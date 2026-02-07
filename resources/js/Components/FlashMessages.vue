@@ -1,3 +1,26 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import { usePage, router } from '@inertiajs/vue3';
+import type { FlashProps } from '@/types/global';
+
+const page = usePage();
+const flash = (page.props.flash as FlashProps | undefined) ?? {};
+const showMessage = ref(true);
+const showError = ref(true);
+
+const dismissMessage = () => {
+  showMessage.value = false;
+  // Clear flash message from page props
+  router.reload({ only: ['flash'] });
+};
+
+const dismissError = () => {
+  showError.value = false;
+  // Clear flash error from page props
+  router.reload({ only: ['flash'] });
+};
+</script>
+
 <template>
   <Transition
     enter-active-class="transition ease-out duration-300"
@@ -66,26 +89,3 @@
     </div>
   </Transition>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { usePage, router } from '@inertiajs/vue3';
-import type { FlashProps } from '@/types/global';
-
-const page = usePage();
-const flash = (page.props.flash as FlashProps | undefined) ?? {};
-const showMessage = ref(true);
-const showError = ref(true);
-
-const dismissMessage = () => {
-  showMessage.value = false;
-  // Clear flash message from page props
-  router.reload({ only: ['flash'] });
-};
-
-const dismissError = () => {
-  showError.value = false;
-  // Clear flash error from page props
-  router.reload({ only: ['flash'] });
-};
-</script>

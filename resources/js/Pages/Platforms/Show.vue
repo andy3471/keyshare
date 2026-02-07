@@ -1,9 +1,3 @@
-<template>
-  <AppLayout :title="platform.name">
-    <GameList :games="games" />
-  </AppLayout>
-</template>
-
 <script setup lang="ts">
 import AppLayout from '@/Layouts/AppLayout.vue';
 import GameList from '@/Components/GameList.vue';
@@ -22,3 +16,9 @@ interface Props {
 
 defineProps<Props>();
 </script>
+
+<template>
+  <AppLayout :title="platform.name">
+    <GameList :games="games" />
+  </AppLayout>
+</template>

@@ -1,3 +1,47 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useForm, usePage, Head, Link } from '@inertiajs/vue3';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import users from '@/routes/users';
+import type { AuthUser, FlashProps } from '@/types/global';
+
+const page = usePage();
+const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
+const flash = (page.props.flash as FlashProps | undefined) ?? {};
+
+const imagePreview = ref<string | null>(null);
+
+const form = useForm({
+  name: auth.user?.name ?? '',
+  email: auth.user?.email ?? '',
+  bio: auth.user?.bio ?? '',
+  image: null as File | null,
+});
+
+const handleImageChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+  if (file) {
+    form.image = file;
+    // Create preview
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      imagePreview.value = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
+const submit = () => {
+  if (!auth.user?.id) return;
+
+  form.put(users.update.url(auth.user.id), {
+    preserveScroll: true,
+    forceFormData: true,
+  });
+};
+</script>
+
 <template>
   <AppLayout :title="auth.user?.name || 'Edit Profile'">
     <Head :title="'Edit Profile - ' + (auth.user?.name || '')" />
@@ -228,47 +272,3 @@
     </div>
   </AppLayout>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { useForm, usePage, Head, Link } from '@inertiajs/vue3';
-import AppLayout from '@/Layouts/AppLayout.vue';
-import users from '@/routes/users';
-import type { AuthUser, FlashProps } from '@/types/global';
-
-const page = usePage();
-const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
-const flash = (page.props.flash as FlashProps | undefined) ?? {};
-
-const imagePreview = ref<string | null>(null);
-
-const form = useForm({
-  name: auth.user?.name ?? '',
-  email: auth.user?.email ?? '',
-  bio: auth.user?.bio ?? '',
-  image: null as File | null,
-});
-
-const handleImageChange = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  const file = target.files?.[0];
-  if (file) {
-    form.image = file;
-    // Create preview
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      imagePreview.value = e.target?.result as string;
-    };
-    reader.readAsDataURL(file);
-  }
-};
-
-const submit = () => {
-  if (!auth.user?.id) return;
-
-  form.put(users.update.url(auth.user.id), {
-    preserveScroll: true,
-    forceFormData: true,
-  });
-};
-</script>

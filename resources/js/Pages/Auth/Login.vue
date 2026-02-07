@@ -1,3 +1,35 @@
+<script setup lang="ts">
+import { Head, Link, useForm } from '@inertiajs/vue3';
+import AuthLayout from '@/Layouts/AuthLayout.vue';
+import { login, register } from '@/routes';
+import passwordRoutes from '@/routes/password';
+import loginLinkedAccount from '@/routes/login';
+
+interface Props {
+  demoMode?: boolean;
+  steamLoginEnabled?: boolean;
+  canResetPassword?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  demoMode: false,
+  steamLoginEnabled: false,
+  canResetPassword: true,
+});
+
+const form = useForm({
+  email: props.demoMode ? 'admin@admin.com' : '',
+  password: '',
+  remember: false,
+});
+
+const submit = () => {
+  form.post(login.url(), {
+    onFinish: () => form.reset('password'),
+  });
+};
+</script>
+
 <template>
   <AuthLayout>
     <Head title="Login" />
@@ -116,35 +148,3 @@
     </form>
   </AuthLayout>
 </template>
-
-<script setup lang="ts">
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import AuthLayout from '@/Layouts/AuthLayout.vue';
-import { login, register } from '@/routes';
-import passwordRoutes from '@/routes/password';
-import loginLinkedAccount from '@/routes/login';
-
-interface Props {
-  demoMode?: boolean;
-  steamLoginEnabled?: boolean;
-  canResetPassword?: boolean;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  demoMode: false,
-  steamLoginEnabled: false,
-  canResetPassword: true,
-});
-
-const form = useForm({
-  email: props.demoMode ? 'admin@admin.com' : '',
-  password: '',
-  remember: false,
-});
-
-const submit = () => {
-  form.post(login.url(), {
-    onFinish: () => form.reset('password'),
-  });
-};
-</script>

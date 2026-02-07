@@ -1,3 +1,43 @@
+<script setup lang="ts">
+import { Link, useForm, usePage, router } from '@inertiajs/vue3';
+import { index, logout as logoutRoute, login } from '@/routes';
+import games from '@/routes/games';
+import keys from '@/routes/keys';
+import users from '@/routes/users';
+import Autocomplete from './Autocomplete.vue';
+import type { AuthUser, AutocompleteItem } from '@/types/global';
+
+const page = usePage();
+// Ensure auth is always defined, even if user is null
+const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
+const appName = 'Keyshare';
+
+const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
+
+const logout = () => {
+  const form = useForm({});
+  form.post(logoutRoute.url());
+};
+
+const handleGameSelect = (item: AutocompleteItem) => {
+  // Navigate to the game page using IGDB ID
+  router.visit(games.show.url({ igdb_id: item.id }));
+};
+
+const handleSearch = (query: string) => {
+  // Navigate to the full search results page
+  const trimmedQuery = query.trim();
+
+  // Build URL manually to ensure search parameter is always included
+  const baseUrl = '/search';
+  const url = trimmedQuery
+    ? `${baseUrl}?search=${encodeURIComponent(trimmedQuery)}`
+    : `${baseUrl}?search=`;
+
+  router.visit(url);
+};
+</script>
+
 <template>
   <nav class="bg-dark-900/95 backdrop-blur-sm border-b-2 border-accent-600 sticky top-0 z-50 shadow-lg shadow-accent-600/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -171,43 +211,3 @@
     </div>
   </nav>
 </template>
-
-<script setup lang="ts">
-import { Link, useForm, usePage, router } from '@inertiajs/vue3';
-import { index, logout as logoutRoute, login } from '@/routes';
-import games from '@/routes/games';
-import keys from '@/routes/keys';
-import users from '@/routes/users';
-import Autocomplete from './Autocomplete.vue';
-import type { AuthUser, AutocompleteItem } from '@/types/global';
-
-const page = usePage();
-// Ensure auth is always defined, even if user is null
-const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
-const appName = 'Keyshare';
-
-const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
-
-const logout = () => {
-  const form = useForm({});
-  form.post(logoutRoute.url());
-};
-
-const handleGameSelect = (item: AutocompleteItem) => {
-  // Navigate to the game page using IGDB ID
-  router.visit(games.show.url({ igdb_id: item.id }));
-};
-
-const handleSearch = (query: string) => {
-  // Navigate to the full search results page
-  const trimmedQuery = query.trim();
-
-  // Build URL manually to ensure search parameter is always included
-  const baseUrl = '/search';
-  const url = trimmedQuery
-    ? `${baseUrl}?search=${encodeURIComponent(trimmedQuery)}`
-    : `${baseUrl}?search=`;
-
-  router.visit(url);
-};
-</script>

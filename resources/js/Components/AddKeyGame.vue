@@ -1,3 +1,42 @@
+<script setup lang="ts">
+import { useForm } from '@inertiajs/vue3';
+import Autocomplete from './Autocomplete.vue';
+import { PlatformData } from '@/Types/generated';
+import type { AutocompleteItem } from '@/types/global';
+import keys from '@/routes/keys';
+
+interface Props {
+  platforms: PlatformData[];
+}
+
+defineProps<Props>();
+
+const form = useForm({
+  igdb_id: '',
+  platform_id: '',
+  key: '',
+  message: '',
+});
+
+const handleGameSelect = (item: AutocompleteItem) => {
+  form.igdb_id = item.id;
+};
+
+const submit = () => {
+  if (!form.platform_id) {
+    form.setError('platform_id', 'Please select a platform.');
+    return;
+  }
+
+  form.post(keys.store.url(), {
+    preserveScroll: true,
+    onSuccess: () => {
+      form.reset();
+    },
+  });
+};
+</script>
+
 <template>
   <div class="bg-dark-800 rounded-lg border border-dark-700 p-8">
     <div class="mb-6">
@@ -246,42 +285,3 @@
     </form>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useForm } from '@inertiajs/vue3';
-import Autocomplete from './Autocomplete.vue';
-import { PlatformData } from '@/Types/generated';
-import type { AutocompleteItem } from '@/types/global';
-import keys from '@/routes/keys';
-
-interface Props {
-  platforms: PlatformData[];
-}
-
-defineProps<Props>();
-
-const form = useForm({
-  igdb_id: '',
-  platform_id: '',
-  key: '',
-  message: '',
-});
-
-const handleGameSelect = (item: AutocompleteItem) => {
-  form.igdb_id = item.id;
-};
-
-const submit = () => {
-  if (!form.platform_id) {
-    form.setError('platform_id', 'Please select a platform.');
-    return;
-  }
-
-  form.post(keys.store.url(), {
-    preserveScroll: true,
-    onSuccess: () => {
-      form.reset();
-    },
-  });
-};
-</script>
