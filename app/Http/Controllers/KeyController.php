@@ -14,6 +14,7 @@ use App\Models\Platform;
 use App\Notifications\KeyAdded;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Inertia\Inertia;
@@ -24,7 +25,7 @@ class KeyController extends Controller
     public function create(): Response
     {
         return Inertia::render('Keys/Create', [
-            'platforms' => fn (): array => PlatformData::collect(Cache::remember('platforms', 3600, function () {
+            'platforms' => fn (): Collection => PlatformData::collect(Cache::remember('platforms', 3600, function () {
                 return Platform::all();
             })),
         ]);
@@ -40,7 +41,7 @@ class KeyController extends Controller
             ->create(array_merge(
                 $request->validated(),
                 [
-                    'game_id' => $game,
+                    'game_id' => $game->id,
                 ]
             ));
 

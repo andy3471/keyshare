@@ -19,7 +19,7 @@ class PlatformData extends Data
     public static function fromModel(Platform $platform): self
     {
         return new self(
-            id: (string) $platform->id,
+            id: $platform->id,
             name: $platform->name,
         );
     }

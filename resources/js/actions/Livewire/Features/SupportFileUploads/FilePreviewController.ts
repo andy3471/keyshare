@@ -2,7 +2,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefa
 /**
 * @see \Livewire\Features\SupportFileUploads\FilePreviewController::handle
 * @see vendor/livewire/livewire/src/Features/SupportFileUploads/FilePreviewController.php:18
-* @route '/livewire-d1d31633/preview-file/{filename}'
+* @route '/livewire-d394c236/preview-file/{filename}'
 */
 export const handle = (args: { filename: string | number } | [filename: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: handle.url(args, options),
@@ -11,13 +11,13 @@ export const handle = (args: { filename: string | number } | [filename: string |
 
 handle.definition = {
     methods: ["get","head"],
-    url: '/livewire-d1d31633/preview-file/{filename}',
+    url: '/livewire-d394c236/preview-file/{filename}',
 } satisfies RouteDefinition<["get","head"]>
 
 /**
 * @see \Livewire\Features\SupportFileUploads\FilePreviewController::handle
 * @see vendor/livewire/livewire/src/Features/SupportFileUploads/FilePreviewController.php:18
-* @route '/livewire-d1d31633/preview-file/{filename}'
+* @route '/livewire-d394c236/preview-file/{filename}'
 */
 handle.url = (args: { filename: string | number } | [filename: string | number ] | string | number, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
@@ -44,7 +44,7 @@ handle.url = (args: { filename: string | number } | [filename: string | number ]
 /**
 * @see \Livewire\Features\SupportFileUploads\FilePreviewController::handle
 * @see vendor/livewire/livewire/src/Features/SupportFileUploads/FilePreviewController.php:18
-* @route '/livewire-d1d31633/preview-file/{filename}'
+* @route '/livewire-d394c236/preview-file/{filename}'
 */
 handle.get = (args: { filename: string | number } | [filename: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: handle.url(args, options),
@@ -54,7 +54,7 @@ handle.get = (args: { filename: string | number } | [filename: string | number ]
 /**
 * @see \Livewire\Features\SupportFileUploads\FilePreviewController::handle
 * @see vendor/livewire/livewire/src/Features/SupportFileUploads/FilePreviewController.php:18
-* @route '/livewire-d1d31633/preview-file/{filename}'
+* @route '/livewire-d394c236/preview-file/{filename}'
 */
 handle.head = (args: { filename: string | number } | [filename: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: handle.url(args, options),

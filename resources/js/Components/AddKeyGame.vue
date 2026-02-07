@@ -32,7 +32,7 @@
                             v-model="form.igdb_id"
                             name="igdb_id"
                             placeholder="Search for a game or DLC..."
-                            url="/autocomplete/games"
+                            url="/autocomplete"
                             input-class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
                             @select="handleGameSelect"
                         />
@@ -162,7 +162,7 @@ const form = useForm({
 });
 
 const handleGameSelect = (item: any) => {
-    form.igdb_id = item.name || item;
+    form.igdb_id = item.id;
 };
 
 const submit = () => {

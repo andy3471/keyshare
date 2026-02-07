@@ -12,7 +12,7 @@ class ExistingIgdbId implements ValidationRule
 {
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $game = IgdbGame::find($value);
+        $game = IgdbGame::find((int) $value);
 
         if (! $game) {
             $fail('The :attribute is invalid.');

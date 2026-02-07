@@ -5,33 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f8ec7e7-8720-40c0-ab26-25fecdfce236" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9f4fc8b5-6d37-4352-8abd-928739900b47.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9f4fc8b5-6d37-4352-8abd-928739900b47.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/Games/GameShowData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/Games/GameShowData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/HandleInertiaRequests.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/HandleInertiaRequests.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/Games/Pages/ListGames.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/Games/Pages/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/Games/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/Users/Pages/CreateUser.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/Users/Pages/EditUser.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/Users/Pages/ListUsers.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/Users/Pages/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/Users/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/Resources/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Filament/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Auth/Http/Controllers/LogoutController.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Auth/Http/Controllers/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Auth/Http/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Auth/Pages/Login.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Auth/Pages/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Auth/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Pages/Dashboard.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/Pages/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/Filament/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/Filament/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/console.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/console.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_ide_helper_models.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper_models.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/Platforms/PlatformData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/Platforms/PlatformData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/KeyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/KeyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/StoreGameKeyRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/StoreGameKeyRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Rules/ExistingIgdbId.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Rules/ExistingIgdbId.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Components/AddKeyGame.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Components/AddKeyGame.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Components/Navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/KeyController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/KeyController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/Livewire/Features/SupportFileUploads/FilePreviewController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/Livewire/Features/SupportFileUploads/FilePreviewController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/Livewire/Features/SupportFileUploads/FileUploadController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/Livewire/Features/SupportFileUploads/FileUploadController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/Livewire/Mechanisms/FrontendAssets/FrontendAssets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/Livewire/Mechanisms/FrontendAssets/FrontendAssets.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/Livewire/Mechanisms/HandleRequests/HandleRequests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/Livewire/Mechanisms/HandleRequests/HandleRequests.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/boost/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/boost/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/default/livewire/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/default/livewire/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/claimed/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/claimed/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/shared/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/shared/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/livewire/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/livewire/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -276,26 +271,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "com.codeium.enabled": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/andy/git/hannahh-portfolio",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "/home/andy/git/keyshare/node_modules/prettier",
-    "ts.external.directory.path": "/home/andy/git/keyshare/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/andy/git/hannahh-portfolio&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/andy/git/keyshare/node_modules/prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/andy/git/keyshare/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />

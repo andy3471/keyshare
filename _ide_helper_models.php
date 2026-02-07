@@ -193,12 +193,15 @@ namespace App\Models{
  * @property string|null $bio
  * @property bool $is_approved
  * @property bool $is_admin
+ * @property-read string $avatar
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $claimedKeys
  * @property-read int|null $claimed_keys_count
  * @property-read mixed $karma
  * @property-read string $karma_colour
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\LinkedAccount> $linkedAccounts
  * @property-read int|null $linked_accounts_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \App\Models\Media> $media
+ * @property-read int|null $media_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $sharedKeys
@@ -220,6 +223,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  */
-	class User extends \Eloquent implements \Filament\Models\Contracts\FilamentUser {}
+	class User extends \Eloquent implements \Filament\Models\Contracts\FilamentUser, \Spatie\MediaLibrary\HasMedia {}
 }
 
