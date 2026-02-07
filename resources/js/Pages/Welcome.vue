@@ -23,7 +23,7 @@ import { register, login } from '@/routes';
             <span class="text-white"> With Friends</span>
           </h1>
           <p class="text-lg sm:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Got extra game keys from bundles? Keyshare makes it easy to share them with your gaming group. No more spreadsheets or messy chat messages.
+            Got extra game keys from bundles? Create a group, invite your friends, and share keys in one place. No more spreadsheets or messy chat messages.
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
@@ -58,7 +58,32 @@ import { register, login } from '@/routes';
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Create Groups -->
+          <div class="group relative bg-dark-900/60 border border-dark-700 rounded-xl p-8 transition-all duration-300 hover:border-warning/50 hover:shadow-lg hover:shadow-warning/10">
+            <div class="w-12 h-12 rounded-lg bg-warning/15 flex items-center justify-center mb-5">
+              <svg
+                class="w-6 h-6 text-warning"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-3">
+              Create Groups
+            </h3>
+            <p class="text-gray-400 leading-relaxed">
+              Set up a group for your friends, your Discord server, or any gaming community. Invite members and start sharing instantly.
+            </p>
+          </div>
+
           <!-- Share Keys -->
           <div class="group relative bg-dark-900/60 border border-dark-700 rounded-xl p-8 transition-all duration-300 hover:border-accent-500/50 hover:shadow-lg hover:shadow-accent-500/10">
             <div class="w-12 h-12 rounded-lg bg-accent-600/15 flex items-center justify-center mb-5">
@@ -80,7 +105,7 @@ import { register, login } from '@/routes';
               Share Keys
             </h3>
             <p class="text-gray-400 leading-relaxed">
-              Easily add your extra game keys. Keyshare automatically looks up game details and cover art so everything looks great.
+              Easily add your extra game keys. Sparekey.club automatically looks up game details and cover art so everything looks great.
             </p>
           </div>
 
@@ -156,10 +181,10 @@ import { register, login } from '@/routes';
               <span class="text-white font-display font-bold text-xl">1</span>
             </div>
             <h3 class="text-lg font-semibold text-white mb-2">
-              Create an Account
+              Create a Group
             </h3>
             <p class="text-gray-400 text-sm leading-relaxed">
-              Sign up with your email or Steam account to join your group.
+              Sign up, create a group for your friends, and invite them with a link.
             </p>
           </div>
 
@@ -169,7 +194,7 @@ import { register, login } from '@/routes';
               <span class="text-white font-display font-bold text-xl">2</span>
             </div>
             <h3 class="text-lg font-semibold text-white mb-2">
-              Add Your Keys
+              Share Your Keys
             </h3>
             <p class="text-gray-400 text-sm leading-relaxed">
               Search for the game, select the platform, and paste your key. Done.
@@ -200,7 +225,7 @@ import { register, login } from '@/routes';
           Ready to Share?
         </h2>
         <p class="text-gray-400 text-lg mb-8">
-          Stop letting extra game keys go to waste. Start sharing with your group today.
+          Stop letting extra game keys go to waste. Create a group and start sharing today.
         </p>
         <Link
           :href="register.url()"
@@ -215,7 +240,7 @@ import { register, login } from '@/routes';
     <footer class="border-t border-dark-800 py-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p class="text-center text-gray-500 text-sm">
-          &copy; {{ new Date().getFullYear() }} Keyshare.
+          &copy; {{ new Date().getFullYear() }} Sparekey.club.
         </p>
       </div>
     </footer>

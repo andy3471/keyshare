@@ -13,7 +13,7 @@ import type { AuthUser } from '@/types/global';
 const page = usePage();
 // Ensure auth is always defined, even if user is null
 const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
-const appName = 'Keyshare';
+const appName = 'Sparekey.club';
 
 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
 

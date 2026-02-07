@@ -5,7 +5,7 @@ import type { AuthUser } from '@/types/global';
 
 const page = usePage();
 const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
-const appName = 'Keyshare';
+const appName = 'Sparekey.club';
 </script>
 
 <template>

@@ -28,7 +28,7 @@ class ResetPassword extends Mailable
      */
     public function build()
     {
-        return $this->subject('Keyshare - Password Reset')
+        return $this->subject('Sparekey.club - Password Reset')
             ->view('emails.passwordreset');
     }
 }

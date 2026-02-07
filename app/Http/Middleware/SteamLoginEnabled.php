@@ -10,7 +10,7 @@ class SteamLoginEnabled
 {
     public function handle($request, Closure $next)
     {
-        if (config('keyshare.steamlogin')) {
+        if (config('sparekey.steamlogin')) {
             return $next($request);
         }
 

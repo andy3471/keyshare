@@ -20,11 +20,11 @@ class SteamLoginController
     {
         $steamuser = Socialite::driver('steam')->user();
 
-        $KeyshareUser = LinkedAccount::where('account_id', '=', $steamuser->id)->get();
+        $sparekeyUser = LinkedAccount::where('account_id', '=', $steamuser->id)->get();
 
-        if (count($KeyshareUser) === 0) {
+        if (count($sparekeyUser) === 0) {
 
-            $KeyshareUser = User::create([
+            $sparekeyUser = User::create([
                 'name'     => $steamuser->nickname,
                 'image'    => $steamuser->avatar,
                 'email'    => uniqid(),
@@ -32,24 +32,24 @@ class SteamLoginController
             ]);
 
             $LinkedAccount                             = new LinkedAccount;
-            $LinkedAccount->user_id                    = $KeyshareUser->id;
+            $LinkedAccount->user_id                    = $sparekeyUser->id;
             $LinkedAccount->linked_account_provider_id = '1';
             $LinkedAccount->account_id                 = $steamuser->id;
             $LinkedAccount->save();
 
-        } elseif (count($KeyshareUser) === 1) {
+        } elseif (count($sparekeyUser) === 1) {
 
             // If Exists, Find and Update User
-            $KeyshareUser        = User::find($KeyshareUser[0]->user_id);
-            $KeyshareUser->name  = $steamuser->nickname;
-            $KeyshareUser->image = $steamuser->avatar;
-            $KeyshareUser->save();
+            $sparekeyUser        = User::find($sparekeyUser[0]->user_id);
+            $sparekeyUser->name  = $steamuser->nickname;
+            $sparekeyUser->image = $steamuser->avatar;
+            $sparekeyUser->save();
 
         } else {
             return 'Error';
         }
 
-        Auth::login($KeyshareUser);
+        Auth::login($sparekeyUser);
 
         return to_route('games.index');
     }

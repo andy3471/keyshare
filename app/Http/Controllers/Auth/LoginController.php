@@ -23,7 +23,7 @@ class LoginController extends Controller
     public function showLoginForm(): Response
     {
         return Inertia::render('Auth/Login', [
-            'steamLoginEnabled' => config('keyshare.steamlogin', false),
+            'steamLoginEnabled' => config('sparekey.steamlogin', false),
             'canResetPassword'  => true,
         ]);
     }

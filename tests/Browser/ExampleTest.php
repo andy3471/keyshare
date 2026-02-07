@@ -14,7 +14,7 @@ class ExampleTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser): void {
             $browser->visit('/')
-                ->assertSee('Keyshare');
+                ->assertSee('Sparekey.club');
         });
     }
 }
