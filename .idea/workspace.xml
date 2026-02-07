@@ -5,29 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f8ec7e7-8720-40c0-ab26-25fecdfce236" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/GameData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/GameData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GameController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GameController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/KeyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/KeyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Components/GameList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Components/GameList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/GameController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/GameController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/KeyController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/KeyController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/SearchController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/SearchController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/AddKey.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/AddKeyDlc.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/AddKeyGame.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/AddKeySubscription.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/AddKeyWallet.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/GameList.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/TitleHeader.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/autocomplete/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/autocomplete/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/games/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/games/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/claimed/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/claimed/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/shared/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/shared/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/search/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/search/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Dlc/Show.vue" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

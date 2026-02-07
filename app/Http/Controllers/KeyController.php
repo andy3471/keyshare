@@ -59,7 +59,7 @@ class KeyController extends Controller
         $key->message         = $request->message;
         $key->created_user_id = auth()->user()->id;
 
-        $game = Game::fromIgdbId($request->gamename);
+        $game = Game::fromIgdbId((int) $request->gamename);
 
         if (! $game instanceof Game) {
             return back()->withErrors(['gamename' => 'Game not found in IGDB. Please search for a valid game name.']);
