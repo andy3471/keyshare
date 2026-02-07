@@ -170,8 +170,8 @@ register.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Front\HomeController::index
-* @see app/Http/Controllers/Front/HomeController.php:24
+* @see \App\Http\Controllers\HomeController::index
+* @see app/Http/Controllers/HomeController.php:23
 * @route '/'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -185,8 +185,8 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\Front\HomeController::index
-* @see app/Http/Controllers/Front/HomeController.php:24
+* @see \App\Http\Controllers\HomeController::index
+* @see app/Http/Controllers/HomeController.php:23
 * @route '/'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -194,8 +194,8 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \App\Http\Controllers\Front\HomeController::index
-* @see app/Http/Controllers/Front/HomeController.php:24
+* @see \App\Http\Controllers\HomeController::index
+* @see app/Http/Controllers/HomeController.php:23
 * @route '/'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -204,8 +204,8 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Front\HomeController::index
-* @see app/Http/Controllers/Front/HomeController.php:24
+* @see \App\Http\Controllers\HomeController::index
+* @see app/Http/Controllers/HomeController.php:23
 * @route '/'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

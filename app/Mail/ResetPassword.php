@@ -15,9 +15,7 @@ class ResetPassword extends Mailable
 
     public $demo;
 
-    /**
-     * Create a new message instance.
-     */
+    /** Create a new message instance. */
     public function __construct($demo)
     {
         $this->demo = $demo;

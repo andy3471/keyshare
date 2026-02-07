@@ -18,9 +18,7 @@ class HomePage extends Page
         return '/';
     }
 
-    /**
-     * Assert that the browser is on the page.
-     */
+    /** Assert that the browser is on the page. */
     public function assert(Browser $browser): void
     {
         //

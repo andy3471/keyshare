@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\DataTransferObjects\KeyData;
+use App\DataTransferObjects\PlatformData;
 use App\Models\Game;
 use App\Models\Key;
 use App\Models\Platform;
@@ -20,28 +21,12 @@ use MarcReichel\IGDBLaravel\Models\Game as Igdb;
 
 class KeyController extends Controller
 {
-    // TODO: Move caching to the platforms model
     public function create(): Response
     {
-        // IGDB is required for game creation
-        if (! config('igdb.enabled')) {
-            return Inertia::render('Keys/Create', [
-                'platforms'  => [],
-                'error'      => 'IGDB API is required but not enabled. Please configure TWITCH_CLIENT_ID and TWITCH_CLIENT_SECRET in your .env file.',
-            ]);
-        }
-
-        $platforms = Cache::remember('platforms', 3600, function () {
-            return Platform::all();
-        });
-
-        // Ensure $platforms is a Collection of Platform models (cache might return array)
-        if (! ($platforms instanceof \Illuminate\Database\Eloquent\Collection)) {
-            $platforms = Platform::all();
-        }
-
         return Inertia::render('Keys/Create', [
-            'platforms'  => $platforms->map(fn (Platform $p): \App\DataTransferObjects\PlatformData => \App\DataTransferObjects\PlatformData::fromModel($p))->toArray(),
+            'platforms' => fn (): \Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection|\Spatie\LaravelData\CursorPaginatedDataCollection|\Illuminate\Support\Enumerable|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Contracts\Pagination\CursorPaginator|array => PlatformData::collect(Cache::remember('platforms', 3600, function () {
+                return Platform::all();
+            })),
         ]);
     }
 
@@ -49,12 +34,6 @@ class KeyController extends Controller
     // TODO: Refactor
     public function store(Request $request): RedirectResponse
     {
-
-        // IGDB is required - games can only be created from IGDB
-        if (! config('igdb.enabled')) {
-            return back()->withErrors(['gamename' => 'IGDB API is required but not enabled. Please configure TWITCH_CLIENT_ID and TWITCH_CLIENT_SECRET.']);
-        }
-
         $this->validate($request, [
             'platform_id' => ['required', 'uuid', 'exists:platforms,id'],
             'key'         => 'required',
@@ -72,16 +51,12 @@ class KeyController extends Controller
         $key->message         = $request->message;
         $key->created_user_id = auth()->user()->id;
 
-        // Search for game in IGDB (could be a regular game or DLC)
-        // Load parent_game relationship so createFromIgdb can detect DLCs automatically
-        $igdb = Igdb::select(['name', 'summary', 'id'])->with(['cover' => ['image_id'], 'parent_game'])->where('name', '=', $request->gamename)->first();
+        $game = Game::fromIgdbId($request->gamename);
 
-        if (! $igdb) {
+        if (! $game instanceof Game) {
             return back()->withErrors(['gamename' => 'Game not found in IGDB. Please search for a valid game name.']);
         }
 
-        // createFromIgdb will automatically detect if it's a DLC and handle parent game creation
-        $game         = Game::createFromIgdb($igdb);
         $key->game_id = $game->id;
 
         $key->save();
@@ -95,13 +70,13 @@ class KeyController extends Controller
         return back()->with('message', __('keys.added'));
     }
 
-    // TODO: Use route model binding
     public function show(Key $key): Response
     {
-        $key->load(['platform', 'createdUser', 'claimedUser', 'game']);
-
         return Inertia::render('Keys/Show', [
-            'keyData' => \App\DataTransferObjects\KeyData::fromModel($key),
+            'keyData' => fn (): KeyData => KeyData::fromModel(
+                $key
+                    ->load(['platform', 'createdUser', 'claimedUser', 'game'])
+            ),
         ]);
     }
 
@@ -131,7 +106,7 @@ class KeyController extends Controller
         // Transform paginated keys to games format for InfiniteScroll
         $gamesPaginator = $keys->through(function ($key): array {
             $game = $key->game;
-            
+
             // Get image from IGDB
             $image = null;
             if ($game && $game->igdb_id && config('igdb.enabled')) {
@@ -164,7 +139,7 @@ class KeyController extends Controller
         // Transform paginated keys to games format for InfiniteScroll
         $gamesPaginator = $keys->through(function ($key): array {
             $game = $key->game;
-            
+
             // Get image from IGDB
             $image = null;
             if ($game && $game->igdb_id && config('igdb.enabled')) {
@@ -176,7 +151,7 @@ class KeyController extends Controller
 
             // Count available keys for this game (excluding this user's shared keys)
             $keyCount = 0;
-            $hasKey = false;
+            $hasKey   = false;
             if ($game) {
                 $keyCount = $game->keys()
                     ->whereNull('owned_user_id')

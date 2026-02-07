@@ -11,9 +11,7 @@ use MarcReichel\IGDBLaravel\Models\Game as Igdb;
 
 class GamesTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    /** Run the database seeds. */
     public function run(): void
     {
         // IGDB is required for game seeding

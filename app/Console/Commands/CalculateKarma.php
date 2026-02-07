@@ -16,8 +16,6 @@ class CalculateKarma extends Command
 
     public function handle(): void
     {
-        // TODO: Tidy code duplication
-
         $karma = DB::select('
             SELECT (COALESCE(C.createdkeys, 0) - COALESCE(O.ownedkeys, 0)) AS karma, U.id FROM users AS U
             LEFT OUTER JOIN (

@@ -31,33 +31,25 @@ class Key extends Model
         'created_user_id',
     ];
 
-    /**
-     * @return BelongsTo<Game, $this>
-     */
+    /** @return BelongsTo<Game, $this> */
     public function game(): BelongsTo
     {
         return $this->belongsTo(Game::class);
     }
 
-    /**
-     * @return BelongsTo<Platform, $this>
-     */
+    /** @return BelongsTo<Platform, $this> */
     public function platform(): BelongsTo
     {
         return $this->belongsTo(Platform::class);
     }
 
-    /**
-     * @return BelongsTo<User, $this>
-     */
+    /** @return BelongsTo<User, $this> */
     public function claimedUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owned_user_id');
     }
 
-    /**
-     * @return BelongsTo<User, $this>
-     */
+    /** @return BelongsTo<User, $this> */
     public function createdUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_user_id');
@@ -68,6 +60,7 @@ class Key extends Model
         return config('services.discord.channel');
     }
 
+    /** @return Attribute<string, ?string> */
     protected function name(): Attribute
     {
         return Attribute::make(
@@ -77,6 +70,7 @@ class Key extends Model
         );
     }
 
+    /** @return Attribute<string, ?string> */
     protected function image(): Attribute
     {
         return Attribute::make(
@@ -86,6 +80,7 @@ class Key extends Model
         );
     }
 
+    /** @return Attribute<string, string> */
     protected function url(): Attribute
     {
         return Attribute::make(

@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
 /**
-* @see \App\Http\Controllers\Front\SearchController::index
-* @see app/Http/Controllers/Front/SearchController.php:17
+* @see \App\Http\Controllers\SearchController::index
+* @see app/Http/Controllers/SearchController.php:18
 * @route '/search'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -15,8 +15,8 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\Front\SearchController::index
-* @see app/Http/Controllers/Front/SearchController.php:17
+* @see \App\Http\Controllers\SearchController::index
+* @see app/Http/Controllers/SearchController.php:18
 * @route '/search'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -24,8 +24,8 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \App\Http\Controllers\Front\SearchController::index
-* @see app/Http/Controllers/Front/SearchController.php:17
+* @see \App\Http\Controllers\SearchController::index
+* @see app/Http/Controllers/SearchController.php:18
 * @route '/search'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,8 +34,8 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Front\SearchController::index
-* @see app/Http/Controllers/Front/SearchController.php:17
+* @see \App\Http\Controllers\SearchController::index
+* @see app/Http/Controllers/SearchController.php:18
 * @route '/search'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

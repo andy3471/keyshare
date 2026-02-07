@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use MarcReichel\IGDBLaravel\Models\Game as IgdbGame;
 
 class Game extends Model
 {
@@ -24,24 +25,32 @@ class Game extends Model
         'igdb_id',
     ];
 
-    /**
-     * Create or update a Game from IGDB data
-     *
-     * @param  \MarcReichel\IGDBLaravel\Models\Game  $igdbGame  The IGDB game model
-     * @param  string|null  $createdUserId  Optional user ID (kept for backwards compatibility, but not stored)
-     */
+    public static function fromIgdbId(int $igdbId): ?self
+    {
+        $existing = self::where('igdb_id', $igdbId)->first();
+
+        if ($existing) {
+            return $existing;
+        }
+
+        $igdbId = IgdbGame::select(['name', 'summary', 'id', 'parent_game'])->where('id', '=', $igdbId)->first();
+
+        if ($igdbId) {
+            return self::createFromIgdb($igdbId);
+        }
+
+        return null;
+    }
+
     public static function createFromIgdb(
-        \MarcReichel\IGDBLaravel\Models\Game $igdbGame,
-        ?string $createdUserId = null
+        IgdbGame $igdbGame,
     ): self {
-        // Check if game already exists by IGDB ID
         $game = self::where('igdb_id', $igdbGame->id)->first();
 
         if ($game) {
             return $game;
         }
 
-        // Create new game - only store igdb_id
         $game          = new self;
         $game->igdb_id = $igdbGame->id;
         $game->save();
@@ -49,34 +58,27 @@ class Game extends Model
         return $game;
     }
 
-    /**
-     * @return HasMany<Key, $this>
-     */
+    /** @return HasMany<Key, $this> */
     public function keys(): HasMany
     {
         return $this->hasMany(Key::class);
     }
 
-    /**
-     * Get IGDB data for this game (cached for the request)
-     * Returns null if game doesn't have an IGDB ID or IGDB is not enabled
-     */
-    public function getIgdbData(): ?\MarcReichel\IGDBLaravel\Models\Game
+    public function getIgdbData(): ?IgdbGame
     {
         if (! $this->igdb_id || ! config('igdb.enabled')) {
             return null;
         }
 
-        // Cache IGDB data for this request to avoid multiple API calls
         static $cache = [];
         $cacheKey     = 'igdb_'.$this->igdb_id;
 
         if (! isset($cache[$cacheKey])) {
-            $cache[$cacheKey] = \MarcReichel\IGDBLaravel\Models\Game::select([
+            $cache[$cacheKey] = IgdbGame::select([
                 'name',
                 'summary',
                 'id',
-                'parent_game', // Explicitly select parent_game field
+                'parent_game',
                 'aggregated_rating',
                 'aggregated_rating_count',
             ])
@@ -88,6 +90,7 @@ class Game extends Model
         return $cache[$cacheKey];
     }
 
+    /** @return Attribute<string, never> */
     protected function url(): Attribute
     {
         return Attribute::make(
@@ -97,9 +100,7 @@ class Game extends Model
         );
     }
 
-    /**
-     * Get name from IGDB
-     */
+    /** @return Attribute<string, never> */
     protected function name(): Attribute
     {
         return Attribute::make(get: function () {
@@ -109,9 +110,7 @@ class Game extends Model
         });
     }
 
-    /**
-     * Get description from IGDB
-     */
+    /** @return Attribute<string, never> */
     protected function description(): Attribute
     {
         return Attribute::make(get: function () {
@@ -121,19 +120,16 @@ class Game extends Model
         });
     }
 
-    /**
-     * Get image URL from IGDB
-     */
+    /** @return Attribute<string, ?string> */
     protected function image(): Attribute
     {
         return Attribute::make(get: function (): ?string {
             $igdb = $this->getIgdbData();
-            if ($igdb instanceof \MarcReichel\IGDBLaravel\Models\Game && $igdb->cover && isset($igdb->cover->image_id)) {
+            if ($igdb instanceof IgdbGame && $igdb->cover && isset($igdb->cover->image_id)) {
                 return 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
             }
 
             return null;
         });
     }
-
 }

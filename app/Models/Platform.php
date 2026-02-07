@@ -17,9 +17,7 @@ class Platform extends Model
         'igdb_id',
     ];
 
-    /**
-     * @return HasMany<Key, $this>
-     */
+    /** @return HasMany<Key, $this> */
     public function keys(): HasMany
     {
         return $this->hasMany(Key::class);

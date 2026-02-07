@@ -11,20 +11,10 @@ class RouteServiceProvider extends ServiceProvider
 {
     protected $namespace = 'App\Http\Controllers';
 
-    public function boot(): void
-    {
-        //
-
-        parent::boot();
-    }
-
     public function map(): void
     {
         $this->mapApiRoutes();
-
         $this->mapWebRoutes();
-
-        //
     }
 
     protected function mapWebRoutes()

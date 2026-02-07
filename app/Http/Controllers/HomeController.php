@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -21,12 +20,8 @@ class HomeController extends Controller
         return to_route('games.index');
     }
 
-    public function index(): View|RedirectResponse
+    public function index(): RedirectResponse
     {
-        if (auth()->guest()) {
-            return view(\Illuminate\Auth\Events\Login::class);
-        }
-
         return to_route('games.index');
     }
 

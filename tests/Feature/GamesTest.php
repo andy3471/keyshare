@@ -15,9 +15,7 @@ class GamesTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    /**
-     * A basic feature test example.
-     */
+    /** A basic feature test example. */
     public function test_view_games_page(): void
     {
         $user = User::factory()->create();

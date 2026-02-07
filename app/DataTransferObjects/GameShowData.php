@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects;
 
+use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\DataCollection;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]
@@ -12,8 +14,8 @@ class GameShowData extends Data
 {
     public function __construct(
         public GameData $game,
-        /** @var KeyData[] */
-        public array $keys,
+        #[DataCollectionOf(KeyData::class)]
+        public DataCollection $keys,
         public ?int $dlcCount = null,
         public ?string $dlcUrl = null,
         public ?array $igdb = null,

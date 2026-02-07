@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
 /**
-* @see \App\Http\Controllers\Front\HomeController::notApproved
-* @see app/Http/Controllers/Front/HomeController.php:33
+* @see \App\Http\Controllers\HomeController::notApproved
+* @see app/Http/Controllers/HomeController.php:28
 * @route '/not-approved'
 */
 export const notApproved = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -15,8 +15,8 @@ notApproved.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\Front\HomeController::notApproved
-* @see app/Http/Controllers/Front/HomeController.php:33
+* @see \App\Http\Controllers\HomeController::notApproved
+* @see app/Http/Controllers/HomeController.php:28
 * @route '/not-approved'
 */
 notApproved.url = (options?: RouteQueryOptions) => {
@@ -24,8 +24,8 @@ notApproved.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \App\Http\Controllers\Front\HomeController::notApproved
-* @see app/Http/Controllers/Front/HomeController.php:33
+* @see \App\Http\Controllers\HomeController::notApproved
+* @see app/Http/Controllers/HomeController.php:28
 * @route '/not-approved'
 */
 notApproved.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,8 +34,8 @@ notApproved.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Front\HomeController::notApproved
-* @see app/Http/Controllers/Front/HomeController.php:33
+* @see \App\Http\Controllers\HomeController::notApproved
+* @see app/Http/Controllers/HomeController.php:28
 * @route '/not-approved'
 */
 notApproved.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,8 +44,8 @@ notApproved.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Front\HomeController::demoMode
-* @see app/Http/Controllers/Front/HomeController.php:38
+* @see \App\Http\Controllers\HomeController::demoMode
+* @see app/Http/Controllers/HomeController.php:33
 * @route '/demo'
 */
 export const demoMode = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -59,8 +59,8 @@ demoMode.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\Front\HomeController::demoMode
-* @see app/Http/Controllers/Front/HomeController.php:38
+* @see \App\Http\Controllers\HomeController::demoMode
+* @see app/Http/Controllers/HomeController.php:33
 * @route '/demo'
 */
 demoMode.url = (options?: RouteQueryOptions) => {
@@ -68,8 +68,8 @@ demoMode.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \App\Http\Controllers\Front\HomeController::demoMode
-* @see app/Http/Controllers/Front/HomeController.php:38
+* @see \App\Http\Controllers\HomeController::demoMode
+* @see app/Http/Controllers/HomeController.php:33
 * @route '/demo'
 */
 demoMode.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -78,8 +78,8 @@ demoMode.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Front\HomeController::demoMode
-* @see app/Http/Controllers/Front/HomeController.php:38
+* @see \App\Http\Controllers\HomeController::demoMode
+* @see app/Http/Controllers/HomeController.php:33
 * @route '/demo'
 */
 demoMode.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

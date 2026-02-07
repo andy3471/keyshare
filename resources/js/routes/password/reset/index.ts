@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../wayfinder'
 /**
-* @see \App\Http\Controllers\Front\UserController::request
-* @see app/Http/Controllers/Front/UserController.php:63
+* @see \App\Http\Controllers\UserController::request
+* @see app/Http/Controllers/UserController.php:62
 * @route '/change-password'
 */
 export const request = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -15,8 +15,8 @@ request.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\Front\UserController::request
-* @see app/Http/Controllers/Front/UserController.php:63
+* @see \App\Http\Controllers\UserController::request
+* @see app/Http/Controllers/UserController.php:62
 * @route '/change-password'
 */
 request.url = (options?: RouteQueryOptions) => {
@@ -24,8 +24,8 @@ request.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \App\Http\Controllers\Front\UserController::request
-* @see app/Http/Controllers/Front/UserController.php:63
+* @see \App\Http\Controllers\UserController::request
+* @see app/Http/Controllers/UserController.php:62
 * @route '/change-password'
 */
 request.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,8 +34,8 @@ request.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Front\UserController::request
-* @see app/Http/Controllers/Front/UserController.php:63
+* @see \App\Http\Controllers\UserController::request
+* @see app/Http/Controllers/UserController.php:62
 * @route '/change-password'
 */
 request.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,8 +44,8 @@ request.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\Front\UserController::save
-* @see app/Http/Controllers/Front/UserController.php:71
+* @see \App\Http\Controllers\UserController::save
+* @see app/Http/Controllers/UserController.php:70
 * @route '/change-password'
 */
 export const save = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -59,8 +59,8 @@ save.definition = {
 } satisfies RouteDefinition<["post"]>
 
 /**
-* @see \App\Http\Controllers\Front\UserController::save
-* @see app/Http/Controllers/Front/UserController.php:71
+* @see \App\Http\Controllers\UserController::save
+* @see app/Http/Controllers/UserController.php:70
 * @route '/change-password'
 */
 save.url = (options?: RouteQueryOptions) => {
@@ -68,8 +68,8 @@ save.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \App\Http\Controllers\Front\UserController::save
-* @see app/Http/Controllers/Front/UserController.php:71
+* @see \App\Http\Controllers\UserController::save
+* @see app/Http/Controllers/UserController.php:70
 * @route '/change-password'
 */
 save.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({

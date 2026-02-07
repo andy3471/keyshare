@@ -12,9 +12,7 @@ class LinkedAccount extends Model
 {
     use HasUuids;
 
-    /**
-     * @return BelongsTo<User, $this>
-     */
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

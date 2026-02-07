@@ -8,9 +8,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    /** Run the migrations. */
     public function up(): void
     {
         // Remove dlc_id from keys table
@@ -23,9 +21,7 @@ return new class extends Migration
         Schema::dropIfExists('dlcs');
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    /** Reverse the migrations. */
     public function down(): void
     {
         // Recreate dlcs table

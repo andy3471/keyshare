@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects;
 
+use App\Models\User;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
@@ -22,7 +23,7 @@ class UserData extends Data
         public ?bool $approved = null,
     ) {}
 
-    public static function fromModel(\App\Models\User $user): self
+    public static function fromModel(User $user): self
     {
         return new self(
             id: (string) $user->id,

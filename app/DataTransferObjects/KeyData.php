@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects;
 
+use App\Models\Key;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
@@ -27,7 +28,7 @@ class KeyData extends Data
         public ?GameData $game = null,
     ) {}
 
-    public static function fromModel(\App\Models\Key $key): self
+    public static function fromModel(Key $key): self
     {
         return new self(
             id: (string) $key->id,

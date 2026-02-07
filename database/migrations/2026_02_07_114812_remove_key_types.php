@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    /** Run the migrations. */
     public function up(): void
     {
         // Remove key_type_id from keys table
@@ -24,9 +22,7 @@ return new class extends Migration
         Schema::dropIfExists('key_types');
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    /** Reverse the migrations. */
     public function down(): void
     {
         // Recreate key_types table

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects;
 
+use App\Models\Platform;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
@@ -15,7 +16,7 @@ class PlatformData extends Data
         public string $name,
     ) {}
 
-    public static function fromModel(\App\Models\Platform $platform): self
+    public static function fromModel(Platform $platform): self
     {
         return new self(
             id: (string) $platform->id,

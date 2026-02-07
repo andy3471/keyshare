@@ -16,9 +16,7 @@ class KeysTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    /**
-     * A basic test example.
-     */
+    /** A basic test example. */
     public function test_user_can_create_key(): void
     {
         $user     = User::factory()->create();

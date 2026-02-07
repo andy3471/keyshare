@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 // TODO: Tidy these routes up
 use App\Http\Controllers\Auth\SteamLoginController;
-use App\Http\Controllers\Front\GameController;
-use App\Http\Controllers\Front\HomeController;
-use App\Http\Controllers\Front\KeyController;
-use App\Http\Controllers\Front\PlatformController;
-use App\Http\Controllers\Front\SearchController;
-use App\Http\Controllers\Front\UserController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KeyController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UserController;
 
 Auth::routes();
 
@@ -48,8 +47,6 @@ Route::middleware(['auth', 'approved'])->group(function (): void {
     Route::post('change-password', [UserController::class, 'passwordResetSave'])
         ->name('password.reset.save')
         ->middleware('demomode');
-
-    Route::resource('platforms', PlatformController::class)->only(['show']);
 
     // Autocomplete routes (return JSON for autocomplete component)
     Route::get('autocomplete/games', [SearchController::class, 'autoCompleteGames'])->name('autocomplete.games');

@@ -5,11 +5,88 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f8ec7e7-8720-40c0-ab26-25fecdfce236" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_ide_helper_models.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper_models.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/SearchController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.chipperci.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9f4fc8b5-6d37-4352-8abd-928739900b47.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9f4fc8b5-6d37-4352-8abd-928739900b47.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/CacheAll.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/CacheAll.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/CalculateKarma.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/CalculateKarma.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/DlcData.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/GameData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/GameData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/GameShowData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/GameShowData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/KeyCreateData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/KeyCreateData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/KeyData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/KeyData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/PlatformData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/PlatformData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/UserData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/UserData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/UserProfileData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/UserProfileData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/GameController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/KeyController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/PlatformController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SearchController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/GameController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GameController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/KeyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/KeyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/PlatformController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/SearchController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/HandleInertiaRequests.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/HandleInertiaRequests.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Auth/LoginRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Auth/LoginRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/ProfileUpdateRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/ProfileUpdateRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/ViewComposers/PlatformViewComposer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Mail/ResetPassword.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/ResetPassword.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Game.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Game.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Key.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Key.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/LinkedAccount.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/LinkedAccount.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Platform.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Platform.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Subscription.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/caddy/autosave.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/caddy/autosave.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2025_05_19_222140_make_description_on_games_table_nullable.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2025_05_19_222140_make_description_on_games_table_nullable.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2026_02_07_114509_add_parent_game_id_to_games_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2026_02_07_114509_add_parent_game_id_to_games_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2026_02_07_114511_remove_dlc_model_and_update_keys.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2026_02_07_114511_remove_dlc_model_and_update_keys.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2026_02_07_114812_remove_key_types.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2026_02_07_114812_remove_key_types.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2026_02_07_115749_simplify_games_table_remove_description_image.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2026_02_07_115749_simplify_games_table_remove_description_image.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2026_02_07_120012_simplify_games_table_remove_name_created_user_id.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2026_02_07_120012_simplify_games_table_remove_name_created_user_id.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2026_02_07_120350_remove_parent_game_id_from_games_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2026_02_07_120350_remove_parent_game_id_from_games_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/GamesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/GamesTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pint.json" beforeDir="false" afterPath="$PROJECT_DIR$/pint.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rector.php" beforeDir="false" afterPath="$PROJECT_DIR$/rector.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/Front/GameController.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/Front/HomeController.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/Front/KeyController.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/Front/PlatformController.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/Front/SearchController.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/Front/UserController.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/Front/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/auth/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/auth/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/autocomplete/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/autocomplete/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/boost/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/boost/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/games/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/games/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/claimed/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/claimed/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/shared/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/shared/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/password/reset/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/password/reset/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/platforms/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/search/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/search/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/users/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/users/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/console.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/console.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Browser/ExampleTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Browser/ExampleTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Browser/Pages/HomePage.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Browser/Pages/HomePage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/GamesTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/GamesTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/KeysTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/KeysTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,10 +97,17 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="PHP File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/opt/homebrew/Cellar/php/8.4.10/bin/php">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
       <path value="$PROJECT_DIR$/vendor/psr/container" />
@@ -224,6 +308,8 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "/home/andy/git/keyshare/node_modules/prettier",
+    "ts.external.directory.path": "/home/andy/git/keyshare/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>

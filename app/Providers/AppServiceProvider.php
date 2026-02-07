@@ -16,13 +16,6 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * The path to your application's "home" route.
-     *
-     * Typically, users are redirected here after authentication.
-     *
-     * @var string
-     */
     public const HOME = '/home';
 
     public function boot(): void
@@ -36,14 +29,6 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDatabase();
         $this->configureVite();
         $this->bootAuth();
-    }
-
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        //
     }
 
     public function bootAuth(): void

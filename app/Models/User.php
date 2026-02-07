@@ -37,25 +37,19 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
-    /**
-     * @return HasMany<LinkedAccount, $this>
-     */
+    /** @return HasMany<LinkedAccount, $this> */
     public function linkedAccounts(): HasMany
     {
         return $this->hasMany(LinkedAccount::class);
     }
 
-    /**
-     * @return HasMany<Key, $this>
-     */
+    /** @return HasMany<Key, $this> */
     public function claimedKeys(): HasMany
     {
         return $this->hasMany(Key::class, 'owned_user_id');
     }
 
-    /**
-     * @return HasMany<Key, $this>
-     */
+    /** @return HasMany<Key, $this> */
     public function sharedKeys(): HasMany
     {
         return $this->hasMany(Key::class, 'created_user_id');
@@ -66,6 +60,7 @@ class User extends Authenticatable implements FilamentUser
         return (bool) $this->admin;
     }
 
+    /** @return Attribute<int, int> */
     protected function karma(): Attribute
     {
         return Attribute::make(
@@ -94,6 +89,7 @@ class User extends Authenticatable implements FilamentUser
         );
     }
 
+    /** @return Attribute<string, string> */
     protected function karmaColour(): Attribute
     {
         return Attribute::make(
