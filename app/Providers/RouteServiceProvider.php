@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected $namespace = 'App\Http\Controllers';
 
     public function map(): void
     {
@@ -20,7 +19,6 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-            ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
     }
 
@@ -29,7 +27,6 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             // TODO: fix this
             ->middleware('web')
-            ->namespace($this->namespace)
             ->name('api.')
             ->group(base_path('routes/api.php'));
     }
