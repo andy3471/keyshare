@@ -1,5 +1,5 @@
 <template>
-    <div class="autocomplete relative" @blur="hideResults">
+    <div class="relative" @blur="hideResults">
         <input
             :id="id"
             v-model="query"
@@ -16,14 +16,14 @@
         />
         <div
             v-if="showResults && results.length > 0"
-            class="autocomplete-results"
+            class="absolute z-50 w-full mt-1 bg-dark-800 border border-dark-600 rounded-b-lg overflow-auto max-h-60 shadow-lg"
         >
             <div
                 v-for="(result, index) in results"
                 :key="index"
                 :class="[
-                    'autocomplete-result',
-                    { 'is-active': index === selectedIndex }
+                    'list-none text-left p-2 cursor-pointer hover:bg-accent-600 hover:text-white transition-colors',
+                    { 'bg-accent-600 text-white': index === selectedIndex }
                 ]"
                 @click="select(result)"
                 @mouseenter="selectedIndex = index"
@@ -47,7 +47,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    inputClass: 'form-control',
+    inputClass: 'border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full',
 });
 
 const emit = defineEmits<{

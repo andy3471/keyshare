@@ -34,7 +34,6 @@ class Key extends Model
      */
     public function game(): BelongsTo
     {
-        // TODO: Migrate to polymorphic relationship
         return $this->belongsTo(Game::class);
     }
 

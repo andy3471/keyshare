@@ -20,7 +20,11 @@ class Game extends Model
 
     protected $fillable = [
         'name',
+        'description',
         'created_user_id',
+        'image',
+        'igdb_id',
+        'igdb_updated',
     ];
 
     /**

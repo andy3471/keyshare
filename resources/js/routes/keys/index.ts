@@ -81,7 +81,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::show
-* @see app/Http/Controllers/Front/KeyController.php:105
+* @see app/Http/Controllers/Front/KeyController.php:107
 * @route '/keys/{key}'
 */
 export const show = (args: { key: string | number | { id: string | number } } | [key: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -96,7 +96,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::show
-* @see app/Http/Controllers/Front/KeyController.php:105
+* @see app/Http/Controllers/Front/KeyController.php:107
 * @route '/keys/{key}'
 */
 show.url = (args: { key: string | number | { id: string | number } } | [key: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
@@ -129,7 +129,7 @@ show.url = (args: { key: string | number | { id: string | number } } | [key: str
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::show
-* @see app/Http/Controllers/Front/KeyController.php:105
+* @see app/Http/Controllers/Front/KeyController.php:107
 * @route '/keys/{key}'
 */
 show.get = (args: { key: string | number | { id: string | number } } | [key: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -139,7 +139,7 @@ show.get = (args: { key: string | number | { id: string | number } } | [key: str
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::show
-* @see app/Http/Controllers/Front/KeyController.php:105
+* @see app/Http/Controllers/Front/KeyController.php:107
 * @route '/keys/{key}'
 */
 show.head = (args: { key: string | number | { id: string | number } } | [key: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -149,7 +149,7 @@ show.head = (args: { key: string | number | { id: string | number } } | [key: st
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::claim
-* @see app/Http/Controllers/Front/KeyController.php:116
+* @see app/Http/Controllers/Front/KeyController.php:118
 * @route '/keys/claim'
 */
 export const claim = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -164,7 +164,7 @@ claim.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::claim
-* @see app/Http/Controllers/Front/KeyController.php:116
+* @see app/Http/Controllers/Front/KeyController.php:118
 * @route '/keys/claim'
 */
 claim.url = (options?: RouteQueryOptions) => {
@@ -173,7 +173,7 @@ claim.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::claim
-* @see app/Http/Controllers/Front/KeyController.php:116
+* @see app/Http/Controllers/Front/KeyController.php:118
 * @route '/keys/claim'
 */
 claim.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({

@@ -68,9 +68,11 @@ class KeyController extends Controller
                         $game->igdb_updated = \Illuminate\Support\Facades\Date::today();
                     } else {
                         $game->name = $request->gamename;
+                        $game->description = null;
                     }
                 } else {
                     $game->name = $request->gamename;
+                    $game->description = null;
                 }
 
                 $game->created_user_id = auth()->user()->id;

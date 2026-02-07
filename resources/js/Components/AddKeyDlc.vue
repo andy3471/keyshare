@@ -41,7 +41,7 @@
                 id="platform"
                 v-model="form.platform_id"
                 name="platform_id"
-                class="form-control w-full"
+                class="border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
             >
                 <option value="">Select a platform</option>
                 <option
@@ -67,7 +67,7 @@
                 name="key"
                 type="text"
                 required
-                class="form-control w-full"
+                class="border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
             />
             <div v-if="form.errors.key" class="mt-1 text-sm text-danger">
                 {{ form.errors.key }}
@@ -83,7 +83,7 @@
                 v-model="form.message"
                 name="message"
                 rows="3"
-                class="form-control w-full"
+                class="border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
             />
             <div v-if="form.errors.message" class="mt-1 text-sm text-danger">
                 {{ form.errors.message }}
@@ -94,7 +94,7 @@
 
         <button
             type="submit"
-            class="btn-accent"
+            class="bg-accent-600 hover:bg-accent-700 active:bg-accent-800 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-200 shadow-lg shadow-accent-600/20 hover:shadow-xl hover:shadow-accent-600/30 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed"
             :disabled="form.processing"
         >
             <span v-if="form.processing">Adding...</span>

@@ -25,7 +25,7 @@
                         @input="form.image = $event.target.files[0]"
                         type="file"
                         accept="image/*"
-                        class="form-control w-full"
+                        class="border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
                     />
                     <div v-if="form.errors.image" class="mt-1 text-sm text-danger">
                         {{ form.errors.image }}
@@ -42,7 +42,7 @@
                         name="name"
                         type="text"
                         required
-                        class="form-control w-full"
+                        class="border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
                     />
                     <div v-if="form.errors.name" class="mt-1 text-sm text-danger">
                         {{ form.errors.name }}
@@ -58,7 +58,7 @@
                         v-model="form.email"
                         name="email"
                         type="email"
-                        class="form-control w-full"
+                        class="border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
                     />
                     <div v-if="form.errors.email" class="mt-1 text-sm text-danger">
                         {{ form.errors.email }}
@@ -74,7 +74,7 @@
                         v-model="form.bio"
                         name="bio"
                         rows="4"
-                        class="form-control w-full"
+                        class="border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
                     />
                     <div v-if="form.errors.bio" class="mt-1 text-sm text-danger">
                         {{ form.errors.bio }}
@@ -83,7 +83,7 @@
 
                 <button
                     type="submit"
-                    class="btn-accent"
+                    class="bg-accent-600 hover:bg-accent-700 active:bg-accent-800 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-200 shadow-lg shadow-accent-600/20 hover:shadow-xl hover:shadow-accent-600/30 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed"
                     :disabled="form.processing"
                 >
                     <span v-if="form.processing">Saving...</span>

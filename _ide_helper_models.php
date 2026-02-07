@@ -13,8 +13,6 @@
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property int $game_id
  * @property string $name
@@ -44,8 +42,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property string $name
  * @property string|null $description
@@ -61,7 +57,7 @@ namespace App\Models{
  * @property-read int|null $dlcs_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $keys
  * @property-read int|null $keys_count
- * @property-read mixed $url
+ * @property-read string $url
  * @method static \Database\Factories\GameFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game newQuery()
@@ -82,8 +78,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group query()
@@ -93,8 +87,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property int|null $game_id
  * @property int|null $dlc_id
@@ -119,7 +111,7 @@ namespace App\Models{
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \App\Models\Platform $platform
- * @property-read mixed $url
+ * @property-read string $url
  * @method static \Database\Factories\KeyFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key newQuery()
@@ -144,8 +136,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property string $name
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -163,8 +153,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property int $user_id
  * @property int $linked_account_provider_id
@@ -189,8 +177,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property string $name
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -210,8 +196,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property int $platform_id
  * @property string $name
@@ -238,8 +222,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
- *
  * @property int $id
  * @property string $name
  * @property string $email
@@ -250,8 +232,8 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property string $image
  * @property string|null $bio
- * @property int $approved
- * @property int $admin
+ * @property bool $approved
+ * @property bool $admin
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $claimedKeys
  * @property-read int|null $claimed_keys_count
  * @property-read mixed $karma

@@ -26,7 +26,7 @@
                 <span
                     v-for="genre in genres"
                     :key="genre.id"
-                    class="badge badge-info mr-2"
+                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold shadow-md bg-primary-600 text-white shadow-primary-600/30 mr-2"
                 >
                     {{ genre.name }}
                 </span>
@@ -37,59 +37,25 @@
                 {{ igdb.aggregated_rating_count }} reviewers
             </div>
 
-            <div class="bg-dark-800 rounded-lg border border-dark-700 overflow-hidden">
-                <table class="min-w-full divide-y divide-dark-700">
-                    <thead class="bg-dark-700">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                                Platform
-                            </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                                Added By
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-dark-800 divide-y divide-dark-700">
-                        <tr v-if="keys.length === 0">
-                            <td colspan="2" class="px-6 py-4 text-center text-gray-400">
-                                No keys available
-                            </td>
-                        </tr>
-                        <tr
-                            v-for="key in keys"
-                            :key="key.id"
-                            class="hover:bg-dark-700 transition-colors"
-                        >
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <Link
-                                    :href="key.url"
-                                    class="text-accent-400 hover:text-accent-300"
-                                >
-                                    {{ key.platform?.name }}
-                                </Link>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <Link
-                                    :href="`/users/${key.createdUser?.id}`"
-                                    class="text-accent-400 hover:text-accent-300"
-                                >
-                                    {{ key.createdUser?.name }}
-                                </Link>
-                                <span
-                                    :class="[
-                                        'badge ml-2',
-                                        key.createdUser?.karma_colour === 'badge-danger' ? 'badge-danger' :
-                                        key.createdUser?.karma_colour === 'badge-warning' ? 'badge-warning' :
-                                        key.createdUser?.karma_colour === 'badge-info' ? 'badge-info' :
-                                        'badge-success'
-                                    ]"
-                                >
-                                    {{ key.createdUser?.karma }}
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <h2 class="text-2xl font-bold text-white mb-4 mt-8">Available Keys</h2>
+
+            <div v-if="keys.length === 0" class="bg-dark-800 rounded-lg border border-dark-700 p-12 text-center">
+                <div class="inline-flex flex-col items-center space-y-4">
+                    <svg class="w-16 h-16 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                    </svg>
+                    <div>
+                        <p class="text-xl font-medium text-gray-300">No keys available</p>
+                        <p class="text-sm text-gray-500 mt-1">Be the first to share a key for this game!</p>
+                    </div>
+                </div>
+            </div>
+            <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <KeyCard
+                    v-for="keyItem in keys"
+                    :key="keyItem.id"
+                    :key-data="keyItem"
+                />
             </div>
 
             <div v-if="dlcGames && dlcGames.length > 0" class="mt-8">
@@ -115,6 +81,7 @@ import { Link } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import TitleHeader from '@/Components/TitleHeader.vue';
 import GameList from '@/Components/GameList.vue';
+import KeyCard from '@/Components/KeyCard.vue';
 import { GameShowData } from '@/Types/generated';
 
 interface Props {
