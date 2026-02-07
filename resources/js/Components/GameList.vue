@@ -9,7 +9,7 @@
             >
                 <Link :href="gamesRoute.show.url(game.id)">
                     <KeyAvailabilityBadge
-                        v-if="game.hasKey !== undefined"
+                        v-if="game.keyCount !== undefined"
                         :key-count="game.keyCount || 0"
                     />
                     <img

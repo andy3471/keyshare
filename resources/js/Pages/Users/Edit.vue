@@ -183,7 +183,7 @@ const handleImageChange = (event: Event) => {
 };
 
 const submit = () => {
-    form.post(users.update.url(auth.user?.id), {
+    form.put(users.update.url(auth.user?.id), {
         preserveScroll: true,
         forceFormData: true,
     });

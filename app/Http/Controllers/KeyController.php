@@ -74,12 +74,7 @@ class KeyController extends Controller
     {
         $this->authorize('claim', $key);
 
-        // TODO: move to claim method on Key model
-        $key->owned_user_id = auth()->id();
-        $key->save();
-
-        // TODO: handle via observer
-        Redis::zincrby('karma', -1, auth()->id());
+        $key->claim(auth()->user());
 
         return back()->with('message', __('keys.claimsuccess'));
     }
@@ -93,7 +88,8 @@ class KeyController extends Controller
                     ->claimedKeys()
                     ->with('game')
                     ->paginate(12)
-            )),        ]);
+            )),
+        ]);
     }
 
     public function shared(Request $request): Response

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Redis;
 
 class Key extends Model
 {
@@ -46,6 +47,16 @@ class Key extends Model
     public function createdUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_user_id');
+    }
+
+    public function claim(User $user): self
+    {
+        $this->owned_user_id = $user->id;
+        $this->save();
+
+        Redis::zincrby('karma', -1, auth()->id());
+
+        return $this;
     }
 
     public function routeNotificationForDiscord(): string

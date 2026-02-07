@@ -35,7 +35,7 @@ claim.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\KeyController::claimed
-* @see app/Http/Controllers/KeyController.php:87
+* @see app/Http/Controllers/KeyController.php:82
 * @route '/keys/claimed'
 */
 export const claimed = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -50,7 +50,7 @@ claimed.definition = {
 
 /**
 * @see \App\Http\Controllers\KeyController::claimed
-* @see app/Http/Controllers/KeyController.php:87
+* @see app/Http/Controllers/KeyController.php:82
 * @route '/keys/claimed'
 */
 claimed.url = (options?: RouteQueryOptions) => {
@@ -59,7 +59,7 @@ claimed.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\KeyController::claimed
-* @see app/Http/Controllers/KeyController.php:87
+* @see app/Http/Controllers/KeyController.php:82
 * @route '/keys/claimed'
 */
 claimed.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -69,7 +69,7 @@ claimed.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\KeyController::claimed
-* @see app/Http/Controllers/KeyController.php:87
+* @see app/Http/Controllers/KeyController.php:82
 * @route '/keys/claimed'
 */
 claimed.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -79,7 +79,7 @@ claimed.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\KeyController::shared
-* @see app/Http/Controllers/KeyController.php:99
+* @see app/Http/Controllers/KeyController.php:95
 * @route '/keys/shared'
 */
 export const shared = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ shared.definition = {
 
 /**
 * @see \App\Http\Controllers\KeyController::shared
-* @see app/Http/Controllers/KeyController.php:99
+* @see app/Http/Controllers/KeyController.php:95
 * @route '/keys/shared'
 */
 shared.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ shared.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\KeyController::shared
-* @see app/Http/Controllers/KeyController.php:99
+* @see app/Http/Controllers/KeyController.php:95
 * @route '/keys/shared'
 */
 shared.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -113,7 +113,7 @@ shared.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\KeyController::shared
-* @see app/Http/Controllers/KeyController.php:99
+* @see app/Http/Controllers/KeyController.php:95
 * @route '/keys/shared'
 */
 shared.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
