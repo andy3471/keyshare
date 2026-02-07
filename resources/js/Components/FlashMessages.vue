@@ -1,67 +1,91 @@
 <template>
-    <Transition
-        enter-active-class="transition ease-out duration-300"
-        enter-from-class="opacity-0 translate-y-2"
-        enter-to-class="opacity-100 translate-y-0"
-        leave-active-class="transition ease-in duration-200"
-        leave-from-class="opacity-100 translate-y-0"
-        leave-to-class="opacity-0 translate-y-2"
+  <Transition
+    enter-active-class="transition ease-out duration-300"
+    enter-from-class="opacity-0 translate-y-2"
+    enter-to-class="opacity-100 translate-y-0"
+    leave-active-class="transition ease-in duration-200"
+    leave-from-class="opacity-100 translate-y-0"
+    leave-to-class="opacity-0 translate-y-2"
+  >
+    <div
+      v-if="flash.message || flash.error"
+      class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full mx-4"
     >
-        <div v-if="flash.message || flash.error" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full mx-4">
-            <div
-                v-if="flash.message"
-                class="bg-success text-white px-4 py-3 rounded-lg shadow-xl relative flex items-center justify-between border border-success-dark"
-                role="alert"
-            >
-                <span class="flex-1 pr-4">{{ flash.message }}</span>
-                <button
-                    @click="dismissMessage"
-                    class="flex-shrink-0 hover:bg-success-dark rounded p-1 transition-colors"
-                    aria-label="Dismiss"
-                >
-                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <div
-                v-if="flash.error"
-                class="bg-danger text-white px-4 py-3 rounded-lg shadow-xl relative flex items-center justify-between border border-danger-dark"
-                role="alert"
-            >
-                <span class="flex-1 pr-4">{{ flash.error }}</span>
-                <button
-                    @click="dismissError"
-                    class="flex-shrink-0 hover:bg-danger-dark rounded p-1 transition-colors"
-                    aria-label="Dismiss"
-                >
-                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </Transition>
+      <div
+        v-if="flash.message"
+        class="bg-success text-white px-4 py-3 rounded-lg shadow-xl relative flex items-center justify-between border border-success-dark"
+        role="alert"
+      >
+        <span class="flex-1 pr-4">{{ flash.message }}</span>
+        <button
+          class="flex-shrink-0 hover:bg-success-dark rounded p-1 transition-colors"
+          aria-label="Dismiss"
+          @click="dismissMessage"
+        >
+          <svg
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        v-if="flash.error"
+        class="bg-danger text-white px-4 py-3 rounded-lg shadow-xl relative flex items-center justify-between border border-danger-dark"
+        role="alert"
+      >
+        <span class="flex-1 pr-4">{{ flash.error }}</span>
+        <button
+          class="flex-shrink-0 hover:bg-danger-dark rounded p-1 transition-colors"
+          aria-label="Dismiss"
+          @click="dismissError"
+        >
+          <svg
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import { usePage, router } from '@inertiajs/vue3';
+import type { FlashProps } from '@/types/global';
 
 const page = usePage();
-const flash = (page.props.flash as { message?: string; error?: string }) || {};
+const flash = (page.props.flash as FlashProps | undefined) ?? {};
 const showMessage = ref(true);
 const showError = ref(true);
 
 const dismissMessage = () => {
-    showMessage.value = false;
-    // Clear flash message from page props
-    router.reload({ only: ['flash'] });
+  showMessage.value = false;
+  // Clear flash message from page props
+  router.reload({ only: ['flash'] });
 };
 
 const dismissError = () => {
-    showError.value = false;
-    // Clear flash error from page props
-    router.reload({ only: ['flash'] });
+  showError.value = false;
+  // Clear flash error from page props
+  router.reload({ only: ['flash'] });
 };
 </script>

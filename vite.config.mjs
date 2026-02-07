@@ -24,7 +24,10 @@ export default defineConfig({
         },
       },
     }),
-    wayfinder()
+    wayfinder(),
+    eslint({
+      fix: true,
+    }),
   ],
   resolve: {
     alias: {
