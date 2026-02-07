@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use MarcReichel\IGDBLaravel\Models\Game as IgdbGame;
+use MarcReichel\IGDBLaravel\Models\Genre;
+use MarcReichel\IGDBLaravel\Models\Screenshot;
 
 class Game extends Model
 {
@@ -66,28 +69,17 @@ class Game extends Model
 
     public function getIgdbData(): ?IgdbGame
     {
-        if (! $this->igdb_id || ! config('igdb.enabled')) {
-            return null;
-        }
-
-        static $cache = [];
-        $cacheKey     = 'igdb_'.$this->igdb_id;
-
-        if (! isset($cache[$cacheKey])) {
-            $cache[$cacheKey] = IgdbGame::select([
-                'name',
-                'summary',
-                'id',
-                'parent_game',
-                'aggregated_rating',
-                'aggregated_rating_count',
-            ])
-                ->with(['cover' => ['image_id'], 'genres', 'screenshots', 'dlcs'])
-                ->where('id', '=', $this->igdb_id)
-                ->first();
-        }
-
-        return $cache[$cacheKey];
+        return IgdbGame::select([
+            'name',
+            'summary',
+            'id',
+            'parent_game',
+            'aggregated_rating',
+            'aggregated_rating_count',
+        ])
+            ->with(['cover' => ['image_id'], 'genres', 'screenshots', 'dlcs'])
+            ->where('id', '=', $this->igdb_id)
+            ->first();
     }
 
     /** @return Attribute<string, never> */
@@ -130,6 +122,46 @@ class Game extends Model
             }
 
             return null;
+        });
+    }
+
+    /** @return Attribute<array<int, Genre>, never> */
+    protected function genres(): Attribute
+    {
+        return Attribute::make(get: function (): ?Collection {
+            $igdb = $this->getIgdbData();
+
+            return $igdb->genres;
+        });
+    }
+
+    /** @return Attribute<array<int, Genre>, never> */
+    protected function screenshots(): Attribute
+    {
+        return Attribute::make(get: function (): ?Collection {
+            $igdb = $this->getIgdbData();
+
+            return $igdb->screenshots;
+        });
+    }
+
+    /** @return Attribute<array<int, Screenshot>, never> */
+    protected function aggregatedRating(): Attribute
+    {
+        return Attribute::make(get: function (): ?string {
+            $igdb = $this->getIgdbData();
+
+            return $igdb->aggregated_rating;
+        });
+    }
+
+    /** @return Attribute<array<int, Screenshot>, never> */
+    protected function aggregatedRatingCount(): Attribute
+    {
+        return Attribute::make(get: function (): ?string {
+            $igdb = $this->getIgdbData();
+
+            return $igdb->aggregated_rating_count;
         });
     }
 }

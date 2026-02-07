@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \Filament\Actions\Exports\Http\Controllers\DownloadExport::__invoke
-* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:16
+* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:15
 * @route '/filament/exports/{export}/download'
 */
 export const download = (args: { export: string | number | { id: string | number } } | [exportParam: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ download.definition = {
 
 /**
 * @see \Filament\Actions\Exports\Http\Controllers\DownloadExport::__invoke
-* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:16
+* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:15
 * @route '/filament/exports/{export}/download'
 */
 download.url = (args: { export: string | number | { id: string | number } } | [exportParam: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
@@ -49,7 +49,7 @@ download.url = (args: { export: string | number | { id: string | number } } | [e
 
 /**
 * @see \Filament\Actions\Exports\Http\Controllers\DownloadExport::__invoke
-* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:16
+* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:15
 * @route '/filament/exports/{export}/download'
 */
 download.get = (args: { export: string | number | { id: string | number } } | [exportParam: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -59,7 +59,7 @@ download.get = (args: { export: string | number | { id: string | number } } | [e
 
 /**
 * @see \Filament\Actions\Exports\Http\Controllers\DownloadExport::__invoke
-* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:16
+* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:15
 * @route '/filament/exports/{export}/download'
 */
 download.head = (args: { export: string | number | { id: string | number } } | [exportParam: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({

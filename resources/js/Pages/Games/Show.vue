@@ -52,9 +52,9 @@
 
                 <!-- Game Info Card - Takes remaining space -->
                 <div class="flex-1 bg-dark-800 rounded-lg border border-dark-700 p-6 h-fit">
-                    <div v-if="genres && genres.length > 0" class="mb-4">
+                    <div v-if="game.genres && game.genres.length > 0" class="mb-4">
                         <span
-                            v-for="genre in genres"
+                            v-for="genre in game.genres"
                             :key="genre.id"
                             class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold shadow-md bg-primary-600 text-white shadow-primary-600/30 mr-2 mb-2"
                         >
@@ -108,11 +108,11 @@
                 <GameList :games="childGames" scroll-prop="childGames" />
             </div>
 
-            <div v-if="screenshots && screenshots.length > 0" class="mt-8">
+            <div v-if="game.screenshots && game.screenshots.length > 0" class="mt-8">
                 <h2 class="text-2xl font-bold text-white mb-4">Screenshots</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <img
-                        v-for="(screenshot, index) in screenshots"
+                        v-for="(screenshot, index) in game.screenshots"
                         :key="screenshot.id"
                         :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_big/${screenshot.image_id}.jpg`"
                         alt="Game Screenshot"
@@ -124,7 +124,7 @@
 
             <!-- Image Modal -->
             <div
-                v-if="selectedImageIndex !== null && screenshots && screenshots.length > 0"
+                v-if="selectedImageIndex !== null && game.screenshots && game.screenshots.length > 0"
                 class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
                 @click="closeImageModal"
             >
@@ -141,7 +141,7 @@
 
                     <!-- Previous Button -->
                     <button
-                        v-if="screenshots.length > 1"
+                        v-if="game.screenshots.length > 1"
                         @click.stop="previousImage"
                         class="absolute left-4 text-white hover:text-accent-400 transition-colors p-3 rounded-lg hover:bg-white/10 bg-black/50 backdrop-blur-sm"
                         :disabled="selectedImageIndex === 0"
@@ -154,18 +154,18 @@
 
                     <!-- Image -->
                     <img
-                        :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_big/${screenshots[selectedImageIndex].image_id}.jpg`"
+                        :src="`https://images.igdb.com/igdb/image/upload/t_screenshot_big/${game.screenshots[selectedImageIndex].image_id}.jpg`"
                         alt="Game Screenshot"
                         class="max-w-full max-h-[90vh] rounded-lg shadow-2xl"
                     />
 
                     <!-- Next Button -->
                     <button
-                        v-if="screenshots.length > 1"
+                        v-if="game.screenshots.length > 1"
                         @click.stop="nextImage"
                         class="absolute right-4 text-white hover:text-accent-400 transition-colors p-3 rounded-lg hover:bg-white/10 bg-black/50 backdrop-blur-sm"
-                        :disabled="selectedImageIndex === screenshots.length - 1"
-                        :class="{ 'opacity-50 cursor-not-allowed': selectedImageIndex === screenshots.length - 1 }"
+                        :disabled="selectedImageIndex === game.screenshots.length - 1"
+                        :class="{ 'opacity-50 cursor-not-allowed': selectedImageIndex === game.screenshots.length - 1 }"
                     >
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -174,10 +174,10 @@
 
                     <!-- Image Counter -->
                     <div
-                        v-if="screenshots.length > 1"
+                        v-if="game.screenshots.length > 1"
                         class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/70 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        {{ selectedImageIndex + 1 }} / {{ screenshots.length }}
+                        {{ selectedImageIndex + 1 }} / {{ game.screenshots.length }}
                     </div>
                 </div>
             </div>
@@ -208,8 +208,6 @@ interface Props {
         aggregated_rating?: number;
         aggregated_rating_count?: number;
     };
-    genres?: Array<{ id: number; name: string }>;
-    screenshots?: Array<{ id: number; image_id: string }>;
     parentGame?: {
         igdb_id: number;
         name: string;
@@ -233,7 +231,7 @@ const closeImageModal = () => {
 };
 
 const nextImage = () => {
-    if (selectedImageIndex.value !== null && props.screenshots && selectedImageIndex.value < props.screenshots.length - 1) {
+    if (selectedImageIndex.value !== null && props.game.screenshots && selectedImageIndex.value < props.game.screenshots.length - 1) {
         selectedImageIndex.value = selectedImageIndex.value + 1;
     }
 };

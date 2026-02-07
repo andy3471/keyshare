@@ -6,8 +6,9 @@ namespace App\DataTransferObjects;
 
 use App\Models\Game;
 use MarcReichel\IGDBLaravel\Models\Game as IgdbGame;
+use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
-
+use Spatie\LaravelData\DataCollection;
 use Spatie\LaravelData\Lazy;
 use Spatie\LaravelData\Optional;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
@@ -18,6 +19,12 @@ class GameData extends Data
     public function __construct(
         public string $id,
         public string $name,
+        #[DataCollectionOf(GenreData::class)]
+        public Optional|Lazy|DataCollection $genres =  new Optional(),
+        #[DataCollectionOf(ScreenshotData::class)]
+        public Optional|Lazy|DataCollection $screenshots =  new Optional(),
+        public Optional|Lazy|int $aggregated_rating =  new Optional(),
+        public Optional|Lazy|int $aggregated_rating_count =  new Optional(),
         public ?string $description = null,
         public ?string $image = null,
         public ?string $url = null,
@@ -28,7 +35,9 @@ class GameData extends Data
     {
         return new self(
             id: (string) $game->igdb_id,
-            name: $game->name,
+            name: $game->name ?? 'Unknown',
+            genres: Lazy::create(fn (): DataCollection|\Spatie\LaravelData\PaginatedDataCollection|\Spatie\LaravelData\CursorPaginatedDataCollection|\Illuminate\Support\Enumerable|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Contracts\Pagination\CursorPaginator|array => GenreData::collect($game->genres)),
+            screenshots: Lazy::create(fn (): DataCollection|\Spatie\LaravelData\PaginatedDataCollection|\Spatie\LaravelData\CursorPaginatedDataCollection|\Illuminate\Support\Enumerable|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Contracts\Pagination\CursorPaginator|array => ScreenshotData::collect($game->screenshots)),
             description: $game->description ?? null,
             image: $game->image,
             url: route('games.show', $game->igdb_id),
@@ -50,12 +59,13 @@ class GameData extends Data
         return new self(
             id: (string) $igdbGame->id,
             name: $igdbGame->name           ?? 'Unknown',
+            genres: Lazy::create(fn (): DataCollection|\Spatie\LaravelData\PaginatedDataCollection|\Spatie\LaravelData\CursorPaginatedDataCollection|\Illuminate\Support\Enumerable|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Contracts\Pagination\CursorPaginator|array => GenreData::collect($igdbGame->genres)),
             description: $igdbGame->summary ?? null,
             image: $image,
             keyCount: Lazy::create(function () use ($igdbGame) {
                 $game = Game::where('igdb_id', $igdbGame->id)->first();
 
-                if (!$game) {
+                if (! $game) {
                     return 0;
                 }
 

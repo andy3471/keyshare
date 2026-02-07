@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../wayfinder'
 /**
-* @see \Filament\Pages\Auth\Login::__invoke
-* @see vendor/filament/filament/src/Pages/Auth/Login.php:7
+* @see \Filament\Auth\Pages\Login::__invoke
+* @see vendor/filament/filament/src/Auth/Pages/Login.php:7
 * @route '/admin/login'
 */
 export const login = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -15,8 +15,8 @@ login.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \Filament\Pages\Auth\Login::__invoke
-* @see vendor/filament/filament/src/Pages/Auth/Login.php:7
+* @see \Filament\Auth\Pages\Login::__invoke
+* @see vendor/filament/filament/src/Auth/Pages/Login.php:7
 * @route '/admin/login'
 */
 login.url = (options?: RouteQueryOptions) => {
@@ -24,8 +24,8 @@ login.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \Filament\Pages\Auth\Login::__invoke
-* @see vendor/filament/filament/src/Pages/Auth/Login.php:7
+* @see \Filament\Auth\Pages\Login::__invoke
+* @see vendor/filament/filament/src/Auth/Pages/Login.php:7
 * @route '/admin/login'
 */
 login.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,8 +34,8 @@ login.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \Filament\Pages\Auth\Login::__invoke
-* @see vendor/filament/filament/src/Pages/Auth/Login.php:7
+* @see \Filament\Auth\Pages\Login::__invoke
+* @see vendor/filament/filament/src/Auth/Pages/Login.php:7
 * @route '/admin/login'
 */
 login.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,8 +44,8 @@ login.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \Filament\Http\Controllers\Auth\LogoutController::__invoke
-* @see vendor/filament/filament/src/Http/Controllers/Auth/LogoutController.php:10
+* @see \Filament\Auth\Http\Controllers\LogoutController::__invoke
+* @see vendor/filament/filament/src/Auth/Http/Controllers/LogoutController.php:10
 * @route '/admin/logout'
 */
 export const logout = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -59,8 +59,8 @@ logout.definition = {
 } satisfies RouteDefinition<["post"]>
 
 /**
-* @see \Filament\Http\Controllers\Auth\LogoutController::__invoke
-* @see vendor/filament/filament/src/Http/Controllers/Auth/LogoutController.php:10
+* @see \Filament\Auth\Http\Controllers\LogoutController::__invoke
+* @see vendor/filament/filament/src/Auth/Http/Controllers/LogoutController.php:10
 * @route '/admin/logout'
 */
 logout.url = (options?: RouteQueryOptions) => {
@@ -68,8 +68,8 @@ logout.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \Filament\Http\Controllers\Auth\LogoutController::__invoke
-* @see vendor/filament/filament/src/Http/Controllers/Auth/LogoutController.php:10
+* @see \Filament\Auth\Http\Controllers\LogoutController::__invoke
+* @see vendor/filament/filament/src/Auth/Http/Controllers/LogoutController.php:10
 * @route '/admin/logout'
 */
 logout.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({

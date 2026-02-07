@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../../wayfinder'
 /**
 * @see \Filament\Actions\Exports\Http\Controllers\DownloadExport::__invoke
-* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:16
+* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:15
 * @route '/filament/exports/{export}/download'
 */
 const DownloadExport = (args: { export: string | number | { id: string | number } } | [exportParam: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ DownloadExport.definition = {
 
 /**
 * @see \Filament\Actions\Exports\Http\Controllers\DownloadExport::__invoke
-* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:16
+* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:15
 * @route '/filament/exports/{export}/download'
 */
 DownloadExport.url = (args: { export: string | number | { id: string | number } } | [exportParam: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
@@ -49,7 +49,7 @@ DownloadExport.url = (args: { export: string | number | { id: string | number } 
 
 /**
 * @see \Filament\Actions\Exports\Http\Controllers\DownloadExport::__invoke
-* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:16
+* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:15
 * @route '/filament/exports/{export}/download'
 */
 DownloadExport.get = (args: { export: string | number | { id: string | number } } | [exportParam: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -59,7 +59,7 @@ DownloadExport.get = (args: { export: string | number | { id: string | number } 
 
 /**
 * @see \Filament\Actions\Exports\Http\Controllers\DownloadExport::__invoke
-* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:16
+* @see vendor/filament/actions/src/Exports/Http/Controllers/DownloadExport.php:15
 * @route '/filament/exports/{export}/download'
 */
 DownloadExport.head = (args: { export: string | number | { id: string | number } } | [exportParam: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({

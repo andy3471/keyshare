@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
-* @see \App\Filament\Resources\UserResource\Pages\ListUsers::__invoke
-* @see app/Filament/Resources/UserResource/Pages/ListUsers.php:7
+* @see \App\Filament\Resources\Users\Pages\ListUsers::__invoke
+* @see app/Filament/Resources/Users/Pages/ListUsers.php:7
 * @route '/admin/users'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -15,8 +15,8 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Filament\Resources\UserResource\Pages\ListUsers::__invoke
-* @see app/Filament/Resources/UserResource/Pages/ListUsers.php:7
+* @see \App\Filament\Resources\Users\Pages\ListUsers::__invoke
+* @see app/Filament/Resources/Users/Pages/ListUsers.php:7
 * @route '/admin/users'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -24,8 +24,8 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \App\Filament\Resources\UserResource\Pages\ListUsers::__invoke
-* @see app/Filament/Resources/UserResource/Pages/ListUsers.php:7
+* @see \App\Filament\Resources\Users\Pages\ListUsers::__invoke
+* @see app/Filament/Resources/Users/Pages/ListUsers.php:7
 * @route '/admin/users'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,8 +34,8 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Filament\Resources\UserResource\Pages\ListUsers::__invoke
-* @see app/Filament/Resources/UserResource/Pages/ListUsers.php:7
+* @see \App\Filament\Resources\Users\Pages\ListUsers::__invoke
+* @see app/Filament/Resources/Users/Pages/ListUsers.php:7
 * @route '/admin/users'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,8 +44,8 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Filament\Resources\UserResource\Pages\CreateUser::__invoke
-* @see app/Filament/Resources/UserResource/Pages/CreateUser.php:7
+* @see \App\Filament\Resources\Users\Pages\CreateUser::__invoke
+* @see app/Filament/Resources/Users/Pages/CreateUser.php:7
 * @route '/admin/users/create'
 */
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -59,8 +59,8 @@ create.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Filament\Resources\UserResource\Pages\CreateUser::__invoke
-* @see app/Filament/Resources/UserResource/Pages/CreateUser.php:7
+* @see \App\Filament\Resources\Users\Pages\CreateUser::__invoke
+* @see app/Filament/Resources/Users/Pages/CreateUser.php:7
 * @route '/admin/users/create'
 */
 create.url = (options?: RouteQueryOptions) => {
@@ -68,8 +68,8 @@ create.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \App\Filament\Resources\UserResource\Pages\CreateUser::__invoke
-* @see app/Filament/Resources/UserResource/Pages/CreateUser.php:7
+* @see \App\Filament\Resources\Users\Pages\CreateUser::__invoke
+* @see app/Filament/Resources/Users/Pages/CreateUser.php:7
 * @route '/admin/users/create'
 */
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -78,8 +78,8 @@ create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Filament\Resources\UserResource\Pages\CreateUser::__invoke
-* @see app/Filament/Resources/UserResource/Pages/CreateUser.php:7
+* @see \App\Filament\Resources\Users\Pages\CreateUser::__invoke
+* @see app/Filament/Resources/Users/Pages/CreateUser.php:7
 * @route '/admin/users/create'
 */
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -88,8 +88,8 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Filament\Resources\UserResource\Pages\EditUser::__invoke
-* @see app/Filament/Resources/UserResource/Pages/EditUser.php:7
+* @see \App\Filament\Resources\Users\Pages\EditUser::__invoke
+* @see app/Filament/Resources/Users/Pages/EditUser.php:7
 * @route '/admin/users/{record}/edit'
 */
 export const edit = (args: { record: string | number } | [record: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -103,8 +103,8 @@ edit.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Filament\Resources\UserResource\Pages\EditUser::__invoke
-* @see app/Filament/Resources/UserResource/Pages/EditUser.php:7
+* @see \App\Filament\Resources\Users\Pages\EditUser::__invoke
+* @see app/Filament/Resources/Users/Pages/EditUser.php:7
 * @route '/admin/users/{record}/edit'
 */
 edit.url = (args: { record: string | number } | [record: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -130,8 +130,8 @@ edit.url = (args: { record: string | number } | [record: string | number ] | str
 }
 
 /**
-* @see \App\Filament\Resources\UserResource\Pages\EditUser::__invoke
-* @see app/Filament/Resources/UserResource/Pages/EditUser.php:7
+* @see \App\Filament\Resources\Users\Pages\EditUser::__invoke
+* @see app/Filament/Resources/Users/Pages/EditUser.php:7
 * @route '/admin/users/{record}/edit'
 */
 edit.get = (args: { record: string | number } | [record: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -140,8 +140,8 @@ edit.get = (args: { record: string | number } | [record: string | number ] | str
 })
 
 /**
-* @see \App\Filament\Resources\UserResource\Pages\EditUser::__invoke
-* @see app/Filament/Resources/UserResource/Pages/EditUser.php:7
+* @see \App\Filament\Resources\Users\Pages\EditUser::__invoke
+* @see app/Filament/Resources/Users/Pages/EditUser.php:7
 * @route '/admin/users/{record}/edit'
 */
 edit.head = (args: { record: string | number } | [record: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({

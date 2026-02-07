@@ -3,9 +3,6 @@
 declare(strict_types=1);
 
 return [
-    'enabled'     => true, // Always enabled
-    'update_freq' => env('TWITCH_UPDATE_FREQ', 180),
-
     /*
      * These are the credentials you got from https://dev.twitch.tv/console/apps
      */
@@ -20,10 +17,25 @@ return [
      *
      * To turn cache off set this value to 0
      */
-    'cache_lifetime' => env('TWITCH_CACHE_LIFETIME', 3600),
+    'cache_lifetime' => env('IGDB_CACHE_LIFETIME', 3600),
+
+    /**
+     * The prefix used to cache the results.
+     *
+     * E.g.: `[CACHE_PREFIX].75170fc230cd88f32e475ff4087f81d9`
+     */
+    'cache_prefix' => 'igdb_cache',
 
     /*
-     * This is the per-page limit for your tier.
+     * Path where the webhooks should be handled.
      */
-    'per_page_limit' => 500,
+    'webhook_path' => 'igdb-webhook/handle',
+
+    /*
+     * The webhook secret.
+     *
+     * This needs to be a string of your choice in order to use the webhook
+     * functionality.
+     */
+    'webhook_secret' => env('IGDB_WEBHOOK_SECRET'),
 ];

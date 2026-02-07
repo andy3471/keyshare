@@ -7,10 +7,9 @@
                 class="game-card group relative"
                 :class="{ 'has-keys': game.hasKey }"
             >
-                <Link :href="gamesRoute.show.url(game.igdb_id || game.id)">
+                <Link :href="gamesRoute.show.url(game.id)">
                     <KeyAvailabilityBadge
                         v-if="game.hasKey !== undefined"
-                        :has-key="game.hasKey"
                         :key-count="game.keyCount || 0"
                     />
                     <img
@@ -120,7 +119,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 .game-image-placeholder {
     @apply min-h-full relative w-full bg-gradient-to-br from-dark-800 via-dark-700 to-dark-800 border-2 border-accent-600/30;
-    background-image: 
+    background-image:
         radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
         linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
@@ -129,7 +128,7 @@ const props = withDefaults(defineProps<Props>(), {
 .game-image-placeholder::before {
     content: '';
     @apply absolute inset-0 opacity-30;
-    background-image: 
+    background-image:
         repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(139, 92, 246, 0.08) 10px, rgba(139, 92, 246, 0.08) 20px);
 }
 

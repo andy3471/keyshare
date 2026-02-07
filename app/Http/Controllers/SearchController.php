@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\DataTransferObjects\GameData;
-use App\Models\Game;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Inertia\Response;
 use MarcReichel\IGDBLaravel\Models\Game as IgdbGame;
@@ -22,8 +19,8 @@ class SearchController extends Controller
         $search = mb_trim($request->input('search', ''));
 
         return Inertia::render('Search/Index', [
-            'title' => fn () => $search ?: 'Search',
-            'games' => Inertia::scroll(function () use ($search, $request) {
+            'title' => fn (): string => $search ?: 'Search',
+            'games' => Inertia::scroll(function () use ($search, $request): LengthAwarePaginator {
                 if ($search === '' || $search === '0') {
                     return new LengthAwarePaginator(
                         collect([]),
@@ -34,7 +31,7 @@ class SearchController extends Controller
                     );
                 }
 
-                $perPage = 12;
+                $perPage     = 12;
                 $currentPage = (int) $request->get('page', 1);
 
                 $igdbGames = IgdbGame::select(['name', 'summary', 'id'])
@@ -43,9 +40,9 @@ class SearchController extends Controller
                     ->limit(config('igdb.per_page_limit', 500))
                     ->get();
 
-                $allGames = $igdbGames->map(fn ($igdbGame) => GameData::fromIgdb($igdbGame));
-                $total = $allGames->count();
-                $items = $allGames->forPage($currentPage, $perPage)
+                $allGames = $igdbGames->map(fn (IgdbGame $igdbGame): GameData => GameData::fromIgdb($igdbGame));
+                $total    = $allGames->count();
+                $items    = $allGames->forPage($currentPage, $perPage)
                     ->map(fn ($gameData) => $gameData->include('hasKey', 'keyCount'))
                     ->values();
 

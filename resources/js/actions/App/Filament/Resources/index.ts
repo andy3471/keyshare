@@ -1,9 +1,9 @@
-import GameResource from './GameResource'
-import UserResource from './UserResource'
+import Games from './Games'
+import Users from './Users'
 
 const Resources = {
-    GameResource: Object.assign(GameResource, GameResource),
-    UserResource: Object.assign(UserResource, UserResource),
+    Games: Object.assign(Games, Games),
+    Users: Object.assign(Users, Users),
 }
 
 export default Resources
