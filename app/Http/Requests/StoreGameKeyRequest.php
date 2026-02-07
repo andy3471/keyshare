@@ -16,6 +16,7 @@ class StoreGameKeyRequest extends FormRequest
             'key'         => ['required'],
             'message'     => ['max:255'],
             'igdb_id'     => [new ExistingIgdbId()],
+            'group_id'    => ['required', 'exists:groups,id'],
         ];
     }
 }

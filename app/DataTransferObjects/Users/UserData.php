@@ -20,7 +20,6 @@ class UserData extends Data
         public ?int $karma = null,
         public ?string $karma_colour = null,
         public ?bool $is_admin = null,
-        public ?bool $is_approved = null,
     ) {}
 
     public static function fromModel(User $user): self
@@ -34,7 +33,6 @@ class UserData extends Data
             karma: $user->karma !== null ? (int) $user->karma : null,
             karma_colour: $user->karma_colour ?? 'badge-info',
             is_admin: $user->is_admin         ?? false,
-            is_approved: $user->is_approved   ?? false,
         );
     }
 }

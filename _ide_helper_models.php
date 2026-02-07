@@ -44,6 +44,75 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property string $id
+ * @property string $name
+ * @property string $slug
+ * @property string|null $description
+ * @property string $owner_id
+ * @property bool $is_public
+ * @property string|null $invite_code
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read string|null $avatar_url
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\GroupInvitation> $invitations
+ * @property-read int|null $invitations_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $keys
+ * @property-read int|null $keys_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \App\Models\Media> $media
+ * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $members
+ * @property-read int|null $members_count
+ * @property-read \App\Models\User $owner
+ * @method static \Database\Factories\GroupFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereInviteCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereIsPublic($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereOwnerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereUpdatedAt($value)
+ */
+	class Group extends \Eloquent implements \Spatie\MediaLibrary\HasMedia {}
+}
+
+namespace App\Models{
+/**
+ * @property string $id
+ * @property string $group_id
+ * @property string $email
+ * @property string $token
+ * @property string $invited_by
+ * @property \Carbon\CarbonImmutable|null $accepted_at
+ * @property \Carbon\CarbonImmutable|null $expires_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \App\Models\Group $group
+ * @property-read \App\Models\User $inviter
+ * @method static \Database\Factories\GroupInvitationFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GroupInvitation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GroupInvitation newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GroupInvitation query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GroupInvitation whereAcceptedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GroupInvitation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GroupInvitation whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GroupInvitation whereExpiresAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GroupInvitation whereGroupId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GroupInvitation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GroupInvitation whereInvitedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GroupInvitation whereToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GroupInvitation whereUpdatedAt($value)
+ */
+	class GroupInvitation extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property string $id
+ * @property string|null $group_id
  * @property string|null $game_id
  * @property string $platform_id
  * @property string $key
@@ -55,6 +124,7 @@ namespace App\Models{
  * @property-read \App\Models\User|null $claimedUser
  * @property-read \App\Models\User $createdUser
  * @property-read \App\Models\Game|null $game
+ * @property-read \App\Models\Group|null $group
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \App\Models\Platform $platform
@@ -65,6 +135,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereCreatedUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereGameId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereGroupId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereMessage($value)
@@ -182,11 +253,12 @@ namespace App\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property string|null $bio
- * @property bool $is_approved
  * @property bool $is_admin
  * @property-read string $avatar
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $claimedKeys
  * @property-read int|null $claimed_keys_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Group> $groups
+ * @property-read int|null $groups_count
  * @property-read mixed $karma
  * @property-read string $karma_colour
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\LinkedAccount> $linkedAccounts
@@ -195,6 +267,8 @@ namespace App\Models{
  * @property-read int|null $media_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Group> $ownedGroups
+ * @property-read int|null $owned_groups_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Key> $sharedKeys
  * @property-read int|null $shared_keys_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
@@ -207,7 +281,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmailVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereIsAdmin($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereIsApproved($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)

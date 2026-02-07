@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     {
         User::factory()->make([
             'email'     => 'admin@admin.com',
-            'is_admin'  => '1',
+            'is_admin'  => true,
             'password'  => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
         ])->save();
 

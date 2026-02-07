@@ -23,6 +23,7 @@ class Key extends Model
         'key',
         'message',
         'created_user_id',
+        'group_id',
     ];
 
     /** @return BelongsTo<Game, $this> */
@@ -47,6 +48,12 @@ class Key extends Model
     public function createdUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_user_id');
+    }
+
+    /** @return BelongsTo<Group, $this> */
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(Group::class);
     }
 
     public function claim(User $user): self

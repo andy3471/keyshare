@@ -2,12 +2,14 @@
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import Autocomplete from './Autocomplete.vue';
-import { AutocompleteGameData, PlatformData } from '@/Types/generated';
+import { AutocompleteGameData, GroupData, PlatformData } from '@/Types/generated';
 import keys from '@/routes/keys';
 
 interface Props {
   platforms: PlatformData[];
   game?: AutocompleteGameData | null;
+  groups: GroupData[];
+  activeGroupId?: string | null;
 }
 
 const props = defineProps<Props>();
@@ -19,10 +21,16 @@ const form = useForm({
   platform_id: '',
   key: '',
   message: '',
+  group_id: props.activeGroupId ?? '',
 });
 
 const submit = () => {
   form.igdb_id = selectedGame.value?.id ?? '';
+
+  if (!form.group_id) {
+    form.setError('group_id', 'Please select a group to share with.');
+    return;
+  }
 
   if (!form.platform_id) {
     form.setError('platform_id', 'Please select a platform.');
@@ -65,6 +73,63 @@ const submit = () => {
           class="text-red-300 text-sm mb-1"
         >
           <strong class="capitalize">{{ field.replace('_', ' ') }}:</strong> {{ Array.isArray(error) ? error[0] : error }}
+        </div>
+      </div>
+
+      <!-- Group Selection -->
+      <div class="bg-dark-700/50 rounded-lg p-6">
+        <h2 class="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+          <svg
+            class="w-6 h-6 text-accent-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+          </svg>
+          Share With Group
+        </h2>
+        <div>
+          <label
+            for="group"
+            class="block text-sm font-medium text-gray-300 mb-2"
+          >
+            Group <span class="text-red-400">*</span>
+          </label>
+          <select
+            id="group"
+            v-model="form.group_id"
+            name="group_id"
+            class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 w-full cursor-pointer"
+          >
+            <option
+              value=""
+              disabled
+            >
+              Select a group
+            </option>
+            <option
+              v-for="group in groups"
+              :key="group.id"
+              :value="group.id"
+            >
+              {{ group.name }}
+            </option>
+          </select>
+          <p class="mt-2 text-xs text-gray-500">
+            Choose which group will see this key
+          </p>
+          <div
+            v-if="form.errors.group_id"
+            class="mt-2 text-sm text-red-400"
+          >
+            {{ form.errors.group_id }}
+          </div>
         </div>
       </div>
 

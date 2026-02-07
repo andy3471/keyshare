@@ -11,16 +11,28 @@ class KeyPolicy
 {
     public function create(User $currentUser): bool
     {
-        return true;
+        return $currentUser->groups()->exists();
     }
 
     public function view(User $currentUser, Key $key): bool
     {
-        return true;
+        if (! $key->group_id) {
+            return false;
+        }
+
+        return $currentUser->isMemberOf($key->group);
     }
 
     public function claim(User $currentUser, Key $key): bool
     {
-        return ! $key->claimedUser()->exists();
+        if ($key->claimedUser()->exists()) {
+            return false;
+        }
+
+        if (! $key->group_id) {
+            return false;
+        }
+
+        return $currentUser->isMemberOf($key->group);
     }
 }

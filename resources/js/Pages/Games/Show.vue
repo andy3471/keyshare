@@ -5,24 +5,16 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import TitleHeader from '@/Components/TitleHeader.vue';
 import GameList from '@/Components/GameList.vue';
 import KeyCard from '@/Components/KeyCard.vue';
-import { GameData, GameShowData } from '@/Types/generated';
+import { GameData, KeyData } from '@/Types/generated';
 import type { AuthUser, Paginated } from '@/types/global';
 import gamesRoute from '@/routes/games';
 import keysRoute from '@/routes/keys';
 
 interface Props {
-  game: GameShowData['game'];
-  keys: GameShowData['keys'];
+  game: GameData;
+  keys: KeyData[];
   childGames?: Paginated<GameData>;
-  igdb?: {
-    aggregated_rating?: number;
-    aggregated_rating_count?: number;
-  };
-  parentGame?: {
-    id: string;
-    name: string;
-    image?: string;
-  };
+  parentGame?: GameData;
 }
 
 const props = defineProps<Props>();
@@ -179,7 +171,7 @@ onUnmounted(() => {
           </div>
 
           <div
-            v-if="igdb && igdb.aggregated_rating"
+            v-if="game?.aggregated_rating"
             class="mb-4 text-gray-300"
           >
             <div class="flex items-center space-x-2">
@@ -190,8 +182,8 @@ onUnmounted(() => {
               >
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
-              <span class="font-semibold">{{ igdb.aggregated_rating }}</span>
-              <span class="text-gray-500">({{ igdb.aggregated_rating_count }} reviews)</span>
+              <span class="font-semibold">{{ game.aggregated_rating }}</span>
+              <span class="text-gray-500">({{ game.aggregated_rating_count }} reviews)</span>
             </div>
           </div>
 

@@ -1,5 +1,4 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
 /**
 * @see \Spatie\LaravelIgnition\Http\Controllers\UpdateConfigController::__invoke
 * @see vendor/spatie/laravel-ignition/src/Http/Controllers/UpdateConfigController.php:10

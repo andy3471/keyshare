@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../wayfinder'
 /**
-* @see vendor/marcreichel/igdb-laravel/routes/web.php:14
+* @see [serialized-closure]:2
 * @route '/igdb-webhook/handle/f9f4bbea/{model}/{method}'
 */
 export const handleIgdbWebhook = (args: { model: string | number, method: string | number } | [model: string | number, method: string | number ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -14,7 +14,7 @@ handleIgdbWebhook.definition = {
 } satisfies RouteDefinition<["post"]>
 
 /**
-* @see vendor/marcreichel/igdb-laravel/routes/web.php:14
+* @see [serialized-closure]:2
 * @route '/igdb-webhook/handle/f9f4bbea/{model}/{method}'
 */
 handleIgdbWebhook.url = (args: { model: string | number, method: string | number } | [model: string | number, method: string | number ], options?: RouteQueryOptions) => {
@@ -39,7 +39,7 @@ handleIgdbWebhook.url = (args: { model: string | number, method: string | number
 }
 
 /**
-* @see vendor/marcreichel/igdb-laravel/routes/web.php:14
+* @see [serialized-closure]:2
 * @route '/igdb-webhook/handle/f9f4bbea/{model}/{method}'
 */
 handleIgdbWebhook.post = (args: { model: string | number, method: string | number } | [model: string | number, method: string | number ], options?: RouteQueryOptions): RouteDefinition<'post'> => ({

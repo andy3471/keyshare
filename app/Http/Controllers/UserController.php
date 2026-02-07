@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\DataTransferObjects\Groups\GroupData;
 use App\DataTransferObjects\Users\UserData;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
@@ -38,8 +39,18 @@ class UserController extends Controller
     {
         $this->authorize('view', $user);
 
+        $viewer = auth()->user();
+
+        $groups = $user->groups()
+            ->withCount('members')
+            ->get()
+            ->filter(fn ($group) => $group->is_public || $group->hasMember($viewer))
+            ->map(fn ($group) => GroupData::fromModel($group))
+            ->values();
+
         return Inertia::render('Users/Show', [
-            'user' => UserData::fromModel($user),
+            'user'   => UserData::fromModel($user),
+            'groups' => $groups,
         ]);
     }
 }

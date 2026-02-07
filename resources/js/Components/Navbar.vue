@@ -4,7 +4,9 @@ import { logout as logoutRoute, login } from '@/routes';
 import games from '@/routes/games';
 import keys from '@/routes/keys';
 import users from '@/routes/users';
+import groupRoutes from '@/routes/groups';
 import Autocomplete from './Autocomplete.vue';
+import GroupSwitcher from './GroupSwitcher.vue';
 import { AutocompleteGameData } from '@/Types/generated';
 import type { AuthUser } from '@/types/global';
 
@@ -65,6 +67,14 @@ const handleSearch = (query: string) => {
             Games
           </Link>
 
+          <!-- Groups Link -->
+          <Link
+            :href="groupRoutes.index.url()"
+            class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
+          >
+            Groups
+          </Link>
+
           <!-- Add Key Link -->
           <Link
             :href="keys.create.url()"
@@ -72,6 +82,9 @@ const handleSearch = (query: string) => {
           >
             Add Key
           </Link>
+
+          <!-- Group Switcher -->
+          <GroupSwitcher />
 
           <!-- Search -->
           <div class="flex items-center ml-2">

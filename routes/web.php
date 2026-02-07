@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Auth\SteamLoginController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\KeyController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
@@ -36,4 +37,13 @@ Route::middleware(['auth'])->group(function (): void {
     Route::resource('users', UserController::class)->only(['show', 'edit', 'update']);
 
     Route::get('autocomplete', [SearchController::class, 'autoComplete'])->name('autocomplete');
+
+    // Groups
+    Route::resource('groups', GroupController::class);
+    Route::post('groups/{group}/join', [GroupController::class, 'join'])->name('groups.join');
+    Route::post('groups/{group}/leave', [GroupController::class, 'leave'])->name('groups.leave');
+    Route::delete('groups/{group}/members/{user}', [GroupController::class, 'removeMember'])->name('groups.members.remove');
+    Route::post('groups/{group}/regenerate-invite-code', [GroupController::class, 'regenerateInviteCode'])->name('groups.regenerate-invite-code');
+    Route::post('groups/switch', [GroupController::class, 'switchGroup'])->name('groups.switch');
+    Route::get('invite/{code}', [GroupController::class, 'joinViaInviteCode'])->name('groups.join-via-code');
 });

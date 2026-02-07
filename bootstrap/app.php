@@ -22,7 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->redirectUsersTo('/');
+        $middleware->redirectUsersTo('/games');
 
         $middleware->encryptCookies(except: [
             'XDEBUG_SESSION',
@@ -39,7 +39,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'auth'       => Authenticate::class,
             'bindings'   => SubstituteBindings::class,
-            'demomode'   => App\Http\Middleware\DemoMode::class,
             'steamlogin' => App\Http\Middleware\SteamLoginEnabled::class,
         ]);
 

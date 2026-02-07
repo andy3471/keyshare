@@ -6,19 +6,17 @@ import passwordRoutes from '@/routes/password';
 import loginLinkedAccount from '@/routes/login';
 
 interface Props {
-  demoMode?: boolean;
   steamLoginEnabled?: boolean;
   canResetPassword?: boolean;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  demoMode: false,
+withDefaults(defineProps<Props>(), {
   steamLoginEnabled: false,
   canResetPassword: true,
 });
 
 const form = useForm({
-  email: props.demoMode ? 'admin@admin.com' : '',
+  email: '',
   password: '',
   remember: false,
 });
@@ -33,13 +31,6 @@ const submit = () => {
 <template>
   <AuthLayout>
     <Head title="Login" />
-
-    <div
-      v-if="demoMode"
-      class="mb-4 p-4 bg-warning/20 border border-warning rounded text-warning text-sm"
-    >
-      Demo mode is enabled
-    </div>
 
     <form
       class="space-y-4"

@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { Link, usePage, Head } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { UserData } from '@/Types/generated';
+import { UserData, GroupData } from '@/Types/generated';
 import users from '@/routes/users';
 import keys from '@/routes/keys';
+import groupRoutes from '@/routes/groups';
 import type { AuthUser } from '@/types/global';
 
 interface Props {
   user: UserData;
+  groups: GroupData[];
 }
 
 defineProps<Props>();
@@ -164,6 +166,68 @@ const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
             </div>
           </div>
         </Link>
+      </div>
+
+      <!-- Groups Section -->
+      <div
+        v-if="groups.length > 0"
+        class="bg-dark-800 rounded-lg border border-dark-700 p-6"
+      >
+        <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+          <svg
+            class="w-5 h-5 text-accent-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+          </svg>
+          Groups
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <Link
+            v-for="group in groups"
+            :key="group.id"
+            :href="groupRoutes.show.url(group.id)"
+            class="flex items-center gap-3 p-3 rounded-lg border border-dark-600 hover:border-accent-500 hover:bg-dark-700 transition-all duration-200 group"
+          >
+            <div class="flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden">
+              <img
+                v-if="group.avatar"
+                :src="group.avatar"
+                :alt="group.name"
+                class="w-full h-full object-cover"
+              >
+              <div
+                v-else
+                class="w-full h-full bg-accent-600/20 flex items-center justify-center group-hover:bg-accent-600/30 transition-colors"
+              >
+                <span class="text-accent-400 font-bold text-sm">{{ group.name.charAt(0).toUpperCase() }}</span>
+              </div>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-white truncate group-hover:text-accent-400 transition-colors">
+                {{ group.name }}
+              </p>
+              <p class="text-xs text-gray-500">
+                {{ group.member_count }} {{ group.member_count === 1 ? 'member' : 'members' }}
+                <span
+                  v-if="group.is_public"
+                  class="ml-1 text-green-500"
+                >· Public</span>
+                <span
+                  v-else
+                  class="ml-1 text-yellow-500"
+                >· Private</span>
+              </p>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   </AppLayout>

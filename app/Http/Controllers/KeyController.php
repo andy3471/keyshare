@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\DataTransferObjects\Games\GameData;
+use App\DataTransferObjects\Groups\GroupData;
 use App\DataTransferObjects\Keys\KeyData;
 use App\DataTransferObjects\Platforms\PlatformData;
 use App\DataTransferObjects\Search\AutocompleteGameData;
 use App\Http\Requests\StoreGameKeyRequest;
 use App\Models\Game;
+use App\Models\Group;
 use App\Models\Key;
 use App\Models\Platform;
 use App\Notifications\KeyAdded;
@@ -27,17 +29,27 @@ class KeyController extends Controller
     {
         $this->authorize('create', Key::class);
 
+        $user          = auth()->user();
+        $activeGroupId = session('active_group_id');
+
         return Inertia::render('Keys/Create', [
             'platforms' => fn (): Collection => PlatformData::collect(Cache::remember('platforms', 3600, function () {
                 return Platform::all();
             })),
-            'game' => fn (): ?AutocompleteGameData => $request->filled('game_id') ? AutocompleteGameData::fromIgdbId((int) $request->string('game_id')->toString()) : null,
+            'game'          => fn (): ?AutocompleteGameData => $request->filled('game_id') ? AutocompleteGameData::fromIgdbId((int) $request->string('game_id')->toString()) : null,
+            'groups'        => fn () => $user->groups()->get()->map(fn (Group $group) => GroupData::fromModel($group)),
+            'activeGroupId' => fn () => $activeGroupId,
         ]);
     }
 
     public function store(StoreGameKeyRequest $request): RedirectResponse
     {
         $this->authorize('create', Key::class);
+
+        $groupId = $request->validated('group_id');
+        $group   = Group::findOrFail($groupId);
+
+        abort_unless($group->hasMember(auth()->user()), 403, 'You are not a member of this group.');
 
         $game = Game::fromIgdbId((int) $request->igdb_id);
 
@@ -47,7 +59,8 @@ class KeyController extends Controller
             ->create(array_merge(
                 $request->validated(),
                 [
-                    'game_id' => $game->id,
+                    'game_id'  => $game->id,
+                    'group_id' => $group->id,
                 ]
             ));
 

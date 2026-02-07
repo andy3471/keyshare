@@ -45,7 +45,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:47
+* @see app/Http/Controllers/GameController.php:55
 * @route '/games/{igdb_id}'
 */
 export const show = (args: { igdb_id: string | number } | [igdb_id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -60,7 +60,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:47
+* @see app/Http/Controllers/GameController.php:55
 * @route '/games/{igdb_id}'
 */
 show.url = (args: { igdb_id: string | number } | [igdb_id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -87,7 +87,7 @@ show.url = (args: { igdb_id: string | number } | [igdb_id: string | number ] | s
 
 /**
 * @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:47
+* @see app/Http/Controllers/GameController.php:55
 * @route '/games/{igdb_id}'
 */
 show.get = (args: { igdb_id: string | number } | [igdb_id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -97,7 +97,7 @@ show.get = (args: { igdb_id: string | number } | [igdb_id: string | number ] | s
 
 /**
 * @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:47
+* @see app/Http/Controllers/GameController.php:55
 * @route '/games/{igdb_id}'
 */
 show.head = (args: { igdb_id: string | number } | [igdb_id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({

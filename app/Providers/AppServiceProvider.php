@@ -9,7 +9,6 @@ use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
@@ -28,21 +27,6 @@ class AppServiceProvider extends ServiceProvider
         $this->configureCarbon();
         $this->configureDatabase();
         $this->configureVite();
-        $this->bootAuth();
-
-        $this->bootAuth();
-    }
-
-    public function bootAuth(): void
-    {
-
-        Gate::define('approved', function ($user) {
-            return $user->is_approved;
-        });
-
-        Gate::define('admin', function ($user) {
-            return $user->is_admin;
-        });
     }
 
     private function configureVite(): void
@@ -53,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
     private function configureDatabase(): void
     {
         DB::prohibitDestructiveCommands(
-            $this->app->isProduction()
+            app()->isProduction()
         );
     }
 

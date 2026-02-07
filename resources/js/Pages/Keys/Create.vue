@@ -2,11 +2,13 @@
 import { Head } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import AddKey from '@/Components/AddKey.vue';
-import { AutocompleteGameData, PlatformData } from '@/Types/generated';
+import { AutocompleteGameData, GroupData, PlatformData } from '@/Types/generated';
 
 interface Props {
   platforms: PlatformData[];
   game?: AutocompleteGameData | null;
+  groups: GroupData[];
+  activeGroupId?: string | null;
 }
 
 defineProps<Props>();
@@ -19,6 +21,8 @@ defineProps<Props>();
       <AddKey
         :platforms="platforms"
         :game="game"
+        :groups="groups"
+        :active-group-id="activeGroupId"
       />
     </div>
   </AppLayout>

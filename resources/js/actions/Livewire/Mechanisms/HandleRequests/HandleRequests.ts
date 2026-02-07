@@ -1,6 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../wayfinder'
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../wayfinder'
-ivewire/src/Mechanisms/HandleRequests/HandleRequests.php:125
+/**
+* @see \Livewire\Mechanisms\HandleRequests\HandleRequests::handleUpdate
+* @see vendor/livewire/livewire/src/Mechanisms/HandleRequests/HandleRequests.php:125
 * @route '/livewire-d394c236/update'
 */
 export const handleUpdate = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({

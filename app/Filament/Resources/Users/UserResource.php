@@ -55,8 +55,6 @@ class UserResource extends Resource
                             ->required(),
                         TextInput::make('bio')
                             ->maxLength(255),
-                        Toggle::make('is_approved')
-                            ->required(),
                         Toggle::make('is_admin')
                             ->required(),
                         Checkbox::make('change_password')
@@ -101,8 +99,6 @@ class UserResource extends Resource
                 ImageColumn::make('image'),
                 TextColumn::make('bio')
                     ->searchable(),
-                IconColumn::make('is_approved')
-                    ->boolean(),
                 IconColumn::make('is_admin')
                     ->boolean(),
             ])

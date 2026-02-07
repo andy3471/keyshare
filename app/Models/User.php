@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\GroupRole;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -32,7 +34,6 @@ class User extends Authenticatable implements FilamentUser, HasMedia
         'name',
         'email',
         'password',
-        'is_approved',
     ];
 
     protected $hidden = [
@@ -58,6 +59,19 @@ class User extends Authenticatable implements FilamentUser, HasMedia
         return $this->hasMany(Key::class, 'created_user_id');
     }
 
+    /** @return BelongsToMany<Group, $this> */
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class)
+            ->withPivot('role', 'joined_at');
+    }
+
+    /** @return HasMany<Group, $this> */
+    public function ownedGroups(): HasMany
+    {
+        return $this->hasMany(Group::class, 'owner_id');
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return (bool) $this->is_admin;
@@ -68,6 +82,18 @@ class User extends Authenticatable implements FilamentUser, HasMedia
         $this->addMediaCollection('avatar')
             ->useFallbackUrl('/images/defaultpic.jpg')
             ->singleFile();
+    }
+
+    public function isMemberOf(Group $group): bool
+    {
+        return $this->groups()->where('group_id', $group->id)->exists();
+    }
+
+    public function roleIn(Group $group): ?GroupRole
+    {
+        $pivot = $this->groups()->where('group_id', $group->id)->first()?->pivot;
+
+        return $pivot ? GroupRole::from($pivot->role) : null;
     }
 
     /** @return Attribute<string, never> */
@@ -129,9 +155,8 @@ class User extends Authenticatable implements FilamentUser, HasMedia
     protected function casts(): array
     {
         return [
-            'email_verified_at'  => 'datetime',
-            'is_admin'           => 'boolean',
-            'is_approved'        => 'boolean',
+            'email_verified_at' => 'datetime',
+            'is_admin'          => 'boolean',
         ];
     }
 }

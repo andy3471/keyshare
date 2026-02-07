@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { UserData } from '@/Types/generated';
+import { GroupData, UserData } from '@/Types/generated';
 
 declare global {
   interface Window {

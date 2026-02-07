@@ -20,14 +20,22 @@ class GameController extends Controller
     {
         $this->authorize('viewAny', Game::class);
 
-        $platformIds = $request->array('platforms');
+        $platformIds   = $request->array('platforms');
+        $activeGroupId = session('active_group_id');
+        $userGroupIds  = auth()->user()->groups()->pluck('groups.id');
 
         return Inertia::render('Games/Index', [
             'title' => fn (): string => 'Games',
-            'games' => Inertia::scroll(function () use ($platformIds) {
+            'games' => Inertia::scroll(function () use ($platformIds, $activeGroupId, $userGroupIds) {
                 $games = Game::query()
-                    ->whereHas('keys', function ($query) use ($platformIds): void {
+                    ->whereHas('keys', function ($query) use ($platformIds, $activeGroupId, $userGroupIds): void {
                         $query->whereNull('owned_user_id');
+
+                        if ($activeGroupId) {
+                            $query->where('group_id', $activeGroupId);
+                        } else {
+                            $query->whereIn('group_id', $userGroupIds);
+                        }
 
                         if ($platformIds !== []) {
                             $query->whereIn('platform_id', $platformIds);
@@ -52,13 +60,21 @@ class GameController extends Controller
 
         $this->authorize('view', $game);
 
+        $activeGroupId = session('active_group_id');
+        $userGroupIds  = auth()->user()->groups()->pluck('groups.id');
+
         return Inertia::render('Games/Show', [
             'game'        => fn (): GameData => GameData::from($game)->include('genres', 'screenshots', 'aggregated_rating', 'aggregated_rating_count'),
             'keys'        => fn (): DataCollection => KeyData::collect(
                 KeyData::collect(
                     $game->keys()
-                        ->select('id', 'platform_id', 'created_user_id')
+                        ->select('id', 'platform_id', 'created_user_id', 'group_id')
                         ->whereNull('owned_user_id')
+                        ->when(
+                            $activeGroupId,
+                            fn ($q) => $q->where('group_id', $activeGroupId),
+                            fn ($q) => $q->whereIn('group_id', $userGroupIds),
+                        )
                         ->with('platform', 'createdUser')
                         ->get(), DataCollection::class)
             ),
@@ -86,7 +102,7 @@ class GameController extends Controller
                     ->get();
 
                 $perPage     = 12;
-                $currentPage = (int) $request->get('childGames_page', 1);
+                $currentPage = (int) $request->get('page', 1);
                 $total       = $allChildGames->count();
 
                 $lastPage    = (int) ceil($total / $perPage);

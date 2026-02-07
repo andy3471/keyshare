@@ -74,7 +74,7 @@ platform: PlatformData | null
 createdUser: UserData | null
 claimedUser: UserData | null
 game: GameData | null
-can: KeyCanData
+can: KeyCanData | null
 };
 export type KeyCanData = {
 view: boolean
@@ -93,9 +93,27 @@ bio: string | null
 karma: number | null
 karma_colour: string | null
 is_admin: boolean | null
-is_approved: boolean | null
 };
 export type AutocompleteGameData = {
 id: string
 name: string
+};
+export type GroupData = {
+id: string
+name: string
+slug: string
+description: string | null
+owner_id: string | null
+is_public: boolean | null
+invite_code: string | null
+member_count: number | null
+role: string | null
+avatar: string | null
+};
+export type GroupMemberData = {
+id: string
+name: string
+avatar: string | null
+role: string
+joined_at: string | null
 };
