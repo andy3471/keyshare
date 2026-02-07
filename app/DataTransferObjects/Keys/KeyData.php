@@ -22,7 +22,7 @@ class KeyData extends Data
         public ?UserData $createdUser = null,
         public ?UserData $claimedUser = null,
         public ?GameData $game = null,
-        public KeyCanData $can,
+        public ?KeyCanData $can = null,
     ) {}
 
     public static function fromModel(Key $key): self

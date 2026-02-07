@@ -11,4 +11,3 @@ return [
         'Redis' => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
 ];
-

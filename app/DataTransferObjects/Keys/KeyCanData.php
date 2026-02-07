@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects\Keys;
 
-use App\DataTransferObjects\Games\GameData;
-use App\DataTransferObjects\Platforms\PlatformData;
-use App\DataTransferObjects\Users\UserData;
 use App\Models\Key;
 use Illuminate\Support\Facades\Gate;
 use Spatie\LaravelData\Data;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
 use App\Models\Key;
@@ -19,10 +21,6 @@ class KeyPolicy
 
     public function claim(User $currentUser, Key $key): bool
     {
-        if (!$key->claimedUser()->exists()) {
-            return true;
-        }
-
-        return false;
+        return ! $key->claimedUser()->exists();
     }
 }
