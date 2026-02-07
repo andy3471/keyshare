@@ -58,7 +58,7 @@ const copyKeyCode = async () => {
 const claimKey = () => {
   if (!keyData.value.id) return;
 
-  form.post(keys.claim.url(), {
+  form.post(keys.claim.url(keyData.value.id), {
     preserveScroll: true,
   });
 };

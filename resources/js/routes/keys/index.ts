@@ -4,34 +4,58 @@ import shared from './shared'
 /**
 * @see \App\Http\Controllers\KeyController::claim
 * @see app/Http/Controllers/KeyController.php:73
-* @route '/keys/claim'
+* @route '/keys/{key}/claim'
 */
-export const claim = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
-    url: claim.url(options),
+export const claim = (args: { key: string | { id: string } } | [key: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: claim.url(args, options),
     method: 'post',
 })
 
 claim.definition = {
     methods: ["post"],
-    url: '/keys/claim',
+    url: '/keys/{key}/claim',
 } satisfies RouteDefinition<["post"]>
 
 /**
 * @see \App\Http\Controllers\KeyController::claim
 * @see app/Http/Controllers/KeyController.php:73
-* @route '/keys/claim'
+* @route '/keys/{key}/claim'
 */
-claim.url = (options?: RouteQueryOptions) => {
-    return claim.definition.url + queryParams(options)
+claim.url = (args: { key: string | { id: string } } | [key: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { key: args }
+    }
+
+    if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+        args = { key: args.id }
+    }
+
+    if (Array.isArray(args)) {
+        args = {
+            key: args[0],
+        }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+        key: typeof args.key === 'object'
+        ? args.key.id
+        : args.key,
+    }
+
+    return claim.definition.url
+            .replace('{key}', parsedArgs.key.toString())
+            .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
 * @see \App\Http\Controllers\KeyController::claim
 * @see app/Http/Controllers/KeyController.php:73
-* @route '/keys/claim'
+* @route '/keys/{key}/claim'
 */
-claim.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
-    url: claim.url(options),
+claim.post = (args: { key: string | { id: string } } | [key: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: claim.url(args, options),
     method: 'post',
 })
 
