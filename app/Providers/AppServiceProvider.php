@@ -29,6 +29,26 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDatabase();
         $this->configureVite();
         $this->bootAuth();
+
+        $this->bootAuth();
+    }
+
+    public function bootAuth(): void
+    {
+
+        Gate::define('approved', function ($user) {
+            return $user->is_approved;
+        });
+
+        Gate::define('admin', function ($user) {
+            return $user->is_admin;
+        });
+    }
+
+    /** Register any application services. */
+    public function register(): void
+    {
+        //
     }
 
     public function bootAuth(): void
