@@ -5,14 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f8ec7e7-8720-40c0-ab26-25fecdfce236" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_ide_helper_models.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper_models.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/Groups/GroupData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/Groups/GroupData.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/KeyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/KeyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Groups/UpdateGroupRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Groups/UpdateGroupRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Group.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Group.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Key.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Key.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Components/GameList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Components/GameList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Users/Edit.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Users/Edit.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Notifications/KeyAdded.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Notifications/KeyAdded.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Groups/Edit.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Groups/Edit.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Welcome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Welcome.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/KeyController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/KeyController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/claimed/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/claimed/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/shared/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/shared/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -248,6 +252,16 @@
       <path value="$PROJECT_DIR$/vendor/spatie/image-optimizer" />
       <path value="$PROJECT_DIR$/vendor/spatie/temporary-directory" />
       <path value="$PROJECT_DIR$/vendor/spatie/image" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-iconv" />
+      <path value="$PROJECT_DIR$/vendor/symfony/stopwatch" />
+      <path value="$PROJECT_DIR$/vendor/zbateson/mb-wrapper" />
+      <path value="$PROJECT_DIR$/vendor/zbateson/mail-mime-parser" />
+      <path value="$PROJECT_DIR$/vendor/zbateson/stream-decorators" />
+      <path value="$PROJECT_DIR$/vendor/php-di/invoker" />
+      <path value="$PROJECT_DIR$/vendor/php-di/php-di" />
+      <path value="$PROJECT_DIR$/vendor/spatie/ray" />
+      <path value="$PROJECT_DIR$/vendor/spatie/macroable" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-ray" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -319,6 +333,11 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/resources/js/Types/generated.d.ts" />
+      </list>
+    </option>
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

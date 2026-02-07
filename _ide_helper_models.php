@@ -50,6 +50,7 @@ namespace App\Models{
  * @property string $owner_id
  * @property bool $is_public
  * @property string|null $invite_code
+ * @property string|null $discord_webhook_url
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read string|null $avatar_url
@@ -61,6 +62,8 @@ namespace App\Models{
  * @property-read int|null $media_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $members
  * @property-read int|null $members_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read int|null $notifications_count
  * @property-read \App\Models\User $owner
  * @method static \Database\Factories\GroupFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group newModelQuery()
@@ -68,6 +71,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereDiscordWebhookUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereInviteCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereIsPublic($value)
@@ -125,8 +129,6 @@ namespace App\Models{
  * @property-read \App\Models\User $createdUser
  * @property-read \App\Models\Game|null $game
  * @property-read \App\Models\Group|null $group
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read int|null $notifications_count
  * @property-read \App\Models\Platform $platform
  * @method static \Database\Factories\KeyFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key newModelQuery()

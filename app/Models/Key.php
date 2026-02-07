@@ -8,14 +8,12 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Redis;
 
 class Key extends Model
 {
     use HasFactory;
     use HasUuids;
-    use Notifiable;
 
     protected $fillable = [
         'game_id',
@@ -64,10 +62,5 @@ class Key extends Model
         Redis::zincrby('karma', -1, auth()->id());
 
         return $this;
-    }
-
-    public function routeNotificationForDiscord(): string
-    {
-        return config('services.discord.channel');
     }
 }

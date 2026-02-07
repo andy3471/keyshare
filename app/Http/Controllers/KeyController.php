@@ -15,6 +15,7 @@ use App\Models\Group;
 use App\Models\Key;
 use App\Models\Platform;
 use App\Notifications\KeyAdded;
+use App\Notifications\KeyClaimed;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -64,8 +65,8 @@ class KeyController extends Controller
                 ]
             ));
 
-        if (config('services.discord.enabled')) {
-            $key->notify(new KeyAdded($key, auth()->user()->id, $game));
+        if ($group->hasDiscordWebhook()) {
+            $group->notify(new KeyAdded($key, auth()->user(), $game));
         }
 
         Redis::zincrby('karma', 1, auth()->id());
@@ -90,6 +91,12 @@ class KeyController extends Controller
         $this->authorize('claim', $key);
 
         $key->claim(auth()->user());
+
+        $group = $key->group;
+
+        if ($group?->hasDiscordWebhook()) {
+            $group->notify(new KeyClaimed($key, auth()->user(), $key->game));
+        }
 
         return back()->with('message', __('keys.claimsuccess'));
     }

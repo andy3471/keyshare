@@ -22,6 +22,7 @@ class GroupData extends Data
         public ?int $member_count = null,
         public ?string $role = null,
         public ?string $avatar = null,
+        public ?string $discord_webhook_url = null,
     ) {}
 
     public static function fromModel(Group $group, ?string $role = null): self
@@ -37,6 +38,7 @@ class GroupData extends Data
             member_count: $group->members()->count(),
             role: $role,
             avatar: $group->avatar_url,
+            discord_webhook_url: $group->discord_webhook_url,
         );
     }
 }

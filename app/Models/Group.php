@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -21,6 +22,7 @@ class Group extends Model implements HasMedia
     use HasFactory;
     use HasUuids;
     use InteractsWithMedia;
+    use Notifiable;
 
     protected $fillable = [
         'name',
@@ -29,6 +31,7 @@ class Group extends Model implements HasMedia
         'owner_id',
         'is_public',
         'invite_code',
+        'discord_webhook_url',
     ];
 
     /** @return BelongsTo<User, $this> */
@@ -80,6 +83,16 @@ class Group extends Model implements HasMedia
     public function regenerateInviteCode(): void
     {
         $this->update(['invite_code' => Str::random(12)]);
+    }
+
+    public function hasDiscordWebhook(): bool
+    {
+        return ! empty($this->discord_webhook_url);
+    }
+
+    public function routeNotificationForDiscordWebhook(): ?string
+    {
+        return $this->discord_webhook_url;
     }
 
     public function registerMediaCollections(): void
