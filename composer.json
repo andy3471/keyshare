@@ -22,6 +22,7 @@
         "socialiteproviders/steam": "^4.2",
         "spatie/laravel-data": "^4.0",
         "spatie/laravel-html": "^3.6",
+        "spatie/laravel-medialibrary": "^11.17",
         "spatie/laravel-typescript-transformer": "^3.0@beta"
     },
     "require-dev": {

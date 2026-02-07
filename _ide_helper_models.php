@@ -58,12 +58,9 @@ namespace App\Models{
  * @property-read \App\Models\User|null $claimedUser
  * @property-read \App\Models\User $createdUser
  * @property-read \App\Models\Game|null $game
- * @property-read mixed $image
- * @property-read mixed $name
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \App\Models\Platform $platform
- * @property-read string $url
  * @method static \Database\Factories\KeyFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key newQuery()

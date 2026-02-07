@@ -14,7 +14,6 @@ class Platform extends Model
 
     protected $fillable = [
         'name',
-        'igdb_id',
     ];
 
     /** @return HasMany<Key, $this> */

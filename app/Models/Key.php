@@ -17,12 +17,6 @@ class Key extends Model
     use HasUuids;
     use Notifiable;
 
-    protected $appends = [
-        'url',
-        'image',
-        'name',
-    ];
-
     protected $fillable = [
         'game_id',
         'platform_id',
@@ -58,35 +52,5 @@ class Key extends Model
     public function routeNotificationForDiscord(): string
     {
         return config('services.discord.channel');
-    }
-
-    /** @return Attribute<string, ?string> */
-    protected function name(): Attribute
-    {
-        return Attribute::make(
-            get: function () {
-                return $this->game?->name ?? null;
-            }
-        );
-    }
-
-    /** @return Attribute<string, ?string> */
-    protected function image(): Attribute
-    {
-        return Attribute::make(
-            get: function () {
-                return $this->game?->image;
-            }
-        );
-    }
-
-    /** @return Attribute<string, string> */
-    protected function url(): Attribute
-    {
-        return Attribute::make(
-            get: function (): string {
-                return route('keys.show', $this->id);
-            }
-        );
     }
 }
