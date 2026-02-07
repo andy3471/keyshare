@@ -34,7 +34,7 @@ const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
           <!-- Avatar with Karma Badge -->
           <div class="relative flex-shrink-0">
             <img
-              :src="user.avatar"
+              :src="user.avatar ?? ''"
               :alt="user.name"
               class="w-32 h-32 rounded-full border-4 border-dark-600 shadow-xl"
             >

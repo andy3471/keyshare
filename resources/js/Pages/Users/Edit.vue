@@ -93,7 +93,7 @@ const submit = () => {
               <div class="flex-shrink-0">
                 <div class="relative">
                   <img
-                    :src="imagePreview || auth.user?.avatar"
+                    :src="imagePreview || auth.user?.avatar || ''"
                     :alt="auth.user?.name"
                     class="w-32 h-32 rounded-full border-4 border-dark-600 shadow-lg object-cover"
                   >
@@ -261,7 +261,7 @@ const submit = () => {
               </span>
             </button>
             <Link
-              :href="users.show.url(auth.user?.id)"
+              :href="auth.user?.id ? users.show.url(auth.user?.id) : ''"
               class="flex-1 bg-dark-700 hover:bg-dark-600 text-gray-300 hover:text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 text-center"
             >
               Cancel
