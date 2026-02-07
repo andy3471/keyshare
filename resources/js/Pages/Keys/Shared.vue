@@ -10,7 +10,7 @@ import GameList from '@/Components/GameList.vue';
 
 interface Props {
     games: {
-        data: Array<{ id: number; name: string; image?: string; url: string }>;
+        data: Array<{ id: number; name: string; image?: string; url: string; hasKey?: boolean; keyCount?: number }>;
         current_page: number;
         last_page: number;
         per_page: number;

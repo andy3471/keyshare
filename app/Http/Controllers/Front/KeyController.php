@@ -130,14 +130,25 @@ class KeyController extends Controller
 
         // Transform paginated keys to games format for InfiniteScroll
         $gamesPaginator = $keys->through(function ($key): array {
-            $game  = $key->game;
-            $image = $game?->image ?? '/images/default-game.png';
+            $game = $key->game;
+            
+            // Get image from IGDB
+            $image = null;
+            if ($game && $game->igdb_id && config('igdb.enabled')) {
+                $igdb = $game->getIgdbData();
+                if ($igdb && $igdb->cover && isset($igdb->cover->image_id)) {
+                    $image = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
+                }
+            }
 
             return [
-                'id'    => $key->game_id,
-                'name'  => $game->name ?? 'Unknown',
-                'image' => $image,
-                'url'   => '/games/'.$key->game_id,
+                'id'       => $game?->id,
+                'igdb_id'  => $game?->igdb_id,
+                'name'     => $game?->name ?? 'Unknown',
+                'image'    => $image,
+                'url'      => $game && $game->igdb_id ? route('games.show', $game->igdb_id) : '#',
+                'hasKey'   => false, // Already claimed by this user
+                'keyCount' => 0,
             ];
         });
 
@@ -152,15 +163,37 @@ class KeyController extends Controller
 
         // Transform paginated keys to games format for InfiniteScroll
         $gamesPaginator = $keys->through(function ($key): array {
-            $game  = $key->game;
-            $image = $game?->image ?? '/images/default-game.png';
+            $game = $key->game;
+            
+            // Get image from IGDB
+            $image = null;
+            if ($game && $game->igdb_id && config('igdb.enabled')) {
+                $igdb = $game->getIgdbData();
+                if ($igdb && $igdb->cover && isset($igdb->cover->image_id)) {
+                    $image = 'https://images.igdb.com/igdb/image/upload/t_cover_big/'.$igdb->cover->image_id.'.jpg';
+                }
+            }
+
+            // Count available keys for this game (excluding this user's shared keys)
+            $keyCount = 0;
+            $hasKey = false;
+            if ($game) {
+                $keyCount = $game->keys()
+                    ->whereNull('owned_user_id')
+                    ->where('removed', '=', '0')
+                    ->where('created_user_id', '!=', auth()->id()) // Don't count own shared keys
+                    ->count();
+                $hasKey = $keyCount > 0;
+            }
 
             return [
-                'id'    => $key->game_id,
-                'igdb_id' => $game?->igdb_id,
-                'name'  => $game->name ?? 'Unknown',
-                'image' => $image,
-                'url'   => $game ? route('games.show', $game->igdb_id) : '#',
+                'id'       => $game?->id,
+                'igdb_id'  => $game?->igdb_id,
+                'name'     => $game?->name ?? 'Unknown',
+                'image'    => $image,
+                'url'      => $game && $game->igdb_id ? route('games.show', $game->igdb_id) : '#',
+                'hasKey'   => $hasKey,
+                'keyCount' => $keyCount,
             ];
         });
 

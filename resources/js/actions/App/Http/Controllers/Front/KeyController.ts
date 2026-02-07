@@ -225,7 +225,7 @@ claimed.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::shared
-* @see app/Http/Controllers/Front/KeyController.php:149
+* @see app/Http/Controllers/Front/KeyController.php:160
 * @route '/my/shared-keys'
 */
 export const shared = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -240,7 +240,7 @@ shared.definition = {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::shared
-* @see app/Http/Controllers/Front/KeyController.php:149
+* @see app/Http/Controllers/Front/KeyController.php:160
 * @route '/my/shared-keys'
 */
 shared.url = (options?: RouteQueryOptions) => {
@@ -249,7 +249,7 @@ shared.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::shared
-* @see app/Http/Controllers/Front/KeyController.php:149
+* @see app/Http/Controllers/Front/KeyController.php:160
 * @route '/my/shared-keys'
 */
 shared.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -259,7 +259,7 @@ shared.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Front\KeyController::shared
-* @see app/Http/Controllers/Front/KeyController.php:149
+* @see app/Http/Controllers/Front/KeyController.php:160
 * @route '/my/shared-keys'
 */
 shared.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

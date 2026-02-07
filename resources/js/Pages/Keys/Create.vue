@@ -1,17 +1,7 @@
 <template>
     <AppLayout title="Add Key">
         <Head title="Add Key" />
-        <div class="max-w-2xl mx-auto px-4 py-6">
-            <div v-if="Object.keys(errors).length > 0" class="mb-4">
-                <div
-                    v-for="(error, field) in errors"
-                    :key="field"
-                    class="bg-danger text-white px-4 py-3 rounded mb-2"
-                >
-                    {{ Array.isArray(error) ? error[0] : error }}
-                </div>
-            </div>
-
+        <div class="max-w-4xl mx-auto px-4 py-6">
             <AddKey
                 :platforms="platforms"
             />

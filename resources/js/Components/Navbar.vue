@@ -34,15 +34,6 @@
                         </div>
                     </form>
 
-                    <!-- Admin Link -->
-                    <Link
-                        v-if="auth.user?.admin"
-                        href="/admin"
-                        class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
-                    >
-                        Admin
-                    </Link>
-
                     <!-- User Dropdown -->
                     <div class="relative group">
                         <button class="flex items-center space-x-2 text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800">
