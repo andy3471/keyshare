@@ -48,6 +48,50 @@ handleIgdbWebhook.post = (args: { model: string | number, method: string | numbe
 })
 
 /**
+* @see \App\Http\Controllers\WelcomeController::__invoke
+* @see app/Http/Controllers/WelcomeController.php:14
+* @route '/'
+*/
+export const welcome = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: welcome.url(options),
+    method: 'get',
+})
+
+welcome.definition = {
+    methods: ["get","head"],
+    url: '/',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\WelcomeController::__invoke
+* @see app/Http/Controllers/WelcomeController.php:14
+* @route '/'
+*/
+welcome.url = (options?: RouteQueryOptions) => {
+    return welcome.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\WelcomeController::__invoke
+* @see app/Http/Controllers/WelcomeController.php:14
+* @route '/'
+*/
+welcome.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: welcome.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\WelcomeController::__invoke
+* @see app/Http/Controllers/WelcomeController.php:14
+* @route '/'
+*/
+welcome.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: welcome.url(options),
+    method: 'head',
+})
+
+/**
 * @see \App\Http\Controllers\Auth\LoginController::login
 * @see app/Http/Controllers/Auth/LoginController.php:23
 * @route '/login'
@@ -166,50 +210,6 @@ register.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 */
 register.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: register.url(options),
-    method: 'head',
-})
-
-/**
-* @see \App\Http\Controllers\GameController::index
-* @see app/Http/Controllers/GameController.php:19
-* @route '/'
-*/
-export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: index.url(options),
-    method: 'get',
-})
-
-index.definition = {
-    methods: ["get","head"],
-    url: '/',
-} satisfies RouteDefinition<["get","head"]>
-
-/**
-* @see \App\Http\Controllers\GameController::index
-* @see app/Http/Controllers/GameController.php:19
-* @route '/'
-*/
-index.url = (options?: RouteQueryOptions) => {
-    return index.definition.url + queryParams(options)
-}
-
-/**
-* @see \App\Http\Controllers\GameController::index
-* @see app/Http/Controllers/GameController.php:19
-* @route '/'
-*/
-index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: index.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\GameController::index
-* @see app/Http/Controllers/GameController.php:19
-* @route '/'
-*/
-index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: index.url(options),
     method: 'head',
 })
 

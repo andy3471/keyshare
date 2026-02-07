@@ -2,7 +2,7 @@
 import { ref, watch, onMounted, onUnmounted } from 'vue';
 import { router } from '@inertiajs/vue3';
 import { PlatformData } from '@/Types/generated';
-import { index as gamesIndex } from '@/routes';
+import games from '@/routes/games';
 
 interface Props {
   platforms: PlatformData[];
@@ -55,7 +55,7 @@ const applyFilters = () => {
     query.platforms = selectedPlatforms.value;
   }
 
-  router.get(gamesIndex.url({ query }), {}, {
+  router.get(games.index.url({ query }), {}, {
     preserveState: true,
     preserveScroll: true,
     replace: true,

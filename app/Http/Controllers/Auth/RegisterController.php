@@ -16,7 +16,7 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    protected $redirectTo = '/';
+    protected $redirectTo = '/games';
 
     public function __construct()
     {

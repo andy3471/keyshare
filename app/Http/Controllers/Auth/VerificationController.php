@@ -11,7 +11,7 @@ class VerificationController extends Controller
 {
     use VerifiesEmails;
 
-    protected $redirectTo = '/';
+    protected $redirectTo = '/games';
 
     public function __construct()
     {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link, useForm, usePage, router } from '@inertiajs/vue3';
-import { index, logout as logoutRoute, login } from '@/routes';
+import { logout as logoutRoute, login } from '@/routes';
 import games from '@/routes/games';
 import keys from '@/routes/keys';
 import users from '@/routes/users';
@@ -46,7 +46,7 @@ const handleSearch = (query: string) => {
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <Link
-            :href="index.url()"
+            :href="games.index.url()"
             class="text-white text-xl font-display font-bold hover:text-accent-400 transition-colors"
           >
             <span class="bg-gradient-to-r from-accent-400 to-primary-400 bg-clip-text text-transparent">{{ appName }}</span>
@@ -59,7 +59,7 @@ const handleSearch = (query: string) => {
         >
           <!-- Games Link -->
           <Link
-            :href="index.url()"
+            :href="games.index.url()"
             class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
           >
             Games

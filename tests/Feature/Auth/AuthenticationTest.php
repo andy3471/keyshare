@@ -2,43 +2,56 @@
 
 declare(strict_types=1);
 
+namespace Tests\Feature\Auth;
+
 use App\Models\User;
 use App\Providers\AppServiceProvider;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
-test('login screen can be rendered', function (): void {
-    $response = $this->get('/login');
+class AuthenticationTest extends TestCase
+{
+    use RefreshDatabase;
 
-    $response->assertStatus(200);
-});
+    public function testLoginScreenCanBeRendered(): void
+    {
+        $response = $this->get('/login');
 
-test('users can authenticate using the login screen', function (): void {
-    $user = User::factory()->create();
+        $response->assertStatus(200);
+    }
 
-    $response = $this->post('/login', [
-        'email'    => $user->email,
-        'password' => 'password',
-    ]);
+    public function testUsersCanAuthenticateUsingTheLoginScreen(): void
+    {
+        $user = User::factory()->create();
 
-    $this->assertAuthenticated();
-    $response->assertRedirect(AppServiceProvider::HOME);
-});
+        $response = $this->post('/login', [
+            'email'    => $user->email,
+            'password' => 'password',
+        ]);
 
-test('users can not authenticate with invalid password', function (): void {
-    $user = User::factory()->create();
+        $this->assertAuthenticated();
+        $response->assertRedirect(AppServiceProvider::HOME);
+    }
 
-    $this->post('/login', [
-        'email'    => $user->email,
-        'password' => 'wrong-password',
-    ]);
+    public function testUsersCanNotAuthenticateWithInvalidPassword(): void
+    {
+        $user = User::factory()->create();
 
-    $this->assertGuest();
-});
+        $this->post('/login', [
+            'email'    => $user->email,
+            'password' => 'wrong-password',
+        ]);
 
-test('users can logout', function (): void {
-    $user = User::factory()->create();
+        $this->assertGuest();
+    }
 
-    $response = $this->actingAs($user)->post('/logout');
+    public function testUsersCanLogout(): void
+    {
+        $user = User::factory()->create();
 
-    $this->assertGuest();
-    $response->assertRedirect('/');
-});
+        $response = $this->actingAs($user)->post('/logout');
+
+        $this->assertGuest();
+        $response->assertRedirect('/');
+    }
+}

@@ -16,7 +16,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public const HOME = '/';
+    public const HOME = '/games';
 
     public function boot(): void
     {

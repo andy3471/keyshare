@@ -11,7 +11,7 @@ class ResetPasswordController extends Controller
 {
     use ResetsPasswords;
 
-    protected $redirectTo = '/';
+    protected $redirectTo = '/games';
 
     public function __construct()
     {

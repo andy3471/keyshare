@@ -7,6 +7,9 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\KeyController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
+
+Route::get('/', WelcomeController::class)->name('welcome');
 
 Auth::routes();
 
@@ -19,7 +22,7 @@ Route::middleware(['steamlogin'])->group(function (): void {
 });
 
 Route::middleware(['auth'])->group(function (): void {
-    Route::get('/', [GameController::class, 'index'])->name('index');
+    Route::get('games', [GameController::class, 'index'])->name('games.index');
     Route::get('games/{igdb_id}', [GameController::class, 'show'])->name('games.show');
 
     Route::get('search', [SearchController::class, 'index'])->name('search.index');
