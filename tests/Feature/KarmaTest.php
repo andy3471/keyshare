@@ -99,7 +99,7 @@ it('revokes sharer karma on negative feedback', function (): void {
     expect($this->karmaService->getKarma($sharer))->toBe(0);
 });
 
-it('keeps sharer karma on positive feedback', function (): void {
+it('gives sharer bonus karma on positive feedback', function (): void {
     $sharer  = User::factory()->create();
     $claimer = User::factory()->create();
     $group   = createGroupWithMembers($sharer, $claimer);
@@ -108,7 +108,7 @@ it('keeps sharer karma on positive feedback', function (): void {
     $key->claim($claimer);
     $key->update(['feedback' => KeyFeedback::Worked]);
 
-    expect($this->karmaService->getKarma($sharer))->toBe(1);
+    expect($this->karmaService->getKarma($sharer))->toBe(2);
 });
 
 it('restores karma when negative feedback is reversed', function (): void {
@@ -125,7 +125,23 @@ it('restores karma when negative feedback is reversed', function (): void {
     expect($this->karmaService->getKarma($sharer))->toBe(0);
 
     $key->update(['feedback' => KeyFeedback::Worked]);
-    expect($this->karmaService->getKarma($sharer))->toBe(1);
+    expect($this->karmaService->getKarma($sharer))->toBe(2);
+});
+
+it('revokes bonus karma when positive feedback is changed to negative', function (): void {
+    $sharer  = User::factory()->create();
+    $claimer = User::factory()->create();
+    $group   = createGroupWithMembers($sharer, $claimer);
+
+    $key = createKey($sharer, $group, $this->game, $this->platform);
+    $key->claim($claimer);
+    $key->update(['feedback' => KeyFeedback::Worked]);
+
+    expect($this->karmaService->getKarma($sharer))->toBe(2);
+
+    $key->update(['feedback' => KeyFeedback::DidNotWork]);
+
+    expect($this->karmaService->getKarma($sharer))->toBe(0);
 });
 
 it('returns correct colour for karma thresholds', function (): void {
@@ -173,7 +189,7 @@ it('allows claimer to submit positive feedback', function (): void {
     $key->update(['feedback' => KeyFeedback::Worked]);
 
     expect($key->fresh()->feedback)->toBe(KeyFeedback::Worked)
-        ->and($this->karmaService->getKarma($sharer))->toBe(1);
+        ->and($this->karmaService->getKarma($sharer))->toBe(2);
 });
 
 it('allows claimer to submit negative feedback', function (): void {

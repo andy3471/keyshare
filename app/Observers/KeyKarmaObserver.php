@@ -41,6 +41,14 @@ class KeyKarmaObserver
             if ($originalFeedback === KeyFeedback::DidNotWork && $newFeedback !== KeyFeedback::DidNotWork) {
                 $this->karmaService->incrementKarma($sharer);
             }
+
+            if ($newFeedback === KeyFeedback::Worked && $originalFeedback !== KeyFeedback::Worked) {
+                $this->karmaService->incrementKarma($sharer);
+            }
+
+            if ($originalFeedback === KeyFeedback::Worked && $newFeedback !== KeyFeedback::Worked) {
+                $this->karmaService->decrementKarma($sharer);
+            }
         }
     }
 }
