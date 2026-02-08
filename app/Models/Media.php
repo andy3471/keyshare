@@ -9,11 +9,11 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media as BaseMedia;
 
 class Media extends BaseMedia
 {
-    /** @return Attribute<string, never> */
+    /** @return Attribute<string|null, never> */
     protected function uuid(): Attribute
     {
         return Attribute::make(
-            get: fn (): string => $this->id
+            get: fn (): ?string => $this->id !== null ? (string) $this->id : null
         );
     }
 }
