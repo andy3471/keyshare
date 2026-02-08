@@ -131,7 +131,7 @@ class GameController extends Controller
                 $currentPage = min($currentPage, max(1, $lastPage));
 
                 $items = $allChildGames->forPage($currentPage, $perPage)
-                    ->map(fn (IgdbGame $igdbChild): GameData => GameData::fromIgdb($igdbChild)->include('keyCount'))
+                    ->map(fn (IgdbGame $igdbChild): GameData => GameData::fromIgdb($igdbChild)->include('keyCount', 'platforms'))
                     ->values();
 
                 $queryParams = $request->except('childGames_page');
