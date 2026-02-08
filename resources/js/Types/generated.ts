@@ -82,6 +82,7 @@ group: GroupData | null
 export type KeyCanData = {
 view: boolean
 claim: boolean
+delete: boolean
 feedback: boolean
 claimDeniedReason: ClaimDeniedReason | null
 cooldownEndsAt: string | null

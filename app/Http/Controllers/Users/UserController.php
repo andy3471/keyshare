@@ -49,10 +49,12 @@ class UserController extends Controller
     {
         $this->authorize('edit', $user);
 
-        $user->update($request->validated());
+        $data = $request->safe()->except(['avatar']);
 
-        if ($request->hasFile('image')) {
-            $user->addMediaFromRequest('image')
+        $user->update($data);
+
+        if ($request->hasFile('avatar')) {
+            $user->addMediaFromRequest('avatar')
                 ->toMediaCollection('avatar');
         }
 

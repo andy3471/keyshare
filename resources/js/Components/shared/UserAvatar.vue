@@ -8,6 +8,7 @@ interface Props {
   karmaColour?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   showKarma?: boolean;
+  tooltipPosition?: 'above' | 'below';
 }
 
 withDefaults(defineProps<Props>(), {
@@ -16,6 +17,7 @@ withDefaults(defineProps<Props>(), {
   karmaColour: '',
   size: 'md',
   showKarma: true,
+  tooltipPosition: 'above',
 });
 
 const sizeClasses: Record<string, string> = {
@@ -57,6 +59,7 @@ const badgeSizeMap: Record<string, 'sm' | 'md' | 'lg'> = {
         :karma="karma"
         :karma-colour="karmaColour"
         :size="badgeSizeMap[size]"
+        :tooltip-position="tooltipPosition"
       />
     </div>
   </div>

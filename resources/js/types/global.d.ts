@@ -14,6 +14,7 @@ export interface AuthUser {
 export interface FlashProps {
   message?: string;
   error?: string;
+  status?: string;
 }
 
 export interface Paginated<T> {

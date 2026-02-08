@@ -11,6 +11,7 @@ interface Props {
   placeholder?: string;
   autocomplete?: string;
   inputClass?: string;
+  maxlength?: number;
 }
 
 withDefaults(defineProps<Props>(), {
@@ -23,11 +24,13 @@ withDefaults(defineProps<Props>(), {
   placeholder: '',
   autocomplete: '',
   inputClass: '',
+  maxlength: undefined,
 });
 
 const emit = defineEmits<{
   'update:modelValue': [value: string | number];
 }>();
+
 </script>
 
 <template>
@@ -55,6 +58,7 @@ const emit = defineEmits<{
         :required="required"
         :disabled="disabled"
         :autocomplete="autocomplete"
+        :maxlength="maxlength"
         class="w-full bg-dark-900 border border-dark-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
         :class="[
           error ? 'border-danger focus:ring-danger' : '',

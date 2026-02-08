@@ -31,8 +31,9 @@ const logout = () => {
           :karma="user.karma"
           :karma-colour="user.karma_colour"
           size="md"
+          tooltip-position="below"
         />
-        <span class="hidden xl:inline">{{ user.name }}</span>
+        <span class="hidden xl:inline truncate max-w-[10rem]">{{ user.name }}</span>
         <ChevronDownIcon class="h-4 w-4" />
       </button>
     </template>

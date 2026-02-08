@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\Auth\ForgotPasswordController::request
-* @see app/Http/Controllers/Auth/ForgotPasswordController.php:17
+* @see app/Http/Controllers/Auth/ForgotPasswordController.php:23
 * @route '/password/reset'
 */
 export const request = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ request.definition = {
 
 /**
 * @see \App\Http\Controllers\Auth\ForgotPasswordController::request
-* @see app/Http/Controllers/Auth/ForgotPasswordController.php:17
+* @see app/Http/Controllers/Auth/ForgotPasswordController.php:23
 * @route '/password/reset'
 */
 request.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ request.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Auth\ForgotPasswordController::request
-* @see app/Http/Controllers/Auth/ForgotPasswordController.php:17
+* @see app/Http/Controllers/Auth/ForgotPasswordController.php:23
 * @route '/password/reset'
 */
 request.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ request.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Auth\ForgotPasswordController::request
-* @see app/Http/Controllers/Auth/ForgotPasswordController.php:17
+* @see app/Http/Controllers/Auth/ForgotPasswordController.php:23
 * @route '/password/reset'
 */
 request.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -79,7 +79,7 @@ email.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Auth\ResetPasswordController::reset
-* @see app/Http/Controllers/Auth/ResetPasswordController.php:27
+* @see app/Http/Controllers/Auth/ResetPasswordController.php:24
 * @route '/password/reset/{token}'
 */
 export const reset = (args: { token: string | number } | [token: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ reset.definition = {
 
 /**
 * @see \App\Http\Controllers\Auth\ResetPasswordController::reset
-* @see app/Http/Controllers/Auth/ResetPasswordController.php:27
+* @see app/Http/Controllers/Auth/ResetPasswordController.php:24
 * @route '/password/reset/{token}'
 */
 reset.url = (args: { token: string | number } | [token: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -121,7 +121,7 @@ reset.url = (args: { token: string | number } | [token: string | number ] | stri
 
 /**
 * @see \App\Http\Controllers\Auth\ResetPasswordController::reset
-* @see app/Http/Controllers/Auth/ResetPasswordController.php:27
+* @see app/Http/Controllers/Auth/ResetPasswordController.php:24
 * @route '/password/reset/{token}'
 */
 reset.get = (args: { token: string | number } | [token: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -131,7 +131,7 @@ reset.get = (args: { token: string | number } | [token: string | number ] | stri
 
 /**
 * @see \App\Http\Controllers\Auth\ResetPasswordController::reset
-* @see app/Http/Controllers/Auth/ResetPasswordController.php:27
+* @see app/Http/Controllers/Auth/ResetPasswordController.php:24
 * @route '/password/reset/{token}'
 */
 reset.head = (args: { token: string | number } | [token: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({

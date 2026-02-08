@@ -12,4 +12,13 @@ return [
         ],
     ],
 
+    'passwords' => [
+        'users' => [
+            'provider' => 'users',
+            'table'    => 'password_resets',
+            'expire'   => 60,
+            'throttle' => (int) env('PASSWORD_RESET_THROTTLE', 60),
+        ],
+    ],
+
 ];

@@ -17,6 +17,7 @@ class KeyCanData extends Data
     public function __construct(
         public bool $view,
         public bool $claim,
+        public bool $delete,
         public bool $feedback,
         public ?ClaimDeniedReason $claimDeniedReason = null,
         public ?string $cooldownEndsAt = null,
@@ -37,6 +38,7 @@ class KeyCanData extends Data
         return new self(
             view: Gate::allows('view', $key),
             claim: ! $claimDeniedReason instanceof ClaimDeniedReason,
+            delete: Gate::allows('delete', $key),
             feedback: Gate::allows('feedback', $key),
             claimDeniedReason: $claimDeniedReason,
             cooldownEndsAt: $cooldownEndsAt,

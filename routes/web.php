@@ -60,7 +60,7 @@ Route::middleware(['auth', 'onboarding'])->group(function (): void {
     Route::post('keys/{key}/feedback', SubmitKeyFeedbackController::class)->name('keys.feedback');
     Route::get('keys/claimed', ListClaimedKeysController::class)->name('keys.claimed.index');
     Route::get('keys/shared', ListSharedKeysController::class)->name('keys.shared.index');
-    Route::resource('keys', KeyController::class)->only(['show', 'create', 'store']);
+    Route::resource('keys', KeyController::class)->only(['show', 'create', 'store', 'destroy']);
 
     // TODO: We need a change password process
     Route::resource('users', UserController::class)->only(['show', 'edit', 'update']);

@@ -1,67 +1,60 @@
 @component('mail::message')
-    {{-- Greeting --}}
+{{-- Greeting --}}
+@if (! empty($greeting))
+<h1>{{ $greeting }}</h1>
+@else
+@if ($level === 'error')
+<h1>@lang('Whoops!')</h1>
+@else
+<h1>@lang('Hello!')</h1>
+@endif
+@endif
 
-    @if (! empty($greeting))
-        # {{ $greeting }}
-    @else
-        @if ($level === 'error')
-            #
-            @lang('Whoops!')
-        @else
-            #
-            @lang('Hello!')
-        @endif
-    @endif
+{{-- Intro Lines --}}
+@foreach ($introLines as $line)
+<p>{{ $line }}</p>
+@endforeach
 
-    {{-- Intro Lines --}}
-    @foreach ($introLines as $line)
-        {{ $line }}
-    @endforeach
+{{-- Action Button --}}
+@isset($actionText)
+<?php
+switch ($level) {
+    case 'success':
+    case 'error':
+        $color = $level;
+        break;
+    default:
+        $color = 'primary';
+}
+?>
 
-    {{-- Action Button --}}
-    @isset($actionText)
-        <?php
-        switch ($level) {
-            case 'success':
-            case 'error':
-                $color = $level;
-                break;
-            default:
-                $color = 'primary';
-        }
-        ?>
+@component('mail::button', ['url' => $actionUrl, 'color' => $color])
+{{ $actionText }}
+@endcomponent
+@endisset
 
-        @component('mail::button', ['url' => $actionUrl, 'color' => $color])
-            {{ $actionText }}
-        @endcomponent
-    @endisset
+{{-- Outro Lines --}}
+@foreach ($outroLines as $line)
+<p>{{ $line }}</p>
+@endforeach
 
-    {{-- Outro Lines --}}
-    @foreach ($outroLines as $line)
-        {{ $line }}
-    @endforeach
+{{-- Salutation --}}
+<p>
+@if (! empty($salutation))
+{{ $salutation }}
+@else
+@lang('Regards'),<br>{{ config('app.name') }}
+@endif
+</p>
 
-    {{-- Salutation --}}
-    @if (! empty($salutation))
-        {{ $salutation }}
-    @else
-        @lang('Regards')
-        ,
-        <br />
-        {{ config('app.name') }}
-    @endif
-
-    {{-- Subcopy --}}
-    @isset($actionText)
-        @slot('subcopy')
-            @lang(
-                "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\n" .
-                'into your web browser: [:actionURL](:actionURL)',
-                [
-                    'actionText' => $actionText,
-                    'actionURL' => $actionUrl,
-                ]
-            )
-        @endslot
-    @endisset
+{{-- Subcopy --}}
+@isset($actionText)
+@slot('subcopy')
+<p>@lang(
+    "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\n" .
+    'into your web browser:',
+    ['actionText' => $actionText]
+) <a href="{{ $actionUrl }}">{{ $actionUrl }}</a></p>
+@endslot
+@endisset
 @endcomponent

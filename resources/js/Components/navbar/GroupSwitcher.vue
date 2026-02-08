@@ -29,7 +29,7 @@ const switchToGroup = (groupId: string | null) => {
     class="relative"
   >
     <MenuButton
-      class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200"
+      class="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200"
       :class="activeGroup
         ? 'bg-accent-600/20 text-accent-400 hover:bg-accent-600/30 border border-accent-600/30'
         : 'text-gray-400 hover:text-white hover:bg-dark-800 border border-dark-700'"

@@ -29,11 +29,8 @@ const props = defineProps<Props>();
 const form = useForm({
   _method: 'PUT',
   name: props.user.name,
-  email: props.user.email,
   bio: props.user.bio ?? '',
   avatar: null as File | null,
-  password: '',
-  password_confirmation: '',
 });
 
 const initials = computed(() => form.name ? form.name.charAt(0).toUpperCase() : '?');
@@ -80,15 +77,7 @@ const unlinkAccount = (providerName: string) => {
             v-model="form.name"
             label="Name"
             :error="form.errors.name"
-            required
-          />
-
-          <FormInput
-            id="email"
-            v-model="form.email"
-            label="Email"
-            type="email"
-            :error="form.errors.email"
+            :maxlength="50"
             required
           />
 
@@ -98,36 +87,12 @@ const unlinkAccount = (providerName: string) => {
             label="Bio"
             placeholder="Tell people a bit about yourself..."
             :error="form.errors.bio"
+            :maxlength="1000"
           >
             <template #label-suffix>
               <span class="text-gray-500"> (optional)</span>
             </template>
           </FormTextarea>
-
-          <div class="border-t border-dark-700 pt-6">
-            <h3 class="text-sm font-semibold text-white mb-4">
-              Change Password
-            </h3>
-            <div class="space-y-4">
-              <FormInput
-                id="password"
-                v-model="form.password"
-                label="New Password"
-                type="password"
-                :error="form.errors.password"
-                hint="Leave blank to keep your current password"
-                autocomplete="new-password"
-              />
-              <FormInput
-                id="password_confirmation"
-                v-model="form.password_confirmation"
-                label="Confirm New Password"
-                type="password"
-                :error="form.errors.password_confirmation"
-                autocomplete="new-password"
-              />
-            </div>
-          </div>
 
           <div class="flex justify-end">
             <button

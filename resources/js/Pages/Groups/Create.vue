@@ -57,6 +57,7 @@ const submit = () => {
             label="Group Name"
             placeholder="Enter a group name..."
             :error="form.errors.name"
+            :maxlength="50"
             required
           />
 
@@ -66,6 +67,7 @@ const submit = () => {
             label="Description"
             placeholder="What is this group about?"
             :error="form.errors.description"
+            :maxlength="1000"
           >
             <template #label-suffix>
               <span class="text-gray-500"> (optional)</span>

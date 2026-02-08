@@ -13,14 +13,14 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="bg-dark-800 rounded-lg border border-dark-700 p-6">
+  <div class="bg-dark-800 rounded-lg border border-dark-700 p-6 overflow-hidden">
     <h2 class="text-xl font-bold text-white mb-4">
       Shared By
     </h2>
-    <div class="flex flex-col items-center text-center">
+    <div class="flex flex-col items-center text-center min-w-0">
       <Link
         :href="`/users/${user.id}`"
-        class="relative mb-4"
+        class="relative mb-4 flex-shrink-0"
       >
         <UserAvatar
           :avatar="user.avatar"
@@ -31,7 +31,7 @@ defineProps<Props>();
           class="hover:border-accent-500 transition-colors"
         />
       </Link>
-      <h3 class="text-lg font-semibold text-white mb-1">
+      <h3 class="text-lg font-semibold text-white mb-1 max-w-full truncate">
         <Link
           :href="`/users/${user.id}`"
           class="text-accent-400 hover:text-accent-300 transition-colors"
@@ -41,18 +41,19 @@ defineProps<Props>();
       </h3>
       <div
         v-if="group"
-        class="flex items-center justify-center gap-2 mb-2"
+        class="flex items-center justify-center gap-2 mb-2 max-w-full"
       >
         <GroupAvatar
           :avatar="group.avatar"
           :name="group.name"
           size="xs"
+          class="flex-shrink-0"
         />
-        <span class="text-gray-400 text-sm">{{ group.name }}</span>
+        <span class="text-gray-400 text-sm truncate">{{ group.name }}</span>
       </div>
       <p
         v-if="user.bio"
-        class="text-gray-400 text-sm"
+        class="text-gray-400 text-sm line-clamp-3 break-words max-w-full"
       >
         {{ user.bio }}
       </p>

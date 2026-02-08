@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Auth\ForgotPasswordController::showLinkRequestForm
-* @see app/Http/Controllers/Auth/ForgotPasswordController.php:17
+* @see app/Http/Controllers/Auth/ForgotPasswordController.php:23
 * @route '/password/reset'
 */
 export const showLinkRequestForm = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ showLinkRequestForm.definition = {
 
 /**
 * @see \App\Http\Controllers\Auth\ForgotPasswordController::showLinkRequestForm
-* @see app/Http/Controllers/Auth/ForgotPasswordController.php:17
+* @see app/Http/Controllers/Auth/ForgotPasswordController.php:23
 * @route '/password/reset'
 */
 showLinkRequestForm.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ showLinkRequestForm.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Auth\ForgotPasswordController::showLinkRequestForm
-* @see app/Http/Controllers/Auth/ForgotPasswordController.php:17
+* @see app/Http/Controllers/Auth/ForgotPasswordController.php:23
 * @route '/password/reset'
 */
 showLinkRequestForm.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ showLinkRequestForm.get = (options?: RouteQueryOptions): RouteDefinition<'get'> 
 
 /**
 * @see \App\Http\Controllers\Auth\ForgotPasswordController::showLinkRequestForm
-* @see app/Http/Controllers/Auth/ForgotPasswordController.php:17
+* @see app/Http/Controllers/Auth/ForgotPasswordController.php:23
 * @route '/password/reset'
 */
 showLinkRequestForm.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\Users\UserController::show
-* @see app/Http/Controllers/Users/UserController.php:62
+* @see app/Http/Controllers/Users/UserController.php:64
 * @route '/users/{user}'
 */
 export const show = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\Users\UserController::show
-* @see app/Http/Controllers/Users/UserController.php:62
+* @see app/Http/Controllers/Users/UserController.php:64
 * @route '/users/{user}'
 */
 show.url = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -49,7 +49,7 @@ show.url = (args: { user: string | { id: string } } | [user: string | { id: stri
 
 /**
 * @see \App\Http\Controllers\Users\UserController::show
-* @see app/Http/Controllers/Users/UserController.php:62
+* @see app/Http/Controllers/Users/UserController.php:64
 * @route '/users/{user}'
 */
 show.get = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -59,7 +59,7 @@ show.get = (args: { user: string | { id: string } } | [user: string | { id: stri
 
 /**
 * @see \App\Http\Controllers\Users\UserController::show
-* @see app/Http/Controllers/Users/UserController.php:62
+* @see app/Http/Controllers/Users/UserController.php:64
 * @route '/users/{user}'
 */
 show.head = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({

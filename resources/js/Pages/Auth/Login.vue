@@ -8,6 +8,7 @@ import type { SocialProvider } from '@/Components/auth/SocialLoginButtons.vue';
 import PendingInviteBanner from '@/Components/onboarding/PendingInviteBanner.vue';
 import type { PendingGroup } from '@/Types/onboarding';
 import { login as loginRoute, register } from '@/routes';
+import password from '@/routes/password';
 
 interface Props {
   providers: SocialProvider[];
@@ -97,6 +98,12 @@ const submit = () => {
           >
           <span class="ml-2 text-sm text-gray-400">Remember me</span>
         </label>
+        <Link
+          :href="password.request.url()"
+          class="text-sm text-accent-400 hover:text-accent-300 font-medium"
+        >
+          Forgot password?
+        </Link>
       </div>
 
       <button

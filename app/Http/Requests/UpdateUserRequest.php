@@ -11,9 +11,17 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'  => ['required'],
-            'image' => ['image', 'nullable', 'max:1999', 'dimensions:ratio=1/1'],
-            'bio'   => ['nullable'],
+            'name'     => ['required', 'string', 'max:50', 'regex:/^[^<>]*$/'],
+            'bio'      => ['nullable', 'string', 'max:1000', 'regex:/^[^<>]*$/s'],
+            'avatar'   => ['nullable', 'image', 'max:1999', 'dimensions:ratio=1/1'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.regex' => 'Your name must not contain < or > characters.',
+            'bio.regex'  => 'Your bio must not contain < or > characters.',
         ];
     }
 }

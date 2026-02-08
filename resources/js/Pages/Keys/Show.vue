@@ -5,12 +5,13 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import GameBanner from '@/Components/shared/GameBanner.vue';
 import KeyFeedbackSection from '@/Components/keys/KeyFeedbackSection.vue';
 import SharedByCard from '@/Components/keys/SharedByCard.vue';
+import ConfirmModal from '@/Components/ui/ConfirmModal.vue';
 import { KeyData, KeyFeedback } from '@/Types/generated';
 import type { FlashProps } from '@/types/global';
-import { claim as claimRoute, feedback as feedbackRoute } from '@/routes/keys';
+import { claim as claimRoute, feedback as feedbackRoute, show as showRoute } from '@/routes/keys';
 import { useCountdown } from '@/Composables/useCountdown';
 import PlatformIcon from '@/Components/shared/PlatformIcon.vue';
-import { InformationCircleIcon, ExclamationTriangleIcon, ClockIcon, ClipboardDocumentIcon, CheckIcon } from '@heroicons/vue/24/outline';
+import { InformationCircleIcon, ExclamationTriangleIcon, ClockIcon, ClipboardDocumentIcon, CheckIcon, TrashIcon } from '@heroicons/vue/24/outline';
 
 interface Props {
   keyData: KeyData;
@@ -56,6 +57,12 @@ const claimKey = () => {
 
 const submitFeedback = (value: KeyFeedback) => {
   router.post(feedbackRoute.url(keyData.value.id), { feedback: value }, { preserveScroll: true });
+};
+
+const showDeleteModal = ref(false);
+const deleteKey = () => {
+  showDeleteModal.value = false;
+  router.delete(showRoute.url(keyData.value.id));
 };
 </script>
 
@@ -162,6 +169,16 @@ const submitFeedback = (value: KeyFeedback) => {
                   </div>
                 </div>
               </div>
+
+              <button
+                v-if="keyData.can?.delete"
+                type="button"
+                class="w-full mt-4 inline-flex items-center justify-center gap-2 bg-dark-700 hover:bg-danger text-gray-300 hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-200"
+                @click="showDeleteModal = true"
+              >
+                <TrashIcon class="w-5 h-5" />
+                Delete Key
+              </button>
 
               <div
                 v-else-if="keyData.can?.claimDeniedReason === 'karma_too_low'"
@@ -285,6 +302,16 @@ const submitFeedback = (value: KeyFeedback) => {
         </p>
       </div>
     </div>
+
+    <ConfirmModal
+      :open="showDeleteModal"
+      title="Delete key"
+      message="Are you sure you want to delete this key? This action cannot be undone."
+      confirm-label="Delete key"
+      variant="danger"
+      @confirm="deleteKey"
+      @cancel="showDeleteModal = false"
+    />
   </AppLayout>
 
   <AppLayout

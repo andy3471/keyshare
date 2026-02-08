@@ -11,8 +11,8 @@ class StoreGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string', 'max:1000'],
+            'name'        => ['required', 'string', 'max:50', 'regex:/^[^<>]*$/'],
+            'description' => ['nullable', 'string', 'max:1000', 'regex:/^[^<>]*$/s'],
             'is_public'   => ['boolean'],
             'avatar'      => ['nullable', 'image', 'max:2048'],
         ];
@@ -21,8 +21,10 @@ class StoreGroupRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'A group name is required.',
-            'name.max'      => 'The group name must not exceed 255 characters.',
+            'name.required'     => 'A group name is required.',
+            'name.max'          => 'The group name must not exceed 50 characters.',
+            'name.regex'        => 'The group name must not contain < or > characters.',
+            'description.regex' => 'The description must not contain < or > characters.',
         ];
     }
 }

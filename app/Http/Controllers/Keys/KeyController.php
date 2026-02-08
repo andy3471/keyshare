@@ -76,4 +76,20 @@ class KeyController extends Controller
             'keyData' => fn (): KeyData => KeyData::fromModel($key),
         ]);
     }
+
+    public function destroy(Key $key): RedirectResponse
+    {
+        $this->authorize('delete', $key);
+
+        $gameIgdbId = $key->game?->igdb_id;
+
+        $key->delete();
+
+        if ($gameIgdbId) {
+            return to_route('games.show', ['igdb_id' => $gameIgdbId])
+                ->with('message', __('keys.deleted'));
+        }
+
+        return to_route('games.index')->with('message', __('keys.deleted'));
+    }
 }

@@ -112,9 +112,9 @@ const roleBadgeClasses: Record<string, string> = {
 
           <div class="flex-1">
             <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-              <div>
-                <div class="flex items-center gap-3 mb-2">
-                  <h1 class="text-4xl font-bold text-white">
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-3 mb-2">
+                  <h1 class="text-4xl font-bold text-white break-words min-w-0">
                     {{ group.name }}
                   </h1>
                   <span
@@ -220,19 +220,29 @@ const roleBadgeClasses: Record<string, string> = {
         </div>
         <div v-if="showInviteCode">
           <div class="flex items-center gap-2">
-            <input
-              type="text"
-              :value="inviteUrl"
-              readonly
-              class="flex-1 bg-dark-900 border border-dark-600 rounded-lg px-4 py-2.5 text-gray-300 text-sm font-mono focus:outline-none"
-            >
-            <button
-              class="inline-flex items-center gap-2 px-4 py-2.5 bg-accent-600 hover:bg-accent-500 text-white text-sm font-medium rounded-lg transition-colors whitespace-nowrap"
-              @click="copyInviteLink"
-            >
-              <ClipboardDocumentIcon class="w-4 h-4" />
-              {{ copied ? 'Copied!' : 'Copy' }}
-            </button>
+            <div class="relative flex-1">
+              <input
+                type="text"
+                :value="inviteUrl"
+                readonly
+                class="w-full bg-dark-900 border border-dark-600 rounded-lg px-4 py-2.5 pr-12 text-gray-300 text-sm font-mono focus:outline-none select-all cursor-text"
+              >
+              <button
+                type="button"
+                class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-dark-700 hover:bg-dark-600 text-gray-300 hover:text-white p-2 rounded-lg transition-colors"
+                :title="copied ? 'Copied!' : 'Copy to clipboard'"
+                @click="copyInviteLink"
+              >
+                <CheckIcon
+                  v-if="copied"
+                  class="w-4 h-4 text-green-400"
+                />
+                <ClipboardDocumentIcon
+                  v-else
+                  class="w-4 h-4"
+                />
+              </button>
+            </div>
             <button
               class="inline-flex items-center gap-2 px-4 py-2.5 bg-dark-700 hover:bg-dark-600 text-gray-300 text-sm font-medium rounded-lg transition-colors whitespace-nowrap"
               @click="showRegenerateModal = true"

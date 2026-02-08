@@ -71,6 +71,7 @@ const deleteGroup = () => {
             v-model="form.name"
             label="Group Name"
             :error="form.errors.name"
+            :maxlength="50"
             required
           />
 
@@ -79,6 +80,7 @@ const deleteGroup = () => {
             v-model="form.description"
             label="Description"
             :error="form.errors.description"
+            :maxlength="1000"
           >
             <template #label-suffix>
               <span class="text-gray-500"> (optional)</span>

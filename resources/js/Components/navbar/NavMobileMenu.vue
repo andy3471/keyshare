@@ -86,9 +86,10 @@ const handleSearch = (query: string) => {
           :karma="user.karma"
           :karma-colour="user.karma_colour"
           size="md"
+          tooltip-position="below"
           class="mr-3"
         />
-        <span class="text-white font-medium text-sm">{{ user.name }}</span>
+        <span class="text-white font-medium text-sm truncate">{{ user.name }}</span>
       </div>
 
       <Link

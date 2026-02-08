@@ -40,6 +40,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => $request->session()->get('message'),
                 'error'   => $request->session()->get('error'),
+                'status'  => $request->session()->get('status'),
             ],
             'activeGroup'  => fn (): ?\App\DataTransferObjects\Groups\GroupData => $this->getActiveGroup($request),
             'userGroups'   => fn () => $user

@@ -15,7 +15,7 @@
             >
                 <tr>
                     <td class="panel-item">
-                        {{ Illuminate\Mail\Markdown::parse($slot) }}
+                        {!! Illuminate\Mail\Markdown::parse($slot) !!}
                     </td>
                 </tr>
             </table>

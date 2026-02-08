@@ -83,6 +83,11 @@ class KeyPolicy
         return $endsAt->isFuture() ? $endsAt : null;
     }
 
+    public function delete(User $currentUser, Key $key): bool
+    {
+        return $key->created_user_id === $currentUser->id && $key->owned_user_id === null;
+    }
+
     public function feedback(User $currentUser, Key $key): bool
     {
         return $key->owned_user_id === $currentUser->id;

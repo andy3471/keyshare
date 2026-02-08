@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
-    <body>
+    <body style="background-color: #111827; color: #d1d5db; margin: 0; padding: 0;">
         <style>
             @media only screen and (max-width: 600px) {
                 .inner-body {
@@ -39,7 +39,7 @@
                         cellspacing="0"
                         role="presentation"
                     >
-                        {{ $header ?? '' }}
+                        {!! $header ?? '' !!}
 
                         <!-- Email Body -->
                         <tr>
@@ -60,16 +60,16 @@
                                     <!-- Body content -->
                                     <tr>
                                         <td class="content-cell">
-                                            {{ Illuminate\Mail\Markdown::parse($slot) }}
+                                            {{ $slot }}
 
-                                            {{ $subcopy ?? '' }}
+                                            {!! $subcopy ?? '' !!}
                                         </td>
                                     </tr>
                                 </table>
                             </td>
                         </tr>
 
-                        {{ $footer ?? '' }}
+                        {!! $footer ?? '' !!}
                     </table>
                 </td>
             </tr>

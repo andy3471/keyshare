@@ -263,6 +263,64 @@ show.head = (args: { key: string | { id: string } } | [key: string | { id: strin
     method: 'head',
 })
 
+/**
+* @see \App\Http\Controllers\Keys\KeyController::destroy
+* @see app/Http/Controllers/Keys/KeyController.php:80
+* @route '/keys/{key}'
+*/
+export const destroy = (args: { key: string | { id: string } } | [key: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: destroy.url(args, options),
+    method: 'delete',
+})
+
+destroy.definition = {
+    methods: ["delete"],
+    url: '/keys/{key}',
+} satisfies RouteDefinition<["delete"]>
+
+/**
+* @see \App\Http\Controllers\Keys\KeyController::destroy
+* @see app/Http/Controllers/Keys/KeyController.php:80
+* @route '/keys/{key}'
+*/
+destroy.url = (args: { key: string | { id: string } } | [key: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { key: args }
+    }
+
+    if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+        args = { key: args.id }
+    }
+
+    if (Array.isArray(args)) {
+        args = {
+            key: args[0],
+        }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+        key: typeof args.key === 'object'
+        ? args.key.id
+        : args.key,
+    }
+
+    return destroy.definition.url
+            .replace('{key}', parsedArgs.key.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Keys\KeyController::destroy
+* @see app/Http/Controllers/Keys/KeyController.php:80
+* @route '/keys/{key}'
+*/
+destroy.delete = (args: { key: string | { id: string } } | [key: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+    url: destroy.url(args, options),
+    method: 'delete',
+})
+
 const keys = {
     claim: Object.assign(claim, claim),
     feedback: Object.assign(feedback, feedback),
@@ -271,6 +329,7 @@ const keys = {
     create: Object.assign(create, create),
     store: Object.assign(store, store),
     show: Object.assign(show, show),
+    destroy: Object.assign(destroy, destroy),
 }
 
 export default keys

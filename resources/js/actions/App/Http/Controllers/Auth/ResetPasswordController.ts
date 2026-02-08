@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Auth\ResetPasswordController::showResetForm
-* @see app/Http/Controllers/Auth/ResetPasswordController.php:27
+* @see app/Http/Controllers/Auth/ResetPasswordController.php:24
 * @route '/password/reset/{token}'
 */
 export const showResetForm = (args: { token: string | number } | [token: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ showResetForm.definition = {
 
 /**
 * @see \App\Http\Controllers\Auth\ResetPasswordController::showResetForm
-* @see app/Http/Controllers/Auth/ResetPasswordController.php:27
+* @see app/Http/Controllers/Auth/ResetPasswordController.php:24
 * @route '/password/reset/{token}'
 */
 showResetForm.url = (args: { token: string | number } | [token: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -43,7 +43,7 @@ showResetForm.url = (args: { token: string | number } | [token: string | number 
 
 /**
 * @see \App\Http\Controllers\Auth\ResetPasswordController::showResetForm
-* @see app/Http/Controllers/Auth/ResetPasswordController.php:27
+* @see app/Http/Controllers/Auth/ResetPasswordController.php:24
 * @route '/password/reset/{token}'
 */
 showResetForm.get = (args: { token: string | number } | [token: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -53,7 +53,7 @@ showResetForm.get = (args: { token: string | number } | [token: string | number 
 
 /**
 * @see \App\Http\Controllers\Auth\ResetPasswordController::showResetForm
-* @see app/Http/Controllers/Auth/ResetPasswordController.php:27
+* @see app/Http/Controllers/Auth/ResetPasswordController.php:24
 * @route '/password/reset/{token}'
 */
 showResetForm.head = (args: { token: string | number } | [token: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
