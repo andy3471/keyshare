@@ -1,15 +1,15 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Keys\ListSharedKeysController::__invoke
 * @see app/Http/Controllers/Keys/ListSharedKeysController.php:14
 * @route '/keys/shared'
 */
-export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: index.url(options),
+const ListSharedKeysController = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: ListSharedKeysController.url(options),
     method: 'get',
 })
 
-index.definition = {
+ListSharedKeysController.definition = {
     methods: ["get","head"],
     url: '/keys/shared',
 } satisfies RouteDefinition<["get","head"]>
@@ -19,8 +19,8 @@ index.definition = {
 * @see app/Http/Controllers/Keys/ListSharedKeysController.php:14
 * @route '/keys/shared'
 */
-index.url = (options?: RouteQueryOptions) => {
-    return index.definition.url + queryParams(options)
+ListSharedKeysController.url = (options?: RouteQueryOptions) => {
+    return ListSharedKeysController.definition.url + queryParams(options)
 }
 
 /**
@@ -28,8 +28,8 @@ index.url = (options?: RouteQueryOptions) => {
 * @see app/Http/Controllers/Keys/ListSharedKeysController.php:14
 * @route '/keys/shared'
 */
-index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: index.url(options),
+ListSharedKeysController.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: ListSharedKeysController.url(options),
     method: 'get',
 })
 
@@ -38,13 +38,9 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 * @see app/Http/Controllers/Keys/ListSharedKeysController.php:14
 * @route '/keys/shared'
 */
-index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: index.url(options),
+ListSharedKeysController.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: ListSharedKeysController.url(options),
     method: 'head',
 })
 
-const shared = {
-    index: Object.assign(index, index),
-}
-
-export default shared
+export default ListSharedKeysController

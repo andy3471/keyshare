@@ -1,15 +1,15 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Keys\ListClaimedKeysController::__invoke
 * @see app/Http/Controllers/Keys/ListClaimedKeysController.php:14
 * @route '/keys/claimed'
 */
-export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: index.url(options),
+const ListClaimedKeysController = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: ListClaimedKeysController.url(options),
     method: 'get',
 })
 
-index.definition = {
+ListClaimedKeysController.definition = {
     methods: ["get","head"],
     url: '/keys/claimed',
 } satisfies RouteDefinition<["get","head"]>
@@ -19,8 +19,8 @@ index.definition = {
 * @see app/Http/Controllers/Keys/ListClaimedKeysController.php:14
 * @route '/keys/claimed'
 */
-index.url = (options?: RouteQueryOptions) => {
-    return index.definition.url + queryParams(options)
+ListClaimedKeysController.url = (options?: RouteQueryOptions) => {
+    return ListClaimedKeysController.definition.url + queryParams(options)
 }
 
 /**
@@ -28,8 +28,8 @@ index.url = (options?: RouteQueryOptions) => {
 * @see app/Http/Controllers/Keys/ListClaimedKeysController.php:14
 * @route '/keys/claimed'
 */
-index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: index.url(options),
+ListClaimedKeysController.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: ListClaimedKeysController.url(options),
     method: 'get',
 })
 
@@ -38,13 +38,9 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 * @see app/Http/Controllers/Keys/ListClaimedKeysController.php:14
 * @route '/keys/claimed'
 */
-index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: index.url(options),
+ListClaimedKeysController.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: ListClaimedKeysController.url(options),
     method: 'head',
 })
 
-const claimed = {
-    index: Object.assign(index, index),
-}
-
-export default claimed
+export default ListClaimedKeysController

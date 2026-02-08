@@ -214,8 +214,8 @@ register.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\SearchController::autocomplete
-* @see app/Http/Controllers/SearchController.php:64
+* @see \App\Http\Controllers\Search\AutocompleteSearchController::__invoke
+* @see app/Http/Controllers/Search/AutocompleteSearchController.php:16
 * @route '/autocomplete'
 */
 export const autocomplete = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -229,8 +229,8 @@ autocomplete.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\SearchController::autocomplete
-* @see app/Http/Controllers/SearchController.php:64
+* @see \App\Http\Controllers\Search\AutocompleteSearchController::__invoke
+* @see app/Http/Controllers/Search/AutocompleteSearchController.php:16
 * @route '/autocomplete'
 */
 autocomplete.url = (options?: RouteQueryOptions) => {
@@ -238,8 +238,8 @@ autocomplete.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \App\Http\Controllers\SearchController::autocomplete
-* @see app/Http/Controllers/SearchController.php:64
+* @see \App\Http\Controllers\Search\AutocompleteSearchController::__invoke
+* @see app/Http/Controllers/Search/AutocompleteSearchController.php:16
 * @route '/autocomplete'
 */
 autocomplete.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -248,8 +248,8 @@ autocomplete.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\SearchController::autocomplete
-* @see app/Http/Controllers/SearchController.php:64
+* @see \App\Http\Controllers\Search\AutocompleteSearchController::__invoke
+* @see app/Http/Controllers/Search/AutocompleteSearchController.php:16
 * @route '/autocomplete'
 */
 autocomplete.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

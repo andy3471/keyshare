@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Games;
 
 use App\DataTransferObjects\Games\GameData;
 use App\DataTransferObjects\Keys\KeyData;
 use App\DataTransferObjects\Platforms\PlatformData;
+use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Models\Platform;
 use Illuminate\Http\Request;

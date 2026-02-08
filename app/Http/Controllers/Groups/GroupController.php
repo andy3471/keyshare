@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Groups;
 
 use App\DataTransferObjects\Groups\GroupData;
 use App\DataTransferObjects\Groups\GroupMemberData;
 use App\Enums\GroupRole;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Groups\StoreGroupRequest;
 use App\Http\Requests\Groups\UpdateGroupRequest;
 use App\Models\Group;
@@ -137,96 +138,5 @@ class GroupController extends Controller
 
         return to_route('groups.index')
             ->with('message', 'Group deleted successfully.');
-    }
-
-    public function join(Group $group): RedirectResponse
-    {
-        $user = auth()->user();
-
-        if ($group->hasMember($user)) {
-            return back()->with('error', 'You are already a member of this group.');
-        }
-
-        if (! $group->is_public) {
-            return back()->with('error', 'This group is private. You need an invitation to join.');
-        }
-
-        $group->addMember($user);
-
-        session(['active_group_id' => $group->id]);
-
-        return to_route('groups.show', $group)
-            ->with('message', 'You have joined the group.');
-    }
-
-    public function joinViaInviteCode(Request $request, string $code): RedirectResponse
-    {
-        $group = Group::where('invite_code', $code)->firstOrFail();
-        $user  = auth()->user();
-
-        if ($group->hasMember($user)) {
-            session(['active_group_id' => $group->id]);
-
-            return to_route('groups.show', $group)
-                ->with('message', 'You are already a member of this group.');
-        }
-
-        $group->addMember($user);
-
-        session(['active_group_id' => $group->id]);
-
-        return to_route('groups.show', $group)
-            ->with('message', 'You have joined the group.');
-    }
-
-    public function leave(Group $group): RedirectResponse
-    {
-        $this->authorize('leave', $group);
-
-        $group->members()->detach(auth()->id());
-
-        if (session('active_group_id') === $group->id) {
-            session()->forget('active_group_id');
-        }
-
-        return to_route('groups.index')
-            ->with('message', 'You have left the group.');
-    }
-
-    public function removeMember(Group $group, User $user): RedirectResponse
-    {
-        $this->authorize('manageMembers', $group);
-
-        if ($group->owner_id === $user->id) {
-            return back()->with('error', 'Cannot remove the group owner.');
-        }
-
-        $group->members()->detach($user->id);
-
-        return back()->with('message', 'Member removed successfully.');
-    }
-
-    public function switchGroup(Request $request): RedirectResponse
-    {
-        $groupId = $request->input('group_id');
-
-        if ($groupId) {
-            $group = Group::findOrFail($groupId);
-            abort_unless($group->hasMember(auth()->user()), 403);
-            session(['active_group_id' => $group->id]);
-        } else {
-            session()->forget('active_group_id');
-        }
-
-        return back();
-    }
-
-    public function regenerateInviteCode(Group $group): RedirectResponse
-    {
-        $this->authorize('update', $group);
-
-        $group->regenerateInviteCode();
-
-        return back()->with('message', 'Invite code regenerated.');
     }
 }

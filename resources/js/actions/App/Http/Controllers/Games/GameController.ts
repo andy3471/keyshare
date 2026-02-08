@@ -1,7 +1,7 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
-* @see \App\Http\Controllers\GameController::index
-* @see app/Http/Controllers/GameController.php:22
+* @see \App\Http\Controllers\Games\GameController::index
+* @see app/Http/Controllers/Games/GameController.php:23
 * @route '/games'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -15,8 +15,8 @@ index.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\GameController::index
-* @see app/Http/Controllers/GameController.php:22
+* @see \App\Http\Controllers\Games\GameController::index
+* @see app/Http/Controllers/Games/GameController.php:23
 * @route '/games'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -24,8 +24,8 @@ index.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \App\Http\Controllers\GameController::index
-* @see app/Http/Controllers/GameController.php:22
+* @see \App\Http\Controllers\Games\GameController::index
+* @see app/Http/Controllers/Games/GameController.php:23
 * @route '/games'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,8 +34,8 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\GameController::index
-* @see app/Http/Controllers/GameController.php:22
+* @see \App\Http\Controllers\Games\GameController::index
+* @see app/Http/Controllers/Games/GameController.php:23
 * @route '/games'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,8 +44,8 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:61
+* @see \App\Http\Controllers\Games\GameController::show
+* @see app/Http/Controllers/Games/GameController.php:62
 * @route '/games/{igdb_id}'
 */
 export const show = (args: { igdb_id: string | number } | [igdb_id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -59,8 +59,8 @@ show.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:61
+* @see \App\Http\Controllers\Games\GameController::show
+* @see app/Http/Controllers/Games/GameController.php:62
 * @route '/games/{igdb_id}'
 */
 show.url = (args: { igdb_id: string | number } | [igdb_id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -86,8 +86,8 @@ show.url = (args: { igdb_id: string | number } | [igdb_id: string | number ] | s
 }
 
 /**
-* @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:61
+* @see \App\Http\Controllers\Games\GameController::show
+* @see app/Http/Controllers/Games/GameController.php:62
 * @route '/games/{igdb_id}'
 */
 show.get = (args: { igdb_id: string | number } | [igdb_id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -96,8 +96,8 @@ show.get = (args: { igdb_id: string | number } | [igdb_id: string | number ] | s
 })
 
 /**
-* @see \App\Http\Controllers\GameController::show
-* @see app/Http/Controllers/GameController.php:61
+* @see \App\Http\Controllers\Games\GameController::show
+* @see app/Http/Controllers/Games/GameController.php:62
 * @route '/games/{igdb_id}'
 */
 show.head = (args: { igdb_id: string | number } | [igdb_id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({

@@ -1,16 +1,15 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../wayfinder'
-import steam87c916 from './steam'
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Auth\RedirectToSteamController::__invoke
 * @see app/Http/Controllers/Auth/RedirectToSteamController.php:14
 * @route '/login/steam'
 */
-export const steam = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: steam.url(options),
+const RedirectToSteamController = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: RedirectToSteamController.url(options),
     method: 'get',
 })
 
-steam.definition = {
+RedirectToSteamController.definition = {
     methods: ["get","head"],
     url: '/login/steam',
 } satisfies RouteDefinition<["get","head"]>
@@ -20,8 +19,8 @@ steam.definition = {
 * @see app/Http/Controllers/Auth/RedirectToSteamController.php:14
 * @route '/login/steam'
 */
-steam.url = (options?: RouteQueryOptions) => {
-    return steam.definition.url + queryParams(options)
+RedirectToSteamController.url = (options?: RouteQueryOptions) => {
+    return RedirectToSteamController.definition.url + queryParams(options)
 }
 
 /**
@@ -29,8 +28,8 @@ steam.url = (options?: RouteQueryOptions) => {
 * @see app/Http/Controllers/Auth/RedirectToSteamController.php:14
 * @route '/login/steam'
 */
-steam.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: steam.url(options),
+RedirectToSteamController.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: RedirectToSteamController.url(options),
     method: 'get',
 })
 
@@ -39,13 +38,9 @@ steam.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 * @see app/Http/Controllers/Auth/RedirectToSteamController.php:14
 * @route '/login/steam'
 */
-steam.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: steam.url(options),
+RedirectToSteamController.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: RedirectToSteamController.url(options),
     method: 'head',
 })
 
-const linkedAccount = {
-    steam: Object.assign(steam, steam87c916),
-}
-
-export default linkedAccount
+export default RedirectToSteamController

@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Keys;
 
 use App\DataTransferObjects\Groups\GroupData;
 use App\DataTransferObjects\Keys\KeyData;
 use App\DataTransferObjects\Platforms\PlatformData;
 use App\DataTransferObjects\Search\AutocompleteGameData;
-use App\Enums\KeyFeedback;
-use App\Http\Requests\KeyFeedbackRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGameKeyRequest;
 use App\Models\Game;
 use App\Models\Group;
@@ -75,56 +74,6 @@ class KeyController extends Controller
 
         return Inertia::render('Keys/Show', [
             'keyData' => fn (): KeyData => KeyData::fromModel($key),
-        ]);
-    }
-
-    public function claim(Request $request, Key $key): RedirectResponse
-    {
-        $this->authorize('claim', $key);
-
-        $key->claim(auth()->user());
-
-        return back()->with('message', __('keys.claimsuccess'));
-    }
-
-    public function feedback(KeyFeedbackRequest $request, Key $key): RedirectResponse
-    {
-        $this->authorize('feedback', $key);
-
-        $key->update(['feedback' => KeyFeedback::from($request->validated('feedback'))]);
-
-        return back()->with('message', __('keys.feedback_submitted'));
-    }
-
-    public function claimed(Request $request): Response
-    {
-        auth()->user()->loadMissing(['media', 'groups']);
-
-        return Inertia::render('Keys/Claimed', [
-            'keys' => Inertia::scroll(fn (): \Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection|\Spatie\LaravelData\CursorPaginatedDataCollection|\Illuminate\Support\Enumerable|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Contracts\Pagination\CursorPaginator|array => KeyData::collect(
-                auth()
-                    ->user()
-                    ->claimedKeys()
-                    ->with(['game', 'platform', 'group.media', 'createdUser.media'])
-                    ->latest()
-                    ->paginate(12)
-            )),
-        ]);
-    }
-
-    public function shared(Request $request): Response
-    {
-        auth()->user()->loadMissing(['media', 'groups']);
-
-        return Inertia::render('Keys/Shared', [
-            'keys' => Inertia::scroll(fn (): \Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection|\Spatie\LaravelData\CursorPaginatedDataCollection|\Illuminate\Support\Enumerable|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Contracts\Pagination\CursorPaginator|array => KeyData::collect(
-                auth()
-                    ->user()
-                    ->sharedKeys()
-                    ->with(['game', 'platform', 'group.media', 'claimedUser.media'])
-                    ->latest()
-                    ->paginate(12)
-            )),
         ]);
     }
 }

@@ -1,15 +1,15 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Auth\HandleSteamCallbackController::__invoke
 * @see app/Http/Controllers/Auth/HandleSteamCallbackController.php:17
 * @route '/login/steam/callback'
 */
-export const callback = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: callback.url(options),
+const HandleSteamCallbackController = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: HandleSteamCallbackController.url(options),
     method: 'get',
 })
 
-callback.definition = {
+HandleSteamCallbackController.definition = {
     methods: ["get","head"],
     url: '/login/steam/callback',
 } satisfies RouteDefinition<["get","head"]>
@@ -19,8 +19,8 @@ callback.definition = {
 * @see app/Http/Controllers/Auth/HandleSteamCallbackController.php:17
 * @route '/login/steam/callback'
 */
-callback.url = (options?: RouteQueryOptions) => {
-    return callback.definition.url + queryParams(options)
+HandleSteamCallbackController.url = (options?: RouteQueryOptions) => {
+    return HandleSteamCallbackController.definition.url + queryParams(options)
 }
 
 /**
@@ -28,8 +28,8 @@ callback.url = (options?: RouteQueryOptions) => {
 * @see app/Http/Controllers/Auth/HandleSteamCallbackController.php:17
 * @route '/login/steam/callback'
 */
-callback.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: callback.url(options),
+HandleSteamCallbackController.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: HandleSteamCallbackController.url(options),
     method: 'get',
 })
 
@@ -38,13 +38,9 @@ callback.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 * @see app/Http/Controllers/Auth/HandleSteamCallbackController.php:17
 * @route '/login/steam/callback'
 */
-callback.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: callback.url(options),
+HandleSteamCallbackController.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: HandleSteamCallbackController.url(options),
     method: 'head',
 })
 
-const steam = {
-    callback: Object.assign(callback, callback),
-}
-
-export default steam
+export default HandleSteamCallbackController

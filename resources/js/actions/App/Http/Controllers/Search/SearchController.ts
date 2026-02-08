@@ -1,15 +1,15 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Search\SearchController::__invoke
 * @see app/Http/Controllers/Search/SearchController.php:18
 * @route '/search'
 */
-export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: index.url(options),
+const SearchController = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: SearchController.url(options),
     method: 'get',
 })
 
-index.definition = {
+SearchController.definition = {
     methods: ["get","head"],
     url: '/search',
 } satisfies RouteDefinition<["get","head"]>
@@ -19,8 +19,8 @@ index.definition = {
 * @see app/Http/Controllers/Search/SearchController.php:18
 * @route '/search'
 */
-index.url = (options?: RouteQueryOptions) => {
-    return index.definition.url + queryParams(options)
+SearchController.url = (options?: RouteQueryOptions) => {
+    return SearchController.definition.url + queryParams(options)
 }
 
 /**
@@ -28,8 +28,8 @@ index.url = (options?: RouteQueryOptions) => {
 * @see app/Http/Controllers/Search/SearchController.php:18
 * @route '/search'
 */
-index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: index.url(options),
+SearchController.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: SearchController.url(options),
     method: 'get',
 })
 
@@ -38,13 +38,9 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 * @see app/Http/Controllers/Search/SearchController.php:18
 * @route '/search'
 */
-index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: index.url(options),
+SearchController.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: SearchController.url(options),
     method: 'head',
 })
 
-const search = {
-    index: Object.assign(index, index),
-}
-
-export default search
+export default SearchController

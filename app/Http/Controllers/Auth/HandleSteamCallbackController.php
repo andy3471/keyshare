@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Models\LinkedAccount;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
-class SteamLoginController
+class HandleSteamCallbackController extends Controller
 {
-    public function redirect()
-    {
-        return Socialite::driver('steam')->redirect();
-    }
-
     // TODO: Refactor this
-    public function callback()
+    public function __invoke(): RedirectResponse|string
     {
         $steamuser = Socialite::driver('steam')->user();
 

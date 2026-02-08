@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
-* @see \App\Http\Controllers\UserController::show
-* @see app/Http/Controllers/UserController.php:38
+* @see \App\Http\Controllers\Users\UserController::show
+* @see app/Http/Controllers/Users/UserController.php:39
 * @route '/users/{user}'
 */
 export const show = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -15,8 +15,8 @@ show.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\UserController::show
-* @see app/Http/Controllers/UserController.php:38
+* @see \App\Http\Controllers\Users\UserController::show
+* @see app/Http/Controllers/Users/UserController.php:39
 * @route '/users/{user}'
 */
 show.url = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -48,8 +48,8 @@ show.url = (args: { user: string | { id: string } } | [user: string | { id: stri
 }
 
 /**
-* @see \App\Http\Controllers\UserController::show
-* @see app/Http/Controllers/UserController.php:38
+* @see \App\Http\Controllers\Users\UserController::show
+* @see app/Http/Controllers/Users/UserController.php:39
 * @route '/users/{user}'
 */
 show.get = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -58,8 +58,8 @@ show.get = (args: { user: string | { id: string } } | [user: string | { id: stri
 })
 
 /**
-* @see \App\Http\Controllers\UserController::show
-* @see app/Http/Controllers/UserController.php:38
+* @see \App\Http\Controllers\Users\UserController::show
+* @see app/Http/Controllers/Users/UserController.php:39
 * @route '/users/{user}'
 */
 show.head = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -68,8 +68,8 @@ show.head = (args: { user: string | { id: string } } | [user: string | { id: str
 })
 
 /**
-* @see \App\Http\Controllers\UserController::edit
-* @see app/Http/Controllers/UserController.php:17
+* @see \App\Http\Controllers\Users\UserController::edit
+* @see app/Http/Controllers/Users/UserController.php:18
 * @route '/users/{user}/edit'
 */
 export const edit = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -83,8 +83,8 @@ edit.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\UserController::edit
-* @see app/Http/Controllers/UserController.php:17
+* @see \App\Http\Controllers\Users\UserController::edit
+* @see app/Http/Controllers/Users/UserController.php:18
 * @route '/users/{user}/edit'
 */
 edit.url = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -116,8 +116,8 @@ edit.url = (args: { user: string | { id: string } } | [user: string | { id: stri
 }
 
 /**
-* @see \App\Http\Controllers\UserController::edit
-* @see app/Http/Controllers/UserController.php:17
+* @see \App\Http\Controllers\Users\UserController::edit
+* @see app/Http/Controllers/Users/UserController.php:18
 * @route '/users/{user}/edit'
 */
 edit.get = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -126,8 +126,8 @@ edit.get = (args: { user: string | { id: string } } | [user: string | { id: stri
 })
 
 /**
-* @see \App\Http\Controllers\UserController::edit
-* @see app/Http/Controllers/UserController.php:17
+* @see \App\Http\Controllers\Users\UserController::edit
+* @see app/Http/Controllers/Users/UserController.php:18
 * @route '/users/{user}/edit'
 */
 edit.head = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -136,8 +136,8 @@ edit.head = (args: { user: string | { id: string } } | [user: string | { id: str
 })
 
 /**
-* @see \App\Http\Controllers\UserController::update
-* @see app/Http/Controllers/UserController.php:24
+* @see \App\Http\Controllers\Users\UserController::update
+* @see app/Http/Controllers/Users/UserController.php:25
 * @route '/users/{user}'
 */
 export const update = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -151,8 +151,8 @@ update.definition = {
 } satisfies RouteDefinition<["put","patch"]>
 
 /**
-* @see \App\Http\Controllers\UserController::update
-* @see app/Http/Controllers/UserController.php:24
+* @see \App\Http\Controllers\Users\UserController::update
+* @see app/Http/Controllers/Users/UserController.php:25
 * @route '/users/{user}'
 */
 update.url = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -184,8 +184,8 @@ update.url = (args: { user: string | { id: string } } | [user: string | { id: st
 }
 
 /**
-* @see \App\Http\Controllers\UserController::update
-* @see app/Http/Controllers/UserController.php:24
+* @see \App\Http\Controllers\Users\UserController::update
+* @see app/Http/Controllers/Users/UserController.php:25
 * @route '/users/{user}'
 */
 update.put = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -194,8 +194,8 @@ update.put = (args: { user: string | { id: string } } | [user: string | { id: st
 })
 
 /**
-* @see \App\Http\Controllers\UserController::update
-* @see app/Http/Controllers/UserController.php:24
+* @see \App\Http\Controllers\Users\UserController::update
+* @see app/Http/Controllers/Users/UserController.php:25
 * @route '/users/{user}'
 */
 update.patch = (args: { user: string | { id: string } } | [user: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
