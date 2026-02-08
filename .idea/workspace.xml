@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f8ec7e7-8720-40c0-ab26-25fecdfce236" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/_ide_helper_models.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper_models.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DataTransferObjects/Groups/GroupData.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataTransferObjects/Groups/GroupData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/KeyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/KeyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/Groups/UpdateGroupRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/Groups/UpdateGroupRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Group.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Group.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Key.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Key.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Notifications/KeyAdded.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Notifications/KeyAdded.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Groups/Edit.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Groups/Edit.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Welcome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Welcome.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/KeyController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/App/Http/Controllers/KeyController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/claimed/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/claimed/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/keys/shared/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/keys/shared/index.ts" afterDir="false" />
-    </list>
+    <list default="true" id="0f8ec7e7-8720-40c0-ab26-25fecdfce236" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -262,6 +248,7 @@
       <path value="$PROJECT_DIR$/vendor/spatie/ray" />
       <path value="$PROJECT_DIR$/vendor/spatie/macroable" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-ray" />
+      <path value="$PROJECT_DIR$/vendor/laravel/nightwatch" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{

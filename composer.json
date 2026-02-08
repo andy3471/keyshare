@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.4",
         "laravel/wayfinder": "^0.1.0",
+        "league/flysystem-aws-s3-v3": "^3.31",
         "livewire/livewire": "^4.0",
         "marcreichel/igdb-laravel": "^5.3.0",
         "sentry/sentry-laravel": "^4.13",
