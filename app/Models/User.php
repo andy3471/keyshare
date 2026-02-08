@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\GroupRole;
+use App\Enums\OnboardingStep;
 use App\Services\KarmaService;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
@@ -34,6 +35,7 @@ class User extends Authenticatable implements FilamentUser, HasMedia
         'name',
         'email',
         'password',
+        'onboarded_at',
     ];
 
     protected $hidden = [
@@ -100,6 +102,24 @@ class User extends Authenticatable implements FilamentUser, HasMedia
         return $pivot ? GroupRole::from($pivot->role) : null;
     }
 
+    public function onboardingStep(): OnboardingStep
+    {
+        if ($this->onboarded_at) {
+            return OnboardingStep::Complete;
+        }
+
+        if (str_starts_with($this->email, 'social_') && str_ends_with($this->email, '@placeholder.local')) {
+            return OnboardingStep::SetCredentials;
+        }
+
+        return OnboardingStep::JoinGroup;
+    }
+
+    public function hasPlaceholderEmail(): bool
+    {
+        return str_starts_with($this->email, 'social_') && str_ends_with($this->email, '@placeholder.local');
+    }
+
     /** @return Attribute<string, never> */
     protected function avatar(): Attribute
     {
@@ -131,6 +151,7 @@ class User extends Authenticatable implements FilamentUser, HasMedia
         return [
             'email_verified_at' => 'datetime',
             'is_admin'          => 'boolean',
+            'onboarded_at'      => 'datetime',
         ];
     }
 }

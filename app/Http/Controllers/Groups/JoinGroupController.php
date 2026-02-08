@@ -26,6 +26,11 @@ class JoinGroupController extends Controller
 
         session(['active_group_id' => $group->id]);
 
+        // During onboarding, stay on the page so the user can join more groups
+        if (! $user->onboarded_at) {
+            return back()->with('message', 'You joined '.$group->name.'!');
+        }
+
         return to_route('groups.show', $group)
             ->with('message', 'You have joined the group.');
     }

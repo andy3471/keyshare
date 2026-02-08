@@ -71,9 +71,19 @@ class GroupController extends Controller
                 ->toMediaCollection('avatar');
         }
 
-        $group->addMember(auth()->user(), GroupRole::Owner);
+        $user = auth()->user();
+
+        $group->addMember($user, GroupRole::Owner);
 
         session(['active_group_id' => $group->id]);
+
+        // If the user is still onboarding, mark them as complete
+        if (! $user->onboarded_at) {
+            $user->update(['onboarded_at' => now()]);
+
+            return to_route('games.index')
+                ->with('message', 'Welcome to Sparekey! Your group '.$group->name.' is ready.');
+        }
 
         return to_route('groups.show', $group)
             ->with('message', 'Group created successfully.');

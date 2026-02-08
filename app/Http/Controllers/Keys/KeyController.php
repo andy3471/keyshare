@@ -25,12 +25,12 @@ class KeyController extends Controller
 {
     public function create(Request $request): Response
     {
-        $this->authorize('create', Key::class);
-
         $user          = auth()->user();
         $activeGroupId = session('active_group_id');
+        $canCreate     = $user->can('create', Key::class);
 
         return Inertia::render('Keys/Create', [
+            'canCreate' => $canCreate,
             'platforms' => fn (): Collection => PlatformData::collect(Cache::remember('platforms', 3600, function () {
                 return Platform::all();
             })),

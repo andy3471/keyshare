@@ -8,10 +8,13 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Foundation\Http\Middleware\Authorize;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\Response;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders()
@@ -37,8 +40,9 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->alias([
-            'auth'     => Authenticate::class,
-            'bindings' => SubstituteBindings::class,
+            'auth'       => Authenticate::class,
+            'bindings'   => SubstituteBindings::class,
+            'onboarding' => App\Http\Middleware\EnsureOnboardingComplete::class,
         ]);
 
         $middleware->priority([
@@ -51,5 +55,19 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
+            if (! app()->environment(['local', 'testing']) && in_array($response->getStatusCode(), [500, 503, 404, 403])) {
+                return Inertia::render('ErrorPage', ['status' => $response->getStatusCode()])
+                    ->toResponse($request)
+                    ->setStatusCode($response->getStatusCode());
+            }
+
+            if (! app()->environment('testing') && $response->getStatusCode() === 419) {
+                return back()->with([
+                    'error' => 'The page expired, please try again.',
+                ]);
+            }
+
+            return $response;
+        });
     })->create();

@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Groups\AcceptGroupInviteController::__invoke
-* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:13
+* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:14
 * @route '/invite/{code}'
 */
 const AcceptGroupInviteController = (args: { code: string | number } | [code: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ AcceptGroupInviteController.definition = {
 
 /**
 * @see \App\Http\Controllers\Groups\AcceptGroupInviteController::__invoke
-* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:13
+* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:14
 * @route '/invite/{code}'
 */
 AcceptGroupInviteController.url = (args: { code: string | number } | [code: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -43,7 +43,7 @@ AcceptGroupInviteController.url = (args: { code: string | number } | [code: stri
 
 /**
 * @see \App\Http\Controllers\Groups\AcceptGroupInviteController::__invoke
-* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:13
+* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:14
 * @route '/invite/{code}'
 */
 AcceptGroupInviteController.get = (args: { code: string | number } | [code: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -53,7 +53,7 @@ AcceptGroupInviteController.get = (args: { code: string | number } | [code: stri
 
 /**
 * @see \App\Http\Controllers\Groups\AcceptGroupInviteController::__invoke
-* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:13
+* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:14
 * @route '/invite/{code}'
 */
 AcceptGroupInviteController.head = (args: { code: string | number } | [code: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({

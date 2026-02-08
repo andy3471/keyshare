@@ -18,6 +18,9 @@ use App\Http\Controllers\Keys\KeyController;
 use App\Http\Controllers\Keys\ListClaimedKeysController;
 use App\Http\Controllers\Keys\ListSharedKeysController;
 use App\Http\Controllers\Keys\SubmitKeyFeedbackController;
+use App\Http\Controllers\Onboarding\OnboardingCredentialsController;
+use App\Http\Controllers\Onboarding\ShowOnboardingGroupController;
+use App\Http\Controllers\Onboarding\SkipOnboardingGroupController;
 use App\Http\Controllers\Search\AutocompleteSearchController;
 use App\Http\Controllers\Search\SearchController;
 use App\Http\Controllers\Users\UserController;
@@ -33,7 +36,18 @@ Route::get('auth/{provider}/redirect', RedirectToProviderController::class)
 Route::get('auth/{provider}/callback', HandleProviderCallbackController::class)
     ->name('auth.provider.callback');
 
-Route::middleware(['auth'])->group(function (): void {
+// Invite links -- accessible to guests (stores code in session) and authenticated users
+Route::get('invite/{code}', AcceptGroupInviteController::class)->name('groups.join-via-code');
+
+// Onboarding routes -- auth required but NOT onboarding middleware (to avoid loops)
+Route::middleware(['auth'])->prefix('onboarding')->name('onboarding.')->group(function (): void {
+    Route::get('credentials', [OnboardingCredentialsController::class, 'create'])->name('credentials');
+    Route::post('credentials', [OnboardingCredentialsController::class, 'store'])->name('credentials.store');
+    Route::get('group', ShowOnboardingGroupController::class)->name('group');
+    Route::post('group/skip', SkipOnboardingGroupController::class)->name('group.skip');
+});
+
+Route::middleware(['auth', 'onboarding'])->group(function (): void {
     Route::delete('linked-accounts/{provider}', UnlinkAccountController::class)
         ->name('linked-accounts.destroy');
 
@@ -60,5 +74,4 @@ Route::middleware(['auth'])->group(function (): void {
     Route::delete('groups/{group}/members/{user}', RemoveGroupMemberController::class)->name('groups.members.remove');
     Route::post('groups/{group}/regenerate-invite-code', RegenerateGroupInviteCodeController::class)->name('groups.regenerate-invite-code');
     Route::post('groups/switch', SwitchGroupController::class)->name('groups.switch');
-    Route::get('invite/{code}', AcceptGroupInviteController::class)->name('groups.join-via-code');
 });

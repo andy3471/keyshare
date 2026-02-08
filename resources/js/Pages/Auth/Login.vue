@@ -5,10 +5,13 @@ import FormInput from '@/Components/ui/FormInput.vue';
 import LoadingSpinner from '@/Components/ui/LoadingSpinner.vue';
 import SocialLoginButtons from '@/Components/auth/SocialLoginButtons.vue';
 import type { SocialProvider } from '@/Components/auth/SocialLoginButtons.vue';
+import PendingInviteBanner from '@/Components/onboarding/PendingInviteBanner.vue';
+import type { PendingGroup } from '@/Types/onboarding';
 import { login as loginRoute, register } from '@/routes';
 
 interface Props {
   providers: SocialProvider[];
+  pendingGroup: PendingGroup | null;
 }
 
 defineProps<Props>();
@@ -30,6 +33,11 @@ const submit = () => {
   <Head title="Sign In" />
 
   <AuthLayout>
+    <PendingInviteBanner
+      v-if="pendingGroup"
+      :group="pendingGroup"
+    />
+
     <h2 class="text-xl font-semibold text-white mb-1">
       Sign In
     </h2>

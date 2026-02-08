@@ -1,6 +1,68 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../wayfinder'
 import members from './members'
 /**
+* @see \App\Http\Controllers\Groups\AcceptGroupInviteController::__invoke
+* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:14
+* @route '/invite/{code}'
+*/
+export const joinViaCode = (args: { code: string | number } | [code: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: joinViaCode.url(args, options),
+    method: 'get',
+})
+
+joinViaCode.definition = {
+    methods: ["get","head"],
+    url: '/invite/{code}',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\Groups\AcceptGroupInviteController::__invoke
+* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:14
+* @route '/invite/{code}'
+*/
+joinViaCode.url = (args: { code: string | number } | [code: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { code: args }
+    }
+
+    if (Array.isArray(args)) {
+        args = {
+            code: args[0],
+        }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+        code: args.code,
+    }
+
+    return joinViaCode.definition.url
+            .replace('{code}', parsedArgs.code.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\Groups\AcceptGroupInviteController::__invoke
+* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:14
+* @route '/invite/{code}'
+*/
+joinViaCode.get = (args: { code: string | number } | [code: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: joinViaCode.url(args, options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\Groups\AcceptGroupInviteController::__invoke
+* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:14
+* @route '/invite/{code}'
+*/
+joinViaCode.head = (args: { code: string | number } | [code: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: joinViaCode.url(args, options),
+    method: 'head',
+})
+
+/**
 * @see \App\Http\Controllers\Groups\GroupController::index
 * @see app/Http/Controllers/Groups/GroupController.php:22
 * @route '/groups'
@@ -124,7 +186,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::show
-* @see app/Http/Controllers/Groups/GroupController.php:82
+* @see app/Http/Controllers/Groups/GroupController.php:92
 * @route '/groups/{group}'
 */
 export const show = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -139,7 +201,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::show
-* @see app/Http/Controllers/Groups/GroupController.php:82
+* @see app/Http/Controllers/Groups/GroupController.php:92
 * @route '/groups/{group}'
 */
 show.url = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -172,7 +234,7 @@ show.url = (args: { group: string | { id: string } } | [group: string | { id: st
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::show
-* @see app/Http/Controllers/Groups/GroupController.php:82
+* @see app/Http/Controllers/Groups/GroupController.php:92
 * @route '/groups/{group}'
 */
 show.get = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -182,7 +244,7 @@ show.get = (args: { group: string | { id: string } } | [group: string | { id: st
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::show
-* @see app/Http/Controllers/Groups/GroupController.php:82
+* @see app/Http/Controllers/Groups/GroupController.php:92
 * @route '/groups/{group}'
 */
 show.head = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -192,7 +254,7 @@ show.head = (args: { group: string | { id: string } } | [group: string | { id: s
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::edit
-* @see app/Http/Controllers/Groups/GroupController.php:102
+* @see app/Http/Controllers/Groups/GroupController.php:112
 * @route '/groups/{group}/edit'
 */
 export const edit = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -207,7 +269,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::edit
-* @see app/Http/Controllers/Groups/GroupController.php:102
+* @see app/Http/Controllers/Groups/GroupController.php:112
 * @route '/groups/{group}/edit'
 */
 edit.url = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -240,7 +302,7 @@ edit.url = (args: { group: string | { id: string } } | [group: string | { id: st
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::edit
-* @see app/Http/Controllers/Groups/GroupController.php:102
+* @see app/Http/Controllers/Groups/GroupController.php:112
 * @route '/groups/{group}/edit'
 */
 edit.get = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -250,7 +312,7 @@ edit.get = (args: { group: string | { id: string } } | [group: string | { id: st
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::edit
-* @see app/Http/Controllers/Groups/GroupController.php:102
+* @see app/Http/Controllers/Groups/GroupController.php:112
 * @route '/groups/{group}/edit'
 */
 edit.head = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -260,7 +322,7 @@ edit.head = (args: { group: string | { id: string } } | [group: string | { id: s
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::update
-* @see app/Http/Controllers/Groups/GroupController.php:114
+* @see app/Http/Controllers/Groups/GroupController.php:124
 * @route '/groups/{group}'
 */
 export const update = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -275,7 +337,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::update
-* @see app/Http/Controllers/Groups/GroupController.php:114
+* @see app/Http/Controllers/Groups/GroupController.php:124
 * @route '/groups/{group}'
 */
 update.url = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -308,7 +370,7 @@ update.url = (args: { group: string | { id: string } } | [group: string | { id: 
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::update
-* @see app/Http/Controllers/Groups/GroupController.php:114
+* @see app/Http/Controllers/Groups/GroupController.php:124
 * @route '/groups/{group}'
 */
 update.put = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -318,7 +380,7 @@ update.put = (args: { group: string | { id: string } } | [group: string | { id: 
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::update
-* @see app/Http/Controllers/Groups/GroupController.php:114
+* @see app/Http/Controllers/Groups/GroupController.php:124
 * @route '/groups/{group}'
 */
 update.patch = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -328,7 +390,7 @@ update.patch = (args: { group: string | { id: string } } | [group: string | { id
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::destroy
-* @see app/Http/Controllers/Groups/GroupController.php:129
+* @see app/Http/Controllers/Groups/GroupController.php:139
 * @route '/groups/{group}'
 */
 export const destroy = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -343,7 +405,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::destroy
-* @see app/Http/Controllers/Groups/GroupController.php:129
+* @see app/Http/Controllers/Groups/GroupController.php:139
 * @route '/groups/{group}'
 */
 destroy.url = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -376,7 +438,7 @@ destroy.url = (args: { group: string | { id: string } } | [group: string | { id:
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::destroy
-* @see app/Http/Controllers/Groups/GroupController.php:129
+* @see app/Http/Controllers/Groups/GroupController.php:139
 * @route '/groups/{group}'
 */
 destroy.delete = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -592,69 +654,8 @@ switchMethod.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     method: 'post',
 })
 
-/**
-* @see \App\Http\Controllers\Groups\AcceptGroupInviteController::__invoke
-* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:13
-* @route '/invite/{code}'
-*/
-export const joinViaCode = (args: { code: string | number } | [code: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: joinViaCode.url(args, options),
-    method: 'get',
-})
-
-joinViaCode.definition = {
-    methods: ["get","head"],
-    url: '/invite/{code}',
-} satisfies RouteDefinition<["get","head"]>
-
-/**
-* @see \App\Http\Controllers\Groups\AcceptGroupInviteController::__invoke
-* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:13
-* @route '/invite/{code}'
-*/
-joinViaCode.url = (args: { code: string | number } | [code: string | number ] | string | number, options?: RouteQueryOptions) => {
-    if (typeof args === 'string' || typeof args === 'number') {
-        args = { code: args }
-    }
-
-    if (Array.isArray(args)) {
-        args = {
-            code: args[0],
-        }
-    }
-
-    args = applyUrlDefaults(args)
-
-    const parsedArgs = {
-        code: args.code,
-    }
-
-    return joinViaCode.definition.url
-            .replace('{code}', parsedArgs.code.toString())
-            .replace(/\/+$/, '') + queryParams(options)
-}
-
-/**
-* @see \App\Http\Controllers\Groups\AcceptGroupInviteController::__invoke
-* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:13
-* @route '/invite/{code}'
-*/
-joinViaCode.get = (args: { code: string | number } | [code: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: joinViaCode.url(args, options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\Groups\AcceptGroupInviteController::__invoke
-* @see app/Http/Controllers/Groups/AcceptGroupInviteController.php:13
-* @route '/invite/{code}'
-*/
-joinViaCode.head = (args: { code: string | number } | [code: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: joinViaCode.url(args, options),
-    method: 'head',
-})
-
 const groups = {
+    joinViaCode: Object.assign(joinViaCode, joinViaCode),
     index: Object.assign(index, index),
     create: Object.assign(create, create),
     store: Object.assign(store, store),
@@ -667,7 +668,6 @@ const groups = {
     members: Object.assign(members, members),
     regenerateInviteCode: Object.assign(regenerateInviteCode, regenerateInviteCode),
     switch: Object.assign(switchMethod, switchMethod),
-    joinViaCode: Object.assign(joinViaCode, joinViaCode),
 }
 
 export default groups

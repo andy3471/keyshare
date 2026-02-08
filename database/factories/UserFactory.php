@@ -22,6 +22,16 @@ class UserFactory extends Factory
             'remember_token'    => Str::random(10),
             'bio'               => fake()->paragraph($nbSentences = 1),
             'is_admin'          => false,
+            'onboarded_at'      => now(),
         ];
+    }
+
+    /** Create a user that still needs to complete onboarding. */
+    public function needsOnboarding(): static
+    {
+        return $this->state(fn (): array => [
+            'email'        => 'social_'.Str::random(16).'@placeholder.local',
+            'onboarded_at' => null,
+        ]);
     }
 }

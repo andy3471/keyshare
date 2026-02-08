@@ -123,7 +123,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::show
-* @see app/Http/Controllers/Groups/GroupController.php:82
+* @see app/Http/Controllers/Groups/GroupController.php:92
 * @route '/groups/{group}'
 */
 export const show = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -138,7 +138,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::show
-* @see app/Http/Controllers/Groups/GroupController.php:82
+* @see app/Http/Controllers/Groups/GroupController.php:92
 * @route '/groups/{group}'
 */
 show.url = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -171,7 +171,7 @@ show.url = (args: { group: string | { id: string } } | [group: string | { id: st
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::show
-* @see app/Http/Controllers/Groups/GroupController.php:82
+* @see app/Http/Controllers/Groups/GroupController.php:92
 * @route '/groups/{group}'
 */
 show.get = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -181,7 +181,7 @@ show.get = (args: { group: string | { id: string } } | [group: string | { id: st
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::show
-* @see app/Http/Controllers/Groups/GroupController.php:82
+* @see app/Http/Controllers/Groups/GroupController.php:92
 * @route '/groups/{group}'
 */
 show.head = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -191,7 +191,7 @@ show.head = (args: { group: string | { id: string } } | [group: string | { id: s
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::edit
-* @see app/Http/Controllers/Groups/GroupController.php:102
+* @see app/Http/Controllers/Groups/GroupController.php:112
 * @route '/groups/{group}/edit'
 */
 export const edit = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -206,7 +206,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::edit
-* @see app/Http/Controllers/Groups/GroupController.php:102
+* @see app/Http/Controllers/Groups/GroupController.php:112
 * @route '/groups/{group}/edit'
 */
 edit.url = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -239,7 +239,7 @@ edit.url = (args: { group: string | { id: string } } | [group: string | { id: st
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::edit
-* @see app/Http/Controllers/Groups/GroupController.php:102
+* @see app/Http/Controllers/Groups/GroupController.php:112
 * @route '/groups/{group}/edit'
 */
 edit.get = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -249,7 +249,7 @@ edit.get = (args: { group: string | { id: string } } | [group: string | { id: st
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::edit
-* @see app/Http/Controllers/Groups/GroupController.php:102
+* @see app/Http/Controllers/Groups/GroupController.php:112
 * @route '/groups/{group}/edit'
 */
 edit.head = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -259,7 +259,7 @@ edit.head = (args: { group: string | { id: string } } | [group: string | { id: s
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::update
-* @see app/Http/Controllers/Groups/GroupController.php:114
+* @see app/Http/Controllers/Groups/GroupController.php:124
 * @route '/groups/{group}'
 */
 export const update = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -274,7 +274,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::update
-* @see app/Http/Controllers/Groups/GroupController.php:114
+* @see app/Http/Controllers/Groups/GroupController.php:124
 * @route '/groups/{group}'
 */
 update.url = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -307,7 +307,7 @@ update.url = (args: { group: string | { id: string } } | [group: string | { id: 
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::update
-* @see app/Http/Controllers/Groups/GroupController.php:114
+* @see app/Http/Controllers/Groups/GroupController.php:124
 * @route '/groups/{group}'
 */
 update.put = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -317,7 +317,7 @@ update.put = (args: { group: string | { id: string } } | [group: string | { id: 
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::update
-* @see app/Http/Controllers/Groups/GroupController.php:114
+* @see app/Http/Controllers/Groups/GroupController.php:124
 * @route '/groups/{group}'
 */
 update.patch = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -327,7 +327,7 @@ update.patch = (args: { group: string | { id: string } } | [group: string | { id
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::destroy
-* @see app/Http/Controllers/Groups/GroupController.php:129
+* @see app/Http/Controllers/Groups/GroupController.php:139
 * @route '/groups/{group}'
 */
 export const destroy = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -342,7 +342,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::destroy
-* @see app/Http/Controllers/Groups/GroupController.php:129
+* @see app/Http/Controllers/Groups/GroupController.php:139
 * @route '/groups/{group}'
 */
 destroy.url = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -375,7 +375,7 @@ destroy.url = (args: { group: string | { id: string } } | [group: string | { id:
 
 /**
 * @see \App\Http\Controllers\Groups\GroupController::destroy
-* @see app/Http/Controllers/Groups/GroupController.php:129
+* @see app/Http/Controllers/Groups/GroupController.php:139
 * @route '/groups/{group}'
 */
 destroy.delete = (args: { group: string | { id: string } } | [group: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({

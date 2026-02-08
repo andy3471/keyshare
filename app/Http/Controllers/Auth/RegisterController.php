@@ -27,7 +27,8 @@ class RegisterController extends Controller
     public function showRegistrationForm(): Response
     {
         return Inertia::render('Auth/Register', [
-            'providers' => LinkedAccountProvider::enabledForFrontend(),
+            'providers'    => LinkedAccountProvider::enabledForFrontend(),
+            'pendingGroup' => $this->pendingGroup(),
         ]);
     }
 
@@ -47,5 +48,32 @@ class RegisterController extends Controller
             'email'    => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * Load the pending invite group info for the banner.
+     *
+     * @return array{name: string, avatar: string|null}|null
+     */
+    private function pendingGroup(): ?array
+    {
+        $code = session('pending_invite_code');
+
+        if (! $code) {
+            return null;
+        }
+
+        $group = \App\Models\Group::where('invite_code', $code)->first();
+
+        if (! $group) {
+            return null;
+        }
+
+        $group->loadMissing('media');
+
+        return [
+            'name'   => $group->name,
+            'avatar' => $group->avatar_url,
+        ];
     }
 }
