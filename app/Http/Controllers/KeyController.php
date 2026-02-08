@@ -102,6 +102,8 @@ class KeyController extends Controller
 
     public function claimed(Request $request): Response
     {
+        auth()->user()->loadMissing(['media', 'groups']);
+
         return Inertia::render('Keys/Claimed', [
             'keys' => Inertia::scroll(fn () => KeyData::collect(
                 auth()
@@ -116,6 +118,8 @@ class KeyController extends Controller
 
     public function shared(Request $request): Response
     {
+        auth()->user()->loadMissing(['media', 'groups']);
+
         return Inertia::render('Keys/Shared', [
             'keys' => Inertia::scroll(fn () => KeyData::collect(
                 auth()
