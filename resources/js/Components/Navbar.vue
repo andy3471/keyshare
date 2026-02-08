@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { Link, useForm, usePage, router } from '@inertiajs/vue3';
 import { logout as logoutRoute, login } from '@/routes';
 import games from '@/routes/games';
@@ -17,6 +18,16 @@ const appName = 'Sparekey.club';
 
 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
 
+const mobileMenuOpen = ref(false);
+
+const toggleMobileMenu = () => {
+  mobileMenuOpen.value = !mobileMenuOpen.value;
+};
+
+const closeMobileMenu = () => {
+  mobileMenuOpen.value = false;
+};
+
 const logout = () => {
   const form = useForm({});
   form.post(logoutRoute.url());
@@ -24,15 +35,14 @@ const logout = () => {
 
 const handleGameSelect = (item: AutocompleteGameData | null) => {
   if (item) {
+    closeMobileMenu();
     router.visit(games.show.url({ igdb_id: item.id }));
   }
 };
 
 const handleSearch = (query: string) => {
-  // Navigate to the full search results page
+  closeMobileMenu();
   const trimmedQuery = query.trim();
-
-  // Build URL manually to ensure search parameter is always included
   const baseUrl = '/search';
   const url = trimmedQuery
     ? `${baseUrl}?search=${encodeURIComponent(trimmedQuery)}`
@@ -55,27 +65,23 @@ const handleSearch = (query: string) => {
           </Link>
         </div>
 
+        <!-- Desktop nav -->
         <div
           v-if="auth?.user"
           class="hidden lg:flex items-center space-x-2"
         >
-          <!-- Games Link -->
           <Link
             :href="games.index.url()"
             class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
           >
             Games
           </Link>
-
-          <!-- Groups Link -->
           <Link
             :href="groupRoutes.index.url()"
             class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
           >
             Groups
           </Link>
-
-          <!-- Add Key Link -->
           <Link
             :href="keys.create.url()"
             class="text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
@@ -83,7 +89,6 @@ const handleSearch = (query: string) => {
             Add Key
           </Link>
 
-          <!-- Group Switcher -->
           <GroupSwitcher />
 
           <!-- Search -->
@@ -169,7 +174,7 @@ const handleSearch = (query: string) => {
                   Update Profile
                 </Link>
                 <Link
-                  v-if="auth?.user?.admin"
+                  v-if="auth?.user?.is_admin"
                   href="/admin"
                   class="block px-4 py-2 text-sm text-gray-300 hover:bg-accent-600 hover:text-white transition-colors"
                 >
@@ -211,8 +216,9 @@ const handleSearch = (query: string) => {
           </div>
         </div>
 
+        <!-- Guest login (desktop) -->
         <div
-          v-else
+          v-if="!auth?.user"
           class="flex items-center space-x-4"
         >
           <Link
@@ -222,6 +228,188 @@ const handleSearch = (query: string) => {
             Login
           </Link>
         </div>
+
+        <!-- Mobile hamburger button -->
+        <button
+          v-if="auth?.user"
+          class="lg:hidden flex items-center justify-center p-2 rounded-lg text-gray-300 hover:text-white hover:bg-dark-800 transition-all duration-200"
+          @click="toggleMobileMenu"
+        >
+          <svg
+            v-if="!mobileMenuOpen"
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+          <svg
+            v-else
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div
+      v-if="auth?.user && mobileMenuOpen"
+      class="lg:hidden border-t border-dark-700"
+    >
+      <div class="px-4 py-4 space-y-1">
+        <!-- Mobile search -->
+        <div class="relative mb-3">
+          <Autocomplete
+            id="mobile-search"
+            name="search"
+            placeholder="Search games..."
+            url="/autocomplete"
+            input-class="w-full pl-10 pr-4 py-2.5 bg-dark-800 border border-dark-600 text-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500"
+            @update:model-value="handleGameSelect"
+            @search="handleSearch"
+          />
+          <svg
+            class="absolute left-3 top-3 h-4 w-4 text-gray-400 pointer-events-none"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </div>
+
+        <Link
+          :href="games.index.url()"
+          class="block text-gray-300 hover:text-white px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
+          @click="closeMobileMenu"
+        >
+          Games
+        </Link>
+        <Link
+          :href="groupRoutes.index.url()"
+          class="block text-gray-300 hover:text-white px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
+          @click="closeMobileMenu"
+        >
+          Groups
+        </Link>
+        <Link
+          :href="keys.create.url()"
+          class="block text-gray-300 hover:text-white px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
+          @click="closeMobileMenu"
+        >
+          Add Key
+        </Link>
+
+        <div class="py-2">
+          <GroupSwitcher />
+        </div>
+
+        <div class="border-t border-dark-700 my-2" />
+
+        <!-- Mobile user section -->
+        <div class="flex items-center px-3 py-2">
+          <div class="relative mr-3">
+            <img
+              :src="auth?.user?.avatar"
+              :alt="auth?.user?.name"
+              class="h-10 w-10 rounded-full border-2 border-dark-600"
+            >
+            <div class="absolute -bottom-1 -right-1">
+              <span
+                :class="[
+                  'inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold shadow-md',
+                  auth?.user?.karma_colour === 'badge-danger' ? 'bg-danger text-white shadow-danger/30' :
+                  auth?.user?.karma_colour === 'badge-warning' ? 'bg-warning text-white shadow-warning/30' :
+                  auth?.user?.karma_colour === 'badge-info' ? 'bg-primary-600 text-white shadow-primary-600/30' :
+                  'bg-success text-white shadow-success/30'
+                ]"
+              >
+                {{ auth?.user?.karma }}
+              </span>
+            </div>
+          </div>
+          <span class="text-white font-medium text-sm">{{ auth?.user?.name }}</span>
+        </div>
+
+        <Link
+          v-if="auth?.user?.id"
+          :href="users.show.url(auth.user.id)"
+          class="block text-gray-300 hover:text-white px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
+          @click="closeMobileMenu"
+        >
+          View Profile
+        </Link>
+        <Link
+          v-if="auth?.user?.id"
+          :href="users.edit.url(auth.user.id)"
+          class="block text-gray-300 hover:text-white px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
+          @click="closeMobileMenu"
+        >
+          Update Profile
+        </Link>
+        <Link
+          v-if="auth?.user?.admin"
+          href="/admin"
+          class="block text-gray-300 hover:text-white px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
+          @click="closeMobileMenu"
+        >
+          Admin
+        </Link>
+        <Link
+          :href="keys.claimed.index.url()"
+          class="block text-gray-300 hover:text-white px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
+          @click="closeMobileMenu"
+        >
+          Claimed Keys
+        </Link>
+        <Link
+          :href="keys.shared.index.url()"
+          class="block text-gray-300 hover:text-white px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
+          @click="closeMobileMenu"
+        >
+          Shared Keys
+        </Link>
+
+        <div class="border-t border-dark-700 my-2" />
+
+        <form
+          :action="logoutRoute.url()"
+          method="POST"
+          @submit.prevent="logout"
+        >
+          <input
+            type="hidden"
+            name="_token"
+            :value="csrfToken"
+          >
+          <button
+            type="submit"
+            class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-danger hover:bg-danger-600 hover:text-white transition-all duration-200"
+          >
+            Logout
+          </button>
+        </form>
       </div>
     </div>
   </nav>

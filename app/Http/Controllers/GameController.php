@@ -6,9 +6,12 @@ namespace App\Http\Controllers;
 
 use App\DataTransferObjects\Games\GameData;
 use App\DataTransferObjects\Keys\KeyData;
+use App\DataTransferObjects\Platforms\PlatformData;
 use App\Models\Game;
+use App\Models\Platform;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 use Inertia\Response;
 use MarcReichel\IGDBLaravel\Models\Game as IgdbGame;
@@ -25,8 +28,9 @@ class GameController extends Controller
         $userGroupIds  = auth()->user()->groups()->pluck('groups.id');
 
         return Inertia::render('Games/Index', [
-            'title' => fn (): string => 'Games',
-            'games' => Inertia::scroll(function () use ($platformIds, $activeGroupId, $userGroupIds) {
+            'title'     => fn (): string => 'Games',
+            'platforms' => fn () => PlatformData::collect(Cache::remember('platforms', 3600, fn () => Platform::all())),
+            'games'     => Inertia::scroll(function () use ($platformIds, $activeGroupId, $userGroupIds) {
                 $games = Game::query()
                     ->whereHas('keys', function ($query) use ($platformIds, $activeGroupId, $userGroupIds): void {
                         $query->whereNull('owned_user_id');
@@ -75,7 +79,7 @@ class GameController extends Controller
                             fn ($q) => $q->where('group_id', $activeGroupId),
                             fn ($q) => $q->whereIn('group_id', $userGroupIds),
                         )
-                        ->with('platform', 'createdUser')
+                        ->with('platform', 'createdUser', 'group')
                         ->get(), DataCollection::class)
             ),
             'parentGame'  => function () use ($game): ?GameData {

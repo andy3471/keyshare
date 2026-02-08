@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\DataTransferObjects\Keys;
 
 use App\DataTransferObjects\Games\GameData;
+use App\DataTransferObjects\Groups\GroupData;
 use App\DataTransferObjects\Platforms\PlatformData;
 use App\DataTransferObjects\Users\UserData;
 use App\Models\Key;
@@ -23,6 +24,7 @@ class KeyData extends Data
         public ?UserData $claimedUser = null,
         public ?GameData $game = null,
         public ?KeyCanData $can = null,
+        public ?GroupData $group = null,
     ) {}
 
     public static function fromModel(Key $key): self
@@ -36,6 +38,7 @@ class KeyData extends Data
             claimedUser: $key->relationLoaded('claimedUser') && $key->claimedUser ? UserData::fromModel($key->claimedUser) : null,
             game: $key->relationLoaded('game')               && $key->game ? GameData::fromModel($key->game) : null,
             can: KeyCanData::fromModel($key),
+            group: $key->relationLoaded('group') && $key->group ? GroupData::fromModel($key->group) : null,
         );
     }
 }

@@ -2,7 +2,6 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { Head, Link, usePage } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import TitleHeader from '@/Components/TitleHeader.vue';
 import GameList from '@/Components/GameList.vue';
 import KeyCard from '@/Components/KeyCard.vue';
 import { GameData, KeyData } from '@/Types/generated';
@@ -276,7 +275,9 @@ onUnmounted(() => {
         v-if="childGames && childGames.data && childGames.data.length > 0"
         class="mt-8"
       >
-        <TitleHeader title="DLC / Expansions" />
+        <h2 class="text-2xl font-bold text-white mb-4">
+          DLC / Expansions
+        </h2>
         <GameList
           :games="childGames"
           scroll-prop="childGames"

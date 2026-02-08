@@ -75,6 +75,7 @@ createdUser: UserData | null
 claimedUser: UserData | null
 game: GameData | null
 can: KeyCanData | null
+group: GroupData | null
 };
 export type KeyCanData = {
 view: boolean

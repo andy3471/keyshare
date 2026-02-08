@@ -81,7 +81,7 @@ class KeyController extends Controller
         return Inertia::render('Keys/Show', [
             'keyData' => fn (): KeyData => KeyData::fromModel(
                 $key
-                    ->load(['platform', 'createdUser', 'claimedUser', 'game'])
+                    ->load(['platform', 'createdUser', 'claimedUser', 'game', 'group'])
             ),
         ]);
     }

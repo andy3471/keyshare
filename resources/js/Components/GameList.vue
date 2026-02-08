@@ -28,14 +28,17 @@ const props = withDefaults(defineProps<Props>(), {
     :data="props.scrollProp"
     preserve-url
   >
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mx-auto mt-6">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 mt-6">
       <div
         v-for="game in games.data"
         :key="game.id"
-        class="game-card group relative"
-        :class="{ 'has-keys': game.keyCount !== undefined }"
+        class="game-card group relative min-w-0"
+        :class="{ 'has-keys': game.keyCount !== undefined && game.keyCount > 0 }"
       >
-        <Link :href="gamesRoute.show.url(game.id)">
+        <Link
+          :href="gamesRoute.show.url(game.id)"
+          class="block w-full h-full relative"
+        >
           <KeyAvailabilityBadge
             v-if="game.keyCount !== undefined"
             :key-count="game.keyCount || 0"
@@ -51,7 +54,7 @@ const props = withDefaults(defineProps<Props>(), {
             class="game-image-placeholder flex items-center justify-center"
           >
             <svg
-              class="w-16 h-16 text-accent-500/50"
+              class="w-10 h-10 text-dark-500"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -60,13 +63,7 @@ const props = withDefaults(defineProps<Props>(), {
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="1.5"
-                d="M14.752 11.168l-3.197-2.132A1 1 0 0011 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"
               />
             </svg>
           </div>
@@ -107,11 +104,11 @@ const props = withDefaults(defineProps<Props>(), {
     v-else
     class="col-span-full"
   >
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
       <div
         v-for="i in 12"
         :key="i"
-        class="relative w-full max-w-[264px] bg-dark-700 rounded-lg animate-pulse"
+        class="relative w-full bg-dark-700 rounded-lg animate-pulse"
         style="aspect-ratio: 3/4;"
       />
     </div>
@@ -120,7 +117,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 <style scoped>
 .game-card {
-    @apply relative w-full max-w-[264px] bg-dark-800 rounded-lg border border-dark-700 flex justify-center items-center transition-all duration-300 overflow-hidden;
+    @apply relative w-full bg-dark-800 rounded-lg border border-dark-700 flex justify-center items-center transition-all duration-300 overflow-hidden;
     @apply hover:border-accent-500 hover:shadow-xl hover:shadow-accent-500/30 hover:-translate-y-1;
     aspect-ratio: 3 / 4;
 }
@@ -147,22 +144,11 @@ const props = withDefaults(defineProps<Props>(), {
 }
 
 .game-image-placeholder {
-    @apply min-h-full relative w-full bg-gradient-to-br from-dark-800 via-dark-700 to-dark-800 border-2 border-accent-600/30;
-    background-image:
-        radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
-        linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
-}
-
-.game-image-placeholder::before {
-    content: '';
-    @apply absolute inset-0 opacity-30;
-    background-image:
-        repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(139, 92, 246, 0.08) 10px, rgba(139, 92, 246, 0.08) 20px);
+    @apply min-h-full relative w-full bg-dark-800;
 }
 
 .game-overlay {
-    @apply absolute bottom-0 bg-gradient-to-t from-black/90 via-black/80 to-transparent text-white w-full transition-all duration-300 opacity-90 translate-y-0 text-sm font-medium text-center px-3 py-4 flex items-end justify-center rounded-b-lg;
+    @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/80 to-transparent text-white transition-all duration-300 opacity-90 translate-y-0 text-sm font-medium text-center px-3 py-4 flex items-end justify-center rounded-b-lg break-words overflow-hidden;
     min-height: 40%;
 }
 </style>

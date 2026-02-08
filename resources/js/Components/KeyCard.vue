@@ -84,6 +84,24 @@ defineProps<Props>();
         <p class="text-white font-medium truncate group-hover:text-accent-400 transition-colors">
           {{ keyData.createdUser?.name || 'Unknown User' }}
         </p>
+        <div
+          v-if="keyData.group"
+          class="flex items-center gap-1.5 mt-1"
+        >
+          <img
+            v-if="keyData.group.avatar"
+            :src="keyData.group.avatar"
+            :alt="keyData.group.name"
+            class="w-4 h-4 rounded object-cover flex-shrink-0"
+          >
+          <span
+            v-else
+            class="w-4 h-4 rounded bg-accent-600/20 flex items-center justify-center flex-shrink-0"
+          >
+            <span class="text-accent-400 text-[8px] font-bold">{{ keyData.group.name.charAt(0).toUpperCase() }}</span>
+          </span>
+          <span class="text-gray-400 text-xs truncate">{{ keyData.group.name }}</span>
+        </div>
         <p
           v-if="keyData.message"
           class="text-gray-400 text-sm truncate mt-1"

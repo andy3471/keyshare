@@ -362,7 +362,7 @@ const claimKey = () => {
                 </span>
               </div>
             </Link>
-            <h3 class="text-lg font-semibold text-white mb-2">
+            <h3 class="text-lg font-semibold text-white mb-1">
               <Link
                 :href="`/users/${keyData.createdUser?.id}`"
                 class="text-accent-400 hover:text-accent-300 transition-colors"
@@ -370,6 +370,24 @@ const claimKey = () => {
                 {{ keyData.createdUser?.name }}
               </Link>
             </h3>
+            <div
+              v-if="keyData.group"
+              class="flex items-center justify-center gap-2 mb-2"
+            >
+              <img
+                v-if="keyData.group.avatar"
+                :src="keyData.group.avatar"
+                :alt="keyData.group.name"
+                class="w-5 h-5 rounded object-cover"
+              >
+              <span
+                v-else
+                class="w-5 h-5 rounded bg-accent-600/20 flex items-center justify-center"
+              >
+                <span class="text-accent-400 text-[10px] font-bold">{{ keyData.group.name.charAt(0).toUpperCase() }}</span>
+              </span>
+              <span class="text-gray-400 text-sm">{{ keyData.group.name }}</span>
+            </div>
             <p
               v-if="keyData.createdUser?.bio"
               class="text-gray-400 text-sm"
