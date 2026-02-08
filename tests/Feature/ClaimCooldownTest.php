@@ -26,9 +26,10 @@ it('allows claiming when no cooldown is set on the group', function (): void {
     $group->addMember($this->owner, GroupRole::Owner);
     $group->addMember($this->claimer, GroupRole::Member);
 
-    // Claimer already claimed a key in this group
+    // Claimer already claimed a key in this group (different game)
+    $otherGame   = Game::create(['igdb_id' => fake()->unique()->randomNumber(5)]);
     $previousKey = Key::create([
-        'game_id'         => $this->game->id,
+        'game_id'         => $otherGame->id,
         'platform_id'     => $this->platform->id,
         'key'             => 'PREV-KEY-1111',
         'created_user_id' => $this->owner->id,
@@ -57,8 +58,9 @@ it('denies claiming when cooldown is active', function (): void {
     $group->addMember($this->owner, GroupRole::Owner);
     $group->addMember($this->claimer, GroupRole::Member);
 
+    $otherGame   = Game::create(['igdb_id' => fake()->unique()->randomNumber(5)]);
     $previousKey = Key::create([
-        'game_id'         => $this->game->id,
+        'game_id'         => $otherGame->id,
         'platform_id'     => $this->platform->id,
         'key'             => 'PREV-KEY-1111',
         'created_user_id' => $this->owner->id,
@@ -87,8 +89,9 @@ it('allows claiming after cooldown expires', function (): void {
     $group->addMember($this->owner, GroupRole::Owner);
     $group->addMember($this->claimer, GroupRole::Member);
 
+    $otherGame   = Game::create(['igdb_id' => fake()->unique()->randomNumber(5)]);
     $previousKey = Key::create([
-        'game_id'         => $this->game->id,
+        'game_id'         => $otherGame->id,
         'platform_id'     => $this->platform->id,
         'key'             => 'PREV-KEY-1111',
         'created_user_id' => $this->owner->id,
@@ -129,9 +132,10 @@ it('scopes cooldown per group', function (): void {
     $groupB->addMember($this->owner, GroupRole::Owner);
     $groupB->addMember($this->claimer, GroupRole::Member);
 
-    // Claim a key in group A
-    $keyA = Key::create([
-        'game_id'         => $this->game->id,
+    // Claim a key in group A (different game so AlreadyOwnsGame doesn't fire)
+    $gameA = Game::create(['igdb_id' => fake()->unique()->randomNumber(5)]);
+    $keyA  = Key::create([
+        'game_id'         => $gameA->id,
         'platform_id'     => $this->platform->id,
         'key'             => 'KEY-GROUP-A',
         'created_user_id' => $this->owner->id,

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\DataTransferObjects\Keys;
 
 use App\Enums\ClaimDeniedReason;
+use App\Enums\KeyFeedback;
 use App\Models\Key;
 use App\Policies\KeyPolicy;
 use Illuminate\Support\Facades\Gate;
@@ -21,6 +22,7 @@ class KeyCanData extends Data
         public bool $feedback,
         public ?ClaimDeniedReason $claimDeniedReason = null,
         public ?string $cooldownEndsAt = null,
+        public ?string $ownedKeyId = null,
     ) {}
 
     public static function fromModel(Key $key): self
@@ -30,9 +32,19 @@ class KeyCanData extends Data
         $claimDeniedReason = $user ? $policy->claimDeniedReason($user, $key) : null;
 
         $cooldownEndsAt = null;
+        $ownedKeyId     = null;
 
         if ($claimDeniedReason === ClaimDeniedReason::CooldownActive && $user && $key->group) {
             $cooldownEndsAt = $policy->cooldownEndsAt($user, $key->group)?->toIso8601String();
+        }
+
+        if ($claimDeniedReason === ClaimDeniedReason::AlreadyOwnsGame && $user) {
+            $ownedKeyId = Key::query()
+                ->where('game_id', $key->game_id)
+                ->where('platform_id', $key->platform_id)
+                ->where('owned_user_id', $user->id)
+                ->where(fn ($q) => $q->whereNull('feedback')->orWhere('feedback', '!=', KeyFeedback::DidNotWork))
+                ->value('id');
         }
 
         return new self(
@@ -42,6 +54,7 @@ class KeyCanData extends Data
             feedback: Gate::allows('feedback', $key),
             claimDeniedReason: $claimDeniedReason,
             cooldownEndsAt: $cooldownEndsAt,
+            ownedKeyId: $ownedKeyId,
         );
     }
 }

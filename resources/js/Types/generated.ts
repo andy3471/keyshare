@@ -49,7 +49,7 @@ aggregated_rating_count?: number
 description: string | null
 image: string | null
 keyCount?: number
-platforms?: PlatformData[]
+platforms?: PlatformData[] | undefined
 };
 export type GameShowData = {
 game: GameData
@@ -86,6 +86,7 @@ delete: boolean
 feedback: boolean
 claimDeniedReason: ClaimDeniedReason | null
 cooldownEndsAt: string | null
+ownedKeyId: string | null
 };
 export type PlatformData = {
 id: string
@@ -140,4 +141,4 @@ export type GroupRole = "owner" | "admin" | "member";
 export type KeyFeedback = "worked" | "did_not_work";
 export type LinkedAccountProvider = "steam" | "twitch" | "discord" | "xbox";
 export type OnboardingStep = "set_credentials" | "join_group" | "complete";
-export type ClaimDeniedReason = "already_claimed" | "own_key" | "not_in_group" | "karma_too_low" | "cooldown_active";
+export type ClaimDeniedReason = "already_claimed" | "own_key" | "not_in_group" | "karma_too_low" | "cooldown_active" | "already_owns_game";

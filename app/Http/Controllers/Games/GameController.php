@@ -90,7 +90,7 @@ class GameController extends Controller
             'keys'        => fn (): DataCollection => KeyData::collect(
                 KeyData::collect(
                     $game->keys()
-                        ->select('id', 'platform_id', 'created_user_id', 'owned_user_id', 'group_id', 'key', 'message')
+                        ->select('id', 'game_id', 'platform_id', 'created_user_id', 'owned_user_id', 'group_id', 'key', 'message')
                         ->whereNull('owned_user_id')
                         ->when(
                             $activeGroupId,

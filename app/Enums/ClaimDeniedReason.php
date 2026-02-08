@@ -14,4 +14,5 @@ enum ClaimDeniedReason: string
     case NotInGroup      = 'not_in_group';
     case KarmaTooLow     = 'karma_too_low';
     case CooldownActive  = 'cooldown_active';
+    case AlreadyOwnsGame = 'already_owns_game';
 }

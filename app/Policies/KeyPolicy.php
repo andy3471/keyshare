@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Policies;
 
 use App\Enums\ClaimDeniedReason;
+use App\Enums\KeyFeedback;
 use App\Models\Key;
 use App\Models\User;
 use Carbon\CarbonInterface;
@@ -37,6 +38,19 @@ class KeyPolicy
 
         if ($key->created_user_id === $currentUser->id) {
             return ClaimDeniedReason::OwnKey;
+        }
+
+        if ($key->game_id !== null && $key->platform_id !== null) {
+            $alreadyOwns = Key::query()
+                ->where('game_id', $key->game_id)
+                ->where('platform_id', $key->platform_id)
+                ->where('owned_user_id', $currentUser->id)
+                ->where(fn ($query) => $query->whereNull('feedback')->orWhere('feedback', '!=', KeyFeedback::DidNotWork))
+                ->exists();
+
+            if ($alreadyOwns) {
+                return ClaimDeniedReason::AlreadyOwnsGame;
+            }
         }
 
         if (! $key->group_id || ! $currentUser->isMemberOf($key->group)) {

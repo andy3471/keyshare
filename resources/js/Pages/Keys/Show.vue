@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import { Head, useForm, usePage, router } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage, router } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import GameBanner from '@/Components/shared/GameBanner.vue';
 import KeyFeedbackSection from '@/Components/keys/KeyFeedbackSection.vue';
@@ -142,7 +142,7 @@ const deleteKey = () => {
               </p>
             </div>
 
-            <div v-else-if="keyData.can?.claimDeniedReason === 'own_key' || keyData.can?.claimDeniedReason === 'karma_too_low' || keyData.can?.claimDeniedReason === 'cooldown_active'">
+            <div v-else-if="keyData.can?.claimDeniedReason === 'own_key' || keyData.can?.claimDeniedReason === 'karma_too_low' || keyData.can?.claimDeniedReason === 'cooldown_active' || keyData.can?.claimDeniedReason === 'already_owns_game'">
               <div>
                 <label class="block text-sm font-medium text-gray-500 mb-2">Key Code</label>
                 <input
@@ -210,6 +210,30 @@ const deleteKey = () => {
                     <p class="text-gray-400 text-sm mt-1">
                       You can claim another key in <span class="text-white font-semibold tabular-nums">{{ cooldownFormatted }}</span>
                     </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                v-else-if="keyData.can?.claimDeniedReason === 'already_owns_game'"
+                class="bg-primary-600/10 border border-primary-600/30 rounded-lg p-4 mt-4"
+              >
+                <div class="flex items-start gap-3">
+                  <InformationCircleIcon class="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p class="text-primary-300 font-medium text-sm">
+                      You already own this game
+                    </p>
+                    <p class="text-gray-400 text-sm mt-1">
+                      You've already claimed a key for this game. If your key didn't work, mark it as such and you'll be able to claim another.
+                    </p>
+                    <Link
+                      v-if="keyData.can?.ownedKeyId"
+                      :href="showRoute.url(keyData.can.ownedKeyId)"
+                      class="inline-flex items-center gap-1 text-accent-400 hover:text-accent-300 text-sm font-medium mt-2 transition-colors"
+                    >
+                      View your claimed key &rarr;
+                    </Link>
                   </div>
                 </div>
               </div>

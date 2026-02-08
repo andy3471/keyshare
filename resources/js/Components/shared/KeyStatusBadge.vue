@@ -20,6 +20,7 @@ const label = computed(() => {
     case 'karma_too_low': return 'Karma too low';
     case 'own_key': return 'Your key';
     case 'already_claimed': return 'Claimed';
+    case 'already_owns_game': return 'Already owned';
     default: return 'Unavailable';
   }
 });
