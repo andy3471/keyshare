@@ -69,6 +69,7 @@ namespace App\Models{
  * @method static \Database\Factories\GroupFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group public()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereDescription($value)
@@ -78,6 +79,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereIsPublic($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereMinKarma($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereNotMember(\App\Models\User $user)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereOwnerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereUpdatedAt($value)
@@ -156,20 +158,21 @@ namespace App\Models{
 /**
  * @property string $id
  * @property string $user_id
- * @property string $linked_account_provider_id
- * @property string $account_id
+ * @property \App\Enums\LinkedAccountProvider $provider
+ * @property string $provider_user_id
+ * @property array<array-key, mixed>|null $data
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property string|null $profileurl
  * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount forProvider(\App\Enums\LinkedAccountProvider $provider)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount whereAccountId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount whereData($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount whereLinkedAccountProviderId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount whereProfileurl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount whereProvider($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount whereProviderUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LinkedAccount whereUserId($value)
  */

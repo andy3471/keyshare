@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\LinkedAccountProvider;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Inertia\Inertia;
@@ -23,8 +24,7 @@ class LoginController extends Controller
     public function showLoginForm(): Response
     {
         return Inertia::render('Auth/Login', [
-            'steamLoginEnabled' => config('sparekey.steamlogin', false),
-            'canResetPassword'  => true,
+            'providers' => LinkedAccountProvider::enabledForFrontend(),
         ]);
     }
 }

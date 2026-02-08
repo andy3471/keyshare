@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Auth\RegisterController::showRegistrationForm
-* @see app/Http/Controllers/Auth/RegisterController.php:26
+* @see app/Http/Controllers/Auth/RegisterController.php:27
 * @route '/register'
 */
 export const showRegistrationForm = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ showRegistrationForm.definition = {
 
 /**
 * @see \App\Http\Controllers\Auth\RegisterController::showRegistrationForm
-* @see app/Http/Controllers/Auth/RegisterController.php:26
+* @see app/Http/Controllers/Auth/RegisterController.php:27
 * @route '/register'
 */
 showRegistrationForm.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ showRegistrationForm.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Auth\RegisterController::showRegistrationForm
-* @see app/Http/Controllers/Auth/RegisterController.php:26
+* @see app/Http/Controllers/Auth/RegisterController.php:27
 * @route '/register'
 */
 showRegistrationForm.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ showRegistrationForm.get = (options?: RouteQueryOptions): RouteDefinition<'get'>
 
 /**
 * @see \App\Http\Controllers\Auth\RegisterController::showRegistrationForm
-* @see app/Http/Controllers/Auth/RegisterController.php:26
+* @see app/Http/Controllers/Auth/RegisterController.php:27
 * @route '/register'
 */
 showRegistrationForm.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

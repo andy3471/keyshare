@@ -37,9 +37,8 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->alias([
-            'auth'       => Authenticate::class,
-            'bindings'   => SubstituteBindings::class,
-            'steamlogin' => App\Http\Middleware\SteamLoginEnabled::class,
+            'auth'     => Authenticate::class,
+            'bindings' => SubstituteBindings::class,
         ]);
 
         $middleware->priority([

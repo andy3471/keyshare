@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Auth\HandleSteamCallbackController;
-use App\Http\Controllers\Auth\RedirectToSteamController;
+use App\Http\Controllers\Auth\HandleProviderCallbackController;
+use App\Http\Controllers\Auth\RedirectToProviderController;
+use App\Http\Controllers\Auth\UnlinkAccountController;
 use App\Http\Controllers\Games\GameController;
 use App\Http\Controllers\Groups\AcceptGroupInviteController;
 use App\Http\Controllers\Groups\GroupController;
@@ -26,15 +27,16 @@ Route::get('/', WelcomeController::class)->name('welcome');
 
 Auth::routes();
 
-Route::middleware(['steamlogin'])->group(function (): void {
-    Route::get('login/steam', RedirectToSteamController::class)
-        ->name('login.linked-account.steam');
+Route::get('auth/{provider}/redirect', RedirectToProviderController::class)
+    ->name('auth.provider.redirect');
 
-    Route::get('login/steam/callback', HandleSteamCallbackController::class)
-        ->name('login.linked-account.steam.callback');
-});
+Route::get('auth/{provider}/callback', HandleProviderCallbackController::class)
+    ->name('auth.provider.callback');
 
 Route::middleware(['auth'])->group(function (): void {
+    Route::delete('linked-accounts/{provider}', UnlinkAccountController::class)
+        ->name('linked-accounts.destroy');
+
     Route::get('games', [GameController::class, 'index'])->name('games.index');
     Route::get('games/{igdb_id}', [GameController::class, 'show'])->name('games.show');
 

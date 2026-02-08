@@ -93,7 +93,7 @@ welcome.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\Auth\LoginController::login
-* @see app/Http/Controllers/Auth/LoginController.php:23
+* @see app/Http/Controllers/Auth/LoginController.php:24
 * @route '/login'
 */
 export const login = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -108,7 +108,7 @@ login.definition = {
 
 /**
 * @see \App\Http\Controllers\Auth\LoginController::login
-* @see app/Http/Controllers/Auth/LoginController.php:23
+* @see app/Http/Controllers/Auth/LoginController.php:24
 * @route '/login'
 */
 login.url = (options?: RouteQueryOptions) => {
@@ -117,7 +117,7 @@ login.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Auth\LoginController::login
-* @see app/Http/Controllers/Auth/LoginController.php:23
+* @see app/Http/Controllers/Auth/LoginController.php:24
 * @route '/login'
 */
 login.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -127,7 +127,7 @@ login.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Auth\LoginController::login
-* @see app/Http/Controllers/Auth/LoginController.php:23
+* @see app/Http/Controllers/Auth/LoginController.php:24
 * @route '/login'
 */
 login.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -171,7 +171,7 @@ logout.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
 /**
 * @see \App\Http\Controllers\Auth\RegisterController::register
-* @see app/Http/Controllers/Auth/RegisterController.php:26
+* @see app/Http/Controllers/Auth/RegisterController.php:27
 * @route '/register'
 */
 export const register = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -186,7 +186,7 @@ register.definition = {
 
 /**
 * @see \App\Http\Controllers\Auth\RegisterController::register
-* @see app/Http/Controllers/Auth/RegisterController.php:26
+* @see app/Http/Controllers/Auth/RegisterController.php:27
 * @route '/register'
 */
 register.url = (options?: RouteQueryOptions) => {
@@ -195,7 +195,7 @@ register.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Auth\RegisterController::register
-* @see app/Http/Controllers/Auth/RegisterController.php:26
+* @see app/Http/Controllers/Auth/RegisterController.php:27
 * @route '/register'
 */
 register.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -205,7 +205,7 @@ register.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\Auth\RegisterController::register
-* @see app/Http/Controllers/Auth/RegisterController.php:26
+* @see app/Http/Controllers/Auth/RegisterController.php:27
 * @route '/register'
 */
 register.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

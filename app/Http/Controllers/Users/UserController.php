@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Users;
 
 use App\DataTransferObjects\Groups\GroupData;
 use App\DataTransferObjects\Users\UserData;
+use App\Enums\LinkedAccountProvider;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
@@ -19,10 +20,28 @@ class UserController extends Controller
     {
         $this->authorize('edit', $user);
 
-        $user->loadMissing('media');
+        $user->loadMissing(['media', 'linkedAccounts']);
+
+        $linkedProviders = $user->linkedAccounts->pluck('provider')->toArray();
+
+        $providers = array_map(function (LinkedAccountProvider $provider) use ($user, $linkedProviders): array {
+            $linked = in_array($provider, $linkedProviders, true);
+
+            return [
+                'name'           => $provider->value,
+                'label'          => $provider->label(),
+                'color'          => $provider->color(),
+                'url'            => $provider->redirectUrl(),
+                'linked'         => $linked,
+                'providerUserId' => $linked
+                    ? $user->linkedAccounts->firstWhere('provider', $provider)?->provider_user_id
+                    : null,
+            ];
+        }, LinkedAccountProvider::enabledProviders());
 
         return Inertia::render('Users/Edit', [
-            'user' => UserData::fromModel($user),
+            'user'      => UserData::fromModel($user),
+            'providers' => array_values($providers),
         ]);
     }
 

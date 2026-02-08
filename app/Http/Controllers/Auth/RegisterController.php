@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\LinkedAccountProvider;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -25,7 +26,9 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(): Response
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Auth/Register', [
+            'providers' => LinkedAccountProvider::enabledForFrontend(),
+        ]);
     }
 
     protected function validator(array $data)

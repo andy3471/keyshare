@@ -27,8 +27,26 @@ return [
     'steam' => [
         'client_id'     => env('STEAM_API_KEY'),
         'client_secret' => env('STEAM_API_KEY'),
-        'redirect'      => env('APP_URL').'/login/steam/callback',
+        'redirect'      => env('APP_URL').'/auth/steam/callback',
         'api_key'       => env('STEAM_API_KEY'),
+    ],
+
+    'twitch' => [
+        'client_id'     => env('TWITCH_CLIENT_ID'),
+        'client_secret' => env('TWITCH_CLIENT_SECRET'),
+        'redirect'      => env('APP_URL').'/auth/twitch/callback',
+    ],
+
+    'discord' => [
+        'client_id'     => env('DISCORD_CLIENT_ID'),
+        'client_secret' => env('DISCORD_CLIENT_SECRET'),
+        'redirect'      => env('APP_URL').'/auth/discord/callback',
+    ],
+
+    'microsoft' => [
+        'client_id'     => env('MICROSOFT_CLIENT_ID'),
+        'client_secret' => env('MICROSOFT_CLIENT_SECRET'),
+        'redirect'      => env('APP_URL').'/auth/xbox/callback',
     ],
 
 ];

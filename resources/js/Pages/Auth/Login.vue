@@ -3,7 +3,15 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 import AuthLayout from '@/Layouts/AuthLayout.vue';
 import FormInput from '@/Components/ui/FormInput.vue';
 import LoadingSpinner from '@/Components/ui/LoadingSpinner.vue';
+import SocialLoginButtons from '@/Components/auth/SocialLoginButtons.vue';
+import type { SocialProvider } from '@/Components/auth/SocialLoginButtons.vue';
 import { login as loginRoute, register } from '@/routes';
+
+interface Props {
+  providers: SocialProvider[];
+}
+
+defineProps<Props>();
 
 const form = useForm({
   email: '',
@@ -28,6 +36,23 @@ const submit = () => {
     <p class="text-gray-400 text-sm mb-6">
       Sign in to your account
     </p>
+
+    <SocialLoginButtons
+      v-if="providers.length"
+      :providers="providers"
+    />
+
+    <div
+      v-if="providers.length"
+      class="relative my-6"
+    >
+      <div class="absolute inset-0 flex items-center">
+        <div class="w-full border-t border-dark-600" />
+      </div>
+      <div class="relative flex justify-center text-sm">
+        <span class="bg-dark-800 px-3 text-gray-500">or continue with email</span>
+      </div>
+    </div>
 
     <form
       class="space-y-5"

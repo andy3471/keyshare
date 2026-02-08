@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import AppFooter from '@/Components/layout/AppFooter.vue';
+import FlashMessages from '@/Components/layout/FlashMessages.vue';
 import { welcome } from '@/routes';
 </script>
 
@@ -25,6 +26,7 @@ import { welcome } from '@/routes';
       </div>
     </div>
 
+    <FlashMessages />
     <AppFooter />
   </div>
 </template>

@@ -134,3 +134,4 @@ invite: boolean
 export type GroupRole = "owner" | "admin" | "member";
 export type KeyFeedback = "worked" | "did_not_work";
 export type ClaimDeniedReason = "already_claimed" | "own_key" | "not_in_group" | "karma_too_low";
+export type LinkedAccountProvider = "steam" | "twitch" | "discord" | "xbox";
