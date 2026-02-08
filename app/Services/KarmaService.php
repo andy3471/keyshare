@@ -77,19 +77,15 @@ class KarmaService
 
     private function calculateKarma(User $user): int
     {
-        $earned = Key::query()
+        return Key::query()
             ->where('created_user_id', $user->id)
             ->whereNotNull('owned_user_id')
             ->where(function ($query): void {
                 $query->whereNull('feedback')
                     ->orWhere('feedback', '!=', KeyFeedback::DidNotWork);
             })
-            ->count();
-
-        $spent = Key::query()
+            ->count() - Key::query()
             ->where('owned_user_id', $user->id)
             ->count();
-
-        return $earned - $spent;
     }
 }
