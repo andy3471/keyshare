@@ -71,7 +71,7 @@ enum LinkedAccountProvider: string
     public function isEnabled(): bool
     {
         return match ($this) {
-            self::Steam   => filled(config('services.steam.client_id')),
+            self::Steam   => filled(config('services.steam.client_secret')),
             self::Twitch  => filled(config('services.twitch.client_id')),
             self::Discord => filled(config('services.discord.client_id')),
             self::Xbox    => filled(config('services.microsoft.client_id')),

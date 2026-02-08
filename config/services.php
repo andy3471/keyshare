@@ -25,10 +25,12 @@ return [
     ],
 
     'steam' => [
-        'client_id'     => env('STEAM_API_KEY'),
-        'client_secret' => env('STEAM_API_KEY'),
+        'client_id'     => null,
+        'client_secret' => env('STEAM_CLIENT_SECRET'),
         'redirect'      => env('APP_URL').'/auth/steam/callback',
-        'api_key'       => env('STEAM_API_KEY'),
+        'allowed_hosts' => [
+            env('APP_URL'),
+        ]
     ],
 
     'twitch' => [
