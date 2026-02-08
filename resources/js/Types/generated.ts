@@ -70,6 +70,7 @@ export type KeyData = {
 id: string
 key: string | null
 message: string | null
+feedback: KeyFeedback | null
 platform: PlatformData | null
 createdUser: UserData | null
 claimedUser: UserData | null
@@ -80,6 +81,8 @@ group: GroupData | null
 export type KeyCanData = {
 view: boolean
 claim: boolean
+feedback: boolean
+claimDeniedReason: ClaimDeniedReason | null
 };
 export type PlatformData = {
 id: string
@@ -111,6 +114,8 @@ member_count: number | null
 role: string | null
 avatar: string | null
 discord_webhook_url: string | null
+min_karma: number | null
+can: GroupCanData | null
 };
 export type GroupMemberData = {
 id: string
@@ -119,3 +124,13 @@ avatar: string | null
 role: string
 joined_at: string | null
 };
+export type GroupCanData = {
+update: boolean
+delete: boolean
+leave: boolean
+manageMembers: boolean
+invite: boolean
+};
+export type GroupRole = "owner" | "admin" | "member";
+export type KeyFeedback = "worked" | "did_not_work";
+export type ClaimDeniedReason = "already_claimed" | "own_key" | "not_in_group" | "karma_too_low";

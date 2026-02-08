@@ -8,18 +8,17 @@ use App\DataTransferObjects\Groups\GroupData;
 use App\DataTransferObjects\Keys\KeyData;
 use App\DataTransferObjects\Platforms\PlatformData;
 use App\DataTransferObjects\Search\AutocompleteGameData;
+use App\Enums\KeyFeedback;
+use App\Http\Requests\KeyFeedbackRequest;
 use App\Http\Requests\StoreGameKeyRequest;
 use App\Models\Game;
 use App\Models\Group;
 use App\Models\Key;
 use App\Models\Platform;
-use App\Notifications\KeyAdded;
-use App\Notifications\KeyClaimed;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Redis;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -37,7 +36,7 @@ class KeyController extends Controller
                 return Platform::all();
             })),
             'game'          => fn (): ?AutocompleteGameData => $request->filled('game_id') ? AutocompleteGameData::fromIgdbId((int) $request->string('game_id')->toString()) : null,
-            'groups'        => fn () => $user->groups()->withCount('members')->with('media')->get()->map(fn (Group $group) => GroupData::fromModel($group)),
+            'groups'        => fn () => $user->groups()->withCount('members')->with('media')->get()->map(fn (Group $group): GroupData => GroupData::fromModel($group)),
             'activeGroupId' => fn () => $activeGroupId,
         ]);
     }
@@ -53,7 +52,7 @@ class KeyController extends Controller
 
         $game = Game::fromIgdbId((int) $request->igdb_id);
 
-        $key = auth()
+        auth()
             ->user()
             ->sharedKeys()
             ->create(array_merge(
@@ -63,12 +62,6 @@ class KeyController extends Controller
                     'group_id' => $group->id,
                 ]
             ));
-
-        if ($group->hasDiscordWebhook()) {
-            $group->notify(new KeyAdded($key, auth()->user(), $game));
-        }
-
-        Redis::zincrby('karma', 1, auth()->id());
 
         return back()->with('message', __('keys.added'));
     }
@@ -91,13 +84,16 @@ class KeyController extends Controller
 
         $key->claim(auth()->user());
 
-        $group = $key->group;
-
-        if ($group?->hasDiscordWebhook()) {
-            $group->notify(new KeyClaimed($key, auth()->user(), $key->game));
-        }
-
         return back()->with('message', __('keys.claimsuccess'));
+    }
+
+    public function feedback(KeyFeedbackRequest $request, Key $key): RedirectResponse
+    {
+        $this->authorize('feedback', $key);
+
+        $key->update(['feedback' => KeyFeedback::from($request->validated('feedback'))]);
+
+        return back()->with('message', __('keys.feedback_submitted'));
     }
 
     public function claimed(Request $request): Response
@@ -105,7 +101,7 @@ class KeyController extends Controller
         auth()->user()->loadMissing(['media', 'groups']);
 
         return Inertia::render('Keys/Claimed', [
-            'keys' => Inertia::scroll(fn () => KeyData::collect(
+            'keys' => Inertia::scroll(fn (): \Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection|\Spatie\LaravelData\CursorPaginatedDataCollection|\Illuminate\Support\Enumerable|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Contracts\Pagination\CursorPaginator|array => KeyData::collect(
                 auth()
                     ->user()
                     ->claimedKeys()
@@ -121,7 +117,7 @@ class KeyController extends Controller
         auth()->user()->loadMissing(['media', 'groups']);
 
         return Inertia::render('Keys/Shared', [
-            'keys' => Inertia::scroll(fn () => KeyData::collect(
+            'keys' => Inertia::scroll(fn (): \Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection|\Spatie\LaravelData\CursorPaginatedDataCollection|\Illuminate\Support\Enumerable|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Contracts\Pagination\CursorPaginator|array => KeyData::collect(
                 auth()
                     ->user()
                     ->sharedKeys()

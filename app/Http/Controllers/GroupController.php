@@ -20,23 +20,30 @@ class GroupController extends Controller
 {
     public function index(Request $request): Response
     {
-        $user = auth()->user();
+        $user   = auth()->user();
+        $search = $request->string('search')->toString();
 
         return Inertia::render('Groups/Index', [
             'myGroups' => fn () => $user->groups()
                 ->withCount('members')
                 ->with('media')
                 ->get()
-                ->map(fn (Group $group) => GroupData::fromModel($group, $group->pivot->role)),
-            'publicGroups' => fn () => Group::query()
-                ->where('is_public', true)
-                ->whereDoesntHave('members', fn ($q) => $q->where('user_id', $user->id))
-                ->withCount('members')
-                ->with('media')
-                ->latest()
-                ->limit(12)
-                ->get()
-                ->map(fn (Group $group) => GroupData::fromModel($group)),
+                ->map(fn (Group $group): GroupData => GroupData::fromModel($group, $group->pivot->role)),
+            'publicGroups' => Inertia::scroll(function () use ($user, $search): array|\Illuminate\Contracts\Pagination\CursorPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Support\Enumerable|\Spatie\LaravelData\CursorPaginatedDataCollection|\Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection {
+                $query = Group::query()
+                    ->public()
+                    ->whereNotMember($user)
+                    ->withCount('members')
+                    ->with('media')
+                    ->latest();
+
+                if ($search !== '') {
+                    $query->where('name', 'like', "%{$search}%");
+                }
+
+                return GroupData::collect($query->paginate(12));
+            }),
+            'search' => $search,
         ]);
     }
 
@@ -67,7 +74,7 @@ class GroupController extends Controller
 
         session(['active_group_id' => $group->id]);
 
-        return redirect()->route('groups.show', $group)
+        return to_route('groups.show', $group)
             ->with('message', 'Group created successfully.');
     }
 
@@ -83,11 +90,11 @@ class GroupController extends Controller
         $role = $group->memberRole($user);
 
         return Inertia::render('Groups/Show', [
-            'group'   => fn () => GroupData::fromModel($group, $role?->value),
-            'members' => fn () => GroupMemberData::collect(
-                $group->members()->with('media')->get()->map(fn (User $member) => GroupMemberData::fromPivot($member))
+            'group'   => fn (): GroupData => GroupData::fromModel($group, $role?->value),
+            'members' => fn (): array|\Illuminate\Contracts\Pagination\CursorPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Support\Enumerable|\Spatie\LaravelData\CursorPaginatedDataCollection|\Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection => GroupMemberData::collect(
+                $group->members()->with('media')->get()->map(fn (User $member): GroupMemberData => GroupMemberData::fromPivot($member))
             ),
-            'isMember' => fn () => $group->hasMember($user),
+            'isMember' => fn (): bool => $group->hasMember($user),
         ]);
     }
 
@@ -99,7 +106,7 @@ class GroupController extends Controller
         $this->authorize('update', $group);
 
         return Inertia::render('Groups/Edit', [
-            'group' => fn () => GroupData::fromModel($group, $group->memberRole(auth()->user())?->value),
+            'group' => fn (): GroupData => GroupData::fromModel($group, $group->memberRole(auth()->user())?->value),
         ]);
     }
 
@@ -114,7 +121,7 @@ class GroupController extends Controller
                 ->toMediaCollection('avatar');
         }
 
-        return redirect()->route('groups.show', $group)
+        return to_route('groups.show', $group)
             ->with('message', 'Group updated successfully.');
     }
 
@@ -128,7 +135,7 @@ class GroupController extends Controller
 
         $group->delete();
 
-        return redirect()->route('groups.index')
+        return to_route('groups.index')
             ->with('message', 'Group deleted successfully.');
     }
 
@@ -148,7 +155,7 @@ class GroupController extends Controller
 
         session(['active_group_id' => $group->id]);
 
-        return redirect()->route('groups.show', $group)
+        return to_route('groups.show', $group)
             ->with('message', 'You have joined the group.');
     }
 
@@ -160,7 +167,7 @@ class GroupController extends Controller
         if ($group->hasMember($user)) {
             session(['active_group_id' => $group->id]);
 
-            return redirect()->route('groups.show', $group)
+            return to_route('groups.show', $group)
                 ->with('message', 'You are already a member of this group.');
         }
 
@@ -168,7 +175,7 @@ class GroupController extends Controller
 
         session(['active_group_id' => $group->id]);
 
-        return redirect()->route('groups.show', $group)
+        return to_route('groups.show', $group)
             ->with('message', 'You have joined the group.');
     }
 
@@ -182,7 +189,7 @@ class GroupController extends Controller
             session()->forget('active_group_id');
         }
 
-        return redirect()->route('groups.index')
+        return to_route('groups.index')
             ->with('message', 'You have left the group.');
     }
 

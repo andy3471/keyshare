@@ -41,9 +41,9 @@ class HandleInertiaRequests extends Middleware
                 'message' => $request->session()->get('message'),
                 'error'   => $request->session()->get('error'),
             ],
-            'activeGroup'  => fn () => $this->getActiveGroup($request),
+            'activeGroup'  => fn (): ?\App\DataTransferObjects\Groups\GroupData => $this->getActiveGroup($request),
             'userGroups'   => fn () => $user
-                ? $user->groups()->withCount('members')->with('media')->get()->map(fn (Group $group) => GroupData::fromModel($group, $group->pivot->role))
+                ? $user->groups()->withCount('members')->with('media')->get()->map(fn (Group $group): GroupData => GroupData::fromModel($group, $group->pivot->role))
                 : [],
         ]);
     }

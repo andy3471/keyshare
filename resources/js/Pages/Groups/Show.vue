@@ -2,9 +2,9 @@
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import ConfirmModal from '@/Components/ConfirmModal.vue';
 import groups from '@/routes/groups';
 import { GroupData, GroupMemberData } from '@/Types/generated';
-import type { AuthUser } from '@/types/global';
 
 interface Props {
   group: GroupData;
@@ -15,11 +15,8 @@ interface Props {
 const props = defineProps<Props>();
 
 const page = usePage();
-const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
 const activeGroup = page.props.activeGroup as GroupData | null;
 
-const isOwner = computed(() => props.group.role === 'owner');
-const isAdmin = computed(() => props.group.role === 'admin' || isOwner.value);
 const isActive = computed(() => activeGroup?.id === props.group.id);
 
 const showInviteCode = ref(false);
@@ -38,26 +35,37 @@ const joinGroup = () => {
   router.post(groups.join.url(props.group.id));
 };
 
+// Confirm modal state
+const showLeaveModal = ref(false);
+const showRemoveMemberModal = ref(false);
+const showRegenerateModal = ref(false);
+const memberToRemove = ref<string | null>(null);
+
 const leaveGroup = () => {
-  if (confirm('Are you sure you want to leave this group?')) {
-    router.post(groups.leave.url(props.group.id));
-  }
+  showLeaveModal.value = false;
+  router.post(groups.leave.url(props.group.id));
 };
 
 const switchToGroup = () => {
   router.post(groups.switch.url(), { group_id: props.group.id });
 };
 
-const removeMember = (memberId: string) => {
-  if (confirm('Are you sure you want to remove this member?')) {
-    router.delete(groups.members.remove.url({ group: props.group.id, user: memberId }));
+const confirmRemoveMember = (memberId: string) => {
+  memberToRemove.value = memberId;
+  showRemoveMemberModal.value = true;
+};
+
+const removeMember = () => {
+  if (memberToRemove.value) {
+    showRemoveMemberModal.value = false;
+    router.delete(groups.members.remove.url({ group: props.group.id, user: memberToRemove.value }));
+    memberToRemove.value = null;
   }
 };
 
 const regenerateCode = () => {
-  if (confirm('This will invalidate the existing invite link. Continue?')) {
-    router.post(groups.regenerateInviteCode.url(props.group.id));
-  }
+  showRegenerateModal.value = false;
+  router.post(groups.regenerateInviteCode.url(props.group.id));
 };
 </script>
 
@@ -130,7 +138,7 @@ const regenerateCode = () => {
               </span>
 
               <Link
-                v-if="isAdmin"
+                v-if="group.can?.update"
                 :href="groups.edit.url(group.id)"
                 class="px-4 py-2 bg-dark-700 hover:bg-dark-600 text-gray-300 text-sm font-medium rounded-lg transition-colors"
               >
@@ -138,9 +146,9 @@ const regenerateCode = () => {
               </Link>
 
               <button
-                v-if="!isOwner"
+                v-if="group.can?.leave"
                 class="px-4 py-2 bg-dark-700 hover:bg-danger-600 text-gray-300 hover:text-white text-sm font-medium rounded-lg transition-colors"
-                @click="leaveGroup"
+                @click="showLeaveModal = true"
               >
                 Leave
               </button>
@@ -158,9 +166,9 @@ const regenerateCode = () => {
         </div>
       </div>
 
-      <!-- Invite Link Section (admin only) -->
+      <!-- Invite Link Section -->
       <div
-        v-if="isAdmin"
+        v-if="group.can?.invite"
         class="bg-dark-800 rounded-xl p-6 border border-dark-700"
       >
         <div class="flex items-center justify-between mb-4">
@@ -190,7 +198,7 @@ const regenerateCode = () => {
             </button>
             <button
               class="px-4 py-2.5 bg-dark-700 hover:bg-dark-600 text-gray-300 text-sm font-medium rounded-lg transition-colors whitespace-nowrap"
-              @click="regenerateCode"
+              @click="showRegenerateModal = true"
             >
               Regenerate
             </button>
@@ -235,9 +243,9 @@ const regenerateCode = () => {
               </div>
             </div>
             <button
-              v-if="isAdmin && member.role !== 'owner' && member.id !== auth?.user?.id"
+              v-if="group.can?.manageMembers && member.role !== 'owner'"
               class="text-xs text-gray-500 hover:text-danger-400 transition-colors"
-              @click="removeMember(member.id)"
+              @click="confirmRemoveMember(member.id)"
             >
               Remove
             </button>
@@ -245,5 +253,38 @@ const regenerateCode = () => {
         </div>
       </div>
     </div>
+
+    <!-- Leave Group Modal -->
+    <ConfirmModal
+      :open="showLeaveModal"
+      title="Leave group"
+      message="Are you sure you want to leave this group? You'll lose access to all keys shared within it."
+      confirm-label="Leave group"
+      variant="danger"
+      @confirm="leaveGroup"
+      @cancel="showLeaveModal = false"
+    />
+
+    <!-- Remove Member Modal -->
+    <ConfirmModal
+      :open="showRemoveMemberModal"
+      title="Remove member"
+      message="Are you sure you want to remove this member from the group?"
+      confirm-label="Remove"
+      variant="danger"
+      @confirm="removeMember"
+      @cancel="showRemoveMemberModal = false"
+    />
+
+    <!-- Regenerate Invite Code Modal -->
+    <ConfirmModal
+      :open="showRegenerateModal"
+      title="Regenerate invite link"
+      message="This will invalidate the existing invite link. Anyone with the old link will no longer be able to join."
+      confirm-label="Regenerate"
+      variant="warning"
+      @confirm="regenerateCode"
+      @cancel="showRegenerateModal = false"
+    />
   </AppLayout>
 </template>

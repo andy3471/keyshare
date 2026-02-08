@@ -14,7 +14,7 @@ class WelcomeController extends Controller
     public function __invoke(): Response|RedirectResponse
     {
         if (Auth::check()) {
-            return redirect()->route('games.index');
+            return to_route('games.index');
         }
 
         return Inertia::render('Welcome');

@@ -48,8 +48,8 @@ class UserController extends Controller
             ->withCount('members')
             ->with('media')
             ->get()
-            ->filter(fn ($group) => $group->is_public || $group->hasMember($viewer))
-            ->map(fn ($group) => GroupData::fromModel($group))
+            ->filter(fn ($group): bool => $group->is_public || $group->hasMember($viewer))
+            ->map(fn (\App\Models\Group $group): GroupData => GroupData::fromModel($group))
             ->values();
 
         return Inertia::render('Users/Show', [

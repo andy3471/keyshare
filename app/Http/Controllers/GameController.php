@@ -31,7 +31,7 @@ class GameController extends Controller
 
         return Inertia::render('Games/Index', [
             'title'     => fn (): string => 'Games',
-            'platforms' => fn () => PlatformData::collect(Cache::remember('platforms', 3600, fn () => Platform::all())),
+            'platforms' => fn (): DataCollection|\Spatie\LaravelData\PaginatedDataCollection|\Spatie\LaravelData\CursorPaginatedDataCollection|\Illuminate\Support\Enumerable|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Contracts\Pagination\CursorPaginator|array => PlatformData::collect(Cache::remember('platforms', 3600, fn () => Platform::all())),
             'games'     => Inertia::scroll(function () use ($platformIds, $activeGroupId, $userGroupIds) {
                 $games = Game::query()
                     ->whereHas('keys', function ($query) use ($platformIds, $activeGroupId, $userGroupIds): void {

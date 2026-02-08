@@ -104,44 +104,93 @@ defineProps<Props>();
           </span>
         </div>
 
-        <!-- Status -->
-        <div
-          v-if="keyData.can?.claim"
-          class="flex items-center gap-1 text-success text-xs font-medium mt-2"
-        >
-          <svg
-            class="w-3.5 h-3.5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        <!-- Status & Feedback -->
+        <div class="flex items-center gap-3 mt-2">
+          <div
+            v-if="keyData.can?.claim"
+            class="flex items-center gap-1 text-success text-xs font-medium"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <span>Available</span>
-        </div>
-        <div
-          v-else
-          class="flex items-center gap-1 text-gray-500 text-xs font-medium mt-2"
-        >
-          <svg
-            class="w-3.5 h-3.5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+            <svg
+              class="w-3.5 h-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>Available</span>
+          </div>
+          <div
+            v-else
+            class="flex items-center gap-1 text-gray-500 text-xs font-medium"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M5 13l4 4L19 7"
-            />
-          </svg>
-          <span>Claimed</span>
+            <svg
+              class="w-3.5 h-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            <span>Claimed</span>
+          </div>
+
+          <!-- Feedback badge -->
+          <div
+            v-if="keyData.feedback === 'worked'"
+            class="flex items-center gap-1 text-xs font-medium text-success"
+          >
+            <svg
+              class="w-3.5 h-3.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+            </svg>
+            <span>Worked</span>
+          </div>
+          <div
+            v-else-if="keyData.feedback === 'did_not_work'"
+            class="flex items-center gap-1 text-xs font-medium text-danger"
+          >
+            <svg
+              class="w-3.5 h-3.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path d="M18 9.5a1.5 1.5 0 11-3 0v-6a1.5 1.5 0 013 0v6zM14 9.667v-5.43a2 2 0 00-1.106-1.79l-.05-.025A4 4 0 0011.057 2H5.64a2 2 0 00-1.962 1.608l-1.2 6A2 2 0 004.44 12H8v4a2 2 0 002 2 1 1 0 001-1v-.667a4 4 0 01.8-2.4l1.4-1.866a4 4 0 00.8-2.4z" />
+            </svg>
+            <span>Didn't work</span>
+          </div>
+          <div
+            v-else-if="keyData.claimedUser && keyData.feedback === null"
+            class="flex items-center gap-1 text-xs font-medium text-gray-600"
+          >
+            <svg
+              class="w-3.5 h-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>Awaiting feedback</span>
+          </div>
         </div>
       </div>
 

@@ -4,38 +4,19 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Services\KarmaService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
 
 class CalculateKarma extends Command
 {
     protected $signature = 'karma:calculate';
 
-    protected $description = 'Recalculate Karma';
+    protected $description = 'Recalculate karma for all users';
 
-    public function handle(): void
+    public function handle(KarmaService $karmaService): void
     {
-        $karma = DB::select('
-            SELECT (COALESCE(C.createdkeys, 0) - COALESCE(O.ownedkeys, 0)) AS karma, U.id FROM users AS U
-            LEFT OUTER JOIN (
-                SELECT COUNT(created_user_id) AS createdkeys, created_user_id AS user_id FROM `keys`
-                GROUP BY created_user_id
-            ) AS C
-            ON C.user_id = U.id
-            LEFT OUTER JOIN (
-                SELECT count(owned_user_id) AS ownedkeys, owned_user_id AS user_id FROM `keys`
-                GROUP BY owned_user_id
-            ) AS O
-            ON O.user_id = U.id
-        ');
+        $karmaService->recalculateAll();
 
-        Redis::del('karma');
-
-        foreach ($karma as $user) {
-            $this->info('UserID:'.$user->id.'   Karma:'.$user->karma);
-            Redis::zadd('karma', $user->karma, $user->id);
-        }
-
+        $this->info('Karma recalculated for all users.');
     }
 }

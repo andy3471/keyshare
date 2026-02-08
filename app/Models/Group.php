@@ -32,6 +32,7 @@ class Group extends Model implements HasMedia
         'is_public',
         'invite_code',
         'discord_webhook_url',
+        'min_karma',
     ];
 
     /** @return BelongsTo<User, $this> */
@@ -124,6 +125,20 @@ class Group extends Model implements HasMedia
         });
     }
 
+    /** @param \Illuminate\Database\Eloquent\Builder<self> $query */
+    #[\Illuminate\Database\Eloquent\Attributes\Scope]
+    protected function public(\Illuminate\Database\Eloquent\Builder $query): void
+    {
+        $query->where('is_public', true);
+    }
+
+    /** @param \Illuminate\Database\Eloquent\Builder<self> $query */
+    #[\Illuminate\Database\Eloquent\Attributes\Scope]
+    protected function whereNotMember(\Illuminate\Database\Eloquent\Builder $query, User $user): void
+    {
+        $query->whereDoesntHave('members', fn ($q) => $q->where('user_id', $user->id));
+    }
+
     /** @return Attribute<string|null, never> */
     protected function avatarUrl(): Attribute
     {
@@ -136,6 +151,7 @@ class Group extends Model implements HasMedia
     {
         return [
             'is_public' => 'boolean',
+            'min_karma' => 'integer',
         ];
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
+use App\Enums\ClaimDeniedReason;
 use App\Models\Key;
 use App\Models\User;
 
@@ -27,16 +28,36 @@ class KeyPolicy
         return $currentUser->isMemberOf($key->group);
     }
 
-    public function claim(User $currentUser, Key $key): bool
+    public function claimDeniedReason(User $currentUser, Key $key): ?ClaimDeniedReason
     {
         if ($key->owned_user_id !== null) {
-            return false;
+            return ClaimDeniedReason::AlreadyClaimed;
         }
 
-        if (! $key->group_id) {
-            return false;
+        if ($key->created_user_id === $currentUser->id) {
+            return ClaimDeniedReason::OwnKey;
         }
 
-        return $currentUser->isMemberOf($key->group);
+        if (! $key->group_id || ! $currentUser->isMemberOf($key->group)) {
+            return ClaimDeniedReason::NotInGroup;
+        }
+
+        $group = $key->group;
+
+        if ($group->min_karma !== null && $currentUser->karma < $group->min_karma) {
+            return ClaimDeniedReason::KarmaTooLow;
+        }
+
+        return null;
+    }
+
+    public function claim(User $currentUser, Key $key): bool
+    {
+        return ! $this->claimDeniedReason($currentUser, $key) instanceof ClaimDeniedReason;
+    }
+
+    public function feedback(User $currentUser, Key $key): bool
+    {
+        return $key->owned_user_id === $currentUser->id;
     }
 }

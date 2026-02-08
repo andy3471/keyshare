@@ -21,14 +21,18 @@ const submit = () => {
   <AuthLayout>
     <Head title="Register" />
 
+    <h2 class="text-xl font-semibold text-white mb-6">
+      Create your account
+    </h2>
+
     <form
-      class="space-y-4"
+      class="space-y-5"
       @submit.prevent="submit"
     >
       <div>
         <label
           for="name"
-          class="block text-sm font-medium text-gray-300 mb-2"
+          class="block text-sm font-medium text-gray-300 mb-1.5"
         >
           Name
         </label>
@@ -36,46 +40,48 @@ const submit = () => {
           id="name"
           v-model="form.name"
           type="text"
+          placeholder="Your name"
           required
           autofocus
-          class="border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
-          :class="{ 'border-danger': form.errors.name }"
+          class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-600 w-full"
+          :class="{ 'border-danger focus:ring-danger': form.errors.name }"
         >
-        <div
+        <p
           v-if="form.errors.name"
-          class="mt-1 text-sm text-danger"
+          class="mt-1.5 text-sm text-danger"
         >
           {{ form.errors.name }}
-        </div>
+        </p>
       </div>
 
       <div>
         <label
           for="email"
-          class="block text-sm font-medium text-gray-300 mb-2"
+          class="block text-sm font-medium text-gray-300 mb-1.5"
         >
-          E-Mail Address
+          Email
         </label>
         <input
           id="email"
           v-model="form.email"
           type="email"
+          placeholder="you@example.com"
           required
-          class="border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
-          :class="{ 'border-danger': form.errors.email }"
+          class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-600 w-full"
+          :class="{ 'border-danger focus:ring-danger': form.errors.email }"
         >
-        <div
+        <p
           v-if="form.errors.email"
-          class="mt-1 text-sm text-danger"
+          class="mt-1.5 text-sm text-danger"
         >
           {{ form.errors.email }}
-        </div>
+        </p>
       </div>
 
       <div>
         <label
           for="password"
-          class="block text-sm font-medium text-gray-300 mb-2"
+          class="block text-sm font-medium text-gray-300 mb-1.5"
         >
           Password
         </label>
@@ -83,51 +89,54 @@ const submit = () => {
           id="password"
           v-model="form.password"
           type="password"
+          placeholder="••••••••"
           required
-          class="border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
-          :class="{ 'border-danger': form.errors.password }"
+          class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-600 w-full"
+          :class="{ 'border-danger focus:ring-danger': form.errors.password }"
         >
-        <div
+        <p
           v-if="form.errors.password"
-          class="mt-1 text-sm text-danger"
+          class="mt-1.5 text-sm text-danger"
         >
           {{ form.errors.password }}
-        </div>
+        </p>
       </div>
 
       <div>
         <label
           for="password_confirmation"
-          class="block text-sm font-medium text-gray-300 mb-2"
+          class="block text-sm font-medium text-gray-300 mb-1.5"
         >
-          Confirm Password
+          Confirm password
         </label>
         <input
           id="password_confirmation"
           v-model="form.password_confirmation"
           type="password"
+          placeholder="••••••••"
           required
-          class="border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
+          class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-600 w-full"
         >
       </div>
 
-      <div class="flex items-center justify-between">
-        <button
-          type="submit"
-          class="bg-accent-600 hover:bg-accent-700 active:bg-accent-800 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-200 shadow-lg shadow-accent-600/20 hover:shadow-xl hover:shadow-accent-600/30 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed"
-          :disabled="form.processing"
-        >
-          <span v-if="form.processing">Registering...</span>
-          <span v-else>Register</span>
-        </button>
+      <button
+        type="submit"
+        class="w-full bg-accent-600 hover:bg-accent-700 active:bg-accent-800 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-200 shadow-lg shadow-accent-600/20 hover:shadow-xl hover:shadow-accent-600/30 disabled:opacity-50 disabled:cursor-not-allowed"
+        :disabled="form.processing"
+      >
+        <span v-if="form.processing">Creating account...</span>
+        <span v-else>Create account</span>
+      </button>
 
+      <p class="text-center text-sm text-gray-500">
+        Already have an account?
         <Link
           :href="login.url()"
-          class="text-sm text-accent-400 hover:text-accent-300"
+          class="text-accent-400 hover:text-accent-300 font-medium transition-colors"
         >
-          Already registered?
+          Sign in
         </Link>
-      </div>
+      </p>
     </form>
   </AuthLayout>
 </template>

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import { Link, useForm, usePage, Head } from '@inertiajs/vue3';
+import { Link, useForm, usePage, Head, router } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { KeyData } from '@/Types/generated';
+import { KeyData, KeyFeedback } from '@/Types/generated';
 import type { FlashProps } from '@/types/global';
-import keys from '@/routes/keys';
+import { claim as claimRoute, feedback as feedbackRoute } from '@/routes/keys';
 import games from '@/routes/games';
 
 interface Props {
@@ -55,7 +55,15 @@ const copyKeyCode = async () => {
 const claimKey = () => {
   if (!keyData.value.id) return;
 
-  form.post(keys.claim.url(keyData.value.id), {
+  form.post(claimRoute.url(keyData.value.id), {
+    preserveScroll: true,
+  });
+};
+
+const submitFeedback = (value: KeyFeedback) => {
+  router.post(feedbackRoute.url(keyData.value.id), {
+    feedback: value,
+  }, {
     preserveScroll: true,
   });
 };
@@ -219,7 +227,7 @@ const claimKey = () => {
             >
 
             <div
-              v-if="keyData.can.claim"
+              v-if="keyData.can?.claim"
               class="space-y-4"
             >
               <div>
@@ -241,6 +249,70 @@ const claimKey = () => {
               <p class="text-gray-400 text-sm text-center">
                 Click to claim this key
               </p>
+            </div>
+
+            <!-- Own key -->
+            <div
+              v-else-if="keyData.can?.claimDeniedReason === 'own_key'"
+              class="space-y-4"
+            >
+              <div class="bg-primary-600/10 border border-primary-600/30 rounded-lg p-4">
+                <div class="flex items-start gap-3">
+                  <svg
+                    class="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <div>
+                    <p class="text-primary-300 font-medium text-sm">
+                      This is your key
+                    </p>
+                    <p class="text-gray-400 text-sm mt-1">
+                      You shared this key — you can't claim your own.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Karma too low -->
+            <div
+              v-else-if="keyData.can?.claimDeniedReason === 'karma_too_low'"
+              class="space-y-4"
+            >
+              <div class="bg-warning/10 border border-warning/30 rounded-lg p-4">
+                <div class="flex items-start gap-3">
+                  <svg
+                    class="w-5 h-5 text-warning flex-shrink-0 mt-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                    />
+                  </svg>
+                  <div>
+                    <p class="text-warning font-medium text-sm">
+                      Karma too low
+                    </p>
+                    <p class="text-gray-400 text-sm mt-1">
+                      This group requires a minimum karma of <span class="text-white font-semibold">{{ keyData.group?.min_karma }}</span> to claim keys. Share keys and get positive feedback to increase your karma.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div
@@ -303,6 +375,110 @@ const claimKey = () => {
               >
                 Redeem on Steam
               </a>
+
+              <!-- Feedback Section -->
+              <div
+                v-if="keyData.can?.feedback"
+                class="pt-4 border-t border-dark-700"
+              >
+                <p class="text-sm text-gray-400 mb-3 text-center">
+                  Did this key work?
+                </p>
+                <div
+                  v-if="keyData.feedback === null"
+                  class="flex items-center justify-center gap-4"
+                >
+                  <button
+                    type="button"
+                    class="group relative flex items-center gap-2 px-5 py-2.5 bg-success/10 border border-success/30 rounded-lg text-success hover:bg-success/20 hover:border-success/50 transition-all duration-200"
+                    @click="submitFeedback('worked')"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
+                      />
+                    </svg>
+                    <span class="font-medium text-sm">It worked</span>
+                    <span class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-dark-700 text-gray-200 text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-lg border border-dark-600">
+                      The key redeemed successfully
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    class="group relative flex items-center gap-2 px-5 py-2.5 bg-danger/10 border border-danger/30 rounded-lg text-danger hover:bg-danger/20 hover:border-danger/50 transition-all duration-200"
+                    @click="submitFeedback('did_not_work')"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5"
+                      />
+                    </svg>
+                    <span class="font-medium text-sm">It didn't work</span>
+                    <span class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-dark-700 text-gray-200 text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-lg border border-dark-600">
+                      The key was invalid or already used
+                    </span>
+                  </button>
+                </div>
+                <div
+                  v-else
+                  class="flex items-center justify-center gap-2"
+                >
+                  <div
+                    v-if="keyData.feedback === 'worked'"
+                    class="flex items-center gap-2 px-4 py-2 bg-success/10 border border-success/30 rounded-lg text-success"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
+                      />
+                    </svg>
+                    <span class="text-sm font-medium">You marked this key as working</span>
+                  </div>
+                  <div
+                    v-else
+                    class="flex items-center gap-2 px-4 py-2 bg-danger/10 border border-danger/30 rounded-lg text-danger"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5"
+                      />
+                    </svg>
+                    <span class="text-sm font-medium">You reported this key as not working</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div

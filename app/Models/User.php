@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\GroupRole;
+use App\Services\KarmaService;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -14,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Redis;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -110,49 +110,19 @@ class User extends Authenticatable implements FilamentUser, HasMedia
         );
     }
 
-    /** @return Attribute<int, int> */
+    /** @return Attribute<int, never> */
     protected function karma(): Attribute
     {
         return Attribute::make(
-            get: function () {
-                $id    = (string) $this->id;
-                $karma = Redis::zscore('karma', $id);
-
-                if ($karma !== false) {
-                    return $karma;
-                }
-
-                $createdKeysCount = Key::where('created_user_id', $id)->count();
-                $ownedKeysCount   = Key::where('owned_user_id', $id)->count();
-
-                $karma = $createdKeysCount - $ownedKeysCount;
-
-                Redis::zadd('karma', $karma, $id);
-
-                return $karma;
-            }
+            get: fn (): int => resolve(KarmaService::class)->getKarma($this)
         );
     }
 
-    /** @return Attribute<string, string> */
+    /** @return Attribute<string, never> */
     protected function karmaColour(): Attribute
     {
         return Attribute::make(
-            get: function (): string {
-                if ($this->karma < 0) {
-                    return 'badge-danger';
-                }
-
-                if ($this->karma < 2) {
-                    return 'badge-warning';
-                }
-
-                if ($this->karma < 15) {
-                    return 'badge-info';
-                }
-
-                return 'badge-success';
-            }
+            get: fn (): string => KarmaService::colour($this->karma)
         );
     }
 

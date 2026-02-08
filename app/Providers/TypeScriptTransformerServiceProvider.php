@@ -25,6 +25,7 @@ class TypeScriptTransformerServiceProvider extends TypeScriptTransformerApplicat
             ->transformer(new EnumTransformer())
             ->transformDirectories(
                 app_path('DataTransferObjects'),
+                app_path('Enums'),
             )
             ->replaceType(DateTimeImmutable::class, 'string')
             ->replaceType(CarbonInterface::class, 'string')

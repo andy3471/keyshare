@@ -2,7 +2,8 @@
 import { Head, useForm, router } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import groups from '@/routes/groups';
+import ConfirmModal from '@/Components/ConfirmModal.vue';
+import { update as updateRoute, destroy as destroyRoute } from '@/routes/groups';
 import { GroupData } from '@/Types/generated';
 
 interface Props {
@@ -18,6 +19,7 @@ const form = useForm({
   is_public: props.group.is_public ?? false,
   avatar: null as File | null,
   discord_webhook_url: props.group.discord_webhook_url ?? '',
+  min_karma: props.group.min_karma,
 });
 
 const avatarPreview = ref<string | null>(null);
@@ -36,15 +38,16 @@ const handleAvatarChange = (event: Event) => {
 };
 
 const submit = () => {
-  form.post(groups.update.url(props.group.id), {
+  form.post(updateRoute.url(props.group.id), {
     forceFormData: true,
   });
 };
 
+const showDeleteModal = ref(false);
+
 const deleteGroup = () => {
-  if (confirm('Are you sure you want to permanently delete this group? This action cannot be undone.')) {
-    router.delete(groups.destroy.url(props.group.id));
-  }
+  showDeleteModal.value = false;
+  router.delete(destroyRoute.url(props.group.id));
 };
 </script>
 
@@ -263,6 +266,53 @@ const deleteGroup = () => {
             </div>
           </div>
 
+          <!-- Karma Requirement -->
+          <div class="border-t border-dark-700 pt-6">
+            <div class="flex items-center gap-3 mb-4">
+              <svg
+                class="w-5 h-5 text-warning"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
+              </svg>
+              <h3 class="text-sm font-semibold text-white">
+                Karma Requirement
+              </h3>
+            </div>
+            <div>
+              <label
+                for="min_karma"
+                class="block text-sm font-medium text-gray-300 mb-2"
+              >
+                Minimum karma to claim keys
+                <span class="text-gray-500">(optional)</span>
+              </label>
+              <input
+                id="min_karma"
+                v-model.number="form.min_karma"
+                type="number"
+                placeholder="No minimum"
+                class="w-full bg-dark-900 border border-dark-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition-colors"
+              >
+              <p class="text-xs text-gray-500 mt-1.5">
+                Members with karma below this threshold won't be able to claim keys in this group. Leave empty for no restriction.
+              </p>
+              <p
+                v-if="form.errors.min_karma"
+                class="mt-1 text-sm text-danger-400"
+              >
+                {{ form.errors.min_karma }}
+              </p>
+            </div>
+          </div>
+
           <!-- Submit -->
           <div class="flex justify-end">
             <button
@@ -278,7 +328,7 @@ const deleteGroup = () => {
 
       <!-- Danger Zone -->
       <div
-        v-if="group.role === 'owner'"
+        v-if="group.can?.delete"
         class="bg-dark-800 rounded-xl p-6 border border-danger-600/30"
       >
         <h2 class="text-lg font-semibold text-danger-400 mb-2">
@@ -289,11 +339,22 @@ const deleteGroup = () => {
         </p>
         <button
           class="px-4 py-2 bg-danger-600 hover:bg-danger-500 text-white text-sm font-medium rounded-lg transition-colors"
-          @click="deleteGroup"
+          @click="showDeleteModal = true"
         >
           Delete Group
         </button>
       </div>
     </div>
+
+    <!-- Delete Group Modal -->
+    <ConfirmModal
+      :open="showDeleteModal"
+      title="Delete group"
+      message="Are you sure you want to permanently delete this group? All keys and members will be removed. This action cannot be undone."
+      confirm-label="Delete group"
+      variant="danger"
+      @confirm="deleteGroup"
+      @cancel="showDeleteModal = false"
+    />
   </AppLayout>
 </template>

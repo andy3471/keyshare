@@ -2,33 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Auth;
+it('renders the registration screen', function (): void {
+    $this->get('/register')->assertOk();
+});
 
-use App\Providers\AppServiceProvider;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+it('lets new users register', function (): void {
+    $this->post('/register', [
+        'name'                  => 'Test User',
+        'email'                 => 'test@example.com',
+        'password'              => 'password',
+        'password_confirmation' => 'password',
+    ])->assertRedirect('/games');
 
-class RegistrationTest extends TestCase
-{
-    use RefreshDatabase;
-
-    public function testRegistrationScreenCanBeRendered(): void
-    {
-        $response = $this->get('/register');
-
-        $response->assertStatus(200);
-    }
-
-    public function testNewUsersCanRegister(): void
-    {
-        $response = $this->post('/register', [
-            'name'                  => 'Test User',
-            'email'                 => 'test@example.com',
-            'password'              => 'password',
-            'password_confirmation' => 'password',
-        ]);
-
-        $this->assertAuthenticated();
-        $response->assertRedirect(AppServiceProvider::HOME);
-    }
-}
+    $this->assertAuthenticated();
+});

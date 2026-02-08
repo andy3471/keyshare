@@ -51,6 +51,7 @@ namespace App\Models{
  * @property bool $is_public
  * @property string|null $invite_code
  * @property string|null $discord_webhook_url
+ * @property int|null $min_karma
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read string|null $avatar_url
@@ -75,6 +76,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereInviteCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereIsPublic($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereMinKarma($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereOwnerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereSlug($value)
@@ -121,6 +123,7 @@ namespace App\Models{
  * @property string $platform_id
  * @property string $key
  * @property string|null $owned_user_id
+ * @property \App\Enums\KeyFeedback|null $feedback
  * @property string $created_user_id
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
@@ -136,6 +139,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereCreatedUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereFeedback($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereGameId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereGroupId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Key whereId($value)
@@ -261,7 +265,7 @@ namespace App\Models{
  * @property-read int|null $claimed_keys_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Group> $groups
  * @property-read int|null $groups_count
- * @property-read mixed $karma
+ * @property-read int $karma
  * @property-read string $karma_colour
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\LinkedAccount> $linkedAccounts
  * @property-read int|null $linked_accounts_count

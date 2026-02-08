@@ -28,4 +28,5 @@ return [
     'added'               => 'Key Added',
     'claimsuccess'        => 'Key Claimed',
     'alreadyclaimederror' => 'Error, key already claimed',
+    'feedback_submitted'  => 'Thank you for your feedback',
 ];

@@ -23,6 +23,8 @@ class GroupData extends Data
         public ?string $role = null,
         public ?string $avatar = null,
         public ?string $discord_webhook_url = null,
+        public ?int $min_karma = null,
+        public ?GroupCanData $can = null,
     ) {}
 
     public static function fromModel(Group $group, ?string $role = null): self
@@ -39,6 +41,8 @@ class GroupData extends Data
             role: $role,
             avatar: $group->avatar_url,
             discord_webhook_url: $group->discord_webhook_url,
+            min_karma: $group->min_karma,
+            can: auth()->check() ? GroupCanData::fromModel($group) : null,
         );
     }
 }

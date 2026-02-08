@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function (): void {
     Route::get('search', [SearchController::class, 'index'])->name('search.index');
 
     Route::post('keys/{key}/claim', [KeyController::class, 'claim'])->name('keys.claim');
+    Route::post('keys/{key}/feedback', [KeyController::class, 'feedback'])->name('keys.feedback');
     Route::get('keys/claimed', [KeyController::class, 'claimed'])->name('keys.claimed.index');
     Route::get('keys/shared', [KeyController::class, 'shared'])->name('keys.shared.index');
     Route::resource('keys', KeyController::class)->only(['show', 'create', 'store']);

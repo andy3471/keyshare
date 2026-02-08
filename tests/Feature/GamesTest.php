@@ -2,27 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature;
-
 use App\Models\Game;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 
-class GamesTest extends TestCase
-{
-    use RefreshDatabase;
-    use WithFaker;
+it('lets an authenticated user view a game page', function (): void {
+    $game = Game::create(['igdb_id' => fake()->unique()->randomNumber(5)]);
 
-    /** A basic feature test example. */
-    public function test_view_games_page(): void
-    {
-        $user = User::factory()->create();
-        $game = Game::factory()->create();
+    $this->actingAs(User::factory()->create())
+        ->get("/games/{$game->igdb_id}")
+        ->assertOk();
+});
 
-        $this->actingAs($user)->get('/games/'.$game->id)
-            ->assertStatus(200)
-            ->assertSee($game->name);
-    }
-}
+it('redirects guests from game pages', function (): void {
+    $game = Game::create(['igdb_id' => fake()->unique()->randomNumber(5)]);
+
+    $this->get("/games/{$game->igdb_id}")
+        ->assertRedirect('/login');
+});

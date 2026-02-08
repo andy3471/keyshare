@@ -3,7 +3,6 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 import AuthLayout from '@/Layouts/AuthLayout.vue';
 import { login, register } from '@/routes';
 import passwordRoutes from '@/routes/password';
-import loginLinkedAccount from '@/routes/login';
 
 interface Props {
   steamLoginEnabled?: boolean;
@@ -32,110 +31,105 @@ const submit = () => {
   <AuthLayout>
     <Head title="Login" />
 
+    <h2 class="text-xl font-semibold text-white mb-6">
+      Sign in to your account
+    </h2>
+
     <form
-      class="space-y-4"
+      class="space-y-5"
       @submit.prevent="submit"
     >
       <div>
         <label
           for="email"
-          class="block text-sm font-medium text-gray-300 mb-2"
+          class="block text-sm font-medium text-gray-300 mb-1.5"
         >
-          E-Mail Address
+          Email
         </label>
         <input
           id="email"
           v-model="form.email"
           type="email"
+          placeholder="you@example.com"
           required
           autofocus
-          class="border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
-          :class="{ 'border-danger': form.errors.email }"
+          class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-600 w-full"
+          :class="{ 'border-danger focus:ring-danger': form.errors.email }"
         >
-        <div
+        <p
           v-if="form.errors.email"
-          class="mt-1 text-sm text-danger"
+          class="mt-1.5 text-sm text-danger"
         >
           {{ form.errors.email }}
-        </div>
+        </p>
       </div>
 
       <div>
-        <label
-          for="password"
-          class="block text-sm font-medium text-gray-300 mb-2"
-        >
-          Password
-        </label>
+        <div class="flex items-center justify-between mb-1.5">
+          <label
+            for="password"
+            class="block text-sm font-medium text-gray-300"
+          >
+            Password
+          </label>
+          <Link
+            v-if="canResetPassword"
+            :href="passwordRoutes.request.url()"
+            class="text-xs text-accent-400 hover:text-accent-300 transition-colors"
+          >
+            Forgot password?
+          </Link>
+        </div>
         <input
           id="password"
           v-model="form.password"
           type="password"
+          placeholder="••••••••"
           required
-          class="border border-dark-600 rounded-lg bg-dark-800 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500 w-full"
-          :class="{ 'border-danger': form.errors.password }"
+          class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-600 w-full"
+          :class="{ 'border-danger focus:ring-danger': form.errors.password }"
         >
-        <div
+        <p
           v-if="form.errors.password"
-          class="mt-1 text-sm text-danger"
+          class="mt-1.5 text-sm text-danger"
         >
           {{ form.errors.password }}
-        </div>
+        </p>
       </div>
 
-      <div class="flex items-center">
+      <div class="flex items-center gap-2">
         <input
           id="remember"
           v-model="form.remember"
           type="checkbox"
-          class="mr-2"
+          class="h-4 w-4 rounded border-dark-600 bg-dark-900 text-accent-600 focus:ring-accent-500 focus:ring-offset-0"
         >
         <label
           for="remember"
-          class="text-sm text-gray-300"
+          class="text-sm text-gray-400"
         >
-          Remember Me
+          Remember me
         </label>
       </div>
 
-      <div
-        v-if="steamLoginEnabled"
-        class="flex justify-center my-4"
+      <button
+        type="submit"
+        class="w-full bg-accent-600 hover:bg-accent-700 active:bg-accent-800 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-200 shadow-lg shadow-accent-600/20 hover:shadow-xl hover:shadow-accent-600/30 disabled:opacity-50 disabled:cursor-not-allowed"
+        :disabled="form.processing"
       >
-        <Link :href="loginLinkedAccount.linkedAccount.steam.url()">
-          <img
-            :src="'/images/steamlogin.png'"
-            alt="Sign in through Steam"
-          >
-        </Link>
-      </div>
+        <span v-if="form.processing">Signing in...</span>
+        <span v-else>Sign in</span>
+      </button>
 
-      <div class="flex items-center justify-between">
-        <button
-          type="submit"
-          class="bg-accent-600 hover:bg-accent-700 active:bg-accent-800 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-200 shadow-lg shadow-accent-600/20 hover:shadow-xl hover:shadow-accent-600/30 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed"
-          :disabled="form.processing"
+      <p class="text-center text-sm text-gray-500">
+        Don't have an account?
+        <Link
+          :href="register.url()"
+          class="text-accent-400 hover:text-accent-300 font-medium transition-colors"
         >
-          <span v-if="form.processing">Logging in...</span>
-          <span v-else>Login</span>
-        </button>
-
-        <div class="flex space-x-4">
-          <Link
-            v-if="canResetPassword"
-            :href="passwordRoutes.request.url()"
-            class="text-sm text-accent-400 hover:text-accent-300"
-          >
-            Forgot Your Password?
-          </Link>
-          <Link
-            :href="register.url()"
-            class="text-sm text-accent-400 hover:text-accent-300"
-          >
-            Register
-          </Link>
-        </div>
-      </div>
+          Register
+        </Link>
+      </p>
     </form>
   </AuthLayout>
 </template>

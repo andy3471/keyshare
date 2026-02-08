@@ -36,8 +36,8 @@ class GameData extends Data
         return new self(
             id: (string) $game->igdb_id,
             name: $game->name ?? 'Unknown',
-            genres: Lazy::create(fn (): array => GenreData::collect($game->genres)->all()),
-            screenshots: Lazy::create(fn (): array => ScreenshotData::collect($game->screenshots)->all()),
+            genres: Lazy::create(fn (): array => $game->genres ? GenreData::collect($game->genres)->all() : []),
+            screenshots: Lazy::create(fn (): array => $game->screenshots ? ScreenshotData::collect($game->screenshots)->all() : []),
             description: $game->description ?? null,
             image: $game->image,
             keyCount: Lazy::create(fn () => $game->relationLoaded('keys')
@@ -62,7 +62,7 @@ class GameData extends Data
         return new self(
             id: (string) $igdbGame->id,
             name: $igdbGame->name           ?? 'Unknown',
-            genres: Lazy::create(fn (): array => GenreData::collect($igdbGame->genres)->all()),
+            genres: Lazy::create(fn (): array => $igdbGame->genres ? GenreData::collect($igdbGame->genres)->all() : []),
             description: $igdbGame->summary ?? null,
             image: $image,
             keyCount: Lazy::create(function () use ($igdbGame) {

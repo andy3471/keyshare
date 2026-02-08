@@ -22,6 +22,7 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - laravel/mcp (MCP) - v0
 - laravel/pint (PINT) - v1
 - laravel/sail (SAIL) - v1
+- pestphp/pest (PEST) - v3
 - phpunit/phpunit (PHPUNIT) - v11
 - rector/rector (RECTOR) - v2
 - @inertiajs/vue3 (INERTIA) - v1
@@ -281,12 +282,13 @@ Wayfinder generates TypeScript functions for Laravel routes. Import from `@/acti
 - You must run `vendor/bin/sail bin pint --dirty --format agent` before finalizing changes to ensure your code matches the project's expected style.
 - Do not run `vendor/bin/sail bin pint --test --format agent`, simply run `vendor/bin/sail bin pint --format agent` to fix any formatting issues.
 
-=== phpunit/core rules ===
+=== pest/core rules ===
 
-# PHPUnit
+# Pest
 
-- This application uses PHPUnit for testing. All tests must be written as PHPUnit classes. Use `vendor/bin/sail artisan make:test --phpunit {name}` to create a new test.
-- If you see a test using "Pest", convert it to PHPUnit.
+- This application uses Pest for testing. All tests must be written using Pest's functional syntax (`it()`, `test()`, `expect()`).
+- If you see a test using PHPUnit class syntax, convert it to Pest.
+- `tests/Pest.php` already binds `TestCase::class` and `RefreshDatabase::class` for Feature tests.
 - Every time a test has been updated, run that singular test.
 - When the tests relating to your feature are passing, ask the user if they would like to also run the entire test suite to make sure everything is still passing.
 - Tests should cover all happy paths, failure paths, and edge cases.
@@ -295,9 +297,9 @@ Wayfinder generates TypeScript functions for Laravel routes. Import from `@/acti
 ## Running Tests
 
 - Run the minimal number of tests, using an appropriate filter, before finalizing.
-- To run all tests: `vendor/bin/sail artisan test --compact`.
-- To run all tests in a file: `vendor/bin/sail artisan test --compact tests/Feature/ExampleTest.php`.
-- To filter on a particular test name: `vendor/bin/sail artisan test --compact --filter=testName` (recommended after making a change to a related file).
+- To run all tests: `vendor/bin/sail bin pest --compact`.
+- To run all tests in a file: `vendor/bin/sail bin pest --compact tests/Feature/ExampleTest.php`.
+- To filter on a particular test name: `vendor/bin/sail bin pest --compact --filter="test description"` (recommended after making a change to a related file).
 
 === inertia-vue/core rules ===
 

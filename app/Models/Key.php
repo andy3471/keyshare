@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\KeyFeedback;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Redis;
 
 class Key extends Model
 {
@@ -22,6 +22,7 @@ class Key extends Model
         'message',
         'created_user_id',
         'group_id',
+        'feedback',
     ];
 
     /** @return BelongsTo<Game, $this> */
@@ -59,8 +60,13 @@ class Key extends Model
         $this->owned_user_id = $user->id;
         $this->save();
 
-        Redis::zincrby('karma', -1, auth()->id());
-
         return $this;
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'feedback' => KeyFeedback::class,
+        ];
     }
 }

@@ -1,19 +1,37 @@
 <script setup lang="ts">
-import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { ref, watch, computed } from 'vue';
+import { Head, Link, router, usePage, InfiniteScroll } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import groups from '@/routes/groups';
 import { GroupData } from '@/Types/generated';
-import { computed } from 'vue';
+import type { Paginated } from '@/types/global';
 
 interface Props {
   myGroups: GroupData[];
-  publicGroups: GroupData[];
+  publicGroups: Paginated<GroupData>;
+  search?: string;
 }
 
-defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  search: '',
+});
 
 const page = usePage();
 const activeGroup = computed(() => page.props.activeGroup as GroupData | null);
+
+const searchQuery = ref(props.search);
+let debounceTimer: ReturnType<typeof setTimeout>;
+
+watch(searchQuery, (value) => {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    router.get(groups.index.url(), { search: value || undefined }, {
+      preserveState: true,
+      preserveScroll: true,
+      replace: true,
+    });
+  }, 300);
+});
 
 const switchToGroup = (groupId: string, event: Event) => {
   event.stopPropagation();
@@ -205,55 +223,132 @@ const switchToGroup = (groupId: string, event: Event) => {
       </section>
 
       <!-- Public Groups -->
-      <section v-if="publicGroups.length > 0">
-        <h2 class="text-2xl font-display font-bold text-white mb-6">
-          Discover Public Groups
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div
-            v-for="group in publicGroups"
-            :key="group.id"
-            class="bg-dark-800 rounded-xl p-5 border border-dark-700 hover:border-accent-600/50 transition-all"
-          >
-            <div class="flex items-start justify-between mb-3">
-              <Link
-                :href="groups.show.url(group.id)"
-                class="text-lg font-semibold text-white hover:text-accent-400 transition-colors"
-              >
-                {{ group.name }}
-              </Link>
-            </div>
-            <p
-              v-if="group.description"
-              class="text-gray-400 text-sm mb-4 line-clamp-2"
+      <section>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+          <h2 class="text-2xl font-display font-bold text-white">
+            Discover Public Groups
+          </h2>
+          <div class="relative w-full sm:w-72">
+            <svg
+              class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              {{ group.description }}
-            </p>
-            <div class="flex items-center justify-between">
-              <span class="text-xs text-gray-500 flex items-center gap-1">
-                <svg
-                  class="w-3.5 h-3.5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-                {{ group.member_count }} {{ group.member_count === 1 ? 'member' : 'members' }}
-              </span>
-              <Link
-                :href="groups.show.url(group.id)"
-                class="text-sm text-accent-400 hover:text-accent-300 font-medium"
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Search groups..."
+              class="w-full pl-10 pr-4 py-2 bg-dark-800 border border-dark-600 text-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500"
+            >
+          </div>
+        </div>
+
+        <InfiniteScroll
+          v-if="publicGroups.data.length > 0"
+          data="publicGroups"
+          preserve-url
+        >
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div
+              v-for="group in publicGroups.data"
+              :key="group.id"
+              class="bg-dark-800 rounded-xl p-5 border border-dark-700 hover:border-accent-600/50 transition-all"
+            >
+              <div class="flex items-start gap-3 mb-3">
+                <div class="flex-shrink-0">
+                  <img
+                    v-if="group.avatar"
+                    :src="group.avatar"
+                    :alt="group.name"
+                    class="w-10 h-10 rounded-lg object-cover"
+                  >
+                  <div
+                    v-else
+                    class="w-10 h-10 rounded-lg bg-accent-600/20 flex items-center justify-center"
+                  >
+                    <span class="text-accent-400 font-bold text-sm">{{ group.name.charAt(0).toUpperCase() }}</span>
+                  </div>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <Link
+                    :href="groups.show.url(group.id)"
+                    class="text-lg font-semibold text-white hover:text-accent-400 transition-colors truncate block"
+                  >
+                    {{ group.name }}
+                  </Link>
+                </div>
+              </div>
+              <p
+                v-if="group.description"
+                class="text-gray-400 text-sm mb-4 line-clamp-2"
               >
-                View Group
-              </Link>
+                {{ group.description }}
+              </p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-500 flex items-center gap-1">
+                  <svg
+                    class="w-3.5 h-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                  {{ group.member_count }} {{ group.member_count === 1 ? 'member' : 'members' }}
+                </span>
+                <Link
+                  :href="groups.show.url(group.id)"
+                  class="text-sm text-accent-400 hover:text-accent-300 font-medium"
+                >
+                  View Group
+                </Link>
+              </div>
             </div>
           </div>
+        </InfiniteScroll>
+
+        <div
+          v-else
+          class="bg-dark-800 rounded-xl p-8 text-center border border-dark-700"
+        >
+          <svg
+            class="w-12 h-12 text-dark-500 mx-auto mb-3"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          <p
+            v-if="searchQuery"
+            class="text-gray-400"
+          >
+            No groups found matching "{{ searchQuery }}"
+          </p>
+          <p
+            v-else
+            class="text-gray-400"
+          >
+            No public groups available to join right now
+          </p>
         </div>
       </section>
     </div>

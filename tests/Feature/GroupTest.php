@@ -2,391 +2,358 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature;
-
 use App\Enums\GroupRole;
 use App\Models\Game;
 use App\Models\Group;
 use App\Models\Key;
 use App\Models\Platform;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
-class GroupTest extends TestCase
-{
-    use RefreshDatabase;
+it('lets a user view the groups index', function (): void {
+    $this->actingAs(User::factory()->create())
+        ->get('/groups')
+        ->assertOk();
+});
 
-    public function test_user_can_view_groups_index(): void
-    {
-        $user = User::factory()->create();
+it('redirects guests away from groups', function (): void {
+    $this->get('/groups')
+        ->assertRedirect('/login');
+});
 
-        $response = $this->actingAs($user)->get('/groups');
+it('lets a user create a group', function (): void {
+    $user = User::factory()->create();
 
-        $response->assertOk();
-    }
+    $this->actingAs($user)->post('/groups', [
+        'name'        => 'Test Group',
+        'description' => 'A test group',
+        'is_public'   => true,
+    ])->assertRedirect();
 
-    public function test_guest_cannot_view_groups(): void
-    {
-        $response = $this->get('/groups');
+    $this->assertDatabaseHas('groups', [
+        'name'      => 'Test Group',
+        'owner_id'  => $user->id,
+        'is_public' => true,
+    ]);
 
-        $response->assertRedirect('/login');
-    }
+    $group = Group::where('name', 'Test Group')->first();
+    $user  = $user->fresh();
 
-    public function test_user_can_create_group(): void
-    {
-        $user = User::factory()->create();
+    expect($group->hasMember($user))->toBeTrue()
+        ->and($group->memberRole($user))->toBe(GroupRole::Owner);
+});
 
-        $response = $this->actingAs($user)->post('/groups', [
-            'name'        => 'Test Group',
-            'description' => 'A test group',
-            'is_public'   => true,
-        ]);
+it('lets a user view their own group', function (): void {
+    $user  = User::factory()->create();
+    $group = Group::factory()->create(['owner_id' => $user->id]);
+    $group->addMember($user, GroupRole::Owner);
 
-        $response->assertRedirect();
+    $this->actingAs($user)
+        ->get("/groups/{$group->id}")
+        ->assertOk();
+});
 
-        $this->assertDatabaseHas('groups', [
-            'name'      => 'Test Group',
-            'owner_id'  => $user->id,
-            'is_public' => true,
-        ]);
+it('lets a user view a public group', function (): void {
+    $user  = User::factory()->create();
+    $group = Group::factory()->public()->create();
 
-        $group = Group::where('name', 'Test Group')->first();
-        $this->assertTrue($group->hasMember($user));
-        $this->assertEquals(GroupRole::Owner, $group->memberRole($user));
-    }
+    $this->actingAs($user)
+        ->get("/groups/{$group->id}")
+        ->assertOk();
+});
 
-    public function test_user_can_view_own_group(): void
-    {
-        $user  = User::factory()->create();
-        $group = Group::factory()->create(['owner_id' => $user->id]);
-        $group->addMember($user, GroupRole::Owner);
+it('forbids a user from viewing a private group they are not in', function (): void {
+    $user  = User::factory()->create();
+    $group = Group::factory()->private()->create();
 
-        $response = $this->actingAs($user)->get("/groups/{$group->id}");
+    $this->actingAs($user)
+        ->get("/groups/{$group->id}")
+        ->assertForbidden();
+});
 
-        $response->assertOk();
-    }
+it('lets a user join a public group', function (): void {
+    $user  = User::factory()->create();
+    $group = Group::factory()->public()->create();
 
-    public function test_user_can_view_public_group(): void
-    {
-        $user  = User::factory()->create();
-        $group = Group::factory()->public()->create();
+    $this->actingAs($user)
+        ->post("/groups/{$group->id}/join")
+        ->assertRedirect();
 
-        $response = $this->actingAs($user)->get("/groups/{$group->id}");
+    expect($group->fresh()->hasMember($user->fresh()))->toBeTrue()
+        ->and($group->fresh()->memberRole($user->fresh()))->toBe(GroupRole::Member);
+});
 
-        $response->assertOk();
-    }
+it('prevents a user from joining a private group', function (): void {
+    $user  = User::factory()->create();
+    $group = Group::factory()->private()->create();
 
-    public function test_user_cannot_view_private_group_they_are_not_member_of(): void
-    {
-        $user  = User::factory()->create();
-        $group = Group::factory()->private()->create();
+    $this->actingAs($user)
+        ->post("/groups/{$group->id}/join")
+        ->assertRedirect()
+        ->assertSessionHas('error');
 
-        $response = $this->actingAs($user)->get("/groups/{$group->id}");
+    expect($group->fresh()->hasMember($user->fresh()))->toBeFalse();
+});
 
-        $response->assertForbidden();
-    }
+it('lets a user join via invite code', function (): void {
+    $user  = User::factory()->create();
+    $group = Group::factory()->private()->create();
 
-    public function test_user_can_join_public_group(): void
-    {
-        $user  = User::factory()->create();
-        $group = Group::factory()->public()->create();
+    $this->actingAs($user)
+        ->get("/invite/{$group->invite_code}")
+        ->assertRedirect();
 
-        $response = $this->actingAs($user)->post("/groups/{$group->id}/join");
+    expect($group->fresh()->hasMember($user->fresh()))->toBeTrue();
+});
 
-        $response->assertRedirect();
+it('lets a member leave a group', function (): void {
+    $owner  = User::factory()->create();
+    $member = User::factory()->create();
+    $group  = Group::factory()->create(['owner_id' => $owner->id]);
+    $group->addMember($owner, GroupRole::Owner);
+    $group->addMember($member, GroupRole::Member);
 
-        $this->assertTrue($group->hasMember($user));
-        $this->assertEquals(GroupRole::Member, $group->memberRole($user));
-    }
+    $this->actingAs($member)
+        ->post("/groups/{$group->id}/leave")
+        ->assertRedirect();
 
-    public function test_user_cannot_join_private_group(): void
-    {
-        $user  = User::factory()->create();
-        $group = Group::factory()->private()->create();
+    expect($group->fresh()->hasMember($member->fresh()))->toBeFalse();
+});
 
-        $response = $this->actingAs($user)->post("/groups/{$group->id}/join");
+it('prevents an owner from leaving their group', function (): void {
+    $owner = User::factory()->create();
+    $group = Group::factory()->create(['owner_id' => $owner->id]);
+    $group->addMember($owner, GroupRole::Owner);
 
-        $response->assertRedirect();
-        $response->assertSessionHas('error');
+    $this->actingAs($owner)
+        ->post("/groups/{$group->id}/leave")
+        ->assertForbidden();
 
-        $this->assertFalse($group->hasMember($user));
-    }
+    expect($group->fresh()->hasMember($owner->fresh()))->toBeTrue();
+});
 
-    public function test_user_can_join_via_invite_code(): void
-    {
-        $user  = User::factory()->create();
-        $group = Group::factory()->private()->create();
+it('lets an owner update the group', function (): void {
+    $owner = User::factory()->create();
+    $group = Group::factory()->create(['owner_id' => $owner->id]);
+    $group->addMember($owner, GroupRole::Owner);
 
-        $response = $this->actingAs($user)->get("/invite/{$group->invite_code}");
-
-        $response->assertRedirect();
-        $this->assertTrue($group->fresh()->hasMember($user));
-    }
-
-    public function test_member_can_leave_group(): void
-    {
-        $owner  = User::factory()->create();
-        $member = User::factory()->create();
-        $group  = Group::factory()->create(['owner_id' => $owner->id]);
-        $group->addMember($owner, GroupRole::Owner);
-        $group->addMember($member, GroupRole::Member);
-
-        $response = $this->actingAs($member)->post("/groups/{$group->id}/leave");
-
-        $response->assertRedirect();
-        $this->assertFalse($group->fresh()->hasMember($member));
-    }
-
-    public function test_owner_cannot_leave_group(): void
-    {
-        $owner = User::factory()->create();
-        $group = Group::factory()->create(['owner_id' => $owner->id]);
-        $group->addMember($owner, GroupRole::Owner);
-
-        $response = $this->actingAs($owner)->post("/groups/{$group->id}/leave");
-
-        $response->assertForbidden();
-        $this->assertTrue($group->fresh()->hasMember($owner));
-    }
-
-    public function test_owner_can_update_group(): void
-    {
-        $owner = User::factory()->create();
-        $group = Group::factory()->create(['owner_id' => $owner->id]);
-        $group->addMember($owner, GroupRole::Owner);
-
-        $response = $this->actingAs($owner)->put("/groups/{$group->id}", [
+    $this->actingAs($owner)
+        ->put("/groups/{$group->id}", [
             'name'        => 'Updated Name',
             'description' => 'Updated description',
-        ]);
+        ])->assertRedirect();
 
-        $response->assertRedirect();
+    $this->assertDatabaseHas('groups', [
+        'id'          => $group->id,
+        'name'        => 'Updated Name',
+        'description' => 'Updated description',
+    ]);
+});
 
-        $this->assertDatabaseHas('groups', [
-            'id'          => $group->id,
-            'name'        => 'Updated Name',
-            'description' => 'Updated description',
-        ]);
-    }
+it('prevents a member from updating the group', function (): void {
+    $owner  = User::factory()->create();
+    $member = User::factory()->create();
+    $group  = Group::factory()->create(['owner_id' => $owner->id]);
+    $group->addMember($owner, GroupRole::Owner);
+    $group->addMember($member, GroupRole::Member);
 
-    public function test_member_cannot_update_group(): void
-    {
-        $owner  = User::factory()->create();
-        $member = User::factory()->create();
-        $group  = Group::factory()->create(['owner_id' => $owner->id]);
-        $group->addMember($owner, GroupRole::Owner);
-        $group->addMember($member, GroupRole::Member);
+    $this->actingAs($member)
+        ->put("/groups/{$group->id}", ['name' => 'Hacked Name'])
+        ->assertForbidden();
+});
 
-        $response = $this->actingAs($member)->put("/groups/{$group->id}", [
-            'name' => 'Hacked Name',
-        ]);
+it('lets an owner delete the group', function (): void {
+    $owner = User::factory()->create();
+    $group = Group::factory()->create(['owner_id' => $owner->id]);
+    $group->addMember($owner, GroupRole::Owner);
 
-        $response->assertForbidden();
-    }
+    $this->actingAs($owner)
+        ->delete("/groups/{$group->id}")
+        ->assertRedirect('/groups');
 
-    public function test_owner_can_delete_group(): void
-    {
-        $owner = User::factory()->create();
-        $group = Group::factory()->create(['owner_id' => $owner->id]);
-        $group->addMember($owner, GroupRole::Owner);
+    $this->assertDatabaseMissing('groups', ['id' => $group->id]);
+});
 
-        $response = $this->actingAs($owner)->delete("/groups/{$group->id}");
+it('prevents a non-owner from deleting the group', function (): void {
+    $owner = User::factory()->create();
+    $admin = User::factory()->create();
+    $group = Group::factory()->create(['owner_id' => $owner->id]);
+    $group->addMember($owner, GroupRole::Owner);
+    $group->addMember($admin, GroupRole::Admin);
 
-        $response->assertRedirect('/groups');
-        $this->assertDatabaseMissing('groups', ['id' => $group->id]);
-    }
+    $this->actingAs($admin)
+        ->delete("/groups/{$group->id}")
+        ->assertForbidden();
+});
 
-    public function test_non_owner_cannot_delete_group(): void
-    {
-        $owner = User::factory()->create();
-        $admin = User::factory()->create();
-        $group = Group::factory()->create(['owner_id' => $owner->id]);
-        $group->addMember($owner, GroupRole::Owner);
-        $group->addMember($admin, GroupRole::Admin);
+it('lets an admin remove a member', function (): void {
+    $owner  = User::factory()->create();
+    $admin  = User::factory()->create();
+    $member = User::factory()->create();
+    $group  = Group::factory()->create(['owner_id' => $owner->id]);
+    $group->addMember($owner, GroupRole::Owner);
+    $group->addMember($admin, GroupRole::Admin);
+    $group->addMember($member, GroupRole::Member);
 
-        $response = $this->actingAs($admin)->delete("/groups/{$group->id}");
+    $this->actingAs($admin)
+        ->delete("/groups/{$group->id}/members/{$member->id}")
+        ->assertRedirect();
 
-        $response->assertForbidden();
-    }
+    expect($group->fresh()->hasMember($member->fresh()))->toBeFalse();
+});
 
-    public function test_admin_can_remove_member(): void
-    {
-        $owner  = User::factory()->create();
-        $admin  = User::factory()->create();
-        $member = User::factory()->create();
-        $group  = Group::factory()->create(['owner_id' => $owner->id]);
-        $group->addMember($owner, GroupRole::Owner);
-        $group->addMember($admin, GroupRole::Admin);
-        $group->addMember($member, GroupRole::Member);
+it('prevents removing the group owner', function (): void {
+    $owner = User::factory()->create();
+    $admin = User::factory()->create();
+    $group = Group::factory()->create(['owner_id' => $owner->id]);
+    $group->addMember($owner, GroupRole::Owner);
+    $group->addMember($admin, GroupRole::Admin);
 
-        $response = $this->actingAs($admin)->delete("/groups/{$group->id}/members/{$member->id}");
+    $this->actingAs($admin)
+        ->delete("/groups/{$group->id}/members/{$owner->id}")
+        ->assertRedirect()
+        ->assertSessionHas('error');
 
-        $response->assertRedirect();
-        $this->assertFalse($group->fresh()->hasMember($member));
-    }
+    expect($group->fresh()->hasMember($owner->fresh()))->toBeTrue();
+});
 
-    public function test_cannot_remove_group_owner(): void
-    {
-        $owner = User::factory()->create();
-        $admin = User::factory()->create();
-        $group = Group::factory()->create(['owner_id' => $owner->id]);
-        $group->addMember($owner, GroupRole::Owner);
-        $group->addMember($admin, GroupRole::Admin);
+it('lets a user switch their active group', function (): void {
+    $user  = User::factory()->create();
+    $group = Group::factory()->create(['owner_id' => $user->id]);
+    $group->addMember($user, GroupRole::Owner);
 
-        $response = $this->actingAs($admin)->delete("/groups/{$group->id}/members/{$owner->id}");
+    $this->actingAs($user)
+        ->post('/groups/switch', ['group_id' => $group->id])
+        ->assertRedirect();
 
-        $response->assertRedirect();
-        $response->assertSessionHas('error');
-        $this->assertTrue($group->fresh()->hasMember($owner));
-    }
+    expect(session('active_group_id'))->toBe($group->id);
+});
 
-    public function test_user_can_switch_active_group(): void
-    {
-        $user  = User::factory()->create();
-        $group = Group::factory()->create(['owner_id' => $user->id]);
-        $group->addMember($user, GroupRole::Owner);
+it('lets a user clear their active group', function (): void {
+    $user  = User::factory()->create();
+    $group = Group::factory()->create(['owner_id' => $user->id]);
+    $group->addMember($user, GroupRole::Owner);
 
-        $response = $this->actingAs($user)->post('/groups/switch', [
-            'group_id' => $group->id,
-        ]);
+    session(['active_group_id' => $group->id]);
 
-        $response->assertRedirect();
-        $this->assertEquals($group->id, session('active_group_id'));
-    }
+    $this->actingAs($user)
+        ->post('/groups/switch', ['group_id' => null])
+        ->assertRedirect();
 
-    public function test_user_can_clear_active_group(): void
-    {
-        $user  = User::factory()->create();
-        $group = Group::factory()->create(['owner_id' => $user->id]);
-        $group->addMember($user, GroupRole::Owner);
+    expect(session('active_group_id'))->toBeNull();
+});
 
-        session(['active_group_id' => $group->id]);
+it('lets an owner regenerate the invite code', function (): void {
+    $owner   = User::factory()->create();
+    $group   = Group::factory()->create(['owner_id' => $owner->id]);
+    $oldCode = $group->invite_code;
+    $group->addMember($owner, GroupRole::Owner);
 
-        $response = $this->actingAs($user)->post('/groups/switch', [
-            'group_id' => null,
-        ]);
+    $this->actingAs($owner)
+        ->post("/groups/{$group->id}/regenerate-invite-code")
+        ->assertRedirect();
 
-        $response->assertRedirect();
-        $this->assertNull(session('active_group_id'));
-    }
+    expect($group->fresh()->invite_code)->not->toBe($oldCode);
+});
 
-    public function test_owner_can_regenerate_invite_code(): void
-    {
-        $owner    = User::factory()->create();
-        $group    = Group::factory()->create(['owner_id' => $owner->id]);
-        $oldCode  = $group->invite_code;
-        $group->addMember($owner, GroupRole::Owner);
-
-        $response = $this->actingAs($owner)->post("/groups/{$group->id}/regenerate-invite-code");
-
-        $response->assertRedirect();
-        $this->assertNotEquals($oldCode, $group->fresh()->invite_code);
-    }
-
-    public function test_group_requires_name(): void
-    {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->post('/groups', [
+it('requires a name when creating a group', function (): void {
+    $this->actingAs(User::factory()->create())
+        ->post('/groups', [
             'name'        => '',
             'description' => 'A description',
-        ]);
+        ])->assertSessionHasErrors('name');
+});
 
-        $response->assertSessionHasErrors('name');
-    }
+it('lets a member view a key in their group', function (): void {
+    $owner  = User::factory()->create();
+    $member = User::factory()->create();
+    $group  = Group::factory()->create(['owner_id' => $owner->id]);
+    $group->addMember($owner, GroupRole::Owner);
+    $group->addMember($member, GroupRole::Member);
 
-    public function test_member_can_view_key_in_their_group(): void
-    {
-        $owner  = User::factory()->create();
-        $member = User::factory()->create();
-        $group  = Group::factory()->create(['owner_id' => $owner->id]);
-        $group->addMember($owner, GroupRole::Owner);
-        $group->addMember($member, GroupRole::Member);
+    $key = createTestKey(['group_id' => $group->id]);
 
-        $key = $this->createKey(['group_id' => $group->id]);
+    expect($member->isMemberOf($group))->toBeTrue();
 
-        $this->assertTrue($member->isMemberOf($group));
-        $this->actingAs($member);
-        $this->assertTrue($member->can('view', $key));
-    }
+    $this->actingAs($member);
 
-    public function test_non_member_cannot_view_key_in_group(): void
-    {
-        $owner    = User::factory()->create();
-        $outsider = User::factory()->create();
-        $group    = Group::factory()->create(['owner_id' => $owner->id]);
-        $group->addMember($owner, GroupRole::Owner);
+    expect($member->can('view', $key))->toBeTrue();
+});
 
-        $key = $this->createKey(['group_id' => $group->id]);
+it('prevents a non-member from viewing a key in a group', function (): void {
+    $owner    = User::factory()->create();
+    $outsider = User::factory()->create();
+    $group    = Group::factory()->create(['owner_id' => $owner->id]);
+    $group->addMember($owner, GroupRole::Owner);
 
-        $this->actingAs($outsider);
-        $this->assertFalse($outsider->can('view', $key));
-    }
+    $key = createTestKey(['group_id' => $group->id]);
 
-    public function test_non_member_cannot_claim_key_in_group(): void
-    {
-        $owner    = User::factory()->create();
-        $outsider = User::factory()->create();
-        $group    = Group::factory()->create(['owner_id' => $owner->id]);
-        $group->addMember($owner, GroupRole::Owner);
+    $this->actingAs($outsider);
 
-        $key = $this->createKey(['group_id' => $group->id]);
+    expect($outsider->can('view', $key))->toBeFalse();
+});
 
-        $this->actingAs($outsider);
-        $this->assertFalse($outsider->can('claim', $key));
-    }
+it('prevents a non-member from claiming a key in a group', function (): void {
+    $owner    = User::factory()->create();
+    $outsider = User::factory()->create();
+    $group    = Group::factory()->create(['owner_id' => $owner->id]);
+    $group->addMember($owner, GroupRole::Owner);
 
-    public function test_member_can_claim_unclaimed_key_in_their_group(): void
-    {
-        $owner  = User::factory()->create();
-        $member = User::factory()->create();
-        $group  = Group::factory()->create(['owner_id' => $owner->id]);
-        $group->addMember($owner, GroupRole::Owner);
-        $group->addMember($member, GroupRole::Member);
+    $key = createTestKey(['group_id' => $group->id]);
 
-        $key = $this->createKey([
-            'group_id'      => $group->id,
-            'owned_user_id' => null,
-        ]);
+    $this->actingAs($outsider);
 
-        $this->actingAs($member);
-        $this->assertTrue($member->can('claim', $key));
-    }
+    expect($outsider->can('claim', $key))->toBeFalse();
+});
 
-    public function test_cannot_create_key_without_any_groups(): void
-    {
-        $user = User::factory()->create();
+it('lets a member claim an unclaimed key in their group', function (): void {
+    $owner  = User::factory()->create();
+    $member = User::factory()->create();
+    $group  = Group::factory()->create(['owner_id' => $owner->id]);
+    $group->addMember($owner, GroupRole::Owner);
+    $group->addMember($member, GroupRole::Member);
 
-        $this->actingAs($user);
+    $key = createTestKey([
+        'group_id'      => $group->id,
+        'owned_user_id' => null,
+    ]);
 
-        $this->assertFalse($user->can('create', Key::class));
-    }
+    $this->actingAs($member);
 
-    public function test_can_create_key_when_member_of_a_group(): void
-    {
-        $user  = User::factory()->create();
-        $group = Group::factory()->create(['owner_id' => $user->id]);
-        $group->addMember($user, GroupRole::Owner);
+    expect($member->can('claim', $key))->toBeTrue();
+});
 
-        $this->actingAs($user);
+it('prevents key creation without any groups', function (): void {
+    $user = User::factory()->create();
 
-        $this->assertTrue($user->can('create', Key::class));
-    }
+    $this->actingAs($user);
 
-    private function createKey(array $attributes = []): Key
-    {
-        $game     = Game::create(['igdb_id' => fake()->unique()->randomNumber(5)]);
-        $platform = Platform::create(['name' => fake()->word()]);
+    expect($user->can('create', Key::class))->toBeFalse();
+});
 
-        return Key::create(array_merge([
-            'game_id'         => $game->id,
-            'platform_id'     => $platform->id,
-            'key'             => fake()->uuid(),
-            'created_user_id' => User::factory()->create()->id,
-            'owned_user_id'   => null,
-            'group_id'        => null,
-            'message'         => fake()->sentence(),
-        ], $attributes));
-    }
+it('allows key creation when member of a group', function (): void {
+    $user  = User::factory()->create();
+    $group = Group::factory()->create(['owner_id' => $user->id]);
+    $group->addMember($user, GroupRole::Owner);
+
+    $this->actingAs($user);
+
+    expect($user->can('create', Key::class))->toBeTrue();
+});
+
+// --- Helpers ---
+
+function createTestKey(array $attributes = []): Key
+{
+    $game     = Game::create(['igdb_id' => fake()->unique()->randomNumber(5)]);
+    $platform = Platform::create(['name' => fake()->word()]);
+
+    return Key::create(array_merge([
+        'game_id'         => $game->id,
+        'platform_id'     => $platform->id,
+        'key'             => fake()->uuid(),
+        'created_user_id' => User::factory()->create()->id,
+        'owned_user_id'   => null,
+        'group_id'        => null,
+        'message'         => fake()->sentence(),
+    ], $attributes));
 }
