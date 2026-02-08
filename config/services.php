@@ -31,10 +31,4 @@ return [
         'api_key'       => env('STEAM_API_KEY'),
     ],
 
-    'discord' => [
-        'enabled' => env('DISCORD_ENABLED', false),
-        'token'   => env('DISCORD_TOKEN', ''),
-        'channel' => env('DISCORD_CHANNEL', ''),
-    ],
-
 ];

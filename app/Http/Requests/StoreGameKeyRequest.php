@@ -19,4 +19,11 @@ class StoreGameKeyRequest extends FormRequest
             'group_id'    => ['required', 'exists:groups,id'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'igdb_id' => 'Please select a valid game.',
+        ];
+    }
 }
