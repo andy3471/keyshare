@@ -38,7 +38,7 @@
         </a>
       </div>
       <p class="text-center text-gray-500 text-sm">
-        &copy; {{ new Date().getFullYear() }} Sparekey.club.
+        &copy; {{ new Date().getFullYear() }} Sparekey.club
       </p>
     </div>
   </footer>

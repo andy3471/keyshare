@@ -27,7 +27,7 @@ class ShowOnboardingGroupController extends Controller
         }
 
         // If there's a pending invite, auto-join and complete onboarding
-        if ($redirect = $this->tryJoinPendingInvite($user)) {
+        if (($redirect = $this->tryJoinPendingInvite($user)) instanceof RedirectResponse) {
             return $redirect;
         }
 

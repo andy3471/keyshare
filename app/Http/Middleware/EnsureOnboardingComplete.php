@@ -35,6 +35,6 @@ class EnsureOnboardingComplete
             return $next($request);
         }
 
-        return redirect()->route($step->routeName());
+        return to_route($step->routeName());
     }
 }

@@ -6,6 +6,14 @@ export default {
     "./resources/**/*.vue",
     "./resources/**/*.ts",
   ],
+  safelist: [
+    // KarmaService::colour() returns these dynamically from the backend
+    'bg-danger', 'shadow-danger/30',
+    'bg-warning', 'shadow-warning/30',
+    'bg-primary-600', 'shadow-primary-600/30',
+    'bg-success', 'shadow-success/30',
+    'text-white',
+  ],
   theme: {
     extend: {
       colors: {

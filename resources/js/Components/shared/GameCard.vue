@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import KeyAvailabilityBadge from '@/Components/shared/KeyAvailabilityBadge.vue';
+import PlatformIcon from '@/Components/shared/PlatformIcon.vue';
 import gamesRoute from '@/routes/games';
 import { GameData } from '@/Types/generated';
-import { TicketIcon } from '@heroicons/vue/24/outline';
+import { TicketIcon, ExclamationTriangleIcon } from '@heroicons/vue/24/outline';
 
 interface Props {
   game: GameData;
@@ -21,10 +21,21 @@ defineProps<Props>();
       :href="gamesRoute.show.url(game.id)"
       class="block w-full h-full relative"
     >
-      <KeyAvailabilityBadge
-        v-if="game.keyCount !== undefined"
-        :key-count="game.keyCount || 0"
-      />
+      <div class="absolute top-2 left-2 z-10 flex gap-1 bg-black/60 backdrop-blur-sm rounded-md px-1.5 py-1">
+        <template v-if="game.platforms?.length">
+          <PlatformIcon
+            v-for="platform in game.platforms"
+            :key="platform.id"
+            :icon="platform.icon"
+            size="sm"
+            class="text-white"
+          />
+        </template>
+        <ExclamationTriangleIcon
+          v-else
+          class="w-4 h-4 text-red-400"
+        />
+      </div>
       <img
         v-if="game.image"
         :src="game.image"
@@ -49,14 +60,6 @@ defineProps<Props>();
     @apply relative w-full bg-dark-800 rounded-lg border border-dark-700 flex justify-center items-center transition-all duration-300 overflow-hidden;
     @apply hover:border-accent-500 hover:shadow-xl hover:shadow-accent-500/30 hover:-translate-y-1;
     aspect-ratio: 3 / 4;
-}
-
-.game-card.has-keys {
-    @apply border-green-500/50;
-}
-
-.game-card.has-keys:hover {
-    @apply border-green-500 shadow-green-500/30;
 }
 
 .game-card:hover .game-overlay {

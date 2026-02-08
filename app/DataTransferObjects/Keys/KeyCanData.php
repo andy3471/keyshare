@@ -19,6 +19,7 @@ class KeyCanData extends Data
         public bool $claim,
         public bool $feedback,
         public ?ClaimDeniedReason $claimDeniedReason = null,
+        public ?string $cooldownEndsAt = null,
     ) {}
 
     public static function fromModel(Key $key): self
@@ -27,11 +28,18 @@ class KeyCanData extends Data
         $policy            = new KeyPolicy;
         $claimDeniedReason = $user ? $policy->claimDeniedReason($user, $key) : null;
 
+        $cooldownEndsAt = null;
+
+        if ($claimDeniedReason === ClaimDeniedReason::CooldownActive && $user && $key->group) {
+            $cooldownEndsAt = $policy->cooldownEndsAt($user, $key->group)?->toIso8601String();
+        }
+
         return new self(
             view: Gate::allows('view', $key),
             claim: ! $claimDeniedReason instanceof ClaimDeniedReason,
             feedback: Gate::allows('feedback', $key),
             claimDeniedReason: $claimDeniedReason,
+            cooldownEndsAt: $cooldownEndsAt,
         );
     }
 }

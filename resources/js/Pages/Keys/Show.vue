@@ -2,13 +2,15 @@
 import { computed, ref, watch } from 'vue';
 import { Head, useForm, usePage, router } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import KeyGameInfo from '@/Components/keys/KeyGameInfo.vue';
+import GameBanner from '@/Components/shared/GameBanner.vue';
 import KeyFeedbackSection from '@/Components/keys/KeyFeedbackSection.vue';
 import SharedByCard from '@/Components/keys/SharedByCard.vue';
 import { KeyData, KeyFeedback } from '@/Types/generated';
 import type { FlashProps } from '@/types/global';
 import { claim as claimRoute, feedback as feedbackRoute } from '@/routes/keys';
-import { CheckCircleIcon, InformationCircleIcon, ExclamationTriangleIcon, ClipboardDocumentIcon, CheckIcon } from '@heroicons/vue/24/outline';
+import { useCountdown } from '@/Composables/useCountdown';
+import PlatformIcon from '@/Components/shared/PlatformIcon.vue';
+import { InformationCircleIcon, ExclamationTriangleIcon, ClockIcon, ClipboardDocumentIcon, CheckIcon } from '@heroicons/vue/24/outline';
 
 interface Props {
   keyData: KeyData;
@@ -22,6 +24,13 @@ const copied = ref(false);
 
 const form = useForm({ id: keyData.value.id });
 watch(() => keyData.value.id, (newId) => { form.id = newId; });
+
+const { isExpired: cooldownExpired, formatted: cooldownFormatted } = useCountdown(keyData.value.can?.cooldownEndsAt ?? null);
+watch(cooldownExpired, (expired) => {
+  if (expired) {
+    router.reload({ only: ['keyData'] });
+  }
+});
 
 const copyKeyCode = async () => {
   if (!keyData.value.key) return;
@@ -74,9 +83,11 @@ const submitFeedback = (value: KeyFeedback) => {
         v-if="keyData.game"
         class="mb-8"
       >
-        <KeyGameInfo
+        <GameBanner
           :game="keyData.game"
           :platform-name="keyData.platform?.name"
+          :platform-icon="keyData.platform?.icon"
+          linkable
         />
       </div>
 
@@ -90,7 +101,11 @@ const submitFeedback = (value: KeyFeedback) => {
               v-if="keyData.platform?.name"
               class="inline-flex items-center gap-2 px-3 py-1.5 bg-primary-600/20 border border-primary-600/30 rounded-lg"
             >
-              <CheckCircleIcon class="w-4 h-4 text-primary-400" />
+              <PlatformIcon
+                :icon="keyData.platform.icon"
+                size="md"
+                class="text-primary-400"
+              />
               <span class="text-primary-300 font-semibold">{{ keyData.platform.name }}</span>
             </div>
           </div>
@@ -120,36 +135,65 @@ const submitFeedback = (value: KeyFeedback) => {
               </p>
             </div>
 
-            <div
-              v-else-if="keyData.can?.claimDeniedReason === 'own_key'"
-              class="bg-primary-600/10 border border-primary-600/30 rounded-lg p-4"
-            >
-              <div class="flex items-start gap-3">
-                <InformationCircleIcon class="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p class="text-primary-300 font-medium text-sm">
-                    This is your key
-                  </p>
-                  <p class="text-gray-400 text-sm mt-1">
-                    You shared this key — you can't claim your own.
-                  </p>
+            <div v-else-if="keyData.can?.claimDeniedReason === 'own_key' || keyData.can?.claimDeniedReason === 'karma_too_low' || keyData.can?.claimDeniedReason === 'cooldown_active'">
+              <div>
+                <label class="block text-sm font-medium text-gray-500 mb-2">Key Code</label>
+                <input
+                  class="border border-dark-700 rounded-lg bg-dark-900/50 text-gray-600 px-4 py-3 w-full opacity-40 cursor-not-allowed font-mono text-lg tracking-wider"
+                  type="text"
+                  value="*****-*****-*****-*****"
+                  disabled
+                >
+              </div>
+
+              <div
+                v-if="keyData.can?.claimDeniedReason === 'own_key'"
+                class="bg-primary-600/10 border border-primary-600/30 rounded-lg p-4 mt-4"
+              >
+                <div class="flex items-start gap-3">
+                  <InformationCircleIcon class="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p class="text-primary-300 font-medium text-sm">
+                      This is your key
+                    </p>
+                    <p class="text-gray-400 text-sm mt-1">
+                      You shared this key — you can't claim your own.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div
-              v-else-if="keyData.can?.claimDeniedReason === 'karma_too_low'"
-              class="bg-warning/10 border border-warning/30 rounded-lg p-4"
-            >
-              <div class="flex items-start gap-3">
-                <ExclamationTriangleIcon class="w-5 h-5 text-warning flex-shrink-0 mt-0.5" />
-                <div>
-                  <p class="text-warning font-medium text-sm">
-                    Karma too low
-                  </p>
-                  <p class="text-gray-400 text-sm mt-1">
-                    This group requires a minimum karma of <span class="text-white font-semibold">{{ keyData.group?.min_karma }}</span> to claim keys. Share keys and get positive feedback to increase your karma.
-                  </p>
+              <div
+                v-else-if="keyData.can?.claimDeniedReason === 'karma_too_low'"
+                class="bg-warning/10 border border-warning/30 rounded-lg p-4 mt-4"
+              >
+                <div class="flex items-start gap-3">
+                  <ExclamationTriangleIcon class="w-5 h-5 text-warning flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p class="text-warning font-medium text-sm">
+                      Karma too low
+                    </p>
+                    <p class="text-gray-400 text-sm mt-1">
+                      This group requires a minimum karma of <span class="text-white font-semibold">{{ keyData.group?.min_karma }}</span> to claim keys. Share keys and get positive feedback to increase your karma.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                v-else-if="keyData.can?.claimDeniedReason === 'cooldown_active'"
+                class="bg-primary-600/10 border border-primary-600/30 rounded-lg p-4 mt-4"
+              >
+                <div class="flex items-start gap-3">
+                  <ClockIcon class="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p class="text-primary-300 font-medium text-sm">
+                      Claim cooldown active
+                    </p>
+                    <p class="text-gray-400 text-sm mt-1">
+                      You can claim another key in <span class="text-white font-semibold tabular-nums">{{ cooldownFormatted }}</span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

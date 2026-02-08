@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { computed, watch } from 'vue';
+import { Head, Link, usePage, router } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import GameHeader from '@/Components/games/GameHeader.vue';
+import GameBanner from '@/Components/shared/GameBanner.vue';
 import ScreenshotGallery from '@/Components/games/ScreenshotGallery.vue';
 import GameList from '@/Components/games/GameList.vue';
 import KeyCard from '@/Components/keys/KeyCard.vue';
 import GameImagePlaceholder from '@/Components/shared/GameImagePlaceholder.vue';
 import EmptyState from '@/Components/shared/EmptyState.vue';
-import { GameData, KeyData } from '@/Types/generated';
+import { GameData, GroupData, KeyData } from '@/Types/generated';
 import type { AuthUser, Paginated } from '@/types/global';
 import gamesRoute from '@/routes/games';
 import keysRoute from '@/routes/keys';
-import { PlusIcon, KeyIcon } from '@heroicons/vue/24/outline';
+import { useCountdown } from '@/Composables/useCountdown';
+import { PlusIcon, KeyIcon, ClockIcon } from '@heroicons/vue/24/outline';
 
 interface Props {
   game: GameData;
@@ -20,10 +22,29 @@ interface Props {
   parentGame?: GameData;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const page = usePage();
 const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
+const activeGroup = computed(() => page.props.activeGroup as GroupData | null);
+
+const cooldownEndsAt = computed(() => {
+  if (!activeGroup.value) return null;
+
+  for (const key of props.keys) {
+    if (key.can?.claimDeniedReason === 'cooldown_active' && key.can.cooldownEndsAt) {
+      return key.can.cooldownEndsAt;
+    }
+  }
+  return null;
+});
+
+const { isExpired: cooldownExpired, formatted: cooldownFormatted } = useCountdown(cooldownEndsAt.value);
+watch(cooldownExpired, (expired) => {
+  if (expired && cooldownEndsAt.value) {
+    router.reload({ only: ['keys'] });
+  }
+});
 </script>
 
 <template>
@@ -57,7 +78,11 @@ const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
         </div>
       </div>
 
-      <GameHeader :game="game" />
+      <GameBanner
+        :game="game"
+        show-rating
+        show-genres
+      />
 
       <div class="flex items-center justify-between mb-4 mt-8">
         <h2 class="text-2xl font-bold text-white">
@@ -71,6 +96,18 @@ const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
           <PlusIcon class="w-4 h-4" />
           Add a Key
         </Link>
+      </div>
+
+      <div
+        v-if="cooldownEndsAt && !cooldownExpired"
+        class="bg-primary-600/10 border border-primary-600/30 rounded-lg p-4 mb-4"
+      >
+        <div class="flex items-center gap-3">
+          <ClockIcon class="w-5 h-5 text-primary-400 flex-shrink-0" />
+          <p class="text-gray-300 text-sm">
+            Claim cooldown active — you can claim another key in <span class="text-white font-semibold tabular-nums">{{ cooldownFormatted }}</span>
+          </p>
+        </div>
       </div>
 
       <EmptyState

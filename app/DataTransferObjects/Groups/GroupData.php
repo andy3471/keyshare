@@ -24,6 +24,7 @@ class GroupData extends Data
         public ?string $avatar = null,
         public ?string $discord_webhook_url = null,
         public ?int $min_karma = null,
+        public ?int $claim_cooldown_minutes = null,
         public ?GroupCanData $can = null,
     ) {}
 
@@ -42,6 +43,7 @@ class GroupData extends Data
             avatar: $group->avatar_url,
             discord_webhook_url: $group->discord_webhook_url,
             min_karma: $group->min_karma,
+            claim_cooldown_minutes: $group->claim_cooldown_minutes,
             can: auth()->check() ? GroupCanData::fromModel($group) : null,
         );
     }

@@ -5,7 +5,7 @@ import keyRoutes from '@/routes/keys';
 import UserAvatar from '@/Components/shared/UserAvatar.vue';
 import GroupAvatar from '@/Components/shared/GroupAvatar.vue';
 import KeyStatusBadge from '@/Components/shared/KeyStatusBadge.vue';
-import { ChevronRightIcon } from '@heroicons/vue/20/solid';
+import PlatformIcon from '@/Components/shared/PlatformIcon.vue';
 
 interface Props {
   keyData: KeyData;
@@ -20,10 +20,17 @@ defineProps<Props>();
     class="group relative bg-dark-800 rounded-lg border border-dark-700 p-4 transition-all duration-300 hover:border-accent-500 hover:shadow-xl hover:shadow-accent-500/20 hover:-translate-y-1"
   >
     <div class="flex items-center justify-between mb-3">
-      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-accent-600/20 text-accent-400 border border-accent-600/30">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold bg-accent-600/20 text-accent-400 border border-accent-600/30">
+        <PlatformIcon
+          :icon="keyData.platform?.icon || 'generic'"
+          size="sm"
+        />
         {{ keyData.platform?.name || 'Unknown Platform' }}
       </span>
-      <KeyStatusBadge :can-claim="keyData.can.claim" />
+      <KeyStatusBadge
+        :can-claim="keyData.can.claim"
+        :claim-denied-reason="keyData.can.claimDeniedReason"
+      />
     </div>
 
     <div class="flex items-center space-x-3">
@@ -57,10 +64,6 @@ defineProps<Props>();
           {{ keyData.message }}
         </p>
       </div>
-    </div>
-
-    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-      <ChevronRightIcon class="w-5 h-5 text-accent-400" />
     </div>
   </Link>
 </template>

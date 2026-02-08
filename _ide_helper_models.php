@@ -52,6 +52,7 @@ namespace App\Models{
  * @property string|null $invite_code
  * @property string|null $discord_webhook_url
  * @property int|null $min_karma
+ * @property int|null $claim_cooldown_minutes
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read string|null $avatar_url
@@ -71,6 +72,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group public()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereClaimCooldownMinutes($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Group whereDiscordWebhookUrl($value)

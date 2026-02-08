@@ -47,7 +47,7 @@ class OnboardingCredentialsController extends Controller
         ]);
 
         // If there's a pending invite, auto-join and skip the group step
-        if ($redirect = $this->tryJoinPendingInvite($user)) {
+        if (($redirect = $this->tryJoinPendingInvite($user)) instanceof RedirectResponse) {
             return $redirect;
         }
 

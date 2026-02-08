@@ -7,6 +7,7 @@ namespace App\Policies;
 use App\Enums\ClaimDeniedReason;
 use App\Models\Key;
 use App\Models\User;
+use Carbon\CarbonInterface;
 
 class KeyPolicy
 {
@@ -48,12 +49,38 @@ class KeyPolicy
             return ClaimDeniedReason::KarmaTooLow;
         }
 
+        if ($group->claim_cooldown_minutes !== null && $this->cooldownEndsAt($currentUser, $group)?->isFuture()) {
+            return ClaimDeniedReason::CooldownActive;
+        }
+
         return null;
     }
 
     public function claim(User $currentUser, Key $key): bool
     {
         return ! $this->claimDeniedReason($currentUser, $key) instanceof ClaimDeniedReason;
+    }
+
+    public function cooldownEndsAt(User $currentUser, \App\Models\Group $group): ?CarbonInterface
+    {
+        if ($group->claim_cooldown_minutes === null) {
+            return null;
+        }
+
+        $lastClaimedAt = Key::query()
+            ->where('group_id', $group->id)
+            ->where('owned_user_id', $currentUser->id)
+            ->latest('updated_at')
+            ->value('updated_at');
+
+        if (! $lastClaimedAt) {
+            return null;
+        }
+
+        $endsAt = \Illuminate\Support\Facades\Date::parse($lastClaimedAt)
+            ->addMinutes($group->claim_cooldown_minutes);
+
+        return $endsAt->isFuture() ? $endsAt : null;
     }
 
     public function feedback(User $currentUser, Key $key): bool

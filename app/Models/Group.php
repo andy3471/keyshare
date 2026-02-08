@@ -33,6 +33,7 @@ class Group extends Model implements HasMedia
         'invite_code',
         'discord_webhook_url',
         'min_karma',
+        'claim_cooldown_minutes',
     ];
 
     /** @return BelongsTo<User, $this> */
@@ -150,8 +151,9 @@ class Group extends Model implements HasMedia
     protected function casts(): array
     {
         return [
-            'is_public' => 'boolean',
-            'min_karma' => 'integer',
+            'is_public'              => 'boolean',
+            'min_karma'              => 'integer',
+            'claim_cooldown_minutes' => 'integer',
         ];
     }
 }

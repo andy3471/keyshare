@@ -56,9 +56,18 @@ const selectedOption = () => {
         <ListboxButton class="relative w-full cursor-pointer border border-dark-600 rounded-lg bg-dark-900 text-left px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200">
           <span
             :class="selectedOption() ? 'text-gray-100' : 'text-gray-500'"
-            class="block truncate"
+            class="flex items-center gap-2 truncate"
           >
-            {{ selectedOption()?.name ?? placeholder }}
+            <slot
+              v-if="selectedOption()"
+              name="selected"
+              :option="selectedOption()!"
+            >
+              {{ selectedOption()?.name }}
+            </slot>
+            <template v-else>
+              {{ placeholder }}
+            </template>
           </span>
           <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
             <ChevronUpDownIcon class="h-5 w-5 text-gray-400" />
@@ -83,10 +92,15 @@ const selectedOption = () => {
                 :class="active ? 'bg-accent-600 text-white' : 'text-gray-300'"
               >
                 <span
-                  class="block truncate"
+                  class="flex items-center gap-2 truncate"
                   :class="selected ? 'font-semibold' : 'font-normal'"
                 >
-                  {{ option.name }}
+                  <slot
+                    name="option"
+                    :option="option"
+                  >
+                    {{ option.name }}
+                  </slot>
                 </span>
                 <span
                   v-if="selected"

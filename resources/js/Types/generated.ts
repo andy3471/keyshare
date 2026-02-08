@@ -49,6 +49,7 @@ aggregated_rating_count?: number
 description: string | null
 image: string | null
 keyCount?: number
+platforms?: PlatformData[]
 };
 export type GameShowData = {
 game: GameData
@@ -83,10 +84,12 @@ view: boolean
 claim: boolean
 feedback: boolean
 claimDeniedReason: ClaimDeniedReason | null
+cooldownEndsAt: string | null
 };
 export type PlatformData = {
 id: string
 name: string
+icon: string
 };
 export type UserData = {
 id: string
@@ -102,21 +105,6 @@ export type AutocompleteGameData = {
 id: string
 name: string
 };
-export type GroupData = {
-id: string
-name: string
-slug: string
-description: string | null
-owner_id: string | null
-is_public: boolean | null
-invite_code: string | null
-member_count: number | null
-role: string | null
-avatar: string | null
-discord_webhook_url: string | null
-min_karma: number | null
-can: GroupCanData | null
-};
 export type GroupMemberData = {
 id: string
 name: string
@@ -131,7 +119,24 @@ leave: boolean
 manageMembers: boolean
 invite: boolean
 };
+export type GroupData = {
+id: string
+name: string
+slug: string
+description: string | null
+owner_id: string | null
+is_public: boolean | null
+invite_code: string | null
+member_count: number | null
+role: string | null
+avatar: string | null
+discord_webhook_url: string | null
+min_karma: number | null
+claim_cooldown_minutes: number | null
+can: GroupCanData | null
+};
 export type GroupRole = "owner" | "admin" | "member";
 export type KeyFeedback = "worked" | "did_not_work";
-export type ClaimDeniedReason = "already_claimed" | "own_key" | "not_in_group" | "karma_too_low";
 export type LinkedAccountProvider = "steam" | "twitch" | "discord" | "xbox";
+export type OnboardingStep = "set_credentials" | "join_group" | "complete";
+export type ClaimDeniedReason = "already_claimed" | "own_key" | "not_in_group" | "karma_too_low" | "cooldown_active";

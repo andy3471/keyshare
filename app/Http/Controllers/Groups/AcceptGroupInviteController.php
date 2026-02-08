@@ -27,7 +27,7 @@ class AcceptGroupInviteController extends Controller
         if (! $user->onboarded_at) {
             session(['pending_invite_code' => $code]);
 
-            return redirect()->route($user->onboardingStep()->routeName());
+            return to_route($user->onboardingStep()->routeName());
         }
 
         if ($group->hasMember($user)) {

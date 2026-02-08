@@ -42,14 +42,15 @@ onUnmounted(() => { window.removeEventListener('keydown', handleKeyDown); });
   <AppDialog
     :open="open"
     max-width="xl"
+    bare
     @close="emit('close')"
   >
     <div class="relative flex items-center justify-center">
       <button
-        class="absolute -top-12 right-0 text-white hover:text-accent-400 transition-colors z-10"
+        class="absolute -top-2 -right-2 text-white hover:text-accent-400 transition-colors z-10 bg-dark-800/80 backdrop-blur-sm rounded-full p-1.5"
         @click="emit('close')"
       >
-        <XMarkIcon class="w-8 h-8" />
+        <XMarkIcon class="w-6 h-6" />
       </button>
 
       <button

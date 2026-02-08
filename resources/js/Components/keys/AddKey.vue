@@ -8,6 +8,7 @@ import FormTextarea from '@/Components/ui/FormTextarea.vue';
 import LoadingSpinner from '@/Components/ui/LoadingSpinner.vue';
 import { AutocompleteGameData, GroupData, PlatformData } from '@/Types/generated';
 import keys from '@/routes/keys';
+import PlatformIcon from '@/Components/shared/PlatformIcon.vue';
 import { UsersIcon, KeyIcon, PlusIcon, TicketIcon } from '@heroicons/vue/24/outline';
 import type { ComboboxItem } from '@/types/ui';
 
@@ -31,7 +32,7 @@ const form = useForm({
 });
 
 const groupOptions = props.groups.map(g => ({ id: g.id, name: g.name }));
-const platformOptions = props.platforms.map(p => ({ id: p.id, name: p.name }));
+const platformOptions = props.platforms.map(p => ({ id: p.id, name: p.name, icon: p.icon }));
 
 const submit = () => {
   form.igdb_id = selectedGame.value?.id.toString() ?? '';
@@ -143,7 +144,22 @@ const handleGameSelect = (item: ComboboxItem | null) => {
             placeholder="Select a platform"
             :error="form.errors.platform_id"
             required
-          />
+          >
+            <template #selected="{ option }">
+              <PlatformIcon
+                :icon="option.icon ?? 'generic'"
+                size="sm"
+              />
+              {{ option.name }}
+            </template>
+            <template #option="{ option }">
+              <PlatformIcon
+                :icon="option.icon ?? 'generic'"
+                size="sm"
+              />
+              {{ option.name }}
+            </template>
+          </AppListbox>
         </div>
       </div>
 

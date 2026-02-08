@@ -8,6 +8,7 @@ import AppSwitch from '@/Components/ui/AppSwitch.vue';
 import AvatarUpload from '@/Components/shared/AvatarUpload.vue';
 import DiscordWebhookSection from '@/Components/groups/DiscordWebhookSection.vue';
 import KarmaRequirementSection from '@/Components/groups/KarmaRequirementSection.vue';
+import ClaimCooldownSection from '@/Components/groups/ClaimCooldownSection.vue';
 import DangerZone from '@/Components/groups/DangerZone.vue';
 import { update as updateRoute, destroy as destroyRoute } from '@/routes/groups';
 import { GroupData } from '@/Types/generated';
@@ -26,6 +27,7 @@ const form = useForm({
   avatar: null as File | null,
   discord_webhook_url: props.group.discord_webhook_url ?? '',
   min_karma: props.group.min_karma,
+  claim_cooldown_minutes: props.group.claim_cooldown_minutes,
 });
 
 const initials = computed(() => form.name ? form.name.charAt(0).toUpperCase() : '?');
@@ -98,6 +100,12 @@ const deleteGroup = () => {
             :model-value="form.min_karma"
             :error="form.errors.min_karma"
             @update:model-value="form.min_karma = Number($event)"
+          />
+
+          <ClaimCooldownSection
+            :model-value="form.claim_cooldown_minutes"
+            :error="form.errors.claim_cooldown_minutes"
+            @update:model-value="form.claim_cooldown_minutes = $event ? Number($event) : null"
           />
 
           <div class="flex justify-end">

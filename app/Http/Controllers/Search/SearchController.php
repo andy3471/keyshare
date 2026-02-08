@@ -46,7 +46,7 @@ class SearchController extends Controller
                 $allGames = $igdbGames->map(fn (IgdbGame $igdbGame): GameData => GameData::fromIgdb($igdbGame));
                 $total    = $allGames->count();
                 $items    = $allGames->forPage($currentPage, $perPage)
-                    ->map(fn ($gameData) => $gameData->include('hasKey', 'keyCount'))
+                    ->map(fn ($gameData) => $gameData->include('hasKey', 'keyCount', 'platforms'))
                     ->values();
 
                 return new LengthAwarePaginator(

@@ -6,6 +6,7 @@ import GroupAvatar from '@/Components/shared/GroupAvatar.vue';
 import GameImagePlaceholder from '@/Components/shared/GameImagePlaceholder.vue';
 import KeyStatusBadge from '@/Components/shared/KeyStatusBadge.vue';
 import FeedbackBadge from '@/Components/shared/FeedbackBadge.vue';
+import PlatformIcon from '@/Components/shared/PlatformIcon.vue';
 import { ChevronRightIcon } from '@heroicons/vue/20/solid';
 
 interface Props {
@@ -39,7 +40,11 @@ defineProps<Props>();
           <h3 class="text-white font-semibold truncate group-hover:text-accent-400 transition-colors">
             {{ keyData.game?.name || 'Unknown Game' }}
           </h3>
-          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-accent-600/20 text-accent-400 border border-accent-600/30 flex-shrink-0">
+          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-accent-600/20 text-accent-400 border border-accent-600/30 flex-shrink-0">
+            <PlatformIcon
+              :icon="keyData.platform?.icon || 'generic'"
+              size="xs"
+            />
             {{ keyData.platform?.name || 'Unknown' }}
           </span>
         </div>

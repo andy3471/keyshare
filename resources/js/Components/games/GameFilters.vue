@@ -4,6 +4,7 @@ import { router } from '@inertiajs/vue3';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
 import { PlatformData } from '@/Types/generated';
 import games from '@/routes/games';
+import PlatformIcon from '@/Components/shared/PlatformIcon.vue';
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/vue/20/solid';
 
 interface Props {
@@ -40,8 +41,16 @@ const clearFilters = () => {
   applyFilters();
 };
 
+const getPlatform = (platformId: string) => {
+  return props.platforms.find(p => p.id === platformId);
+};
+
 const getPlatformName = (platformId: string): string => {
-  return props.platforms.find(p => p.id === platformId)?.name ?? platformId;
+  return getPlatform(platformId)?.name ?? platformId;
+};
+
+const getPlatformIcon = (platformId: string): string => {
+  return getPlatform(platformId)?.icon ?? 'generic';
 };
 
 const applyFilters = () => {
@@ -101,7 +110,12 @@ watch(() => props.selectedPlatforms, (newValue) => {
                     class="w-4 h-4 text-accent-600 bg-dark-700 border-dark-600 rounded focus:ring-accent-500 focus:ring-2"
                     @change="togglePlatform(platform.id)"
                   >
-                  <span class="ml-3 text-sm text-gray-300">{{ platform.name }}</span>
+                  <PlatformIcon
+                    :icon="platform.icon"
+                    size="sm"
+                    class="ml-3 text-gray-400"
+                  />
+                  <span class="ml-2 text-sm text-gray-300">{{ platform.name }}</span>
                 </label>
               </div>
             </PopoverPanel>
@@ -129,8 +143,12 @@ watch(() => props.selectedPlatforms, (newValue) => {
       <span
         v-for="platformId in selected"
         :key="platformId"
-        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-accent-600/20 text-accent-400 border border-accent-600/30"
+        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-accent-600/20 text-accent-400 border border-accent-600/30"
       >
+        <PlatformIcon
+          :icon="getPlatformIcon(platformId)"
+          size="xs"
+        />
         {{ getPlatformName(platformId) }}
         <button
           class="ml-2 hover:text-white transition-colors"

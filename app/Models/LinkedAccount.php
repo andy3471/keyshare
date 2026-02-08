@@ -28,7 +28,8 @@ class LinkedAccount extends Model
     }
 
     /** @param Builder<self> $query */
-    public function scopeForProvider(Builder $query, LinkedAccountProvider $provider): void
+    #[\Illuminate\Database\Eloquent\Attributes\Scope]
+    protected function forProvider(Builder $query, LinkedAccountProvider $provider): void
     {
         $query->where('provider', $provider);
     }

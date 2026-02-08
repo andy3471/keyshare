@@ -14,6 +14,7 @@ class PlatformData extends Data
     public function __construct(
         public string $id,
         public string $name,
+        public string $icon,
     ) {}
 
     public static function fromModel(Platform $platform): self
@@ -21,6 +22,7 @@ class PlatformData extends Data
         return new self(
             id: $platform->id,
             name: $platform->name,
+            icon: $platform->icon(),
         );
     }
 }

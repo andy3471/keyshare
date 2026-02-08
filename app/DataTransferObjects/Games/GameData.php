@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataTransferObjects\Games;
 
+use App\DataTransferObjects\Platforms\PlatformData;
 use App\Models\Game;
 use App\Models\Key;
 use MarcReichel\IGDBLaravel\Models\Game as IgdbGame;
@@ -18,6 +19,7 @@ class GameData extends Data
     /**
      * @param  GenreData[]|Optional|Lazy  $genres
      * @param  ScreenshotData[]|Optional|Lazy  $screenshots
+     * @param  PlatformData[]|Optional|Lazy  $platforms
      */
     public function __construct(
         public string $id,
@@ -29,6 +31,7 @@ class GameData extends Data
         public ?string $description = null,
         public ?string $image = null,
         public int|Optional|Lazy $keyCount = new Optional(),
+        public Optional|Lazy|array $platforms = new Optional(),
     ) {}
 
     public static function fromModel(Game $game): self
@@ -43,6 +46,12 @@ class GameData extends Data
             keyCount: Lazy::create(fn () => $game->relationLoaded('keys')
                 ? $game->keys->whereNull('owned_user_id')->count()
                 : $game->keys()->whereNull('owned_user_id')->count()),
+            platforms: Lazy::create(fn (): array => $game->relationLoaded('keys')
+                ? PlatformData::collect(
+                    $game->keys->whereNull('owned_user_id')
+                        ->pluck('platform')->filter()->unique('id')->values()
+                )->all()
+                : []),
         );
     }
 
@@ -72,10 +81,37 @@ class GameData extends Data
                     return 0;
                 }
 
-                return $game->keys()
-                    ->whereNull('owned_user_id')
-                    ->count();
+                return self::scopedKeyQuery($game)->count();
+            }),
+            platforms: Lazy::create(function () use ($igdbGame): array {
+                $game = Game::where('igdb_id', $igdbGame->id)->first();
+
+                if (! $game) {
+                    return [];
+                }
+
+                return PlatformData::collect(
+                    self::scopedKeyQuery($game)
+                        ->with('platform')
+                        ->get()
+                        ->pluck('platform')->filter()->unique('id')->values()
+                )->all();
             }),
         );
+    }
+
+    /** @return \Illuminate\Database\Eloquent\Relations\HasMany<Key, Game> */
+    private static function scopedKeyQuery(Game $game): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        $activeGroupId = session('active_group_id');
+        $userGroupIds  = auth()->check() ? auth()->user()->groups->pluck('id') : collect();
+
+        return $game->keys()
+            ->whereNull('owned_user_id')
+            ->when(
+                $activeGroupId,
+                fn ($q) => $q->where('group_id', $activeGroupId),
+                fn ($q) => $q->whereIn('group_id', $userGroupIds),
+            );
     }
 }

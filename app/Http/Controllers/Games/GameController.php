@@ -48,10 +48,23 @@ class GameController extends Controller
                             $query->whereIn('platform_id', $platformIds);
                         }
                     })
-                    ->with('keys')
+                    ->with(['keys' => function ($query) use ($platformIds, $activeGroupId, $userGroupIds): void {
+                        $query->whereNull('owned_user_id')
+                            ->with('platform');
+
+                        if ($activeGroupId) {
+                            $query->where('group_id', $activeGroupId);
+                        } else {
+                            $query->whereIn('group_id', $userGroupIds);
+                        }
+
+                        if ($platformIds !== []) {
+                            $query->whereIn('platform_id', $platformIds);
+                        }
+                    }])
                     ->paginate(12);
 
-                $games->through(fn ($game): GameData => GameData::from($game)->include('hasKey', 'keyCount'));
+                $games->through(fn ($game): GameData => GameData::from($game)->include('hasKey', 'keyCount', 'platforms'));
 
                 return $games;
             }),

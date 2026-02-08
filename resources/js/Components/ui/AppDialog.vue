@@ -11,11 +11,13 @@ interface Props {
   open: boolean;
   title?: string;
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl';
+  bare?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
   title: '',
   maxWidth: 'md',
+  bare: false,
 });
 
 const emit = defineEmits<{
@@ -62,8 +64,11 @@ const maxWidthClasses: Record<string, string> = {
           leave-to="opacity-0 scale-95 translate-y-2"
         >
           <DialogPanel
-            class="relative bg-dark-800 rounded-xl shadow-2xl shadow-dark-950/50 border border-dark-700 w-full p-6"
-            :class="maxWidthClasses[maxWidth]"
+            class="relative w-full"
+            :class="[
+              maxWidthClasses[maxWidth],
+              bare ? '' : 'bg-dark-800 rounded-xl shadow-2xl shadow-dark-950/50 border border-dark-700 p-6',
+            ]"
           >
             <DialogTitle
               v-if="title"
