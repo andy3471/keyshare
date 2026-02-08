@@ -16,6 +16,10 @@ class KeyPolicy
 
     public function view(User $currentUser, Key $key): bool
     {
+        if ($currentUser->id === $key->created_user_id) {
+            return true;
+        }
+
         if (! $key->group_id) {
             return false;
         }

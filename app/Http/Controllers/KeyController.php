@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\DataTransferObjects\Games\GameData;
 use App\DataTransferObjects\Groups\GroupData;
 use App\DataTransferObjects\Keys\KeyData;
 use App\DataTransferObjects\Platforms\PlatformData;
@@ -104,11 +103,12 @@ class KeyController extends Controller
     public function claimed(Request $request): Response
     {
         return Inertia::render('Keys/Claimed', [
-            'games' => Inertia::scroll(fn (): \Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection|\Spatie\LaravelData\CursorPaginatedDataCollection|\Illuminate\Support\Enumerable|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Contracts\Pagination\CursorPaginator|array => GameData::collect(
+            'keys' => Inertia::scroll(fn () => KeyData::collect(
                 auth()
                     ->user()
                     ->claimedKeys()
-                    ->with('game')
+                    ->with(['game', 'platform', 'group', 'createdUser'])
+                    ->latest()
                     ->paginate(12)
             )),
         ]);
@@ -117,11 +117,12 @@ class KeyController extends Controller
     public function shared(Request $request): Response
     {
         return Inertia::render('Keys/Shared', [
-            'games' => Inertia::scroll(fn (): \Spatie\LaravelData\DataCollection|\Spatie\LaravelData\PaginatedDataCollection|\Spatie\LaravelData\CursorPaginatedDataCollection|\Illuminate\Support\Enumerable|\Illuminate\Pagination\AbstractPaginator|\Illuminate\Contracts\Pagination\Paginator|\Illuminate\Pagination\AbstractCursorPaginator|\Illuminate\Contracts\Pagination\CursorPaginator|array => GameData::collect(
+            'keys' => Inertia::scroll(fn () => KeyData::collect(
                 auth()
                     ->user()
                     ->sharedKeys()
-                    ->with('game')
+                    ->with(['game', 'platform', 'group', 'claimedUser'])
+                    ->latest()
                     ->paginate(12)
             )),
         ]);
