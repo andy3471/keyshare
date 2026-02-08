@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import AppFooter from '@/Components/AppFooter.vue';
+import AppFooter from '@/Components/layout/AppFooter.vue';
 import { welcome } from '@/routes';
 </script>
 

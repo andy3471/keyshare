@@ -129,13 +129,13 @@ it('restores karma when negative feedback is reversed', function (): void {
 });
 
 it('returns correct colour for karma thresholds', function (): void {
-    expect(KarmaService::colour(-1))->toBe('badge-danger')
-        ->and(KarmaService::colour(0))->toBe('badge-warning')
-        ->and(KarmaService::colour(1))->toBe('badge-warning')
-        ->and(KarmaService::colour(2))->toBe('badge-info')
-        ->and(KarmaService::colour(14))->toBe('badge-info')
-        ->and(KarmaService::colour(15))->toBe('badge-success')
-        ->and(KarmaService::colour(100))->toBe('badge-success');
+    expect(KarmaService::colour(-1))->toBe('bg-danger text-white shadow-danger/30')
+        ->and(KarmaService::colour(0))->toBe('bg-warning text-white shadow-warning/30')
+        ->and(KarmaService::colour(1))->toBe('bg-warning text-white shadow-warning/30')
+        ->and(KarmaService::colour(2))->toBe('bg-primary-600 text-white shadow-primary-600/30')
+        ->and(KarmaService::colour(14))->toBe('bg-primary-600 text-white shadow-primary-600/30')
+        ->and(KarmaService::colour(15))->toBe('bg-success text-white shadow-success/30')
+        ->and(KarmaService::colour(100))->toBe('bg-success text-white shadow-success/30');
 });
 
 it('caches karma values', function (): void {

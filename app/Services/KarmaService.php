@@ -18,18 +18,18 @@ class KarmaService
     public static function colour(int $karma): string
     {
         if ($karma < 0) {
-            return 'badge-danger';
+            return 'bg-danger text-white shadow-danger/30';
         }
 
         if ($karma < 2) {
-            return 'badge-warning';
+            return 'bg-warning text-white shadow-warning/30';
         }
 
         if ($karma < 15) {
-            return 'badge-info';
+            return 'bg-primary-600 text-white shadow-primary-600/30';
         }
 
-        return 'badge-success';
+        return 'bg-success text-white shadow-success/30';
     }
 
     public function getKarma(User $user): int

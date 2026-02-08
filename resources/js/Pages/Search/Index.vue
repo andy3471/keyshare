@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppLayout from '@/Layouts/AppLayout.vue';
-import GameList from '@/Components/GameList.vue';
+import GameList from '@/Components/games/GameList.vue';
 import { GameData } from '@/Types/generated';
 import type { Paginated } from '@/types/global';
 

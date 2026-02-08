@@ -2,7 +2,7 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import { login, register } from '@/routes';
 import type { AuthUser } from '@/types/global';
-import AppFooter from '@/Components/AppFooter.vue';
+import AppFooter from '@/Components/layout/AppFooter.vue';
 
 const page = usePage();
 const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };

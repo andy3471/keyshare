@@ -15,12 +15,10 @@ class KeyKarmaObserver
     public function updated(Key $key): void
     {
         if ($key->wasChanged('owned_user_id') && $key->owned_user_id !== null) {
-            // Sharer earns +1 karma
             if ($sharer = $key->createdUser) {
                 $this->karmaService->incrementKarma($sharer);
             }
 
-            // Claimer spends -1 karma
             if ($claimer = $key->claimedUser) {
                 $this->karmaService->decrementKarma($claimer);
             }

@@ -2,7 +2,8 @@
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import ConfirmModal from '@/Components/ConfirmModal.vue';
+import ConfirmModal from '@/Components/ui/ConfirmModal.vue';
+import GroupAvatar from '@/Components/shared/GroupAvatar.vue';
 import groups from '@/routes/groups';
 import { GroupData, GroupMemberData } from '@/Types/generated';
 
@@ -16,14 +17,11 @@ const props = defineProps<Props>();
 
 const page = usePage();
 const activeGroup = page.props.activeGroup as GroupData | null;
-
 const isActive = computed(() => activeGroup?.id === props.group.id);
 
 const showInviteCode = ref(false);
 const inviteUrl = computed(() => {
-  if (!props.group.invite_code) {
-    return '';
-  }
+  if (!props.group.invite_code) return '';
   return `${window.location.origin}/invite/${props.group.invite_code}`;
 });
 
@@ -35,7 +33,6 @@ const joinGroup = () => {
   router.post(groups.join.url(props.group.id));
 };
 
-// Confirm modal state
 const showLeaveModal = ref(false);
 const showRemoveMemberModal = ref(false);
 const showRegenerateModal = ref(false);
@@ -73,24 +70,15 @@ const regenerateCode = () => {
   <AppLayout :title="group.name">
     <Head :title="group.name" />
     <div class="max-w-5xl mx-auto px-4 py-6 space-y-6">
-      <!-- Group Header -->
       <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div class="flex items-start gap-4">
-            <div class="flex-shrink-0">
-              <img
-                v-if="group.avatar"
-                :src="group.avatar"
-                :alt="group.name"
-                class="w-16 h-16 rounded-xl object-cover border-2 border-dark-600"
-              >
-              <div
-                v-else
-                class="w-16 h-16 rounded-xl bg-accent-600/20 border-2 border-dark-600 flex items-center justify-center"
-              >
-                <span class="text-accent-400 font-bold text-2xl">{{ group.name.charAt(0).toUpperCase() }}</span>
-              </div>
-            </div>
+            <GroupAvatar
+              :avatar="group.avatar"
+              :name="group.name"
+              size="lg"
+              class="border-2 border-dark-600"
+            />
             <div>
               <div class="flex items-center gap-3 mb-2">
                 <h1 class="text-2xl font-display font-bold text-white">
@@ -166,7 +154,6 @@ const regenerateCode = () => {
         </div>
       </div>
 
-      <!-- Invite Link Section -->
       <div
         v-if="group.can?.invite"
         class="bg-dark-800 rounded-xl p-6 border border-dark-700"
@@ -209,7 +196,6 @@ const regenerateCode = () => {
         </div>
       </div>
 
-      <!-- Members -->
       <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
         <h2 class="text-lg font-semibold text-white mb-4">
           Members
@@ -254,7 +240,6 @@ const regenerateCode = () => {
       </div>
     </div>
 
-    <!-- Leave Group Modal -->
     <ConfirmModal
       :open="showLeaveModal"
       title="Leave group"
@@ -265,7 +250,6 @@ const regenerateCode = () => {
       @cancel="showLeaveModal = false"
     />
 
-    <!-- Remove Member Modal -->
     <ConfirmModal
       :open="showRemoveMemberModal"
       title="Remove member"
@@ -276,7 +260,6 @@ const regenerateCode = () => {
       @cancel="showRemoveMemberModal = false"
     />
 
-    <!-- Regenerate Invite Code Modal -->
     <ConfirmModal
       :open="showRegenerateModal"
       title="Regenerate invite link"

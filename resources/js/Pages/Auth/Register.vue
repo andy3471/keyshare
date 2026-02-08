@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import AuthLayout from '@/Layouts/AuthLayout.vue';
-import { register, login } from '@/routes';
+import FormInput from '@/Components/ui/FormInput.vue';
+import LoadingSpinner from '@/Components/ui/LoadingSpinner.vue';
+import { register as registerRoute, login } from '@/routes';
+import AppFooter from '@/Components/layout/AppFooter.vue';
 
 const form = useForm({
   name: '',
@@ -11,132 +13,110 @@ const form = useForm({
 });
 
 const submit = () => {
-  form.post(register.url(), {
+  form.post(registerRoute.url(), {
     onFinish: () => form.reset('password', 'password_confirmation'),
   });
 };
 </script>
 
 <template>
-  <AuthLayout>
-    <Head title="Register" />
+  <Head title="Create Account" />
 
-    <h2 class="text-xl font-semibold text-white mb-6">
-      Create your account
-    </h2>
-
-    <form
-      class="space-y-5"
-      @submit.prevent="submit"
-    >
-      <div>
-        <label
-          for="name"
-          class="block text-sm font-medium text-gray-300 mb-1.5"
+  <div class="min-h-screen flex flex-col items-center justify-center bg-dark-950 px-4">
+    <div class="w-full max-w-md">
+      <div class="text-center mb-8">
+        <Link
+          href="/"
+          class="text-3xl font-display font-bold"
         >
-          Name
-        </label>
-        <input
-          id="name"
-          v-model="form.name"
-          type="text"
-          placeholder="Your name"
-          required
-          autofocus
-          class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-600 w-full"
-          :class="{ 'border-danger focus:ring-danger': form.errors.name }"
-        >
-        <p
-          v-if="form.errors.name"
-          class="mt-1.5 text-sm text-danger"
-        >
-          {{ form.errors.name }}
+          <span class="bg-gradient-to-r from-accent-400 to-primary-400 bg-clip-text text-transparent">Sparekey.club</span>
+        </Link>
+        <p class="text-gray-400 mt-2">
+          Create your account
         </p>
       </div>
 
-      <div>
-        <label
-          for="email"
-          class="block text-sm font-medium text-gray-300 mb-1.5"
+      <div class="bg-dark-800 rounded-xl p-8 border border-dark-700 shadow-xl">
+        <form
+          class="space-y-5"
+          @submit.prevent="submit"
         >
-          Email
-        </label>
-        <input
-          id="email"
-          v-model="form.email"
-          type="email"
-          placeholder="you@example.com"
-          required
-          class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-600 w-full"
-          :class="{ 'border-danger focus:ring-danger': form.errors.email }"
-        >
-        <p
-          v-if="form.errors.email"
-          class="mt-1.5 text-sm text-danger"
-        >
-          {{ form.errors.email }}
-        </p>
+          <FormInput
+            id="name"
+            v-model="form.name"
+            label="Name"
+            :error="form.errors.name"
+            placeholder="Your display name"
+            autocomplete="name"
+            required
+          />
+
+          <FormInput
+            id="email"
+            v-model="form.email"
+            label="Email"
+            type="email"
+            :error="form.errors.email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          />
+
+          <FormInput
+            id="password"
+            v-model="form.password"
+            label="Password"
+            type="password"
+            :error="form.errors.password"
+            placeholder="Create a strong password"
+            autocomplete="new-password"
+            required
+          />
+
+          <FormInput
+            id="password_confirmation"
+            v-model="form.password_confirmation"
+            label="Confirm Password"
+            type="password"
+            :error="form.errors.password_confirmation"
+            placeholder="Confirm your password"
+            autocomplete="new-password"
+            required
+          />
+
+          <button
+            type="submit"
+            :disabled="form.processing"
+            class="w-full bg-accent-600 hover:bg-accent-700 active:bg-accent-800 text-white font-semibold py-3 rounded-lg transition-all duration-200 shadow-lg shadow-accent-600/20 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span
+              v-if="form.processing"
+              class="flex items-center justify-center"
+            >
+              <LoadingSpinner
+                size="sm"
+                class="-ml-1 mr-2"
+              />
+              Creating Account...
+            </span>
+            <span v-else>Create Account</span>
+          </button>
+        </form>
       </div>
 
-      <div>
-        <label
-          for="password"
-          class="block text-sm font-medium text-gray-300 mb-1.5"
-        >
-          Password
-        </label>
-        <input
-          id="password"
-          v-model="form.password"
-          type="password"
-          placeholder="••••••••"
-          required
-          class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-600 w-full"
-          :class="{ 'border-danger focus:ring-danger': form.errors.password }"
-        >
-        <p
-          v-if="form.errors.password"
-          class="mt-1.5 text-sm text-danger"
-        >
-          {{ form.errors.password }}
-        </p>
-      </div>
-
-      <div>
-        <label
-          for="password_confirmation"
-          class="block text-sm font-medium text-gray-300 mb-1.5"
-        >
-          Confirm password
-        </label>
-        <input
-          id="password_confirmation"
-          v-model="form.password_confirmation"
-          type="password"
-          placeholder="••••••••"
-          required
-          class="border border-dark-600 rounded-lg bg-dark-900 text-gray-100 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-600 w-full"
-        >
-      </div>
-
-      <button
-        type="submit"
-        class="w-full bg-accent-600 hover:bg-accent-700 active:bg-accent-800 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-200 shadow-lg shadow-accent-600/20 hover:shadow-xl hover:shadow-accent-600/30 disabled:opacity-50 disabled:cursor-not-allowed"
-        :disabled="form.processing"
-      >
-        <span v-if="form.processing">Creating account...</span>
-        <span v-else>Create account</span>
-      </button>
-
-      <p class="text-center text-sm text-gray-500">
+      <p class="text-center text-gray-400 text-sm mt-6">
         Already have an account?
         <Link
           :href="login.url()"
-          class="text-accent-400 hover:text-accent-300 font-medium transition-colors"
+          class="text-accent-400 hover:text-accent-300 font-medium"
         >
           Sign in
         </Link>
       </p>
-    </form>
-  </AuthLayout>
+    </div>
+
+    <div class="mt-auto w-full">
+      <AppFooter />
+    </div>
+  </div>
 </template>

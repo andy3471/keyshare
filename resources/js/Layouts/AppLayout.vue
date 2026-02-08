@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Navbar from '@/Components/Navbar.vue';
-import TitleHeader from '@/Components/TitleHeader.vue';
-import FlashMessages from '@/Components/FlashMessages.vue';
-import AppFooter from '@/Components/AppFooter.vue';
+import Navbar from '@/Components/layout/Navbar.vue';
+import TitleHeader from '@/Components/layout/TitleHeader.vue';
+import FlashMessages from '@/Components/layout/FlashMessages.vue';
+import AppFooter from '@/Components/layout/AppFooter.vue';
 
 interface Props {
   title?: string;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import AddKey from '@/Components/AddKey.vue';
+import AddKey from '@/Components/keys/AddKey.vue';
 import { AutocompleteGameData, GroupData, PlatformData } from '@/Types/generated';
 
 interface Props {
