@@ -37,12 +37,16 @@ class UserController extends Controller
 
     public function show(User $user): Response
     {
+        $user->loadMissing('media');
+        auth()->user()->loadMissing(['media', 'groups']);
+
         $this->authorize('view', $user);
 
         $viewer = auth()->user();
 
         $groups = $user->groups()
             ->withCount('members')
+            ->with('media')
             ->get()
             ->filter(fn ($group) => $group->is_public || $group->hasMember($viewer))
             ->map(fn ($group) => GroupData::fromModel($group))

@@ -35,7 +35,7 @@ class GroupData extends Data
             owner_id: (string) $group->owner_id,
             is_public: $group->is_public,
             invite_code: $group->invite_code,
-            member_count: $group->members()->count(),
+            member_count: array_key_exists('members_count', $group->getAttributes()) ? (int) $group->members_count : null,
             role: $role,
             avatar: $group->avatar_url,
             discord_webhook_url: $group->discord_webhook_url,

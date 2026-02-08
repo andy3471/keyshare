@@ -23,9 +23,11 @@ class GameController extends Controller
     {
         $this->authorize('viewAny', Game::class);
 
+        auth()->user()->loadMissing(['media', 'groups']);
+
         $platformIds   = $request->array('platforms');
         $activeGroupId = session('active_group_id');
-        $userGroupIds  = auth()->user()->groups()->pluck('groups.id');
+        $userGroupIds  = auth()->user()->groups->pluck('id');
 
         return Inertia::render('Games/Index', [
             'title'     => fn (): string => 'Games',
@@ -62,24 +64,26 @@ class GameController extends Controller
 
         abort_if(! $game instanceof Game, 404);
 
+        auth()->user()->loadMissing(['media', 'groups']);
+
         $this->authorize('view', $game);
 
         $activeGroupId = session('active_group_id');
-        $userGroupIds  = auth()->user()->groups()->pluck('groups.id');
+        $userGroupIds  = auth()->user()->groups->pluck('id');
 
         return Inertia::render('Games/Show', [
             'game'        => fn (): GameData => GameData::from($game)->include('genres', 'screenshots', 'aggregated_rating', 'aggregated_rating_count'),
             'keys'        => fn (): DataCollection => KeyData::collect(
                 KeyData::collect(
                     $game->keys()
-                        ->select('id', 'platform_id', 'created_user_id', 'group_id')
+                        ->select('id', 'platform_id', 'created_user_id', 'owned_user_id', 'group_id', 'key', 'message')
                         ->whereNull('owned_user_id')
                         ->when(
                             $activeGroupId,
                             fn ($q) => $q->where('group_id', $activeGroupId),
                             fn ($q) => $q->whereIn('group_id', $userGroupIds),
                         )
-                        ->with('platform', 'createdUser', 'group')
+                        ->with('platform', 'createdUser.media', 'group.media')
                         ->get(), DataCollection::class)
             ),
             'parentGame'  => function () use ($game): ?GameData {

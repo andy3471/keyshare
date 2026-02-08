@@ -40,9 +40,9 @@ class GameData extends Data
             screenshots: Lazy::create(fn (): array => ScreenshotData::collect($game->screenshots)->all()),
             description: $game->description ?? null,
             image: $game->image,
-            keyCount: Lazy::create(fn () => $game->keys()
-                ->whereNull('owned_user_id')
-                ->count()),
+            keyCount: Lazy::create(fn () => $game->relationLoaded('keys')
+                ? $game->keys->whereNull('owned_user_id')->count()
+                : $game->keys()->whereNull('owned_user_id')->count()),
         );
     }
 

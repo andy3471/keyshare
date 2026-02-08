@@ -29,7 +29,7 @@ class KeyPolicy
 
     public function claim(User $currentUser, Key $key): bool
     {
-        if ($key->claimedUser()->exists()) {
+        if ($key->owned_user_id !== null) {
             return false;
         }
 

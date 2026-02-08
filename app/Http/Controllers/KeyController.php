@@ -37,7 +37,7 @@ class KeyController extends Controller
                 return Platform::all();
             })),
             'game'          => fn (): ?AutocompleteGameData => $request->filled('game_id') ? AutocompleteGameData::fromIgdbId((int) $request->string('game_id')->toString()) : null,
-            'groups'        => fn () => $user->groups()->get()->map(fn (Group $group) => GroupData::fromModel($group)),
+            'groups'        => fn () => $user->groups()->withCount('members')->with('media')->get()->map(fn (Group $group) => GroupData::fromModel($group)),
             'activeGroupId' => fn () => $activeGroupId,
         ]);
     }
@@ -75,13 +75,13 @@ class KeyController extends Controller
 
     public function show(Key $key): Response
     {
+        $key->load(['platform', 'createdUser.media', 'claimedUser.media', 'game', 'group.media']);
+        auth()->user()->loadMissing(['media', 'groups']);
+
         $this->authorize('view', $key);
 
         return Inertia::render('Keys/Show', [
-            'keyData' => fn (): KeyData => KeyData::fromModel(
-                $key
-                    ->load(['platform', 'createdUser', 'claimedUser', 'game', 'group'])
-            ),
+            'keyData' => fn (): KeyData => KeyData::fromModel($key),
         ]);
     }
 
@@ -107,7 +107,7 @@ class KeyController extends Controller
                 auth()
                     ->user()
                     ->claimedKeys()
-                    ->with(['game', 'platform', 'group', 'createdUser'])
+                    ->with(['game', 'platform', 'group.media', 'createdUser.media'])
                     ->latest()
                     ->paginate(12)
             )),
@@ -121,7 +121,7 @@ class KeyController extends Controller
                 auth()
                     ->user()
                     ->sharedKeys()
-                    ->with(['game', 'platform', 'group', 'claimedUser'])
+                    ->with(['game', 'platform', 'group.media', 'claimedUser.media'])
                     ->latest()
                     ->paginate(12)
             )),

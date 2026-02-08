@@ -25,12 +25,14 @@ class GroupController extends Controller
         return Inertia::render('Groups/Index', [
             'myGroups' => fn () => $user->groups()
                 ->withCount('members')
+                ->with('media')
                 ->get()
                 ->map(fn (Group $group) => GroupData::fromModel($group, $group->pivot->role)),
             'publicGroups' => fn () => Group::query()
                 ->where('is_public', true)
                 ->whereDoesntHave('members', fn ($q) => $q->where('user_id', $user->id))
                 ->withCount('members')
+                ->with('media')
                 ->latest()
                 ->limit(12)
                 ->get()
@@ -71,6 +73,10 @@ class GroupController extends Controller
 
     public function show(Group $group): Response
     {
+        $group->loadMissing('media');
+        $group->loadCount('members');
+        auth()->user()->loadMissing(['media', 'groups']);
+
         $this->authorize('view', $group);
 
         $user = auth()->user();
@@ -79,7 +85,7 @@ class GroupController extends Controller
         return Inertia::render('Groups/Show', [
             'group'   => fn () => GroupData::fromModel($group, $role?->value),
             'members' => fn () => GroupMemberData::collect(
-                $group->members()->get()->map(fn (User $member) => GroupMemberData::fromPivot($member))
+                $group->members()->with('media')->get()->map(fn (User $member) => GroupMemberData::fromPivot($member))
             ),
             'isMember' => fn () => $group->hasMember($user),
         ]);
@@ -87,6 +93,9 @@ class GroupController extends Controller
 
     public function edit(Group $group): Response
     {
+        $group->loadMissing('media');
+        auth()->user()->loadMissing(['media', 'groups']);
+
         $this->authorize('update', $group);
 
         return Inertia::render('Groups/Edit', [

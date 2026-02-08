@@ -61,11 +61,21 @@ class Group extends Model implements HasMedia
 
     public function hasMember(User $user): bool
     {
+        if ($user->relationLoaded('groups')) {
+            return $user->groups->contains('id', $this->id);
+        }
+
         return $this->members()->where('user_id', $user->id)->exists();
     }
 
     public function memberRole(User $user): ?GroupRole
     {
+        if ($user->relationLoaded('groups')) {
+            $group = $user->groups->firstWhere('id', $this->id);
+
+            return $group ? GroupRole::from($group->pivot->role) : null;
+        }
+
         $pivot = $this->members()->where('user_id', $user->id)->first()?->pivot;
 
         return $pivot ? GroupRole::from($pivot->role) : null;

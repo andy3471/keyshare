@@ -86,6 +86,10 @@ class User extends Authenticatable implements FilamentUser, HasMedia
 
     public function isMemberOf(Group $group): bool
     {
+        if ($this->relationLoaded('groups')) {
+            return $this->groups->contains('id', $group->id);
+        }
+
         return $this->groups()->where('group_id', $group->id)->exists();
     }
 

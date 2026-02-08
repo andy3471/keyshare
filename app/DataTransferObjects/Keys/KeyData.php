@@ -31,7 +31,7 @@ class KeyData extends Data
     {
         return new self(
             id: (string) $key->id,
-            key: $key->claimedUser()->where('id', auth()->user()->id)->exists() ? $key->key : null,
+            key: $key->owned_user_id === auth()->id() ? $key->key : null,
             message: $key->message                 ?? null,
             platform: $key->relationLoaded('platform')       && $key->platform ? PlatformData::fromModel($key->platform) : null,
             createdUser: $key->relationLoaded('createdUser') && $key->createdUser ? UserData::fromModel($key->createdUser) : null,

@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\GroupController::remove
-* @see app/Http/Controllers/GroupController.php:180
+* @see app/Http/Controllers/GroupController.php:189
 * @route '/groups/{group}/members/{user}'
 */
 export const remove = (args: { group: string | { id: string }, user: string | { id: string } } | [group: string | { id: string }, user: string | { id: string } ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -16,7 +16,7 @@ remove.definition = {
 
 /**
 * @see \App\Http\Controllers\GroupController::remove
-* @see app/Http/Controllers/GroupController.php:180
+* @see app/Http/Controllers/GroupController.php:189
 * @route '/groups/{group}/members/{user}'
 */
 remove.url = (args: { group: string | { id: string }, user: string | { id: string } } | [group: string | { id: string }, user: string | { id: string } ], options?: RouteQueryOptions) => {
@@ -46,7 +46,7 @@ remove.url = (args: { group: string | { id: string }, user: string | { id: strin
 
 /**
 * @see \App\Http\Controllers\GroupController::remove
-* @see app/Http/Controllers/GroupController.php:180
+* @see app/Http/Controllers/GroupController.php:189
 * @route '/groups/{group}/members/{user}'
 */
 remove.delete = (args: { group: string | { id: string }, user: string | { id: string } } | [group: string | { id: string }, user: string | { id: string } ], options?: RouteQueryOptions): RouteDefinition<'delete'> => ({

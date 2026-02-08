@@ -7,12 +7,21 @@ namespace App\Http\Middleware;
 use App\DataTransferObjects\Groups\GroupData;
 use App\DataTransferObjects\Users\UserData;
 use App\Models\Group;
+use Closure;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Symfony\Component\HttpFoundation\Response;
 
 class HandleInertiaRequests extends Middleware
 {
     protected $rootView = 'app';
+
+    public function handle(Request $request, Closure $next): Response
+    {
+        auth()->user()?->loadMissing(['media', 'groups']);
+
+        return parent::handle($request, $next);
+    }
 
     public function version(Request $request): ?string
     {
@@ -34,7 +43,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'activeGroup'  => fn () => $this->getActiveGroup($request),
             'userGroups'   => fn () => $user
-                ? $user->groups()->get()->map(fn (Group $group) => GroupData::fromModel($group, $group->pivot->role))
+                ? $user->groups()->withCount('members')->with('media')->get()->map(fn (Group $group) => GroupData::fromModel($group, $group->pivot->role))
                 : [],
         ]);
     }
@@ -53,7 +62,7 @@ class HandleInertiaRequests extends Middleware
             return null;
         }
 
-        $group = Group::find($groupId);
+        $group = Group::with('media')->find($groupId);
 
         if (! $group || ! $group->hasMember($user)) {
             $request->session()->forget('active_group_id');

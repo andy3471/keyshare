@@ -197,7 +197,7 @@ namespace App\Models{
  * @property-read mixed $original_url
  * @property-read mixed $preview_url
  * @property-read mixed $type
- * @property-read string $uuid
+ * @property-read string|null $uuid
  * @method static \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, static> all($columns = ['*'])
  * @method static \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, static> get($columns = ['*'])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Media newModelQuery()
