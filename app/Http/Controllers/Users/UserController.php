@@ -19,7 +19,11 @@ class UserController extends Controller
     {
         $this->authorize('edit', $user);
 
-        return Inertia::render('Users/Edit');
+        $user->loadMissing('media');
+
+        return Inertia::render('Users/Edit', [
+            'user' => UserData::fromModel($user),
+        ]);
     }
 
     public function update(UpdateUserRequest $request, User $user): RedirectResponse

@@ -2,7 +2,7 @@
 interface Props {
   avatar?: string | null;
   name: string;
-  size?: 'xs' | 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 withDefaults(defineProps<Props>(), {
@@ -15,6 +15,7 @@ const sizeClasses: Record<string, string> = {
   sm: 'w-5 h-5 rounded text-[10px]',
   md: 'w-10 h-10 rounded-lg text-sm',
   lg: 'w-16 h-16 rounded-xl text-2xl',
+  xl: 'w-28 h-28 rounded-2xl text-4xl',
 };
 </script>
 
