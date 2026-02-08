@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
 /**
-* @see [serialized-closure]:2
+* @see vendor/laravel/boost/src/BoostServiceProvider.php:117
 * @route '/_boost/browser-logs'
 */
 export const browserLogs = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -14,7 +14,7 @@ browserLogs.definition = {
 } satisfies RouteDefinition<["post"]>
 
 /**
-* @see [serialized-closure]:2
+* @see vendor/laravel/boost/src/BoostServiceProvider.php:117
 * @route '/_boost/browser-logs'
 */
 browserLogs.url = (options?: RouteQueryOptions) => {
@@ -22,7 +22,7 @@ browserLogs.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see [serialized-closure]:2
+* @see vendor/laravel/boost/src/BoostServiceProvider.php:117
 * @route '/_boost/browser-logs'
 */
 browserLogs.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({

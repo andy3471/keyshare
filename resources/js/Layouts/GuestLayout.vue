@@ -2,6 +2,7 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import { login, register } from '@/routes';
 import type { AuthUser } from '@/types/global';
+import AppFooter from '@/Components/AppFooter.vue';
 
 const page = usePage();
 const auth = (page.props.auth as AuthUser | undefined) ?? { user: null };
@@ -9,7 +10,7 @@ const appName = 'Sparekey.club';
 </script>
 
 <template>
-  <div class="min-h-screen bg-dark-950">
+  <div class="min-h-screen flex flex-col bg-dark-950">
     <nav class="bg-dark-900/80 backdrop-blur-sm border-b border-dark-800 sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
@@ -40,8 +41,10 @@ const appName = 'Sparekey.club';
       </div>
     </nav>
 
-    <main>
+    <main class="flex-1">
       <slot />
     </main>
+
+    <AppFooter />
   </div>
 </template>

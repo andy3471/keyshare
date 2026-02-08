@@ -109,6 +109,7 @@ invite_code: string | null
 member_count: number | null
 role: string | null
 avatar: string | null
+discord_webhook_url: string | null
 };
 export type GroupMemberData = {
 id: string
