@@ -12,6 +12,7 @@ const flash = (page.props.flash as FlashProps | undefined) ?? {};
 const imagePreview = ref<string | null>(null);
 
 const form = useForm({
+  _method: 'put' as const,
   name: auth.user?.name ?? '',
   email: auth.user?.email ?? '',
   bio: auth.user?.bio ?? '',
@@ -35,7 +36,7 @@ const handleImageChange = (event: Event) => {
 const submit = () => {
   if (!auth.user?.id) return;
 
-  form.put(users.update.url(auth.user.id), {
+  form.post(users.update.url(auth.user.id), {
     preserveScroll: true,
     forceFormData: true,
   });

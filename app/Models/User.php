@@ -74,7 +74,7 @@ class User extends Authenticatable implements FilamentUser, HasMedia
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return (bool) $this->is_admin;
+        return $this->is_admin;
     }
 
     public function registerMediaCollections(): void

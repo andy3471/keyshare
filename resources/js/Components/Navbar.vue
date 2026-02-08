@@ -55,20 +55,19 @@ const handleSearch = (query: string) => {
 <template>
   <nav class="bg-dark-900/95 backdrop-blur-sm border-b-2 border-accent-600 sticky top-0 z-50 shadow-lg shadow-accent-600/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <div class="flex items-center">
-          <Link
-            :href="games.index.url()"
-            class="text-white text-xl font-display font-bold hover:text-accent-400 transition-colors"
-          >
-            <span class="bg-gradient-to-r from-accent-400 to-primary-400 bg-clip-text text-transparent">{{ appName }}</span>
-          </Link>
-        </div>
+      <div class="flex items-center h-16">
+        <!-- Logo -->
+        <Link
+          :href="games.index.url()"
+          class="text-white text-xl font-display font-bold hover:text-accent-400 transition-colors flex-shrink-0"
+        >
+          <span class="bg-gradient-to-r from-accent-400 to-primary-400 bg-clip-text text-transparent">{{ appName }}</span>
+        </Link>
 
-        <!-- Desktop nav -->
+        <!-- Desktop nav links (left side, near logo) -->
         <div
           v-if="auth?.user"
-          class="hidden lg:flex items-center space-x-2"
+          class="hidden lg:flex items-center gap-1 ml-8"
         >
           <Link
             :href="games.index.url()"
@@ -88,40 +87,48 @@ const handleSearch = (query: string) => {
           >
             Add Key
           </Link>
+        </div>
 
-          <GroupSwitcher />
+        <!-- Spacer -->
+        <div class="flex-1" />
 
+        <!-- Desktop right side (search, group switcher, user) -->
+        <div
+          v-if="auth?.user"
+          class="hidden lg:flex items-center gap-3"
+        >
           <!-- Search -->
-          <div class="flex items-center ml-2">
-            <div class="relative w-64">
-              <Autocomplete
-                id="navbar-search"
-                name="search"
-                placeholder="Search games..."
-                url="/autocomplete"
-                input-class="w-64 pl-10 pr-4 py-2 bg-dark-800 border border-dark-600 text-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500"
-                @update:model-value="handleGameSelect"
-                @search="handleSearch"
+          <div class="relative">
+            <Autocomplete
+              id="navbar-search"
+              name="search"
+              placeholder="Search games..."
+              url="/autocomplete"
+              input-class="w-56 xl:w-64 pl-10 pr-4 py-2 bg-dark-800 border border-dark-600 text-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-all duration-200 placeholder-gray-500"
+              @update:model-value="handleGameSelect"
+              @search="handleSearch"
+            />
+            <svg
+              class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
-              <svg
-                class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
+            </svg>
           </div>
+
+          <!-- Group Switcher -->
+          <GroupSwitcher />
 
           <!-- User Dropdown -->
           <div class="relative group">
-            <button class="flex items-center space-x-2 text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800">
+            <button class="flex items-center gap-2 text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800">
               <div class="relative">
                 <img
                   :src="auth?.user?.avatar"
@@ -217,22 +224,18 @@ const handleSearch = (query: string) => {
         </div>
 
         <!-- Guest login (desktop) -->
-        <div
+        <Link
           v-if="!auth?.user"
-          class="flex items-center space-x-4"
+          :href="login.url()"
+          class="hidden lg:inline-flex text-gray-300 hover:text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
         >
-          <Link
-            :href="login.url()"
-            class="text-gray-300 hover:text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-dark-800"
-          >
-            Login
-          </Link>
-        </div>
+          Login
+        </Link>
 
         <!-- Mobile hamburger button -->
         <button
           v-if="auth?.user"
-          class="lg:hidden flex items-center justify-center p-2 rounded-lg text-gray-300 hover:text-white hover:bg-dark-800 transition-all duration-200"
+          class="lg:hidden flex items-center justify-center p-2 rounded-lg text-gray-300 hover:text-white hover:bg-dark-800 transition-all duration-200 ml-3"
           @click="toggleMobileMenu"
         >
           <svg

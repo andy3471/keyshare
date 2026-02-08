@@ -24,7 +24,7 @@ class MakeAdmin extends Command
         }
 
         $user->update([
-            'is_admin' => 1,
+            'is_admin' => true,
         ]);
 
         $this->info("{$user->name} is now an admin");

@@ -1,23 +1,31 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { usePage, router } from '@inertiajs/vue3';
+import { computed, ref, watch } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 import type { FlashProps } from '@/types/global';
 
 const page = usePage();
-const flash = (page.props.flash as FlashProps | undefined) ?? {};
+const flash = computed<FlashProps>(() => (page.props.flash as FlashProps | undefined) ?? {});
 const showMessage = ref(true);
 const showError = ref(true);
 
+watch(() => flash.value.message, (newVal) => {
+  if (newVal) {
+    showMessage.value = true;
+  }
+});
+
+watch(() => flash.value.error, (newVal) => {
+  if (newVal) {
+    showError.value = true;
+  }
+});
+
 const dismissMessage = () => {
   showMessage.value = false;
-  // Clear flash message from page props
-  router.reload({ only: ['flash'] });
 };
 
 const dismissError = () => {
   showError.value = false;
-  // Clear flash error from page props
-  router.reload({ only: ['flash'] });
 };
 </script>
 
@@ -31,11 +39,11 @@ const dismissError = () => {
     leave-to-class="opacity-0 translate-y-2"
   >
     <div
-      v-if="flash.message || flash.error"
+      v-if="(flash.message && showMessage) || (flash.error && showError)"
       class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full mx-4"
     >
       <div
-        v-if="flash.message"
+        v-if="flash.message && showMessage"
         class="bg-success text-white px-4 py-3 rounded-lg shadow-xl relative flex items-center justify-between border border-success-dark"
         role="alert"
       >
@@ -61,7 +69,7 @@ const dismissError = () => {
         </button>
       </div>
       <div
-        v-if="flash.error"
+        v-if="flash.error && showError"
         class="bg-danger text-white px-4 py-3 rounded-lg shadow-xl relative flex items-center justify-between border border-danger-dark"
         role="alert"
       >

@@ -32,7 +32,7 @@ class UserController extends Controller
                 ->toMediaCollection('avatar');
         }
 
-        return to_route('showuser', ['id' => $user->id])->with('message', __('auth.profileupdated'));
+        return to_route('users.show', $user)->with('message', __('auth.profileupdated'));
     }
 
     public function show(User $user): Response
